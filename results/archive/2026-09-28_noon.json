@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "generated_at_jst": "2026-09-28T06:19:04+09:00",
+  "target_date": "2026-09-28",
+  "session": "noon",
+  "session_label": "前引け確定版",
+  "market_status": "closed_or_data_unavailable",
+  "data_source": "Yahoo Finance via yfinance (unofficial/free; delay or missing data may occur)",
+  "universe_definition": "東証プライム・スタンダード・グロースの内国普通株から、前営業日出来高上位1000銘柄",
+  "universe_as_of": "2026-09-25",
+  "universe_count": 1000,
+  "counts": {
+    "9_of_9": 0,
+    "8_of_9": 0,
+    "7_of_9": 0
+  },
+  "coverage": {
+    "current_day_intraday": 0,
+    "intraday_downloaded": 998,
+    "daily_downloaded": 1000,
+    "weekly_downloaded": 1000,
+    "monthly_downloaded": 1000
+  },
+  "candidates": []
+}
