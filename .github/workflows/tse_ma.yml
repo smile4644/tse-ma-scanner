@@ -1,0 +1,82 @@
+name: TSE MA Scanner
+
+on:
+  schedule:
+    # GitHub Actions cron is UTC.
+    # 02:40 UTC = 11:40 JST (前引け11:30の10分後)
+    - cron: "40 2 * * 1-5"
+    # 06:40 UTC = 15:40 JST (大引け15:30の10分後)
+    - cron: "40 6 * * 1-5"
+  workflow_dispatch:
+    inputs:
+      session:
+        description: "実行する判定"
+        required: true
+        type: choice
+        options:
+          - noon
+          - close
+
+permissions:
+  contents: write
+
+concurrency:
+  group: tse-ma-scanner
+  cancel-in-progress: false
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Select session
+        id: session
+        shell: bash
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            SESSION="${{ inputs.session }}"
+          elif [ "${{ github.event.schedule }}" = "40 2 * * 1-5" ]; then
+            SESSION="noon"
+          else
+            SESSION="close"
+          fi
+          echo "session=$SESSION" >> "$GITHUB_OUTPUT"
+          echo "SESSION=$SESSION" >> "$GITHUB_ENV"
+
+      - name: Run scanner
+        run: python scanner.py scan --session "$SESSION"
+
+      - name: Save results to repository
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/universe_top1000.csv results/
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "Update TSE MA results (${SESSION})"
+            git push
+          fi
+
+      - name: Upload result artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: tse-ma-${{ steps.session.outputs.session }}-${{ github.run_id }}
+          path: |
+            data/universe_top1000.csv
+            results/latest_${{ steps.session.outputs.session }}.json
+          retention-days: 14
