@@ -316,7 +316,18 @@ def analyze_symbol(row, intraday_frame, daily_frame, weekly_frame, monthly_frame
             "gap_pct": round((current_close - ma) / ma * 100, 4),
         }
 
-    if score < 7:
+    all_ma_above = all(
+        state_info["state"] in (2, 5, 8)
+        for state_info in states.values()
+    )
+
+    non_upward_ma = [
+        states[key]["label"]
+        for key, _, _, _ in SPECS
+        if states[key]["state"] in (2, 5)
+    ]
+
+    if score < 7 and not all_ma_above:
         return None
 
     return {
@@ -330,7 +341,9 @@ def analyze_symbol(row, intraday_frame, daily_frame, weekly_frame, monthly_frame
         "intraday_volume": current_day["volume"],
         "last_bar": current_day["last_bar"],
         "score": score,
-        "tier": 3 if score == 9 else 2 if score == 8 else 1,
+        "tier": 3 if score == 9 else 2 if score == 8 else 1 if score == 7 else 0,
+        "all_ma_above": all_ma_above,
+        "non_upward_ma": non_upward_ma,
         "status_code": status_code,
         "fail_mask": fail_mask,
         "states": states,
@@ -358,6 +371,8 @@ def scan(session: str, universe_path: Path, results_dir: Path) -> None:
     monthly = download_many(tickers, period="10y", interval="1mo")
 
     candidates = []
+    all_ma_above_candidates = []
+
     for row in universe.itertuples(index=False):
         item = analyze_symbol(
             row,
@@ -369,9 +384,26 @@ def scan(session: str, universe_path: Path, results_dir: Path) -> None:
             today,
         )
         if item is not None:
-            candidates.append(item)
+            if item["score"] >= 7:
+                candidates.append(item)
+            if item["all_ma_above"]:
+                all_ma_above_candidates.append(item)
 
-    candidates.sort(key=lambda item: (-item["score"], item["universe_rank"], item["code"]))
+    candidates.sort(
+        key=lambda item: (
+            -item["score"],
+            item["universe_rank"],
+            item["code"],
+        )
+    )
+
+    all_ma_above_candidates.sort(
+        key=lambda item: (
+            -item["score"],
+            item["universe_rank"],
+            item["code"],
+        )
+    )
 
     current_day_intraday_count = 0
     for frame in intraday.values():
@@ -383,7 +415,7 @@ def scan(session: str, universe_path: Path, results_dir: Path) -> None:
             current_day_intraday_count += 1
 
     document = {
-        "schema_version": 1,
+        "schema_version": 2,
         "generated_at_jst": datetime.now(JST).isoformat(timespec="seconds"),
         "target_date": today.isoformat(),
         "session": session,
@@ -397,6 +429,7 @@ def scan(session: str, universe_path: Path, results_dir: Path) -> None:
             "9_of_9": sum(item["score"] == 9 for item in candidates),
             "8_of_9": sum(item["score"] == 8 for item in candidates),
             "7_of_9": sum(item["score"] == 7 for item in candidates),
+            "all_ma_above": len(all_ma_above_candidates),
         },
         "coverage": {
             "current_day_intraday": current_day_intraday_count,
@@ -406,6 +439,7 @@ def scan(session: str, universe_path: Path, results_dir: Path) -> None:
             "monthly_downloaded": len(monthly),
         },
         "candidates": candidates,
+        "all_ma_above_candidates": all_ma_above_candidates,
     }
 
     results_dir.mkdir(parents=True, exist_ok=True)
@@ -418,9 +452,11 @@ def scan(session: str, universe_path: Path, results_dir: Path) -> None:
     archive_path.write_text(json.dumps(document, ensure_ascii=False, indent=2), encoding="utf-8")
 
     log(
-        f"{session}: 9/9={document['counts']['9_of_9']} "
+        f"{session}: "
+        f"9/9={document['counts']['9_of_9']} "
         f"8/9={document['counts']['8_of_9']} "
-        f"7/9={document['counts']['7_of_9']}"
+        f"7/9={document['counts']['7_of_9']} "
+        f"all-above={document['counts']['all_ma_above']}"
     )
 
 
