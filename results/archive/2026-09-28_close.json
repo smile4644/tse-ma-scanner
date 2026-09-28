@@ -1,0 +1,740 @@
+{
+  "schema_version": 1,
+  "generated_at_jst": "2026-09-28T16:03:24+09:00",
+  "target_date": "2026-09-28",
+  "session": "close",
+  "session_label": "大引け確定版",
+  "market_status": "open_data_available",
+  "data_source": "Yahoo Finance via yfinance (unofficial/free; delay or missing data may occur)",
+  "universe_definition": "東証プライム・スタンダード・グロースの内国普通株から、前営業日出来高上位1000銘柄",
+  "universe_as_of": "2026-09-25",
+  "universe_count": 1000,
+  "counts": {
+    "9_of_9": 4,
+    "8_of_9": 1,
+    "7_of_9": 2
+  },
+  "coverage": {
+    "current_day_intraday": 998,
+    "intraday_downloaded": 998,
+    "daily_downloaded": 1000,
+    "weekly_downloaded": 1000,
+    "monthly_downloaded": 1000
+  },
+  "candidates": [
+    {
+      "code": "6178",
+      "name": "日本郵政",
+      "market": "プライム（内国株式）",
+      "ticker": "6178.T",
+      "universe_rank": 82,
+      "previous_day_volume": 5531300,
+      "price": 2580.5,
+      "intraday_volume": 1992600,
+      "last_bar": "2026-09-28T15:25:00+09:00",
+      "score": 9,
+      "tier": 3,
+      "status_code": 387420488,
+      "fail_mask": 0,
+      "states": {
+        "d5": {
+          "label": "日5",
+          "state": 8,
+          "state_label": "↑上",
+          "pass": true,
+          "ma": 2542.3,
+          "ma_prev": 2527.5,
+          "gap_pct": 1.5026
+        },
+        "d25": {
+          "label": "日25",
+          "state": 8,
+          "state_label": "↑上",
+          "pass": true,
+          "ma": 2468.0,
+          "ma_prev": 2457.06,
+          "gap_pct": 4.5583
+        },
+        "d75": {
+          "label": "日75",
+          "state": 8,
+          "state_label": "↑上",
+          "pass": true,
+          "ma": 2371.4667,
+          "ma_prev": 2365.4333,
+          "gap_pct": 8.8145
+        },
+        "w13": {
+          "label": "週13",
+          "state": 8,
+          "state_label": "↑上",
+          "pass": true,
+          "ma": 2441.7692,
+          "ma_prev": 2418.0,
+          "gap_pct": 5.6816
+        },
+        "w26": {
+          "label": "週26",
+          "state": 8,
+          "state_label": "↑上",
+          "pass": true,
+          "ma": 2237.4038,
+          "ma_prev": 2208.4231,
+          "gap_pct": 15.3346
+        },
+        "w52": {
+          "label": "週52",
+          "state": 8,
+          "state_label": "↑上",
+          "pass": true,
+          "ma": 1968.9615,
+          "ma_prev": 1946.5577,
+          "gap_pct": 31.0589
+        },
+        "m12": {
+          "label": "月12",
+          "state": 8,
+          "state_label": "↑上",
+          "pass": true,
+          "ma": 1985.0417,
+          "ma_prev": 1892.5,
+          "gap_pct": 29.9973
+        },
+        "m24": {
+          "label": "月24",
+          "state": 8,
+          "state_label": "↑上",
+          "pass": true,
+          "ma": 1727.6875,
+          "ma_prev": 1677.0833,
+          "gap_pct": 49.3615
+        },
+        "m60": {
+          "label": "月60",
+          "state": 8,
+          "state_label": "↑上",
+          "pass": true,
+          "ma": 1384.05,
+          "ma_prev": 1356.785,
+          "gap_pct": 86.4456
+        }
+      },
+      "failures": [],
+      "important_touches": []
+    },
+    {
+      "code": "6302",
+      "name": "住友重機械工業",
+      "market": "プライム（内国株式）",
+      "ticker": "6302.T",
+      "universe_rank": 411,
+      "previous_day_volume": 926200,
+      "price": 5995.0,
+      "intraday_volume": 558600,
+      "last_bar": "2026-09-28T15:25:00+09:00",
+      "score": 9,
+      "tier": 3,
+      "status_code": 387420487,
+      "fail_mask": 0,
+      "states": {
+        "d5": {
+          "label": "日5",
+          "state": 7,
+          "state_label": "↑接触",
+          "pass": true,
+          "ma": 5937.6,
+          "ma_prev": 5880.4,
+          "gap_pct": 0.9667
+        },
+        "d25": {
+          "label": "日25",
+          "state": 8,
+          "state_label": "↑上",
+          "pass": true,
+          "ma": 5757.52,
+          "ma_prev": 5735.6,
+          "gap_pct": 4.1247
+        },
+        "d75": {
+          "label": "日75",
+          "state": 8,
+          "state_label": "↑上",
+          "pass": true,
+          "ma": 5507.0,
+          "ma_prev": 5492.76,
+          "gap_pct": 8.8614
+        },
+        "w13": {
+          "label": "週13",
+          "state": 8,
+          "state_label": "↑上",
+          "pass": true,
+          "ma": 5637.1538,
+          "ma_prev": 5588.0,
+          "gap_pct": 6.348
+        },
+        "w26": {
+          "label": "週26",
+          "state": 8,
+          "state_label": "↑上",
+          "pass": true,
+          "ma": 5446.3846,
+          "ma_prev": 5408.7308,
+          "gap_pct": 10.073
+        },
+        "w52": {
+          "label": "週52",
+          "state": 8,
+          "state_label": "↑上",
+          "pass": true,
+          "ma": 5044.7308,
+          "ma_prev": 4996.3462,
+          "gap_pct": 18.8369
+        },
+        "m12": {
+          "label": "月12",
+          "state": 8,
+          "state_label": "↑上",
+          "pass": true,
+          "ma": 5064.6667,
+          "ma_prev": 4861.9167,
+          "gap_pct": 18.3691
+        },
+        "m24": {
+          "label": "月24",
+          "state": 8,
+          "state_label": "↑上",
+          "pass": true,
+          "ma": 4130.1042,
+          "ma_prev": 4023.6458,
+          "gap_pct": 45.1537
+        },
+        "m60": {
+          "label": "月60",
+          "state": 8,
+          "state_label": "↑上",
+          "pass": true,
+          "ma": 3652.2583,
+          "ma_prev": 3601.3583,
+          "gap_pct": 64.145
+        }
+      },
+      "failures": [],
+      "important_touches": []
+    },
+    {
+      "code": "8393",
+      "name": "宮崎銀行",
+      "market": "プライム（内国株式）",
+      "ticker": "8393.T",
+      "universe_rank": 569,
+      "previous_day_volume": 577800,
+      "price": 3045.0,
+      "intraday_volume": 244800,
+      "last_bar": "2026-09-28T15:25:00+09:00",
+      "score": 9,
+      "tier": 3,
+      "status_code": 387420488,
+      "fail_mask": 0,
+      "states": {
+        "d5": {
+          "label": "日5",
+          "state": 8,
+          "state_label": "↑上",
+          "pass": true,
+          "ma": 2856.6,
+          "ma_prev": 2794.0,
+          "gap_pct": 6.5953
+        },
+        "d25": {
+          "label": "日25",
+          "state": 8,
+          "state_label": "↑上",
+          "pass": true,
+          "ma": 2632.8,
+          "ma_prev": 2607.68,
+          "gap_pct": 15.6563
+        },
+        "d75": {
+          "label": "日75",
+          "state": 8,
+          "state_label": "↑上",
+          "pass": true,
+          "ma": 2383.1733,
+          "ma_prev": 2369.2,
+          "gap_pct": 27.7708
+        },
+        "w13": {
+          "label": "週13",
+          "state": 8,
+          "state_label": "↑上",
+          "pass": true,
+          "ma": 2550.3077,
+          "ma_prev": 2487.0,
+          "gap_pct": 19.3974
+        },
+        "w26": {
+          "label": "週26",
+          "state": 8,
+          "state_label": "↑上",
+          "pass": true,
+          "ma": 2286.2692,
+          "ma_prev": 2240.0769,
+          "gap_pct": 33.1864
+        },
+        "w52": {
+          "label": "週52",
+          "state": 8,
+          "state_label": "↑上",
+          "pass": true,
+          "ma": 1850.8269,
+          "ma_prev": 1809.5192,
+          "gap_pct": 64.5211
+        },
+        "m12": {
+          "label": "月12",
+          "state": 8,
+          "state_label": "↑上",
+          "pass": true,
+          "ma": 1887.1667,
+          "ma_prev": 1709.6667,
+          "gap_pct": 61.353
+        },
+        "m24": {
+          "label": "月24",
+          "state": 8,
+          "state_label": "↑上",
+          "pass": true,
+          "ma": 1293.05,
+          "ma_prev": 1188.4667,
+          "gap_pct": 135.4897
+        },
+        "m60": {
+          "label": "月60",
+          "state": 8,
+          "state_label": "↑上",
+          "pass": true,
+          "ma": 819.24,
+          "ma_prev": 775.47,
+          "gap_pct": 271.686
+        }
+      },
+      "failures": [],
+      "important_touches": []
+    },
+    {
+      "code": "8392",
+      "name": "大分銀行",
+      "market": "プライム（内国株式）",
+      "ticker": "8392.T",
+      "universe_rank": 969,
+      "previous_day_volume": 224800,
+      "price": 3335.0,
+      "intraday_volume": 148000,
+      "last_bar": "2026-09-28T15:25:00+09:00",
+      "score": 9,
+      "tier": 3,
+      "status_code": 387420488,
+      "fail_mask": 0,
+      "states": {
+        "d5": {
+          "label": "日5",
+          "state": 8,
+          "state_label": "↑上",
+          "pass": true,
+          "ma": 3184.0,
+          "ma_prev": 3132.0,
+          "gap_pct": 4.7425
+        },
+        "d25": {
+          "label": "日25",
+          "state": 8,
+          "state_label": "↑上",
+          "pass": true,
+          "ma": 2982.52,
+          "ma_prev": 2958.56,
+          "gap_pct": 11.8182
+        },
+        "d75": {
+          "label": "日75",
+          "state": 8,
+          "state_label": "↑上",
+          "pass": true,
+          "ma": 2691.2533,
+          "ma_prev": 2677.6,
+          "gap_pct": 23.92
+        },
+        "w13": {
+          "label": "週13",
+          "state": 8,
+          "state_label": "↑上",
+          "pass": true,
+          "ma": 2869.8462,
+          "ma_prev": 2809.2308,
+          "gap_pct": 16.2083
+        },
+        "w26": {
+          "label": "週26",
+          "state": 8,
+          "state_label": "↑上",
+          "pass": true,
+          "ma": 2549.8462,
+          "ma_prev": 2493.6154,
+          "gap_pct": 30.7922
+        },
+        "w52": {
+          "label": "週52",
+          "state": 8,
+          "state_label": "↑上",
+          "pass": true,
+          "ma": 2007.5192,
+          "ma_prev": 1962.8077,
+          "gap_pct": 66.1254
+        },
+        "m12": {
+          "label": "月12",
+          "state": 8,
+          "state_label": "↑上",
+          "pass": true,
+          "ma": 2062.0833,
+          "ma_prev": 1870.3333,
+          "gap_pct": 61.7296
+        },
+        "m24": {
+          "label": "月24",
+          "state": 8,
+          "state_label": "↑上",
+          "pass": true,
+          "ma": 1406.25,
+          "ma_prev": 1292.9167,
+          "gap_pct": 137.1556
+        },
+        "m60": {
+          "label": "月60",
+          "state": 8,
+          "state_label": "↑上",
+          "pass": true,
+          "ma": 845.3367,
+          "ma_prev": 796.0433,
+          "gap_pct": 294.5174
+        }
+      },
+      "failures": [],
+      "important_touches": []
+    },
+    {
+      "code": "7261",
+      "name": "マツダ",
+      "market": "プライム（内国株式）",
+      "ticker": "7261.T",
+      "universe_rank": 69,
+      "previous_day_volume": 6522900,
+      "price": 1162.0,
+      "intraday_volume": 4372600,
+      "last_bar": "2026-09-28T15:25:00+09:00",
+      "score": 8,
+      "tier": 2,
+      "status_code": 343841578,
+      "fail_mask": 2,
+      "states": {
+        "d5": {
+          "label": "日5",
+          "state": 7,
+          "state_label": "↑接触",
+          "pass": true,
+          "ma": 1159.3,
+          "ma_prev": 1158.4,
+          "gap_pct": 0.2329
+        },
+        "d25": {
+          "label": "日25",
+          "state": 6,
+          "state_label": "↑下",
+          "pass": false,
+          "ma": 1177.6,
+          "ma_prev": 1176.5,
+          "gap_pct": -1.3247
+        },
+        "d75": {
+          "label": "日75",
+          "state": 8,
+          "state_label": "↑上",
+          "pass": true,
+          "ma": 1150.5933,
+          "ma_prev": 1149.9333,
+          "gap_pct": 0.9914
+        },
+        "w13": {
+          "label": "週13",
+          "state": 7,
+          "state_label": "↑接触",
+          "pass": true,
+          "ma": 1161.5,
+          "ma_prev": 1159.8077,
+          "gap_pct": 0.043
+        },
+        "w26": {
+          "label": "週26",
+          "state": 8,
+          "state_label": "↑上",
+          "pass": true,
+          "ma": 1122.6692,
+          "ma_prev": 1117.7846,
+          "gap_pct": 3.5033
+        },
+        "w52": {
+          "label": "週52",
+          "state": 8,
+          "state_label": "↑上",
+          "pass": true,
+          "ma": 1151.3058,
+          "ma_prev": 1149.0173,
+          "gap_pct": 0.9289
+        },
+        "m12": {
+          "label": "月12",
+          "state": 7,
+          "state_label": "↑接触",
+          "pass": true,
+          "ma": 1155.5833,
+          "ma_prev": 1148.8333,
+          "gap_pct": 0.5553
+        },
+        "m24": {
+          "label": "月24",
+          "state": 8,
+          "state_label": "↑上",
+          "pass": true,
+          "ma": 1069.3625,
+          "ma_prev": 1065.5292,
+          "gap_pct": 8.6629
+        },
+        "m60": {
+          "label": "月60",
+          "state": 7,
+          "state_label": "↑接触",
+          "pass": true,
+          "ma": 1185.5783,
+          "ma_prev": 1182.4783,
+          "gap_pct": -1.9888
+        }
+      },
+      "failures": [
+        "日25 ↑下"
+      ],
+      "important_touches": [
+        "月12",
+        "週13"
+      ]
+    },
+    {
+      "code": "4507",
+      "name": "塩野義製薬",
+      "market": "プライム（内国株式）",
+      "ticker": "4507.T",
+      "universe_rank": 188,
+      "previous_day_volume": 2423900,
+      "price": 2922.5,
+      "intraday_volume": 1417500,
+      "last_bar": "2026-09-28T15:25:00+09:00",
+      "score": 7,
+      "tier": 1,
+      "status_code": 386725012,
+      "fail_mask": 48,
+      "states": {
+        "d5": {
+          "label": "日5",
+          "state": 7,
+          "state_label": "↑接触",
+          "pass": true,
+          "ma": 2943.0,
+          "ma_prev": 2936.9,
+          "gap_pct": -0.6966
+        },
+        "d25": {
+          "label": "日25",
+          "state": 7,
+          "state_label": "↑接触",
+          "pass": true,
+          "ma": 2915.34,
+          "ma_prev": 2912.8,
+          "gap_pct": 0.2456
+        },
+        "d75": {
+          "label": "日75",
+          "state": 8,
+          "state_label": "↑上",
+          "pass": true,
+          "ma": 2862.76,
+          "ma_prev": 2861.72,
+          "gap_pct": 2.0868
+        },
+        "w13": {
+          "label": "週13",
+          "state": 8,
+          "state_label": "↑上",
+          "pass": true,
+          "ma": 2884.3462,
+          "ma_prev": 2880.2308,
+          "gap_pct": 1.3228
+        },
+        "w26": {
+          "label": "週26",
+          "state": 1,
+          "state_label": "↓接触",
+          "pass": false,
+          "ma": 2945.6346,
+          "ma_prev": 2970.2308,
+          "gap_pct": -0.7854
+        },
+        "w52": {
+          "label": "週52",
+          "state": 6,
+          "state_label": "↑下",
+          "pass": false,
+          "ma": 2972.6827,
+          "ma_prev": 2964.7019,
+          "gap_pct": -1.6881
+        },
+        "m12": {
+          "label": "月12",
+          "state": 7,
+          "state_label": "↑接触",
+          "pass": true,
+          "ma": 3009.0833,
+          "ma_prev": 2981.5,
+          "gap_pct": -2.8774
+        },
+        "m24": {
+          "label": "月24",
+          "state": 8,
+          "state_label": "↑上",
+          "pass": true,
+          "ma": 2687.4375,
+          "ma_prev": 2651.2292,
+          "gap_pct": 8.7467
+        },
+        "m60": {
+          "label": "月60",
+          "state": 8,
+          "state_label": "↑上",
+          "pass": true,
+          "ma": 2442.0833,
+          "ma_prev": 2435.8972,
+          "gap_pct": 19.6724
+        }
+      },
+      "failures": [
+        "週26 ↓接触",
+        "週52 ↑下"
+      ],
+      "important_touches": [
+        "日25",
+        "月12"
+      ]
+    },
+    {
+      "code": "8897",
+      "name": "ＭＩＲＡＲＴＨホールディングス",
+      "market": "プライム（内国株式）",
+      "ticker": "8897.T",
+      "universe_rank": 554,
+      "previous_day_volume": 598200,
+      "price": 451.0,
+      "intraday_volume": 1066200,
+      "last_bar": "2026-09-28T15:25:00+09:00",
+      "score": 7,
+      "tier": 1,
+      "status_code": 358722601,
+      "fail_mask": 130,
+      "states": {
+        "d5": {
+          "label": "日5",
+          "state": 7,
+          "state_label": "↑接触",
+          "pass": true,
+          "ma": 453.6,
+          "ma_prev": 453.4,
+          "gap_pct": -0.5732
+        },
+        "d25": {
+          "label": "日25",
+          "state": 0,
+          "state_label": "↓下",
+          "pass": false,
+          "ma": 454.28,
+          "ma_prev": 454.36,
+          "gap_pct": -0.722
+        },
+        "d75": {
+          "label": "日75",
+          "state": 8,
+          "state_label": "↑上",
+          "pass": true,
+          "ma": 428.04,
+          "ma_prev": 427.48,
+          "gap_pct": 5.364
+        },
+        "w13": {
+          "label": "週13",
+          "state": 8,
+          "state_label": "↑上",
+          "pass": true,
+          "ma": 437.1538,
+          "ma_prev": 433.5385,
+          "gap_pct": 3.1673
+        },
+        "w26": {
+          "label": "週26",
+          "state": 8,
+          "state_label": "↑上",
+          "pass": true,
+          "ma": 422.8077,
+          "ma_prev": 421.6538,
+          "gap_pct": 6.6679
+        },
+        "w52": {
+          "label": "週52",
+          "state": 8,
+          "state_label": "↑上",
+          "pass": true,
+          "ma": 408.9231,
+          "ma_prev": 407.6538,
+          "gap_pct": 10.2897
+        },
+        "m12": {
+          "label": "月12",
+          "state": 8,
+          "state_label": "↑上",
+          "pass": true,
+          "ma": 408.9167,
+          "ma_prev": 403.8333,
+          "gap_pct": 10.2914
+        },
+        "m24": {
+          "label": "月24",
+          "state": 2,
+          "state_label": "↓上",
+          "pass": false,
+          "ma": 433.0,
+          "ma_prev": 435.1667,
+          "gap_pct": 4.157
+        },
+        "m60": {
+          "label": "月60",
+          "state": 8,
+          "state_label": "↑上",
+          "pass": true,
+          "ma": 419.7667,
+          "ma_prev": 417.6333,
+          "gap_pct": 7.4406
+        }
+      },
+      "failures": [
+        "日25 ↓下",
+        "月24 ↓上"
+      ],
+      "important_touches": []
+    }
+  ]
+}
