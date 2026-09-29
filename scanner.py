@@ -206,8 +206,11 @@ def partial_intraday_bar(frame, target_date, session):
     cutoff = dtime(11, 30) if session == "noon" else dtime(15, 30)
     minimum_time = dtime(11, 25) if session == "noon" else dtime(15, 25)
     work = work[(work.index.date == target_date) & (work.index.time <= cutoff)]
-    if work.empty or work.index[-1].time() < minimum_time:
+    if work.empty:
         return None
+
+    last_bar_time = work.index[-1].time()
+    intraday_fresh = last_bar_time >= minimum_time
 
     for column in ["Open", "High", "Low", "Close", "Volume"]:
         work[column] = pd.to_numeric(work[column], errors="coerce")
@@ -223,6 +226,8 @@ def partial_intraday_bar(frame, target_date, session):
         "close": float(close_series.iloc[-1]),
         "volume": int(work["Volume"].fillna(0).sum()),
         "last_bar": work.index[-1].isoformat(),
+        "intraday_fresh": intraday_fresh,
+        "expected_minimum_time": minimum_time.strftime("%H:%M"),
     }
 
 
@@ -237,7 +242,7 @@ def partial_period_ohlc(completed_daily, current_day, start_date, today):
 def analyze_symbol(row, intraday_frame, daily_frame, weekly_frame, monthly_frame, session, today):
     current_day = partial_intraday_bar(intraday_frame, today, session)
     if current_day is None:
-        return None, "intraday_missing_or_stale"
+        return None, "intraday_missing"
 
     completed_daily = history_before(daily_frame, today)
     week_start = today - timedelta(days=today.weekday())
@@ -286,6 +291,8 @@ def analyze_symbol(row, intraday_frame, daily_frame, weekly_frame, monthly_frame
         "universe_rank": int(row.rank), "previous_day_volume": int(row.volume),
         "price": round(current_day["close"], 4), "intraday_volume": current_day["volume"],
         "last_bar": current_day["last_bar"],
+        "intraday_fresh": current_day["intraday_fresh"],
+        "expected_minimum_time": current_day["expected_minimum_time"],
         "candle": {
             "day": {"open": round(current_day["open"], 4), "high": round(current_day["high"], 4),
                     "low": round(current_day["low"], 4), "close": round(current_day["close"], 4)},
@@ -374,9 +381,13 @@ def scan(session: str, universe_path: Path, results_dir: Path) -> None:
     expected_last_bar = "11:25" if session == "noon" else "15:25"
     stale_last_bar = []
     for x in all_results:
-        bar = datetime.fromisoformat(x["last_bar"]).strftime("%H:%M")
-        if bar < expected_last_bar:
-            stale_last_bar.append({"code": x["code"], "name": x["name"], "last_bar": x["last_bar"]})
+        if not x["intraday_fresh"]:
+            stale_last_bar.append({
+                "code": x["code"],
+                "name": x["name"],
+                "last_bar": x["last_bar"],
+                "expected_minimum_time": x["expected_minimum_time"],
+            })
 
     dropped_from_noon = []
     impossible_low_increases = []
@@ -457,17 +468,20 @@ def scan(session: str, universe_path: Path, results_dir: Path) -> None:
         "code": x["code"], "name": x["name"], "ticker": x["ticker"],
         "universe_rank": x["universe_rank"], "price": x["price"],
         "intraday_volume": x["intraday_volume"], "last_bar": x["last_bar"],
+        "intraday_fresh": x["intraday_fresh"],
+        "expected_minimum_time": x["expected_minimum_time"],
         "score": x["score"], "tier": x["tier"], "all_ma_above": x["all_ma_above"],
         "candle": x["candle"], "failures": x["failures"], "states": x["states"],
     } for x in all_results]
 
     document = {
-        "schema_version": 3,
+        "schema_version": 4,
         "generated_at_jst": datetime.now(JST).isoformat(timespec="seconds"),
         "target_date": today.isoformat(),
         "session": session,
         "session_label": "前引け確定版" if session == "noon" else "大引け確定版",
         "market_status": "open_data_available" if current_day_intraday_count > 0 else "closed_or_data_unavailable",
+        "result_reliability": "diagnostic_warning" if quality_issues else "normal",
         "data_source": "Yahoo Finance via yfinance (unofficial/free; delay or missing data may occur)",
         "universe_definition": "東証プライム・スタンダード・グロースの内国普通株から、前営業日出来高上位1000銘柄",
         "universe_as_of": str(universe["as_of"].iloc[0]),
