@@ -149441,5 +149441,7 @@
       ],
       "important_touches": []
     }
-  ]
+  ],
+  "write_status": "accepted",
+  "safety_gate_errors": []
 }
