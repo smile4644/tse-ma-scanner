@@ -1,0 +1,2073 @@
+{
+  "schema_version": 1,
+  "generated_at_jst": "2026-10-02T23:00:17+09:00",
+  "target_date": "2026-10-02",
+  "definition": "Yahoo Finance analyst consensus: current-year (0y) EPS average > yearAgoEps",
+  "entries": {
+    "8316.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "8001.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "8766.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "7267.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "9433.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "8308.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "9432.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "6762.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "5401.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "6330.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "7182.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "8053.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "9434.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "8309.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "6178.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "9107.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "3103.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "6203.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "3659.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "7272.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "4452.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "8601.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "5019.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "8331.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "8697.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "7186.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "3407.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "9201.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "4005.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "4183.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "7167.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "3402.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "5301.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "6724.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "8304.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "5076.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "4052.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "4440.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "8359.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "5406.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "7181.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "7762.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "4980.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "5805.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "6952.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "4088.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "6770.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "6460.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "4612.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "8334.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "7752.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "4902.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "9507.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "9831.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "9616.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "2160.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "6473.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "3861.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "4680.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "2181.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "9509.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "8358.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "4613.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "4208.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "7282.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "7327.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "2492.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "7180.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "8524.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "4812.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "4205.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "4114.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "3105.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "5471.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "4667.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "8366.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "5991.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "8368.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "1515.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "7276.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "6592.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "7173.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "5985.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "6135.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "4373.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "8439.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "8418.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "8343.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "3774.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "7337.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "2531.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "9744.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "8361.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "8410.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "1980.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "7459.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "4722.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "8388.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "8020.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "8876.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "4202.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "8338.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "3941.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "6055.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "6480.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "9505.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "6523.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "6191.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "8628.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "1961.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "8345.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "4022.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "2767.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "7616.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "3687.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "4272.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "8360.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "5232.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "8346.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "8381.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "7380.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "7322.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "8616.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "8174.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "2146.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "9722.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "8078.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "8386.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "4475.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "6999.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "8367.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "8714.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "6627.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "6058.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "8544.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "4082.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "7777.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "2175.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "6264.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "9069.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "8393.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "8370.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "1518.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "3387.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "6768.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "8336.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "8550.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "7846.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "8848.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "8117.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "8995.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "4471.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "6379.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "8392.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "2354.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "4046.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "3167.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "3907.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "6807.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "4849.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "4075.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "8609.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "7630.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "8237.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "7803.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "8600.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "3762.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "9934.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "7381.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "6143.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "256A.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "6196.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "5208.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "1926.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "6072.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "8399.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "7606.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "3433.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "7287.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "8511.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "2602.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "7242.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "6810.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "4997.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "7839.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "7433.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "6454.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "6371.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "7740.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "6958.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "3660.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "8551.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "6727.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "167A.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "3176.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "6737.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "4045.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "2124.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "6023.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "1965.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "2334.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "8057.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "6794.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "2612.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "7864.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "8005.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "7611.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "7245.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "4189.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "7241.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "3036.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "4095.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "8051.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "8061.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "4968.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "7246.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "3989.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "2681.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "6986.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "8739.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "1815.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "9274.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "4220.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "8130.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "6750.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "4633.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "7746.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "9511.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "3932.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "3087.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "6118.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "8706.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "4493.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "7283.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "9304.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "5975.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "4432.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "9692.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "1945.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "8337.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "3106.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "8613.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "8622.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "5632.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "3673.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "4674.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "8614.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "7743.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "7513.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "8133.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "3284.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "6349.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "7613.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "2154.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "3076.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "7575.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "9900.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "4420.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "9889.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "7172.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "7976.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "3040.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "8043.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "4431.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "1982.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "3153.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "3276.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "4746.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "9278.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "6742.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "4477.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "8708.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "8558.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "6287.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "3034.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "8032.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "8255.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "8097.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "4958.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "9997.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "6741.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "8624.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "6638.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "4008.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "7745.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "9039.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "1939.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "7177.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "7970.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "6440.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "9308.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "5367.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "7593.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "9470.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "5970.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "8713.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "6785.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "1814.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "4246.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "7821.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "8125.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "6962.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "7239.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "6309.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "6840.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "9130.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "7280.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "9324.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "1813.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "6905.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "5121.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "3444.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "8052.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "4293.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "6817.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "7128.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "8084.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "9902.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "8163.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "6463.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "3091.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "6208.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "9621.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "2108.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "6345.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "8200.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "3741.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "5381.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "2207.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "3028.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "4174.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "4116.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "2301.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "6730.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "7942.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "1783.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "4933.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "7856.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "8789.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "6351.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "3864.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "4840.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "6238.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "7366.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "8075.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "4212.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "2613.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "1379.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "1822.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "6381.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "7979.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "6328.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "7231.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "4765.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "2053.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "7537.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "5195.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "2734.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "4238.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "6418.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "6176.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "6194.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "7949.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "6809.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "3558.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "7510.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "2060.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "3232.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "8008.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "3201.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "3708.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "6364.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "1436.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "8131.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "5142.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "4228.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "3968.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "6433.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "3950.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "8103.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "4828.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "6928.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "8150.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "6823.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "5218.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "6289.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "8142.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "4847.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "7914.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "3393.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "3179.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "2429.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "3652.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "6629.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "8364.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "8537.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "3763.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "8704.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "8562.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "8935.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "6994.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "9310.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "4100.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "5976.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "7256.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "8081.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "1929.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "3565.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "4620.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "current_year_estimate_missing"
+    },
+    "6317.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "5273.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "6255.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    },
+    "8167.T": {
+      "status": "error",
+      "improving": null,
+      "reason": "YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    }
+  }
+}
