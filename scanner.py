@@ -8,6 +8,7 @@ import os
 import re
 import time
 from collections import Counter
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import date, datetime, timedelta, time as dtime
 from pathlib import Path
 from zoneinfo import ZoneInfo
@@ -20,19 +21,30 @@ import yfinance as yf
 
 JST = ZoneInfo("Asia/Tokyo")
 JPX_MASTER_URL = "https://www.jpx.co.jp/markets/statistics-equities/misc/tvdivq0000001vg2-att/data_j.xlsx"
-USER_AGENT = "tse-ma-scanner/1.4 (+github)"
+USER_AGENT = "tse-ma-scanner/1.6 (+github)"
 
 # ---------- safety thresholds ----------
-EXPECTED_UNIVERSE_COUNT = 1000
 MIN_MASTER_COUNT = 3000
 MIN_MASTER_DAILY_DOWNLOAD_RATIO = 0.85
 MAX_UNIVERSE_AGE_DAYS = 7
 
-MIN_INTRADAY_CURRENT_COUNT = 900
-MIN_FRESH_INTRADAY_COUNT = 850
-MIN_DAILY_10Y_DOWNLOAD_COUNT = 950
-# partial_scored を含む「1本以上のMAを判定できた銘柄」の最低数。
-MIN_SCORED_COUNT = 800
+# 流動性ユニバース。固定件数ではなく絶対的な売買代金基準で選ぶ。
+LIQUIDITY_LOOKBACK_DAYS = 20
+MIN_LIQUIDITY_OBSERVATIONS = 15
+MIN_MEDIAN_20D_TRADING_VALUE = 100_000_000.0
+MIN_PREVIOUS_DAY_TRADING_VALUE = 50_000_000.0
+MIN_LIQUID_UNIVERSE_COUNT = 700
+
+# universeが可変件数になるため、品質ゲートは比率で判定する。
+MIN_INTRADAY_DOWNLOAD_RATIO = 0.90
+MIN_FRESH_INTRADAY_RATIO = 0.85
+MIN_DAILY_10Y_DOWNLOAD_RATIO = 0.95
+MIN_SCORED_RATIO = 0.80
+
+# ---------- output screening ----------
+MAX_CANDIDATE_PRICE = 3500.0
+FUNDAMENTAL_WORKERS = 4
+FUNDAMENTAL_CACHE_FILENAME = "fundamental_eps_cache.json"
 
 SPECS = [
     ("d5", "日5", 5, "D"),
@@ -199,8 +211,9 @@ def download_many(
     period: str,
     interval: str,
     batch_size: int = 100,
+    auto_adjust: bool = True,
 ) -> dict[str, pd.DataFrame]:
-    """全価格系列を auto_adjust=True, repair=True で統一。"""
+    """価格系列を一括取得。MAはadjusted、流動性計算はraw Closeを使う。"""
     result: dict[str, pd.DataFrame] = {}
     batches = list(chunked(tickers, batch_size))
 
@@ -213,7 +226,7 @@ def download_many(
                     period=period,
                     interval=interval,
                     group_by="ticker",
-                    auto_adjust=True,
+                    auto_adjust=auto_adjust,
                     repair=True,
                     prepost=False,
                     threads=True,
@@ -247,11 +260,27 @@ def local_dates(frame: pd.DataFrame) -> pd.Series:
     return pd.Series(idx.date, index=frame.index)
 
 
-def build_top1000_universe(output_path: Path) -> tuple[pd.DataFrame, dict]:
-    """東証内国普通株の前営業日出来高上位1000銘柄。"""
+def build_liquidity_universe(output_path: Path) -> tuple[pd.DataFrame, dict]:
+    """
+    東証内国普通株から継続的に売買代金が確保されている銘柄を抽出する。
+
+    条件:
+      1. 過去20営業日の売買代金中央値 >= 1億円
+      2. 前営業日の売買代金 >= 5,000万円
+      3. 20営業日のうち最低15営業日分の有効データ
+
+    売買代金 = raw Close × Volume。
+    株式分割等で過去価格を調整すると売買代金が歪むため、
+    universe構築だけは auto_adjust=False のraw Closeを使う。
+    """
     master = load_jpx_master()
     master_tickers = master["ticker"].tolist()
-    daily = download_many(master_tickers, period="10d", interval="1d")
+    daily = download_many(
+        master_tickers,
+        period="3mo",
+        interval="1d",
+        auto_adjust=False,
+    )
     today = datetime.now(JST).date()
 
     minimum_master_downloads = math.ceil(
@@ -264,39 +293,27 @@ def build_top1000_universe(output_path: Path) -> tuple[pd.DataFrame, dict]:
             f"(required >= {minimum_master_downloads})"
         )
 
-    rows = []
+    latest_dates = []
+    prepared: dict[str, pd.DataFrame] = {}
     for row in master.itertuples(index=False):
         frame = daily.get(row.ticker)
-        if frame is None or frame.empty or "Volume" not in frame.columns:
+        if frame is None or frame.empty:
+            continue
+        if "Close" not in frame.columns or "Volume" not in frame.columns:
             continue
         dates = local_dates(frame)
         mask = dates < today
         if not mask.any():
             continue
-        prior = frame.loc[mask.values]
-        prior_dates = dates.loc[mask.values]
-        volume = pd.to_numeric(prior["Volume"], errors="coerce").iloc[-1]
-        if pd.notna(volume):
-            rows.append((
-                row.code,
-                row.name,
-                row.market,
-                row.ticker,
-                prior_dates.iloc[-1],
-                int(volume),
-            ))
+        prior = frame.loc[mask.values].copy()
+        prior["_local_date"] = dates.loc[mask.values].to_numpy()
+        prepared[row.ticker] = prior
+        latest_dates.append(prior["_local_date"].iloc[-1])
 
-    if not rows:
-        fail("No previous-trading-day volume rows were created.")
+    if not latest_dates:
+        fail("No previous-trading-day data were created for liquidity universe.")
 
-    latest_as_of = max(row[4] for row in rows)
-    latest_rows = [row for row in rows if row[4] == latest_as_of]
-    if len(latest_rows) < EXPECTED_UNIVERSE_COUNT:
-        fail(
-            "Latest trading date does not have enough stocks: "
-            f"as_of={latest_as_of} rows={len(latest_rows)} < {EXPECTED_UNIVERSE_COUNT}"
-        )
-
+    latest_as_of = max(latest_dates)
     age_days = (today - latest_as_of).days
     if age_days < 0 or age_days > MAX_UNIVERSE_AGE_DAYS:
         fail(
@@ -304,25 +321,94 @@ def build_top1000_universe(output_path: Path) -> tuple[pd.DataFrame, dict]:
             f"today={today} as_of={latest_as_of} age_days={age_days}"
         )
 
-    universe = pd.DataFrame(
-        latest_rows,
-        columns=["code", "name", "market", "ticker", "date", "volume"],
-    )
-    universe = (
-        universe
-        .sort_values(["volume", "code"], ascending=[False, True])
-        .head(EXPECTED_UNIVERSE_COUNT)
-        .reset_index(drop=True)
-    )
+    rows = []
+    source_rows_on_latest_date = 0
 
-    if len(universe) != EXPECTED_UNIVERSE_COUNT:
-        fail(f"Universe count invalid: {len(universe)} != {EXPECTED_UNIVERSE_COUNT}")
+    for row in master.itertuples(index=False):
+        prior = prepared.get(row.ticker)
+        if prior is None or prior.empty:
+            continue
+        prior = prior[prior["_local_date"] <= latest_as_of].copy()
+        if prior.empty or prior["_local_date"].iloc[-1] != latest_as_of:
+            continue
+        source_rows_on_latest_date += 1
+
+        close = pd.to_numeric(prior["Close"], errors="coerce")
+        volume = pd.to_numeric(prior["Volume"], errors="coerce")
+        trading_value = (close * volume).replace([np.inf, -np.inf], np.nan)
+
+        valid = pd.DataFrame({
+            "date": prior["_local_date"],
+            "close": close,
+            "volume": volume,
+            "trading_value": trading_value,
+        }).dropna(subset=["close", "volume", "trading_value"])
+        valid = valid[
+            (valid["close"] > 0)
+            & (valid["volume"] >= 0)
+            & (valid["trading_value"] >= 0)
+        ]
+        if valid.empty:
+            continue
+
+        lookback = valid.tail(LIQUIDITY_LOOKBACK_DAYS)
+        observations = len(lookback)
+        if observations < MIN_LIQUIDITY_OBSERVATIONS:
+            continue
+
+        previous = lookback.iloc[-1]
+        previous_day_trading_value = float(previous["trading_value"])
+        median_20d_trading_value = float(lookback["trading_value"].median())
+        mean_20d_trading_value = float(lookback["trading_value"].mean())
+
+        if median_20d_trading_value < MIN_MEDIAN_20D_TRADING_VALUE:
+            continue
+        if previous_day_trading_value < MIN_PREVIOUS_DAY_TRADING_VALUE:
+            continue
+
+        rows.append((
+            row.code,
+            row.name,
+            row.market,
+            row.ticker,
+            latest_as_of,
+            int(previous["volume"]),
+            float(previous["close"]),
+            int(round(previous_day_trading_value)),
+            int(round(median_20d_trading_value)),
+            int(round(mean_20d_trading_value)),
+            observations,
+        ))
+
+    if source_rows_on_latest_date < MIN_LIQUID_UNIVERSE_COUNT:
+        fail(
+            "Latest trading date source coverage too low: "
+            f"as_of={latest_as_of} rows={source_rows_on_latest_date}"
+        )
+
+    universe = pd.DataFrame(
+        rows,
+        columns=[
+            "code", "name", "market", "ticker", "date", "volume",
+            "previous_day_close", "previous_day_trading_value",
+            "median_20d_trading_value", "mean_20d_trading_value",
+            "liquidity_observations",
+        ],
+    )
+    universe = universe.sort_values(
+        ["median_20d_trading_value", "previous_day_trading_value", "code"],
+        ascending=[False, False, True],
+    ).reset_index(drop=True)
+
+    if len(universe) < MIN_LIQUID_UNIVERSE_COUNT:
+        fail(
+            "Liquidity universe unexpectedly small: "
+            f"{len(universe)} < {MIN_LIQUID_UNIVERSE_COUNT}"
+        )
     if universe["ticker"].duplicated().any():
         fail("Universe contains duplicate tickers.")
-    if universe["volume"].isna().any():
-        fail("Universe contains missing volume.")
 
-    universe.insert(0, "rank", np.arange(1, EXPECTED_UNIVERSE_COUNT + 1))
+    universe.insert(0, "rank", np.arange(1, len(universe) + 1))
     universe.insert(0, "as_of", latest_as_of.isoformat())
     atomic_write_csv(output_path, universe)
 
@@ -331,16 +417,21 @@ def build_top1000_universe(output_path: Path) -> tuple[pd.DataFrame, dict]:
         "master_daily_downloaded": len(daily),
         "master_daily_required_min": minimum_master_downloads,
         "latest_as_of": latest_as_of.isoformat(),
-        "latest_as_of_rows": len(latest_rows),
+        "latest_as_of_source_rows": source_rows_on_latest_date,
         "universe_count": len(universe),
         "universe_age_days": age_days,
+        "liquidity_lookback_days": LIQUIDITY_LOOKBACK_DAYS,
+        "minimum_liquidity_observations": MIN_LIQUIDITY_OBSERVATIONS,
+        "minimum_median_20d_trading_value": int(MIN_MEDIAN_20D_TRADING_VALUE),
+        "minimum_previous_day_trading_value": int(MIN_PREVIOUS_DAY_TRADING_VALUE),
+        "ranking_metric": "median_20d_trading_value_desc",
     }
     log(
-        f"Universe {latest_as_of}: {len(universe)}銘柄 "
-        f"(source={len(daily)}/{len(master_tickers)})"
+        f"Liquidity universe {latest_as_of}: {len(universe)}銘柄 "
+        f"(20d median >= {MIN_MEDIAN_20D_TRADING_VALUE:,.0f}円, "
+        f"previous day >= {MIN_PREVIOUS_DAY_TRADING_VALUE:,.0f}円)"
     )
     return universe, meta
-
 
 def history_before(frame: pd.DataFrame | None, cutoff_date: date) -> pd.DataFrame:
     if frame is None or frame.empty:
@@ -771,6 +862,201 @@ def analyze_symbol(
     }
 
 
+
+def safe_float(value):
+    try:
+        if value is None:
+            return None
+        number = float(value)
+        if not math.isfinite(number):
+            return None
+        return number
+    except Exception:
+        return None
+
+
+def fetch_current_year_eps_improvement(ticker: str) -> dict:
+    """
+    今期業績向上判定:
+      Yahoo Finance analyst estimate の current year (0y) EPS平均が
+      yearAgoEps を上回るかで判定する。
+    """
+    last_error = None
+    for attempt in range(2):
+        try:
+            estimate = yf.Ticker(ticker).get_earnings_estimate()
+            if estimate is None or estimate.empty or "0y" not in estimate.index:
+                return {
+                    "status": "unavailable",
+                    "improving": None,
+                    "reason": "current_year_estimate_missing",
+                }
+
+            row = estimate.loc["0y"]
+            current_eps = safe_float(row.get("avg"))
+            prior_eps = safe_float(row.get("yearAgoEps"))
+            growth = safe_float(row.get("growth"))
+            analysts = safe_float(row.get("numberOfAnalysts"))
+
+            if current_eps is None or prior_eps is None:
+                return {
+                    "status": "unavailable",
+                    "improving": None,
+                    "reason": "current_or_prior_eps_missing",
+                    "current_year_eps_estimate": current_eps,
+                    "prior_year_eps": prior_eps,
+                    "growth": growth,
+                    "number_of_analysts": (
+                        int(analysts) if analysts is not None else None
+                    ),
+                }
+
+            return {
+                "status": "ok",
+                "improving": current_eps > prior_eps,
+                "reason": None,
+                "current_year_eps_estimate": round(current_eps, 6),
+                "prior_year_eps": round(prior_eps, 6),
+                "growth": round(growth, 6) if growth is not None else None,
+                "number_of_analysts": (
+                    int(analysts) if analysts is not None else None
+                ),
+            }
+        except Exception as exc:
+            last_error = exc
+            if attempt == 0:
+                time.sleep(1.0)
+
+    return {
+        "status": "error",
+        "improving": None,
+        "reason": f"{type(last_error).__name__}: {last_error}",
+    }
+
+
+def load_fundamental_cache(path: Path, target_date: date) -> dict[str, dict]:
+    if not path.exists():
+        return {}
+    try:
+        doc = json.loads(path.read_text(encoding="utf-8"))
+        if doc.get("target_date") != target_date.isoformat():
+            return {}
+        entries = doc.get("entries", {})
+        return entries if isinstance(entries, dict) else {}
+    except Exception:
+        return {}
+
+
+def fetch_fundamental_screening(
+    symbols: list[dict],
+    cache_path: Path,
+    target_date: date,
+) -> tuple[dict[str, dict], dict]:
+    """
+    価格条件を満たしたMA候補だけ業績を取得する。
+    同一日のnoon/close間ではresults/配下のキャッシュを再利用する。
+    """
+    by_ticker = {x["ticker"]: x for x in symbols}
+    cache = load_fundamental_cache(cache_path, target_date)
+
+    result: dict[str, dict] = {}
+    missing_tickers = []
+    for ticker in by_ticker:
+        cached = cache.get(ticker)
+        if isinstance(cached, dict):
+            result[ticker] = cached
+        else:
+            missing_tickers.append(ticker)
+
+    if missing_tickers:
+        with ThreadPoolExecutor(max_workers=FUNDAMENTAL_WORKERS) as executor:
+            future_map = {
+                executor.submit(fetch_current_year_eps_improvement, ticker): ticker
+                for ticker in missing_tickers
+            }
+            for future in as_completed(future_map):
+                ticker = future_map[future]
+                try:
+                    result[ticker] = future.result()
+                except Exception as exc:
+                    result[ticker] = {
+                        "status": "error",
+                        "improving": None,
+                        "reason": f"{type(exc).__name__}: {exc}",
+                    }
+
+    cache_doc = {
+        "schema_version": 1,
+        "generated_at_jst": datetime.now(JST).isoformat(timespec="seconds"),
+        "target_date": target_date.isoformat(),
+        "definition": (
+            "Yahoo Finance analyst consensus: current-year (0y) EPS average "
+            "> yearAgoEps"
+        ),
+        "entries": result,
+    }
+    atomic_write_json(cache_path, cache_doc)
+
+    summary = {
+        "requested": len(by_ticker),
+        "cache_hits": len(by_ticker) - len(missing_tickers),
+        "fetched": len(missing_tickers),
+        "available": sum(x.get("status") == "ok" for x in result.values()),
+        "improving": sum(
+            x.get("status") == "ok" and x.get("improving") is True
+            for x in result.values()
+        ),
+        "not_improving": sum(
+            x.get("status") == "ok" and x.get("improving") is False
+            for x in result.values()
+        ),
+        "unavailable_or_error": sum(
+            x.get("status") != "ok" for x in result.values()
+        ),
+    }
+    return result, summary
+
+
+def attach_screening_fields(item: dict, fundamental: dict | None) -> dict:
+    item["screening"] = {
+        "price_limit": MAX_CANDIDATE_PRICE,
+        "price_pass": (
+            item.get("price") is not None
+            and item["price"] <= MAX_CANDIDATE_PRICE
+        ),
+        "earnings_rule": (
+            "current-year EPS consensus average > prior-year EPS"
+        ),
+        "earnings_status": (
+            fundamental.get("status") if fundamental else "not_checked"
+        ),
+        "earnings_improving": (
+            fundamental.get("improving") if fundamental else None
+        ),
+        "current_year_eps_estimate": (
+            fundamental.get("current_year_eps_estimate")
+            if fundamental else None
+        ),
+        "prior_year_eps": (
+            fundamental.get("prior_year_eps")
+            if fundamental else None
+        ),
+        "earnings_growth": (
+            fundamental.get("growth")
+            if fundamental else None
+        ),
+        "number_of_analysts": (
+            fundamental.get("number_of_analysts")
+            if fundamental else None
+        ),
+        "reason": (
+            fundamental.get("reason")
+            if fundamental else None
+        ),
+    }
+    return item
+
+
 def state_changes(noon_item: dict, close_item: dict) -> list[dict]:
     changes = []
     if close_item.get("score") is None:
@@ -809,30 +1095,31 @@ def validate_scan_before_commit(
 ) -> list[str]:
     """latest/archiveを書いてよいか判定。Low逆転は隔離対象で、全体停止しない。"""
     errors: list[str] = []
-    if len(universe) != EXPECTED_UNIVERSE_COUNT:
-        errors.append(f"universe_count={len(universe)} != {EXPECTED_UNIVERSE_COUNT}")
-    if diagnostic_count != EXPECTED_UNIVERSE_COUNT:
+    universe_count = len(universe)
+    if universe_count < MIN_LIQUID_UNIVERSE_COUNT:
         errors.append(
-            f"diagnostic_count={diagnostic_count} != {EXPECTED_UNIVERSE_COUNT}"
+            f"universe_count={universe_count} < {MIN_LIQUID_UNIVERSE_COUNT}"
         )
-    if intraday_downloaded < MIN_INTRADAY_CURRENT_COUNT:
+    if diagnostic_count != universe_count:
         errors.append(
-            f"intraday_downloaded={intraday_downloaded} < {MIN_INTRADAY_CURRENT_COUNT}"
+            f"diagnostic_count={diagnostic_count} != universe_count={universe_count}"
         )
-    if current_day_intraday_count < MIN_INTRADAY_CURRENT_COUNT:
-        errors.append(
-            f"current_day_intraday={current_day_intraday_count} < {MIN_INTRADAY_CURRENT_COUNT}"
-        )
-    if fresh_intraday_count < MIN_FRESH_INTRADAY_COUNT:
-        errors.append(
-            f"fresh_intraday={fresh_intraday_count} < {MIN_FRESH_INTRADAY_COUNT}"
-        )
-    if daily_downloaded < MIN_DAILY_10Y_DOWNLOAD_COUNT:
-        errors.append(
-            f"daily_10y_downloaded={daily_downloaded} < {MIN_DAILY_10Y_DOWNLOAD_COUNT}"
-        )
-    if scored_count < MIN_SCORED_COUNT:
-        errors.append(f"scored={scored_count} < {MIN_SCORED_COUNT}")
+
+    min_intraday = math.ceil(universe_count * MIN_INTRADAY_DOWNLOAD_RATIO)
+    min_fresh = math.ceil(universe_count * MIN_FRESH_INTRADAY_RATIO)
+    min_daily = math.ceil(universe_count * MIN_DAILY_10Y_DOWNLOAD_RATIO)
+    min_scored = math.ceil(universe_count * MIN_SCORED_RATIO)
+
+    if intraday_downloaded < min_intraday:
+        errors.append(f"intraday_downloaded={intraday_downloaded} < {min_intraday}")
+    if current_day_intraday_count < min_intraday:
+        errors.append(f"current_day_intraday={current_day_intraday_count} < {min_intraday}")
+    if fresh_intraday_count < min_fresh:
+        errors.append(f"fresh_intraday={fresh_intraday_count} < {min_fresh}")
+    if daily_downloaded < min_daily:
+        errors.append(f"daily_10y_downloaded={daily_downloaded} < {min_daily}")
+    if scored_count < min_scored:
+        errors.append(f"scored={scored_count} < {min_scored}")
     if invalid_ohlc_count > 0:
         errors.append(f"invalid_ohlc={invalid_ohlc_count}")
     return errors
@@ -880,7 +1167,7 @@ def compact_diagnostic_symbol(x: dict, quarantined: bool) -> dict:
 
 
 def scan(session: str, universe_path: Path, results_dir: Path) -> None:
-    universe, universe_meta = build_top1000_universe(universe_path)
+    universe, universe_meta = build_liquidity_universe(universe_path)
     tickers = universe["ticker"].tolist()
     today = datetime.now(JST).date()
 
@@ -911,14 +1198,52 @@ def scan(session: str, universe_path: Path, results_dir: Path) -> None:
     ]
     unscored = [x for x in all_symbols if x.get("score") is None]
 
-    # ①〜③は9本完備銘柄だけ。勝手な抜粋はせず配列に全件格納。
-    candidates = [x for x in fully_scored if x["score"] >= 7]
-    # ④も9本完備かつ全9MAよりローソク足Lowが上の銘柄を全件。
-    all_ma_above_candidates = [
+    # MA条件だけの生候補。監査用に件数を保持し、最終出力には
+    # 価格3,500円以下 + 今期EPS予想改善の共通フィルタを適用する。
+    raw_candidates = [x for x in fully_scored if x["score"] >= 7]
+    raw_all_ma_above_candidates = [
         x for x in fully_scored if x.get("all_ma_above")
     ]
-    # 履歴不足は別枠。存在するMAをすべて判定した結果を全件格納。
     partial_ma_candidates = list(partial_scored)
+
+    # まず価格条件で絞り、業績取得件数を抑える。
+    screening_pool_map = {}
+    for x in raw_candidates + raw_all_ma_above_candidates:
+        if x.get("price") is not None and x["price"] <= MAX_CANDIDATE_PRICE:
+            screening_pool_map[x["ticker"]] = x
+    screening_pool = list(screening_pool_map.values())
+
+    fundamental_cache_path = results_dir / FUNDAMENTAL_CACHE_FILENAME
+    fundamental_map, fundamental_summary = fetch_fundamental_screening(
+        screening_pool,
+        fundamental_cache_path,
+        today,
+    )
+
+    for x in raw_candidates + raw_all_ma_above_candidates:
+        attach_screening_fields(
+            x,
+            fundamental_map.get(x["ticker"]),
+        )
+
+    def final_screen_pass(x: dict) -> bool:
+        if x.get("price") is None or x["price"] > MAX_CANDIDATE_PRICE:
+            return False
+        f = fundamental_map.get(x["ticker"])
+        return bool(
+            f
+            and f.get("status") == "ok"
+            and f.get("improving") is True
+        )
+
+    candidates = [
+        x for x in raw_candidates
+        if final_screen_pass(x)
+    ]
+    all_ma_above_candidates = [
+        x for x in raw_all_ma_above_candidates
+        if final_screen_pass(x)
+    ]
 
     candidates.sort(
         key=lambda x: (-x["score"], x["universe_rank"], x["code"])
@@ -965,7 +1290,7 @@ def scan(session: str, universe_path: Path, results_dir: Path) -> None:
                 "expected_minimum_time": x["expected_minimum_time"],
             })
 
-    current_day_intraday_count = EXPECTED_UNIVERSE_COUNT - len(intraday_missing_codes)
+    current_day_intraday_count = len(universe) - len(intraday_missing_codes)
     fresh_intraday_count = current_day_intraday_count - len(stale_last_bar)
 
     # 1日足は判定には使わず、5分足終値との照合だけに使う。
@@ -1206,7 +1531,7 @@ def scan(session: str, universe_path: Path, results_dir: Path) -> None:
     }
 
     document = {
-        "schema_version": 7,
+        "schema_version": 9,
         "generated_at_jst": datetime.now(JST).isoformat(timespec="seconds"),
         "target_date": today.isoformat(),
         "session": session,
@@ -1224,14 +1549,45 @@ def scan(session: str, universe_path: Path, results_dir: Path) -> None:
             "当日1日足はclose時の照合専用。"
         ),
         "universe_definition": (
-            "東証プライム・スタンダード・グロースの"
-            "内国普通株から、前営業日出来高上位1000銘柄"
+            "東証プライム・スタンダード・グロースの内国普通株から、"
+            "過去20営業日の売買代金中央値1億円以上、"
+            "前営業日の売買代金5000万円以上、"
+            "かつ20営業日中15営業日以上の有効データがある銘柄"
         ),
         "universe_as_of": str(universe["as_of"].iloc[0]),
         "universe_count": len(universe),
         "universe_build": universe_meta,
         "ma_order": MA_KEYS,
         "ma_labels": MA_LABELS,
+        "liquidity_definition": {
+            "lookback_days": LIQUIDITY_LOOKBACK_DAYS,
+            "minimum_observations": MIN_LIQUIDITY_OBSERVATIONS,
+            "minimum_median_20d_trading_value": int(
+                MIN_MEDIAN_20D_TRADING_VALUE
+            ),
+            "minimum_previous_day_trading_value": int(
+                MIN_PREVIOUS_DAY_TRADING_VALUE
+            ),
+            "ranking": "median_20d_trading_value_desc",
+            "fixed_universe_count": None,
+        },
+        "screening_definition": {
+            "price_max": MAX_CANDIDATE_PRICE,
+            "price_inclusive": True,
+            "earnings_improvement": (
+                "Yahoo Finance analyst consensus current-year (0y) EPS average "
+                "> yearAgoEps"
+            ),
+            "earnings_unavailable_policy": "exclude",
+        },
+        "screening_summary": {
+            "raw_9_of_9": sum(x["score"] == 9 for x in raw_candidates),
+            "raw_8_of_9": sum(x["score"] == 8 for x in raw_candidates),
+            "raw_7_of_9": sum(x["score"] == 7 for x in raw_candidates),
+            "raw_all_ma_above": len(raw_all_ma_above_candidates),
+            "price_eligible_unique_symbols": len(screening_pool),
+            "fundamental": fundamental_summary,
+        },
         "counts": counts,
         "coverage": {
             "current_day_intraday": current_day_intraday_count,
@@ -1281,6 +1637,32 @@ def scan(session: str, universe_path: Path, results_dir: Path) -> None:
             ],
             "noon_comparison": noon_comparison,
             "dropped_from_noon": dropped_from_noon,
+            "screening_excluded": [
+                {
+                    "code": x["code"],
+                    "name": x["name"],
+                    "price": x.get("price"),
+                    "score": x.get("score"),
+                    "price_pass": (
+                        x.get("price") is not None
+                        and x["price"] <= MAX_CANDIDATE_PRICE
+                    ),
+                    "earnings_status": (
+                        fundamental_map.get(x["ticker"], {}).get("status")
+                        if x.get("price") is not None
+                        and x["price"] <= MAX_CANDIDATE_PRICE
+                        else "not_checked"
+                    ),
+                    "earnings_improving": (
+                        fundamental_map.get(x["ticker"], {}).get("improving")
+                        if x.get("price") is not None
+                        and x["price"] <= MAX_CANDIDATE_PRICE
+                        else None
+                    ),
+                }
+                for x in raw_candidates
+                if not final_screen_pass(x)
+            ],
             "symbols": diagnostic_symbols,
         },
         # ①〜③。9/9,8/9,7/9の全件を保持。
@@ -1364,6 +1746,7 @@ def main() -> None:
     universe_parser.add_argument(
         "--output",
         default="data/universe_top1000.csv",
+        help="Legacy filename; contents are the dynamic liquidity universe.",
     )
 
     scan_parser = subparsers.add_parser("scan")
@@ -1375,6 +1758,7 @@ def main() -> None:
     scan_parser.add_argument(
         "--universe",
         default="data/universe_top1000.csv",
+        help="Legacy filename; contents are the dynamic liquidity universe.",
     )
     scan_parser.add_argument(
         "--results-dir",
@@ -1383,7 +1767,7 @@ def main() -> None:
 
     args = parser.parse_args()
     if args.command == "update-universe":
-        universe, meta = build_top1000_universe(Path(args.output))
+        universe, meta = build_liquidity_universe(Path(args.output))
         log(
             "Universe update completed: "
             f"{len(universe)} rows, as_of={meta['latest_as_of']}"
