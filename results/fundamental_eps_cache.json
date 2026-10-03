@@ -1,6 +1,6 @@
 {
   "schema_version": 4,
-  "generated_at_jst": "2026-10-03T18:41:36+09:00",
+  "generated_at_jst": "2026-10-03T19:06:15+09:00",
   "target_date": "2026-10-02",
   "definition": "TDnet XBRL: current-year company forecast EPS > latest prior full-year actual EPS",
   "entries": {
@@ -5547,6 +5547,19 @@
       "prior_period_end": "2026-05-31",
       "forecast_filing_date": "2026-07-13",
       "prior_filing_date": "2026-07-13",
+      "source": "TDnet XBRL"
+    },
+    "4027.T": {
+      "status": "ok",
+      "improving": true,
+      "reason": null,
+      "current_year_eps_estimate": 61.32,
+      "prior_year_eps": -38.47,
+      "earnings_growth": 2.593969,
+      "forecast_period_end": "2026-09-30",
+      "prior_period_end": "2026-03-31",
+      "forecast_filing_date": "2026-08-07",
+      "prior_filing_date": "2026-05-13",
       "source": "TDnet XBRL"
     }
   }
