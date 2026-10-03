@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "generated_at_jst": "2026-10-03T09:20:46+09:00",
+  "generated_at_jst": "2026-10-03T09:46:19+09:00",
   "target_date": "2026-10-03",
   "definition": "Yahoo Finance batch quote proxy: epsCurrentYear > epsTrailingTwelveMonths",
   "entries": {}
