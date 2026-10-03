@@ -43,7 +43,11 @@ MIN_SCORED_RATIO = 0.80
 
 # ---------- output screening ----------
 MAX_CANDIDATE_PRICE = 3500.0
-FUNDAMENTAL_BATCH_SIZE = 50
+FUNDAMENTAL_REQUEST_INTERVAL_SECONDS = 0.25
+YAHOO_BROWSER_USER_AGENT = (
+    "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 "
+    "(KHTML, like Gecko) Chrome/140.0 Safari/537.36"
+)
 FUNDAMENTAL_CACHE_FILENAME = "fundamental_eps_cache.json"
 MIN_FUNDAMENTAL_AVAILABLE_RATIO = 0.50
 
@@ -895,54 +899,79 @@ def safe_float(value):
         return None
 
 
-def fetch_yahoo_quote_eps_batch(tickers: list[str]) -> dict[str, dict]:
+def yahoo_fundamental_session() -> tuple[requests.Session, str]:
     """
-    Yahoo Finance quote APIをバッチ取得する。
+    quoteSummary API用のCookieとcrumbを取得する。
 
-    個別Ticker.get_earnings_estimate()を数百回呼ぶ方式は、
-    GitHub Actions上でrate limitを受けやすいため使用しない。
-
-    今期業績向上の運用定義:
-      epsCurrentYear > epsTrailingTwelveMonths
-
-    epsCurrentYear      : Yahoo Financeの今期EPS予想
-    epsTrailingTwelveMonths : 直近12か月EPS（前期実績の近似値）
-
-    「前期実績そのもの」ではなくTTMを比較対象にするため、
-    screening.definitionにもproxyであることを明示する。
+    /v7/finance/quote は2026-10時点でHTTP 401を返すため使わない。
     """
+    last_error = None
+    for attempt in range(3):
+        session = requests.Session()
+        session.headers.update({"User-Agent": YAHOO_BROWSER_USER_AGENT})
+        try:
+            # fc.yahoo.com は404でもA3 Cookieを設定する。
+            session.get("https://fc.yahoo.com", timeout=30)
+            response = session.get(
+                "https://query1.finance.yahoo.com/v1/test/getcrumb",
+                timeout=30,
+            )
+            response.raise_for_status()
+            crumb = response.text.strip()
+            if not crumb or crumb.startswith("{"):
+                raise RuntimeError("Yahoo crumb is empty or invalid")
+            return session, crumb
+        except Exception as exc:
+            last_error = exc
+            if attempt < 2:
+                time.sleep(10.0 * (attempt + 1))
+    raise RuntimeError(
+        f"Yahoo authentication failed: {type(last_error).__name__}: {last_error}"
+    )
+
+
+def fetch_yahoo_earnings_trend(tickers: list[str]) -> dict[str, dict]:
+    """Yahooの認証付きquoteSummaryから今期EPS予想と前年EPSを取得。"""
     if not tickers:
         return {}
 
     try:
-        from yfinance.data import YfData
+        session, crumb = yahoo_fundamental_session()
     except Exception as exc:
         return {
             ticker: {
                 "status": "error",
                 "improving": None,
-                "reason": f"YfDataImportError: {exc}",
+                "reason": f"YahooAuthError: {type(exc).__name__}: {exc}",
             }
             for ticker in tickers
         }
 
-    data = YfData()
-    url = "https://query1.finance.yahoo.com/v7/finance/quote"
     result: dict[str, dict] = {}
-
-    for batch in chunked(tickers, FUNDAMENTAL_BATCH_SIZE):
+    for position, ticker in enumerate(tickers, start=1):
+        url = (
+            "https://query2.finance.yahoo.com/v10/finance/quoteSummary/"
+            f"{ticker}"
+        )
         last_error = None
         payload = None
         for attempt in range(3):
             try:
-                payload = data.get_raw_json(
+                response = session.get(
                     url,
                     params={
-                        "symbols": ",".join(batch),
-                        "formatted": "false",
+                        "modules": "earningsTrend",
+                        "crumb": crumb,
                     },
                     timeout=30,
                 )
+                if response.status_code in {401, 429}:
+                    body = response.text[:200].replace("\n", " ")
+                    raise RuntimeError(
+                        f"HTTP {response.status_code}: {body}"
+                    )
+                response.raise_for_status()
+                payload = response.json()
                 last_error = None
                 break
             except Exception as exc:
@@ -950,68 +979,71 @@ def fetch_yahoo_quote_eps_batch(tickers: list[str]) -> dict[str, dict]:
                 time.sleep(2.0 * (attempt + 1))
 
         if payload is None:
-            reason = f"{type(last_error).__name__}: {last_error}"
-            for ticker in batch:
-                result[ticker] = {
-                    "status": "error",
-                    "improving": None,
-                    "reason": reason,
-                }
+            result[ticker] = {
+                "status": "error",
+                "improving": None,
+                "reason": f"{type(last_error).__name__}: {last_error}",
+            }
+            if position % 50 == 0 or position == len(tickers):
+                available = sum(
+                    x.get("status") == "ok" for x in result.values()
+                )
+                log(
+                    f"fundamentals: {position}/{len(tickers)}, "
+                    f"available={available}"
+                )
             continue
 
-        quotes = (
-            payload.get("quoteResponse", {}).get("result", [])
-            if isinstance(payload, dict)
-            else []
+        summary_result = payload.get("quoteSummary", {}).get("result") or []
+        trend = (
+            summary_result[0].get("earningsTrend", {}).get("trend", [])
+            if summary_result else []
         )
-        quote_map = {
-            str(q.get("symbol")): q
-            for q in quotes
-            if isinstance(q, dict) and q.get("symbol")
-        }
+        current_year = next(
+            (row for row in trend if row.get("period") == "0y"),
+            None,
+        )
+        estimate = (current_year or {}).get("earningsEstimate", {})
+        current_eps = safe_float((estimate.get("avg") or {}).get("raw"))
+        prior_eps = safe_float((estimate.get("yearAgoEps") or {}).get("raw"))
+        analysts = safe_float(
+            (estimate.get("numberOfAnalysts") or {}).get("raw")
+        )
 
-        for ticker in batch:
-            q = quote_map.get(ticker)
-            if not q:
-                result[ticker] = {
-                    "status": "unavailable",
-                    "improving": None,
-                    "reason": "quote_missing",
-                }
-                continue
-
-            current_eps = safe_float(q.get("epsCurrentYear"))
-            trailing_eps = safe_float(q.get("epsTrailingTwelveMonths"))
-            forward_eps = safe_float(q.get("epsForward"))
-
-            if current_eps is None or trailing_eps is None:
-                result[ticker] = {
-                    "status": "unavailable",
-                    "improving": None,
-                    "reason": "current_year_or_ttm_eps_missing",
-                    "current_year_eps_estimate": current_eps,
-                    "prior_eps_proxy": trailing_eps,
-                    "forward_eps": forward_eps,
-                }
-                continue
-
+        if current_eps is None or prior_eps is None:
             result[ticker] = {
-                "status": "ok",
-                "improving": current_eps > trailing_eps,
-                "reason": None,
-                "current_year_eps_estimate": round(current_eps, 6),
-                "prior_eps_proxy": round(trailing_eps, 6),
-                "forward_eps": (
-                    round(forward_eps, 6)
-                    if forward_eps is not None
-                    else None
-                ),
-                "growth_proxy": (
-                    round((current_eps - trailing_eps) / abs(trailing_eps), 6)
-                    if trailing_eps != 0
-                    else None
+                "status": "unavailable",
+                "improving": None,
+                "reason": "current_year_estimate_or_year_ago_eps_missing",
+                "current_year_eps_estimate": current_eps,
+                "prior_year_eps": prior_eps,
+                "number_of_analysts": (
+                    int(analysts) if analysts is not None else None
                 ),
             }
+        else:
+            result[ticker] = {
+                "status": "ok",
+                "improving": current_eps > prior_eps,
+                "reason": None,
+                "current_year_eps_estimate": round(current_eps, 6),
+                "prior_year_eps": round(prior_eps, 6),
+                "number_of_analysts": (
+                    int(analysts) if analysts is not None else None
+                ),
+                "earnings_growth": (
+                    round((current_eps - prior_eps) / abs(prior_eps), 6)
+                    if prior_eps != 0 else None
+                ),
+            }
+
+        if position % 50 == 0 or position == len(tickers):
+            available = sum(x.get("status") == "ok" for x in result.values())
+            log(
+                f"fundamentals: {position}/{len(tickers)}, "
+                f"available={available}"
+            )
+        time.sleep(FUNDAMENTAL_REQUEST_INTERVAL_SECONDS)
 
     return result
 
@@ -1021,7 +1053,7 @@ def load_fundamental_cache(path: Path, target_date: date) -> dict[str, dict]:
         return {}
     try:
         doc = json.loads(path.read_text(encoding="utf-8"))
-        if doc.get("schema_version") != 2:
+        if doc.get("schema_version") != 3:
             return {}
         if doc.get("target_date") != target_date.isoformat():
             return {}
@@ -1037,7 +1069,7 @@ def fetch_fundamental_screening(
     target_date: date,
 ) -> tuple[dict[str, dict], dict]:
     """
-    価格条件を満たしたMA候補のみをYahoo quote APIでバッチ取得する。
+    価格条件を満たしたMA候補のみをYahoo earningsTrendから取得する。
     同一日のnoon/close間では成功データと欠損データをキャッシュする。
     transient errorは次回再試行できるようキャッシュしない。
     """
@@ -1053,7 +1085,7 @@ def fetch_fundamental_screening(
         else:
             missing_tickers.append(ticker)
 
-    fetched = fetch_yahoo_quote_eps_batch(missing_tickers)
+    fetched = fetch_yahoo_earnings_trend(missing_tickers)
     result.update(fetched)
 
     # errorは保存せず、次回実行時に再取得する。
@@ -1063,12 +1095,12 @@ def fetch_fundamental_screening(
         if value.get("status") in {"ok", "unavailable"}
     }
     cache_doc = {
-        "schema_version": 2,
+        "schema_version": 3,
         "generated_at_jst": datetime.now(JST).isoformat(timespec="seconds"),
         "target_date": target_date.isoformat(),
         "definition": (
-            "Yahoo Finance batch quote proxy: epsCurrentYear > "
-            "epsTrailingTwelveMonths"
+            "Yahoo Finance earningsTrend: current-year (0y) EPS average "
+            "> yearAgoEps"
         ),
         "entries": cache_entries,
     }
@@ -1102,6 +1134,11 @@ def fetch_fundamental_screening(
             x.get("status") == "error"
             for x in result.values()
         ),
+        "error_reasons": dict(sorted(Counter(
+            x.get("reason") or "unknown"
+            for x in result.values()
+            if x.get("status") == "error"
+        ).items())),
         "unavailable_or_error": sum(
             x.get("status") != "ok"
             for x in result.values()
@@ -1118,7 +1155,8 @@ def attach_screening_fields(item: dict, fundamental: dict | None) -> dict:
             and item["price"] <= MAX_CANDIDATE_PRICE
         ),
         "earnings_rule": (
-            "epsCurrentYear > epsTrailingTwelveMonths (Yahoo quote proxy)"
+            "current-year (0y) EPS average > yearAgoEps "
+            "(Yahoo earningsTrend)"
         ),
         "earnings_status": (
             fundamental.get("status") if fundamental else "not_checked"
@@ -1130,16 +1168,16 @@ def attach_screening_fields(item: dict, fundamental: dict | None) -> dict:
             fundamental.get("current_year_eps_estimate")
             if fundamental else None
         ),
-        "prior_eps_proxy": (
-            fundamental.get("prior_eps_proxy")
+        "prior_year_eps": (
+            fundamental.get("prior_year_eps")
             if fundamental else None
         ),
-        "forward_eps": (
-            fundamental.get("forward_eps")
+        "number_of_analysts": (
+            fundamental.get("number_of_analysts")
             if fundamental else None
         ),
-        "earnings_growth_proxy": (
-            fundamental.get("growth_proxy")
+        "earnings_growth": (
+            fundamental.get("earnings_growth")
             if fundamental else None
         ),
         "reason": (
