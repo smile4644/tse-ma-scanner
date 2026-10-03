@@ -35,6 +35,13 @@ class NearCandidateTests(unittest.TestCase):
     def test_near_9_excludes_existing_9_of_9(self):
         self.assertIsNone(scanner.near_9_of_9_candidate(item(9)))
 
+    def test_near_9_uses_day_week_month_candle_keys(self):
+        candidate = scanner.near_9_of_9_candidate(item(6))
+        self.assertIsNotNone(candidate)
+        malformed = item(6)
+        malformed["candle"] = {"D": malformed["candle"]["day"]}
+        self.assertIsNone(scanner.near_9_of_9_candidate(malformed))
+
     def test_near_all_allows_low_score_and_excludes_formal_all_above(self):
         self.assertIsNotNone(scanner.near_all_ma_above_candidate(item(4, ma_offset=0.5)))
         self.assertIsNone(scanner.near_all_ma_above_candidate(item(5, all_ma_above=True)))

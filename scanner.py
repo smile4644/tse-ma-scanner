@@ -904,15 +904,19 @@ def near_9_of_9_candidate(item: dict) -> dict | None:
     if price is None or price <= 0:
         return None
     candle = item.get("candle") or {}
+    timeframe_to_candle = {"D": "day", "W": "week", "M": "month"}
 
     def passes(rise_pct: float) -> bool:
         delta = price * rise_pct / 100.0
         for key, _label, length, timeframe in SPECS:
             state = item["states"][key]
-            tf_candle = candle.get(timeframe) or {}
+            candle_key = timeframe_to_candle[timeframe]
+            tf_candle = candle.get(candle_key)
+            if not tf_candle or "low" not in tf_candle or "high" not in tf_candle:
+                return False
             simulated_ma = state["ma"] + delta / length
-            simulated_high = max(float(tf_candle.get("high", 0)), price + delta)
-            simulated_low = float(tf_candle.get("low", 0))
+            simulated_high = max(float(tf_candle["high"]), price + delta)
+            simulated_low = float(tf_candle["low"])
             if classify_state(
                 simulated_ma,
                 state["ma_prev"],
