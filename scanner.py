@@ -1332,6 +1332,23 @@ def compact_diagnostic_symbol(x: dict, quarantined: bool) -> dict:
     }
 
 
+def validate_target_date(effective_date: date, run_date: date) -> None:
+    """Reject future dates; historical noon and close are both reproducible."""
+    if effective_date > run_date:
+        fail(f"target_date must not be in the future: {effective_date}")
+
+
+def intraday_period_for(
+    session: str,
+    effective_date: date,
+    run_date: date,
+) -> str:
+    """Use enough lookback to retrieve a recent historical noon session."""
+    if session == "noon" and effective_date < run_date:
+        return "5d"
+    return "1d"
+
+
 def scan(
     session: str,
     universe_path: Path,
@@ -1340,11 +1357,10 @@ def scan(
 ) -> None:
     run_date = datetime.now(JST).date()
     effective_date = target_date or run_date
-    if effective_date > run_date:
-        fail(f"target_date must not be in the future: {effective_date}")
+    validate_target_date(effective_date, run_date)
+
+    historical_noon = effective_date < run_date and session == "noon"
     historical_close = effective_date < run_date and session == "close"
-    if effective_date < run_date and session != "close":
-        fail("Past target_date is supported only for the close session.")
 
     universe, universe_meta = build_liquidity_universe(
         universe_path,
@@ -1352,10 +1368,11 @@ def scan(
     )
     tickers = universe["ticker"].tolist()
 
+    intraday_period = intraday_period_for(session, effective_date, run_date)
     intraday = (
         {}
         if historical_close
-        else download_many(tickers, period="1d", interval="5m")
+        else download_many(tickers, period=intraday_period, interval="5m")
     )
     daily = download_many(tickers, period="10y", interval="1d")
 
@@ -1748,7 +1765,11 @@ def scan(
             + (
                 "過去日closeの判定用当日OHLCは確定日足を使用。"
                 if historical_close
-                else "判定用当日OHLCはnoon/closeとも5分足から生成。"
+                else (
+                    "過去日noonは対象日の5分足を11:30まで使用。"
+                    if historical_noon
+                    else "判定用当日OHLCはnoon/closeとも5分足から生成。"
+                )
             )
             + "日・週・月MAは同一の調整済み日足から生成。"
             + ("" if historical_close else "当日1日足はclose時の照合専用。")
@@ -1796,7 +1817,11 @@ def scan(
         "counts": counts,
         "coverage": {
             "price_source_mode": (
-                "confirmed_daily" if historical_close else "intraday_5m"
+                "confirmed_daily"
+                if historical_close
+                else "historical_intraday_5m"
+                if historical_noon
+                else "intraday_5m"
             ),
             "current_day_intraday": current_day_intraday_count,
             "fresh_intraday": fresh_intraday_count,
