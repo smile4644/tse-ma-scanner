@@ -43,13 +43,10 @@ MIN_SCORED_RATIO = 0.80
 
 # ---------- output screening ----------
 MAX_CANDIDATE_PRICE = 3500.0
-FUNDAMENTAL_REQUEST_INTERVAL_SECONDS = 0.25
-YAHOO_BROWSER_USER_AGENT = (
-    "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 "
-    "(KHTML, like Gecko) Chrome/140.0 Safari/537.36"
-)
 FUNDAMENTAL_CACHE_FILENAME = "fundamental_eps_cache.json"
 MIN_FUNDAMENTAL_AVAILABLE_RATIO = 0.50
+TDNET_DOCUMENT_LIMIT = 12
+TDNET_CACHE_DIR = ".cache/tdnet"
 
 SPECS = [
     ("d5", "日5", 5, "D"),
@@ -899,142 +896,172 @@ def safe_float(value):
         return None
 
 
-def yahoo_fundamental_session() -> tuple[requests.Session, str]:
-    """
-    quoteSummary API用のCookieとcrumbを取得する。
+def duration_days(extracted_value) -> int | None:
+    if extracted_value is None or extracted_value.item is None:
+        return None
+    period = extracted_value.item.period
+    start_date = getattr(period, "start_date", None)
+    end_date = getattr(period, "end_date", None)
+    if start_date is None or end_date is None:
+        return None
+    return (end_date - start_date).days + 1
 
-    /v7/finance/quote は2026-10時点でHTTP 401を返すため使わない。
-    """
-    last_error = None
-    for attempt in range(3):
-        session = requests.Session()
-        session.headers.update({"User-Agent": YAHOO_BROWSER_USER_AGENT})
-        try:
-            # fc.yahoo.com は404でもA3 Cookieを設定する。
-            session.get("https://fc.yahoo.com", timeout=30)
-            response = session.get(
-                "https://query1.finance.yahoo.com/v1/test/getcrumb",
-                timeout=30,
-            )
-            response.raise_for_status()
-            crumb = response.text.strip()
-            if not crumb or crumb.startswith("{"):
-                raise RuntimeError("Yahoo crumb is empty or invalid")
-            return session, crumb
-        except Exception as exc:
-            last_error = exc
-            if attempt < 2:
-                time.sleep(10.0 * (attempt + 1))
-    raise RuntimeError(
-        f"Yahoo authentication failed: {type(last_error).__name__}: {last_error}"
+
+def extracted_number(extracted_value) -> float | None:
+    return safe_float(
+        extracted_value.value if extracted_value is not None else None
     )
 
 
-def fetch_yahoo_earnings_trend(tickers: list[str]) -> dict[str, dict]:
-    """Yahooの認証付きquoteSummaryから今期EPS予想と前年EPSを取得。"""
+def filing_date(filing) -> date:
+    return pd.to_datetime(filing.pubdate).date()
+
+
+def fetch_tdnet_earnings(
+    tickers: list[str],
+    target_date: date,
+) -> dict[str, dict]:
+    """
+    TDnet XBRLから今期会社予想EPSと直近通期実績EPSを取得する。
+
+    四半期短信のcurrent EPSは累計四半期値なので比較に使わず、
+    期間300日以上の最新実績だけを前期通期EPSとして採用する。
+    """
     if not tickers:
         return {}
 
     try:
-        session, crumb = yahoo_fundamental_session()
+        import tdnet
+        from tdnet import CK, extract_values
+
+        tdnet.configure(
+            cache_dir=TDNET_CACHE_DIR,
+            timeout=60.0,
+            max_retries=4,
+            rate_limit=0.5,
+        )
     except Exception as exc:
         return {
             ticker: {
                 "status": "error",
                 "improving": None,
-                "reason": f"YahooAuthError: {type(exc).__name__}: {exc}",
+                "reason": f"TDnetImportError: {type(exc).__name__}: {exc}",
             }
             for ticker in tickers
         }
 
     result: dict[str, dict] = {}
     for position, ticker in enumerate(tickers, start=1):
-        url = (
-            "https://query2.finance.yahoo.com/v10/finance/quoteSummary/"
-            f"{ticker}"
-        )
-        last_error = None
-        payload = None
-        for attempt in range(3):
-            try:
-                response = session.get(
-                    url,
-                    params={
-                        "modules": "earningsTrend",
-                        "crumb": crumb,
-                    },
-                    timeout=30,
-                )
-                if response.status_code in {401, 429}:
-                    body = response.text[:200].replace("\n", " ")
-                    raise RuntimeError(
-                        f"HTTP {response.status_code}: {body}"
-                    )
-                response.raise_for_status()
-                payload = response.json()
-                last_error = None
-                break
-            except Exception as exc:
-                last_error = exc
-                time.sleep(2.0 * (attempt + 1))
+        code = ticker.removesuffix(".T")
+        try:
+            filings = tdnet.documents(
+                code=code,
+                has_xbrl=True,
+                limit=TDNET_DOCUMENT_LIMIT,
+            )
+            filings = [
+                filing for filing in filings
+                if filing_date(filing) <= target_date
+            ]
+            filings.sort(key=filing_date, reverse=True)
 
-        if payload is None:
+            forecast_eps = None
+            forecast_end = None
+            forecast_filing = None
+            annual_actuals = []
+
+            for filing in filings:
+                statements = filing.xbrl()
+                if forecast_eps is None:
+                    forecast_value = extract_values(
+                        statements,
+                        [CK.FORECAST_EPS],
+                    ).get(CK.FORECAST_EPS)
+                    value = extracted_number(forecast_value)
+                    period = (
+                        forecast_value.item.period
+                        if forecast_value is not None else None
+                    )
+                    period_end = getattr(period, "end_date", None)
+                    if value is not None and period_end is not None:
+                        forecast_eps = value
+                        forecast_end = period_end
+                        forecast_filing = filing
+
+                actual_value = extract_values(
+                    statements,
+                    [CK.EPS],
+                    period="current",
+                    consolidated=True,
+                ).get(CK.EPS)
+                if actual_value is None:
+                    actual_value = extract_values(
+                        statements,
+                        [CK.EPS],
+                        period="current",
+                        consolidated=False,
+                    ).get(CK.EPS)
+                actual_eps = extracted_number(actual_value)
+                actual_period = (
+                    actual_value.item.period
+                    if actual_value is not None else None
+                )
+                actual_end = getattr(actual_period, "end_date", None)
+                if (
+                    actual_eps is not None
+                    and actual_end is not None
+                    and (duration_days(actual_value) or 0) >= 300
+                ):
+                    annual_actuals.append((actual_end, actual_eps, filing))
+                    if forecast_end is not None and actual_end < forecast_end:
+                        break
+
+            eligible_actuals = [
+                item for item in annual_actuals
+                if forecast_end is None or item[0] < forecast_end
+            ]
+            eligible_actuals.sort(key=lambda item: item[0], reverse=True)
+            prior_actual = eligible_actuals[0] if eligible_actuals else None
+
+            if forecast_eps is None or prior_actual is None:
+                result[ticker] = {
+                    "status": "unavailable",
+                    "improving": None,
+                    "reason": (
+                        "forecast_eps_missing"
+                        if forecast_eps is None
+                        else "prior_full_year_eps_missing"
+                    ),
+                    "current_year_eps_estimate": forecast_eps,
+                    "prior_year_eps": (
+                        prior_actual[1] if prior_actual is not None else None
+                    ),
+                }
+            else:
+                prior_end, prior_eps, prior_filing = prior_actual
+                result[ticker] = {
+                    "status": "ok",
+                    "improving": forecast_eps > prior_eps,
+                    "reason": None,
+                    "current_year_eps_estimate": round(forecast_eps, 6),
+                    "prior_year_eps": round(prior_eps, 6),
+                    "earnings_growth": (
+                        round((forecast_eps - prior_eps) / abs(prior_eps), 6)
+                        if prior_eps != 0 else None
+                    ),
+                    "forecast_period_end": forecast_end.isoformat(),
+                    "prior_period_end": prior_end.isoformat(),
+                    "forecast_filing_date": (
+                        filing_date(forecast_filing).isoformat()
+                    ),
+                    "prior_filing_date": filing_date(prior_filing).isoformat(),
+                    "source": "TDnet XBRL",
+                }
+        except Exception as exc:
             result[ticker] = {
                 "status": "error",
                 "improving": None,
-                "reason": f"{type(last_error).__name__}: {last_error}",
-            }
-            if position % 50 == 0 or position == len(tickers):
-                available = sum(
-                    x.get("status") == "ok" for x in result.values()
-                )
-                log(
-                    f"fundamentals: {position}/{len(tickers)}, "
-                    f"available={available}"
-                )
-            continue
-
-        summary_result = payload.get("quoteSummary", {}).get("result") or []
-        trend = (
-            summary_result[0].get("earningsTrend", {}).get("trend", [])
-            if summary_result else []
-        )
-        current_year = next(
-            (row for row in trend if row.get("period") == "0y"),
-            None,
-        )
-        estimate = (current_year or {}).get("earningsEstimate", {})
-        current_eps = safe_float((estimate.get("avg") or {}).get("raw"))
-        prior_eps = safe_float((estimate.get("yearAgoEps") or {}).get("raw"))
-        analysts = safe_float(
-            (estimate.get("numberOfAnalysts") or {}).get("raw")
-        )
-
-        if current_eps is None or prior_eps is None:
-            result[ticker] = {
-                "status": "unavailable",
-                "improving": None,
-                "reason": "current_year_estimate_or_year_ago_eps_missing",
-                "current_year_eps_estimate": current_eps,
-                "prior_year_eps": prior_eps,
-                "number_of_analysts": (
-                    int(analysts) if analysts is not None else None
-                ),
-            }
-        else:
-            result[ticker] = {
-                "status": "ok",
-                "improving": current_eps > prior_eps,
-                "reason": None,
-                "current_year_eps_estimate": round(current_eps, 6),
-                "prior_year_eps": round(prior_eps, 6),
-                "number_of_analysts": (
-                    int(analysts) if analysts is not None else None
-                ),
-                "earnings_growth": (
-                    round((current_eps - prior_eps) / abs(prior_eps), 6)
-                    if prior_eps != 0 else None
-                ),
+                "reason": f"{type(exc).__name__}: {exc}",
             }
 
         if position % 50 == 0 or position == len(tickers):
@@ -1043,8 +1070,6 @@ def fetch_yahoo_earnings_trend(tickers: list[str]) -> dict[str, dict]:
                 f"fundamentals: {position}/{len(tickers)}, "
                 f"available={available}"
             )
-        time.sleep(FUNDAMENTAL_REQUEST_INTERVAL_SECONDS)
-
     return result
 
 
@@ -1053,7 +1078,7 @@ def load_fundamental_cache(path: Path, target_date: date) -> dict[str, dict]:
         return {}
     try:
         doc = json.loads(path.read_text(encoding="utf-8"))
-        if doc.get("schema_version") != 3:
+        if doc.get("schema_version") != 4:
             return {}
         if doc.get("target_date") != target_date.isoformat():
             return {}
@@ -1069,7 +1094,7 @@ def fetch_fundamental_screening(
     target_date: date,
 ) -> tuple[dict[str, dict], dict]:
     """
-    価格条件を満たしたMA候補のみをYahoo earningsTrendから取得する。
+    価格条件を満たしたMA候補のみをTDnet XBRLから取得する。
     同一日のnoon/close間では成功データと欠損データをキャッシュする。
     transient errorは次回再試行できるようキャッシュしない。
     """
@@ -1085,7 +1110,7 @@ def fetch_fundamental_screening(
         else:
             missing_tickers.append(ticker)
 
-    fetched = fetch_yahoo_earnings_trend(missing_tickers)
+    fetched = fetch_tdnet_earnings(missing_tickers, target_date)
     result.update(fetched)
 
     # errorは保存せず、次回実行時に再取得する。
@@ -1095,12 +1120,12 @@ def fetch_fundamental_screening(
         if value.get("status") in {"ok", "unavailable"}
     }
     cache_doc = {
-        "schema_version": 3,
+        "schema_version": 4,
         "generated_at_jst": datetime.now(JST).isoformat(timespec="seconds"),
         "target_date": target_date.isoformat(),
         "definition": (
-            "Yahoo Finance earningsTrend: current-year (0y) EPS average "
-            "> yearAgoEps"
+            "TDnet XBRL: current-year company forecast EPS "
+            "> latest prior full-year actual EPS"
         ),
         "entries": cache_entries,
     }
@@ -1155,8 +1180,8 @@ def attach_screening_fields(item: dict, fundamental: dict | None) -> dict:
             and item["price"] <= MAX_CANDIDATE_PRICE
         ),
         "earnings_rule": (
-            "current-year (0y) EPS average > yearAgoEps "
-            "(Yahoo earningsTrend)"
+            "current-year company forecast EPS > latest prior full-year "
+            "actual EPS (TDnet XBRL)"
         ),
         "earnings_status": (
             fundamental.get("status") if fundamental else "not_checked"
@@ -1172,9 +1197,12 @@ def attach_screening_fields(item: dict, fundamental: dict | None) -> dict:
             fundamental.get("prior_year_eps")
             if fundamental else None
         ),
-        "number_of_analysts": (
-            fundamental.get("number_of_analysts")
+        "forecast_period_end": (
+            fundamental.get("forecast_period_end")
             if fundamental else None
+        ),
+        "prior_period_end": (
+            fundamental.get("prior_period_end") if fundamental else None
         ),
         "earnings_growth": (
             fundamental.get("earnings_growth")
@@ -1752,8 +1780,8 @@ def scan(
             "price_max": MAX_CANDIDATE_PRICE,
             "price_inclusive": True,
             "earnings_improvement": (
-                "Yahoo Finance analyst consensus current-year (0y) EPS average "
-                "> yearAgoEps"
+                "TDnet XBRL current-year company forecast EPS > latest "
+                "prior full-year actual EPS"
             ),
             "earnings_unavailable_policy": "exclude",
         },
