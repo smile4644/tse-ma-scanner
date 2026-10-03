@@ -261,7 +261,10 @@ def local_dates(frame: pd.DataFrame) -> pd.Series:
     return pd.Series(idx.date, index=frame.index)
 
 
-def build_liquidity_universe(output_path: Path) -> tuple[pd.DataFrame, dict]:
+def build_liquidity_universe(
+    output_path: Path,
+    target_date: date | None = None,
+) -> tuple[pd.DataFrame, dict]:
     """
     東証内国普通株から継続的に売買代金が確保されている銘柄を抽出する。
 
@@ -282,7 +285,7 @@ def build_liquidity_universe(output_path: Path) -> tuple[pd.DataFrame, dict]:
         interval="1d",
         auto_adjust=False,
     )
-    today = datetime.now(JST).date()
+    cutoff_date = target_date or datetime.now(JST).date()
 
     minimum_master_downloads = math.ceil(
         len(master_tickers) * MIN_MASTER_DAILY_DOWNLOAD_RATIO
@@ -303,7 +306,7 @@ def build_liquidity_universe(output_path: Path) -> tuple[pd.DataFrame, dict]:
         if "Close" not in frame.columns or "Volume" not in frame.columns:
             continue
         dates = local_dates(frame)
-        mask = dates < today
+        mask = dates < cutoff_date
         if not mask.any():
             continue
         prior = frame.loc[mask.values].copy()
@@ -315,11 +318,11 @@ def build_liquidity_universe(output_path: Path) -> tuple[pd.DataFrame, dict]:
         fail("No previous-trading-day data were created for liquidity universe.")
 
     latest_as_of = max(latest_dates)
-    age_days = (today - latest_as_of).days
+    age_days = (cutoff_date - latest_as_of).days
     if age_days < 0 or age_days > MAX_UNIVERSE_AGE_DAYS:
         fail(
             "Universe as_of is stale or invalid: "
-            f"today={today} as_of={latest_as_of} age_days={age_days}"
+            f"target_date={cutoff_date} as_of={latest_as_of} age_days={age_days}"
         )
 
     rows = []
@@ -633,30 +636,40 @@ def analyze_symbol(
     intraday_frame,
     daily_frame,
     session: str,
-    today: date,
+    target_date: date,
+    historical_close: bool = False,
 ):
-    intra = intraday_bar(intraday_frame, today, session)
-    daily_today = current_daily_bar(daily_frame, today)
+    intra = intraday_bar(intraday_frame, target_date, session)
+    daily_today = current_daily_bar(daily_frame, target_date)
 
-    # noon / close の判定用当日OHLCは必ず同じ5分足系列から作る。
-    # 当日1日足は close 時の照合用だけに保持する。
-    if intra is None:
+    # 通常実行のnoon/closeは従来どおり5分足を使う。
+    # 過去日のclose再計算だけは、その日の確定日足を判定用OHLCにする。
+    if historical_close and daily_today is not None:
+        current_day = {
+            **daily_today,
+            "source": "daily_1d_confirmed",
+            "last_bar": target_date.isoformat(),
+            "intraday_fresh": True,
+            "expected_minimum_time": None,
+            "intraday_close": None,
+        }
+    elif intra is not None:
+        current_day = {
+            "open": intra["open"],
+            "high": intra["high"],
+            "low": intra["low"],
+            "close": intra["close"],
+            "volume": intra["volume"],
+            "source": "intraday_5m",
+            "last_bar": intra["last_bar"],
+            "intraday_fresh": intra["fresh"],
+            "expected_minimum_time": intra["expected_minimum_time"],
+            "intraday_close": intra["close"],
+        }
+    else:
         return base_unscored(row, "current_day_price_missing", session)
 
-    current_day = {
-        "open": intra["open"],
-        "high": intra["high"],
-        "low": intra["low"],
-        "close": intra["close"],
-        "volume": intra["volume"],
-        "source": "intraday_5m",
-        "last_bar": intra["last_bar"],
-        "intraday_fresh": intra["fresh"],
-        "expected_minimum_time": intra["expected_minimum_time"],
-        "intraday_close": intra["close"],
-    }
-
-    completed_daily = history_before(daily_frame, today)
+    completed_daily = history_before(daily_frame, target_date)
     if completed_daily.empty:
         item = base_unscored(
             row,
@@ -667,16 +680,19 @@ def analyze_symbol(
         item.update({
             "price": round(current_day["close"], 4),
             "price_source": current_day["source"],
-            "intraday_close": round(current_day["intraday_close"], 4),
-            "intraday_volume": intra["volume"],
+            "intraday_close": (
+                round(current_day["intraday_close"], 4)
+                if current_day["intraday_close"] is not None else None
+            ),
+            "intraday_volume": intra["volume"] if intra is not None else None,
             "daily_volume": current_day["volume"],
             "daily_reference": daily_today,
             "intraday_fresh": current_day["intraday_fresh"],
         })
         return item
 
-    week_start = today - timedelta(days=today.weekday())
-    month_start = today.replace(day=1)
+    week_start = target_date - timedelta(days=target_date.weekday())
+    month_start = target_date.replace(day=1)
     completed_before_week = history_before(daily_frame, week_start)
     completed_before_month = history_before(daily_frame, month_start)
     completed_weekly_closes = completed_period_closes(completed_before_week, "W")
@@ -686,13 +702,13 @@ def analyze_symbol(
         completed_daily,
         current_day,
         week_start,
-        today,
+        target_date,
     )
     current_month = partial_period_ohlc(
         completed_daily,
         current_day,
         month_start,
-        today,
+        target_date,
     )
 
     base = {
@@ -704,8 +720,11 @@ def analyze_symbol(
         "previous_day_volume": int(row.volume),
         "price": round(current_day["close"], 4),
         "price_source": current_day["source"],
-        "intraday_close": round(current_day["intraday_close"], 4),
-        "intraday_volume": intra["volume"],
+        "intraday_close": (
+            round(current_day["intraday_close"], 4)
+            if current_day["intraday_close"] is not None else None
+        ),
+        "intraday_volume": intra["volume"] if intra is not None else None,
         "daily_volume": current_day["volume"],
         "daily_reference": (
             {
@@ -1166,6 +1185,7 @@ def validate_scan_before_commit(
     scored_count: int,
     diagnostic_count: int,
     invalid_ohlc_count: int,
+    historical_close: bool = False,
 ) -> list[str]:
     """latest/archiveを書いてよいか判定。Low逆転は隔離対象で、全体停止しない。"""
     errors: list[str] = []
@@ -1184,12 +1204,18 @@ def validate_scan_before_commit(
     min_daily = math.ceil(universe_count * MIN_DAILY_10Y_DOWNLOAD_RATIO)
     min_scored = math.ceil(universe_count * MIN_SCORED_RATIO)
 
-    if intraday_downloaded < min_intraday:
-        errors.append(f"intraday_downloaded={intraday_downloaded} < {min_intraday}")
-    if current_day_intraday_count < min_intraday:
-        errors.append(f"current_day_intraday={current_day_intraday_count} < {min_intraday}")
-    if fresh_intraday_count < min_fresh:
-        errors.append(f"fresh_intraday={fresh_intraday_count} < {min_fresh}")
+    if historical_close:
+        if current_day_intraday_count < min_intraday:
+            errors.append(
+                f"target_daily_bar={current_day_intraday_count} < {min_intraday}"
+            )
+    else:
+        if intraday_downloaded < min_intraday:
+            errors.append(f"intraday_downloaded={intraday_downloaded} < {min_intraday}")
+        if current_day_intraday_count < min_intraday:
+            errors.append(f"current_day_intraday={current_day_intraday_count} < {min_intraday}")
+        if fresh_intraday_count < min_fresh:
+            errors.append(f"fresh_intraday={fresh_intraday_count} < {min_fresh}")
     if daily_downloaded < min_daily:
         errors.append(f"daily_10y_downloaded={daily_downloaded} < {min_daily}")
     if scored_count < min_scored:
@@ -1240,12 +1266,31 @@ def compact_diagnostic_symbol(x: dict, quarantined: bool) -> dict:
     }
 
 
-def scan(session: str, universe_path: Path, results_dir: Path) -> None:
-    universe, universe_meta = build_liquidity_universe(universe_path)
-    tickers = universe["ticker"].tolist()
-    today = datetime.now(JST).date()
+def scan(
+    session: str,
+    universe_path: Path,
+    results_dir: Path,
+    target_date: date | None = None,
+) -> None:
+    run_date = datetime.now(JST).date()
+    effective_date = target_date or run_date
+    if effective_date > run_date:
+        fail(f"target_date must not be in the future: {effective_date}")
+    historical_close = effective_date < run_date and session == "close"
+    if effective_date < run_date and session != "close":
+        fail("Past target_date is supported only for the close session.")
 
-    intraday = download_many(tickers, period="1d", interval="5m")
+    universe, universe_meta = build_liquidity_universe(
+        universe_path,
+        effective_date,
+    )
+    tickers = universe["ticker"].tolist()
+
+    intraday = (
+        {}
+        if historical_close
+        else download_many(tickers, period="1d", interval="5m")
+    )
     daily = download_many(tickers, period="10y", interval="1d")
 
     all_symbols = []
@@ -1256,7 +1301,8 @@ def scan(session: str, universe_path: Path, results_dir: Path) -> None:
                 intraday.get(row.ticker),
                 daily.get(row.ticker),
                 session,
-                today,
+                effective_date,
+                historical_close,
             )
         )
     all_symbols.sort(key=lambda x: x["universe_rank"])
@@ -1291,7 +1337,7 @@ def scan(session: str, universe_path: Path, results_dir: Path) -> None:
     fundamental_map, fundamental_summary = fetch_fundamental_screening(
         screening_pool,
         fundamental_cache_path,
-        today,
+        effective_date,
     )
 
     for x in raw_candidates + raw_all_ma_above_candidates:
@@ -1354,7 +1400,11 @@ def scan(session: str, universe_path: Path, results_dir: Path) -> None:
             intraday_missing_codes.append({"code": x["code"], "name": x["name"]})
             last_bar_distribution["missing"] = last_bar_distribution.get("missing", 0) + 1
             continue
-        bar = datetime.fromisoformat(x["last_bar"]).strftime("%H:%M")
+        bar = (
+            "daily"
+            if historical_close
+            else datetime.fromisoformat(x["last_bar"]).strftime("%H:%M")
+        )
         last_bar_distribution[bar] = last_bar_distribution.get(bar, 0) + 1
         if not x.get("intraday_fresh", False):
             stale_last_bar.append({
@@ -1417,7 +1467,7 @@ def scan(session: str, universe_path: Path, results_dir: Path) -> None:
         if noon_path.exists():
             try:
                 noon_doc = json.loads(noon_path.read_text(encoding="utf-8"))
-                same_date = noon_doc.get("target_date") == today.isoformat()
+                same_date = noon_doc.get("target_date") == effective_date.isoformat()
                 correct_session = noon_doc.get("session") == "noon"
                 source_schema = int(noon_doc.get("schema_version", 0) or 0)
                 comparison_compatible = (
@@ -1616,20 +1666,26 @@ def scan(session: str, universe_path: Path, results_dir: Path) -> None:
     document = {
         "schema_version": 10,
         "generated_at_jst": datetime.now(JST).isoformat(timespec="seconds"),
-        "target_date": today.isoformat(),
+        "target_date": effective_date.isoformat(),
         "session": session,
         "session_label": "前引け確定版" if session == "noon" else "大引け確定版",
         "market_status": (
-            "open_data_available"
+            "confirmed_daily_data_available"
+            if historical_close and current_day_intraday_count > 0
+            else "open_data_available"
             if current_day_intraday_count > 0
             else "closed_or_data_unavailable"
         ),
         "result_reliability": "diagnostic_warning" if quality_issues else "normal",
         "data_source": (
             "Yahoo Finance via yfinance; auto_adjust=True, repair=True. "
-            "判定用当日OHLCはnoon/closeとも5分足から生成。"
-            "日・週・月MAは同一の調整済み日足から生成。"
-            "当日1日足はclose時の照合専用。"
+            + (
+                "過去日closeの判定用当日OHLCは確定日足を使用。"
+                if historical_close
+                else "判定用当日OHLCはnoon/closeとも5分足から生成。"
+            )
+            + "日・週・月MAは同一の調整済み日足から生成。"
+            + ("" if historical_close else "当日1日足はclose時の照合専用。")
         ),
         "universe_definition": (
             "東証プライム・スタンダード・グロースの内国普通株から、"
@@ -1673,6 +1729,9 @@ def scan(session: str, universe_path: Path, results_dir: Path) -> None:
         },
         "counts": counts,
         "coverage": {
+            "price_source_mode": (
+                "confirmed_daily" if historical_close else "intraday_5m"
+            ),
             "current_day_intraday": current_day_intraday_count,
             "fresh_intraday": fresh_intraday_count,
             "intraday_downloaded": len(intraday),
@@ -1689,7 +1748,11 @@ def scan(session: str, universe_path: Path, results_dir: Path) -> None:
         "data_quality": {
             "quality_status": "warning" if quality_issues else "ok",
             "issues": quality_issues,
-            "expected_last_bar": "11:25" if session == "noon" else "15:20",
+            "expected_last_bar": (
+                None
+                if historical_close
+                else "11:25" if session == "noon" else "15:20"
+            ),
             "stale_last_bar_count": len(stale_last_bar),
             "intraday_missing_count": len(intraday_missing_codes),
             "invalid_ohlc_count": len(invalid_ohlc),
@@ -1765,6 +1828,7 @@ def scan(session: str, universe_path: Path, results_dir: Path) -> None:
         scored_count=len(scored),
         diagnostic_count=len(diagnostic_symbols),
         invalid_ohlc_count=len(invalid_ohlc),
+        historical_close=historical_close,
     )
     if (
         fundamental_summary.get("requested", 0) > 0
@@ -1791,7 +1855,7 @@ def scan(session: str, universe_path: Path, results_dir: Path) -> None:
         attempt_document,
     )
     atomic_write_json(
-        diagnostics_dir / f"{today}_{session}_attempt.json",
+        diagnostics_dir / f"{effective_date}_{session}_attempt.json",
         attempt_document,
     )
 
@@ -1813,7 +1877,7 @@ def scan(session: str, universe_path: Path, results_dir: Path) -> None:
     latest_path = results_dir / f"latest_{session}.json"
     archive_dir = results_dir / "archive"
     archive_dir.mkdir(parents=True, exist_ok=True)
-    archive_path = archive_dir / f"{today}_{session}.json"
+    archive_path = archive_dir / f"{effective_date}_{session}.json"
 
     atomic_write_json(latest_path, document)
     atomic_write_json(archive_path, document)
@@ -1857,6 +1921,12 @@ def main() -> None:
         "--results-dir",
         default="results",
     )
+    scan_parser.add_argument(
+        "--target-date",
+        type=date.fromisoformat,
+        default=None,
+        help="Optional JST target date (YYYY-MM-DD). Past dates support close only.",
+    )
 
     args = parser.parse_args()
     if args.command == "update-universe":
@@ -1870,6 +1940,7 @@ def main() -> None:
             args.session,
             Path(args.universe),
             Path(args.results_dir),
+            args.target_date,
         )
 
 

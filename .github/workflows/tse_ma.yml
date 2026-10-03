@@ -16,6 +16,10 @@ on:
         options:
           - noon
           - close
+      target_date:
+        description: "対象日（任意、YYYY-MM-DD。空欄は当日のJST日付）"
+        required: false
+        type: string
 
 permissions:
   contents: write
@@ -57,7 +61,15 @@ jobs:
           echo "SESSION=$SESSION" >> "$GITHUB_ENV"
 
       - name: Run scanner
-        run: python scanner.py scan --session "$SESSION"
+        shell: bash
+        env:
+          TARGET_DATE: ${{ inputs.target_date }}
+        run: |
+          TARGET_ARGS=()
+          if [ -n "$TARGET_DATE" ]; then
+            TARGET_ARGS=(--target-date "$TARGET_DATE")
+          fi
+          python scanner.py scan --session "$SESSION" "${TARGET_ARGS[@]}"
 
       - name: Save results to repository
         shell: bash
