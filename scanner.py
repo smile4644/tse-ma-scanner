@@ -896,6 +896,70 @@ def safe_float(value):
         return None
 
 
+def near_9_of_9_candidate(item: dict) -> dict | None:
+    """Return a near-9/9 annotation when +1% can make every MA pass."""
+    if item.get("available_ma_count") != len(SPECS) or item.get("score") == 9:
+        return None
+    price = safe_float(item.get("price"))
+    if price is None or price <= 0:
+        return None
+    candle = item.get("candle") or {}
+
+    def passes(rise_pct: float) -> bool:
+        delta = price * rise_pct / 100.0
+        for key, _label, length, timeframe in SPECS:
+            state = item["states"][key]
+            tf_candle = candle.get(timeframe) or {}
+            simulated_ma = state["ma"] + delta / length
+            simulated_high = max(float(tf_candle.get("high", 0)), price + delta)
+            simulated_low = float(tf_candle.get("low", 0))
+            if classify_state(
+                simulated_ma,
+                state["ma_prev"],
+                simulated_low,
+                simulated_high,
+            ) not in (7, 8):
+                return False
+        return True
+
+    if not passes(1.0):
+        return None
+    lo, hi = 0.0, 1.0
+    for _ in range(50):
+        mid = (lo + hi) / 2.0
+        if passes(mid):
+            hi = mid
+        else:
+            lo = mid
+    result = dict(item)
+    result["near_9_of_9_required_rise_pct"] = round(hi, 6)
+    result["near_9_of_9_target_price"] = round(price * (1 + hi / 100.0), 6)
+    result["near_9_of_9_from_score"] = item.get("score")
+    return result
+
+
+def near_all_ma_above_candidate(item: dict) -> dict | None:
+    """Return the price-level leading indicator for all nine MAs."""
+    if item.get("available_ma_count") != len(SPECS) or item.get("all_ma_above"):
+        return None
+    price = safe_float(item.get("price"))
+    if price is None or price <= 0:
+        return None
+    max_ma = max(item["states"][key]["ma"] for key in MA_KEYS)
+    required = max(0.0, (max_ma - price) / price * 100.0)
+    if required > 1.0:
+        return None
+    result = dict(item)
+    result["near_all_ma_above_required_rise_pct"] = round(required, 6)
+    result["near_all_ma_above_target_price"] = round(max(price, max_ma), 6)
+    result["near_all_ma_above_blocking_ma"] = [
+        f"{item['states'][key]['label']} {item['states'][key]['state_label']}"
+        for key in MA_KEYS
+        if item["states"][key]["state"] not in (2, 5, 8)
+    ]
+    return result
+
+
 def duration_days(extracted_value) -> int | None:
     if extracted_value is None or extracted_value.item is None:
         return None
@@ -1332,23 +1396,6 @@ def compact_diagnostic_symbol(x: dict, quarantined: bool) -> dict:
     }
 
 
-def validate_target_date(effective_date: date, run_date: date) -> None:
-    """Reject future dates; historical noon and close are both reproducible."""
-    if effective_date > run_date:
-        fail(f"target_date must not be in the future: {effective_date}")
-
-
-def intraday_period_for(
-    session: str,
-    effective_date: date,
-    run_date: date,
-) -> str:
-    """Use enough lookback to retrieve a recent historical noon session."""
-    if session == "noon" and effective_date < run_date:
-        return "5d"
-    return "1d"
-
-
 def scan(
     session: str,
     universe_path: Path,
@@ -1357,10 +1404,11 @@ def scan(
 ) -> None:
     run_date = datetime.now(JST).date()
     effective_date = target_date or run_date
-    validate_target_date(effective_date, run_date)
-
-    historical_noon = effective_date < run_date and session == "noon"
+    if effective_date > run_date:
+        fail(f"target_date must not be in the future: {effective_date}")
     historical_close = effective_date < run_date and session == "close"
+    if effective_date < run_date and session != "close":
+        fail("Past target_date is supported only for the close session.")
 
     universe, universe_meta = build_liquidity_universe(
         universe_path,
@@ -1368,11 +1416,10 @@ def scan(
     )
     tickers = universe["ticker"].tolist()
 
-    intraday_period = intraday_period_for(session, effective_date, run_date)
     intraday = (
         {}
         if historical_close
-        else download_many(tickers, period=intraday_period, interval="5m")
+        else download_many(tickers, period="1d", interval="5m")
     )
     daily = download_many(tickers, period="10y", interval="1d")
 
@@ -1407,11 +1454,27 @@ def scan(
     raw_all_ma_above_candidates = [
         x for x in fully_scored if x.get("all_ma_above")
     ]
+    raw_near_9_of_9_candidates = [
+        candidate
+        for x in fully_scored
+        if (candidate := near_9_of_9_candidate(x)) is not None
+    ]
+    raw_near_all_ma_above_candidates = [
+        candidate
+        for x in fully_scored
+        if (candidate := near_all_ma_above_candidate(x)) is not None
+    ]
     partial_ma_candidates = list(partial_scored)
 
     # まず価格条件で絞り、業績取得件数を抑える。
     screening_pool_map = {}
-    for x in raw_candidates + raw_all_ma_above_candidates:
+    all_raw_candidate_groups = (
+        raw_candidates
+        + raw_all_ma_above_candidates
+        + raw_near_9_of_9_candidates
+        + raw_near_all_ma_above_candidates
+    )
+    for x in all_raw_candidate_groups:
         if x.get("price") is not None and x["price"] <= MAX_CANDIDATE_PRICE:
             screening_pool_map[x["ticker"]] = x
     screening_pool = list(screening_pool_map.values())
@@ -1423,7 +1486,7 @@ def scan(
         effective_date,
     )
 
-    for x in raw_candidates + raw_all_ma_above_candidates:
+    for x in all_raw_candidate_groups:
         attach_screening_fields(
             x,
             fundamental_map.get(x["ticker"]),
@@ -1447,12 +1510,24 @@ def scan(
         x for x in raw_all_ma_above_candidates
         if final_screen_pass(x)
     ]
+    near_9_of_9_candidates = [
+        x for x in raw_near_9_of_9_candidates if final_screen_pass(x)
+    ]
+    near_all_ma_above_candidates = [
+        x for x in raw_near_all_ma_above_candidates if final_screen_pass(x)
+    ]
 
     candidates.sort(
         key=lambda x: (-x["score"], x["universe_rank"], x["code"])
     )
     all_ma_above_candidates.sort(
         key=lambda x: (-x["score"], x["universe_rank"], x["code"])
+    )
+    near_9_of_9_candidates.sort(
+        key=lambda x: (x["near_9_of_9_required_rise_pct"], x["universe_rank"], x["code"])
+    )
+    near_all_ma_above_candidates.sort(
+        key=lambda x: (x["near_all_ma_above_required_rise_pct"], x["universe_rank"], x["code"])
     )
     partial_ma_candidates.sort(
         key=lambda x: (
@@ -1687,6 +1762,13 @@ def scan(
             x for x in all_ma_above_candidates
             if x["code"] not in quarantine_codes
         ]
+        near_9_of_9_candidates = [
+            x for x in near_9_of_9_candidates if x["code"] not in quarantine_codes
+        ]
+        near_all_ma_above_candidates = [
+            x for x in near_all_ma_above_candidates
+            if x["code"] not in quarantine_codes
+        ]
         partial_ma_candidates = [
             x for x in partial_ma_candidates
             if x["code"] not in quarantine_codes
@@ -1738,6 +1820,8 @@ def scan(
         "8_of_9": sum(x["score"] == 8 for x in candidates),
         "7_of_9": sum(x["score"] == 7 for x in candidates),
         "all_ma_above": len(all_ma_above_candidates),
+        "near_9_of_9": len(near_9_of_9_candidates),
+        "near_all_ma_above": len(near_all_ma_above_candidates),
         "partial_ma": len(partial_ma_candidates),
         "partial_available_ma_above": sum(
             bool(x.get("available_ma_above"))
@@ -1747,7 +1831,7 @@ def scan(
     }
 
     document = {
-        "schema_version": 10,
+        "schema_version": 11,
         "generated_at_jst": datetime.now(JST).isoformat(timespec="seconds"),
         "target_date": effective_date.isoformat(),
         "session": session,
@@ -1765,11 +1849,7 @@ def scan(
             + (
                 "過去日closeの判定用当日OHLCは確定日足を使用。"
                 if historical_close
-                else (
-                    "過去日noonは対象日の5分足を11:30まで使用。"
-                    if historical_noon
-                    else "判定用当日OHLCはnoon/closeとも5分足から生成。"
-                )
+                else "判定用当日OHLCはnoon/closeとも5分足から生成。"
             )
             + "日・週・月MAは同一の調整済み日足から生成。"
             + ("" if historical_close else "当日1日足はclose時の照合専用。")
@@ -1805,23 +1885,23 @@ def scan(
                 "prior full-year actual EPS"
             ),
             "earnings_unavailable_policy": "exclude",
+            "near_9_of_9": "現在価格から+1%以内の仮想価格で9本すべてがstate 7/8になる最小上昇率",
+            "near_all_ma_above": "正式なall_ma_aboveではなく、現在価格から+1%以内で9本の現在MA価格水準を上回れるかを見る価格水準ベース先行指標",
         },
         "screening_summary": {
             "raw_9_of_9": sum(x["score"] == 9 for x in raw_candidates),
             "raw_8_of_9": sum(x["score"] == 8 for x in raw_candidates),
             "raw_7_of_9": sum(x["score"] == 7 for x in raw_candidates),
             "raw_all_ma_above": len(raw_all_ma_above_candidates),
+            "raw_near_9_of_9": len(raw_near_9_of_9_candidates),
+            "raw_near_all_ma_above": len(raw_near_all_ma_above_candidates),
             "price_eligible_unique_symbols": len(screening_pool),
             "fundamental": fundamental_summary,
         },
         "counts": counts,
         "coverage": {
             "price_source_mode": (
-                "confirmed_daily"
-                if historical_close
-                else "historical_intraday_5m"
-                if historical_noon
-                else "intraday_5m"
+                "confirmed_daily" if historical_close else "intraday_5m"
             ),
             "current_day_intraday": current_day_intraday_count,
             "fresh_intraday": fresh_intraday_count,
@@ -1900,12 +1980,42 @@ def scan(
                 for x in raw_candidates
                 if not final_screen_pass(x)
             ],
+            "near_screening_excluded": {
+                "near_9_of_9": [
+                    {
+                        "code": x["code"], "name": x["name"], "score": x.get("score"),
+                        "price": x.get("price"),
+                        "required_rise_pct": x.get("near_9_of_9_required_rise_pct"),
+                        "price_pass": x.get("price") is not None and x["price"] <= MAX_CANDIDATE_PRICE,
+                        "earnings_status": fundamental_map.get(x["ticker"], {}).get("status"),
+                        "earnings_improving": fundamental_map.get(x["ticker"], {}).get("improving"),
+                        "quarantined": x["code"] in quarantine_codes,
+                    }
+                    for x in raw_near_9_of_9_candidates
+                    if not final_screen_pass(x) or x["code"] in quarantine_codes
+                ],
+                "near_all_ma_above": [
+                    {
+                        "code": x["code"], "name": x["name"], "score": x.get("score"),
+                        "price": x.get("price"),
+                        "required_rise_pct": x.get("near_all_ma_above_required_rise_pct"),
+                        "price_pass": x.get("price") is not None and x["price"] <= MAX_CANDIDATE_PRICE,
+                        "earnings_status": fundamental_map.get(x["ticker"], {}).get("status"),
+                        "earnings_improving": fundamental_map.get(x["ticker"], {}).get("improving"),
+                        "quarantined": x["code"] in quarantine_codes,
+                    }
+                    for x in raw_near_all_ma_above_candidates
+                    if not final_screen_pass(x) or x["code"] in quarantine_codes
+                ],
+            },
             "symbols": diagnostic_symbols,
         },
         # ①〜③。9/9,8/9,7/9の全件を保持。
         "candidates": candidates,
         # ④。全時間軸MA上（方向不問）の全件を保持。
         "all_ma_above_candidates": all_ma_above_candidates,
+        "near_9_of_9_candidates": near_9_of_9_candidates,
+        "near_all_ma_above_candidates": near_all_ma_above_candidates,
         # 上場後の履歴不足銘柄。存在MAでx/y判定した全件。
         "partial_ma_candidates": partial_ma_candidates,
     }
