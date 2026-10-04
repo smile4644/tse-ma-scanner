@@ -1616,11 +1616,9 @@ def scan(
 ) -> None:
     run_date = datetime.now(JST).date()
     effective_date = target_date or run_date
-    if effective_date > run_date:
-        fail(f"target_date must not be in the future: {effective_date}")
+    validate_target_date(effective_date, run_date)
+    historical_noon = effective_date < run_date and session == "noon"
     historical_close = effective_date < run_date and session == "close"
-    if effective_date < run_date and session != "close":
-        fail("Past target_date is supported only for the close session.")
 
     universe, universe_meta = build_liquidity_universe(
         universe_path,
@@ -1628,12 +1626,13 @@ def scan(
     )
     tickers = universe["ticker"].tolist()
 
+    intraday_period = intraday_period_for(session, effective_date, run_date)
     intraday = (
         {}
         if historical_close
         else download_many(
             tickers,
-            period="1d",
+            period=intraday_period,
             interval="5m",
             auto_adjust=False,
         )
