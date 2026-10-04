@@ -9,6 +9,24 @@ import scanner
 
 
 class TargetDateRegressionTests(unittest.TestCase):
+    def test_noon_comparison_requires_same_schema_and_price_series(self):
+        good = {
+            "schema_version": scanner.SCHEMA_VERSION,
+            "target_date": "2026-10-02",
+            "session": "noon",
+            "price_series_mode": scanner.PRICE_SERIES_MODE,
+        }
+        self.assertTrue(scanner.noon_comparison_compatible(good, date(2026, 10, 2)))
+        old_schema = dict(good)
+        old_schema["schema_version"] = scanner.SCHEMA_VERSION - 1
+        self.assertFalse(scanner.noon_comparison_compatible(old_schema, date(2026, 10, 2)))
+        wrong_mode = dict(good)
+        wrong_mode["price_series_mode"] = "adjusted_close_auto_adjust_true"
+        self.assertFalse(scanner.noon_comparison_compatible(wrong_mode, date(2026, 10, 2)))
+        wrong_date = dict(good)
+        wrong_date["target_date"] = "2026-10-01"
+        self.assertFalse(scanner.noon_comparison_compatible(wrong_date, date(2026, 10, 2)))
+
     def test_past_noon_is_supported(self):
         scanner.validate_target_date(date(2026, 10, 2), date(2026, 10, 3))
         self.assertEqual(

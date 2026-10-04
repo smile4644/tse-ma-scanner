@@ -22,6 +22,8 @@ import yfinance as yf
 JST = ZoneInfo("Asia/Tokyo")
 JPX_MASTER_URL = "https://www.jpx.co.jp/markets/statistics-equities/misc/tvdivq0000001vg2-att/data_j.xlsx"
 USER_AGENT = "tse-ma-scanner/1.7 (+github)"
+SCHEMA_VERSION = 13
+PRICE_SERIES_MODE = "normal_close_auto_adjust_false"
 
 # ---------- safety thresholds ----------
 MIN_MASTER_COUNT = 3000
@@ -98,6 +100,20 @@ def atomic_write_text(path: Path, text: str) -> None:
         f.flush()
         os.fsync(f.fileno())
     tmp.replace(path)
+
+
+def noon_comparison_compatible(noon_doc: dict, effective_date: date) -> bool:
+    """前引け・大引け比較は同一schema・同一価格系列だけ許可する。"""
+    try:
+        source_schema = int(noon_doc.get("schema_version", 0) or 0)
+    except (TypeError, ValueError):
+        return False
+    return bool(
+        noon_doc.get("target_date") == effective_date.isoformat()
+        and noon_doc.get("session") == "noon"
+        and source_schema == SCHEMA_VERSION
+        and noon_doc.get("price_series_mode") == PRICE_SERIES_MODE
+    )
 
 
 def atomic_write_json(path: Path, document: dict) -> None:
@@ -1579,6 +1595,19 @@ def compact_diagnostic_symbol(x: dict, quarantined: bool) -> dict:
     }
 
 
+def validate_target_date(effective_date: date, run_date: date) -> None:
+    """Reject future dates; historical noon and close are reproducible."""
+    if effective_date > run_date:
+        fail(f"target_date must not be in the future: {effective_date}")
+
+
+def intraday_period_for(session: str, effective_date: date, run_date: date) -> str:
+    """Use enough lookback to retrieve a recent historical noon session."""
+    if session == "noon" and effective_date < run_date:
+        return "5d"
+    return "1d"
+
+
 def scan(
     session: str,
     universe_path: Path,
@@ -1843,8 +1872,9 @@ def scan(
                 same_date = noon_doc.get("target_date") == effective_date.isoformat()
                 correct_session = noon_doc.get("session") == "noon"
                 source_schema = int(noon_doc.get("schema_version", 0) or 0)
-                comparison_compatible = (
-                    same_date and correct_session and source_schema >= 5
+                source_price_series_mode = noon_doc.get("price_series_mode")
+                comparison_compatible = noon_comparison_compatible(
+                    noon_doc, effective_date
                 )
 
                 if comparison_compatible:
@@ -1951,8 +1981,11 @@ def scan(
                 else:
                     noon_comparison = {
                         "status": "not_comparable",
-                        "reason": "date_session_or_schema_mismatch",
+                        "reason": "date_session_schema_or_price_mode_mismatch",
                         "source_schema_version": source_schema,
+                        "expected_schema_version": SCHEMA_VERSION,
+                        "source_price_series_mode": source_price_series_mode,
+                        "expected_price_series_mode": PRICE_SERIES_MODE,
                         "source_target_date": noon_doc.get("target_date"),
                         "source_session": noon_doc.get("session"),
                     }
@@ -2051,7 +2084,7 @@ def scan(
     }
 
     document = {
-        "schema_version": 12,
+        "schema_version": SCHEMA_VERSION,
         "generated_at_jst": datetime.now(JST).isoformat(timespec="seconds"),
         "target_date": effective_date.isoformat(),
         "session": session,
@@ -2064,6 +2097,7 @@ def scan(
             else "closed_or_data_unavailable"
         ),
         "result_reliability": "diagnostic_warning" if quality_issues else "normal",
+        "price_series_mode": PRICE_SERIES_MODE,
         "data_source": (
             "Yahoo Finance via yfinance; auto_adjust=False, repair=True. "
             "通常Close/OHLC（株式分割反映・配当Adj Close補正なし）をMAに使用。 "
