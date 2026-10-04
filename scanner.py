@@ -69,6 +69,17 @@ STATE_LABELS = {
 }
 IMPORTANT_TOUCHES = {"d25", "d75", "w13", "w26", "m12"}
 
+# ---------- MA proximity / early-stage screening ----------
+# 「初動」は9本すべてから近いことを要求せず、短中期MAの密集度と、
+# 重要MA（日75・週26・月12）への近接を重視する。
+EARLY_STAGE_KEYS = ("d5", "d25", "d75", "w13", "w26", "m12")
+EARLY_STAGE_IMPORTANT_KEYS = ("d75", "w26", "m12")
+EARLY_STAGE_SCORE_MIN = 7
+EARLY_STAGE_NEAR_2_PCT = 2.0
+EARLY_STAGE_NEAR_5_PCT = 5.0
+EARLY_STAGE_MIN_NEAR_5_COUNT = 3
+EARLY_STAGE_MAX_CORE_GAP_PCT = 10.0
+
 
 def log(message: str) -> None:
     print(f"[{datetime.now(JST).isoformat(timespec='seconds')}] {message}", flush=True)
@@ -213,9 +224,15 @@ def download_many(
     period: str,
     interval: str,
     batch_size: int = 100,
-    auto_adjust: bool = True,
+    auto_adjust: bool = False,
 ) -> dict[str, pd.DataFrame]:
-    """価格系列を一括取得。MAはadjusted、流動性計算はraw Closeを使う。"""
+    """
+    価格系列を一括取得。
+
+    MA判定は auto_adjust=False のYahoo Close/OHLCを使う。
+    Yahooの通常Closeは株式分割を反映する一方、配当によるAdj Close補正を
+    混ぜないため、証券会社チャートの移動平均線に近い基準になる。
+    """
     result: dict[str, pd.DataFrame] = {}
     batches = list(chunked(tickers, batch_size))
 
@@ -274,9 +291,9 @@ def build_liquidity_universe(
       2. 前営業日の売買代金 >= 5,000万円
       3. 20営業日のうち最低15営業日分の有効データ
 
-    売買代金 = raw Close × Volume。
-    株式分割等で過去価格を調整すると売買代金が歪むため、
-    universe構築だけは auto_adjust=False のraw Closeを使う。
+    売買代金 = Yahoo Close × Volume。
+    配当によるAdj Close補正を混ぜないため、universe構築も
+    auto_adjust=False の通常Closeを使う。
     """
     master = load_jpx_master()
     master_tickers = master["ticker"].tolist()
@@ -629,6 +646,19 @@ def base_unscored(row, reason: str, session: str, last_bar=None):
         "states": {},
         "failures": [],
         "important_touches": [],
+        "ma_proximity_2pct_count": 0,
+        "ma_proximity_5pct_count": 0,
+        "nearest_ma_key": None,
+        "nearest_ma_label": None,
+        "nearest_ma_gap_pct": None,
+        "d25_gap_pct": None,
+        "w13_gap_pct": None,
+        "early_stage_candidate": False,
+        "early_stage_rank": None,
+        "early_stage_progressed": False,
+        "early_stage_important_near_2pct": [],
+        "early_stage_touch_ma": [],
+        "early_stage_fresh_breakout_ma": [],
     }
 
 
@@ -846,6 +876,12 @@ def analyze_symbol(
         if key in states and states[key]["state"] in (2, 5)
     ]
 
+    proximity = calculate_early_stage_metrics(
+        states=states,
+        score=score,
+        full_ma_set=full_ma_set,
+    )
+
     return {
         **base,
         "score": score,
@@ -880,6 +916,7 @@ def analyze_symbol(
             and key in states
             and states[key]["state"] == 7
         ],
+        **proximity,
     }
 
 
@@ -894,6 +931,135 @@ def safe_float(value):
         return number
     except Exception:
         return None
+
+
+def calculate_early_stage_metrics(
+    *,
+    states: dict,
+    score: int | None,
+    full_ma_set: bool,
+) -> dict:
+    """
+    TDK/SWCC型の「MA近接型初動」を定量化する。
+
+    判定対象は日5・25・75、週13・26、月12の6本。
+      - 6本中3本以上が現在値から±5%以内
+      - 日75・週26・月12のいずれかが±2%以内
+      - 日25・週13の乖離がともに±10%以内
+      - 9本完備かつScore 7/9以上
+    を満たす銘柄を初動候補とする。
+
+    Rank A:
+      - 6本中2本以上が±2%以内、または
+      - 6本中4本以上が±5%以内かつ重要MAで接触/小幅上抜け
+    Rank B:
+      - 上記の初動条件は満たすがRank A未満
+    """
+    focus = {
+        key: states[key]
+        for key in EARLY_STAGE_KEYS
+        if key in states and safe_float(states[key].get("gap_pct")) is not None
+    }
+    if not focus:
+        return {
+            "ma_proximity_2pct_count": 0,
+            "ma_proximity_5pct_count": 0,
+            "nearest_ma_key": None,
+            "nearest_ma_label": None,
+            "nearest_ma_gap_pct": None,
+            "d25_gap_pct": None,
+            "w13_gap_pct": None,
+            "early_stage_candidate": False,
+            "early_stage_rank": None,
+            "early_stage_progressed": False,
+            "early_stage_important_near_2pct": [],
+            "early_stage_touch_ma": [],
+            "early_stage_fresh_breakout_ma": [],
+        }
+
+    within_2 = [
+        key for key, state in focus.items()
+        if abs(float(state["gap_pct"])) <= EARLY_STAGE_NEAR_2_PCT
+    ]
+    within_5 = [
+        key for key, state in focus.items()
+        if abs(float(state["gap_pct"])) <= EARLY_STAGE_NEAR_5_PCT
+    ]
+    important_near_2 = [
+        key for key in EARLY_STAGE_IMPORTANT_KEYS
+        if key in focus
+        and abs(float(focus[key]["gap_pct"])) <= EARLY_STAGE_NEAR_2_PCT
+    ]
+    touch_ma = [
+        key for key, state in focus.items()
+        if state.get("state") in (1, 4, 7)
+    ]
+    fresh_breakout_ma = [
+        key for key, state in focus.items()
+        if state.get("state") == 8
+        and 0.0 <= float(state["gap_pct"]) <= EARLY_STAGE_NEAR_2_PCT
+    ]
+
+    nearest_key = min(
+        focus,
+        key=lambda key: abs(float(focus[key]["gap_pct"])),
+    )
+    nearest = focus[nearest_key]
+
+    d25_gap = safe_float((focus.get("d25") or {}).get("gap_pct"))
+    w13_gap = safe_float((focus.get("w13") or {}).get("gap_pct"))
+    core_gap_ok = bool(
+        d25_gap is not None
+        and w13_gap is not None
+        and abs(d25_gap) <= EARLY_STAGE_MAX_CORE_GAP_PCT
+        and abs(w13_gap) <= EARLY_STAGE_MAX_CORE_GAP_PCT
+    )
+    progressed = bool(full_ma_set and not core_gap_ok)
+
+    eligible = bool(
+        full_ma_set
+        and score is not None
+        and score >= EARLY_STAGE_SCORE_MIN
+        and len(within_5) >= EARLY_STAGE_MIN_NEAR_5_COUNT
+        and len(important_near_2) >= 1
+        and core_gap_ok
+    )
+    important_trigger = any(
+        key in EARLY_STAGE_IMPORTANT_KEYS
+        for key in (touch_ma + fresh_breakout_ma)
+    )
+    rank = None
+    if eligible:
+        rank = (
+            "A"
+            if (
+                len(within_2) >= 2
+                or (len(within_5) >= 4 and important_trigger)
+            )
+            else "B"
+        )
+
+    return {
+        "ma_proximity_2pct_count": len(within_2),
+        "ma_proximity_5pct_count": len(within_5),
+        "nearest_ma_key": nearest_key,
+        "nearest_ma_label": nearest.get("label"),
+        "nearest_ma_gap_pct": round(float(nearest["gap_pct"]), 4),
+        "d25_gap_pct": round(d25_gap, 4) if d25_gap is not None else None,
+        "w13_gap_pct": round(w13_gap, 4) if w13_gap is not None else None,
+        "early_stage_candidate": eligible,
+        "early_stage_rank": rank,
+        "early_stage_progressed": progressed,
+        "early_stage_important_near_2pct": [
+            focus[key]["label"] for key in important_near_2
+        ],
+        "early_stage_touch_ma": [
+            focus[key]["label"] for key in touch_ma
+        ],
+        "early_stage_fresh_breakout_ma": [
+            focus[key]["label"] for key in fresh_breakout_ma
+        ],
+    }
 
 
 def near_9_of_9_candidate(item: dict) -> dict | None:
@@ -1397,6 +1563,19 @@ def compact_diagnostic_symbol(x: dict, quarantined: bool) -> dict:
         "ma_prev_vector": [states.get(k, {}).get("ma_prev") for k in MA_KEYS],
         "gap_pct_vector": [states.get(k, {}).get("gap_pct") for k in MA_KEYS],
         "failures": x.get("failures", []),
+        "ma_proximity_2pct_count": x.get("ma_proximity_2pct_count"),
+        "ma_proximity_5pct_count": x.get("ma_proximity_5pct_count"),
+        "nearest_ma_key": x.get("nearest_ma_key"),
+        "nearest_ma_label": x.get("nearest_ma_label"),
+        "nearest_ma_gap_pct": x.get("nearest_ma_gap_pct"),
+        "d25_gap_pct": x.get("d25_gap_pct"),
+        "w13_gap_pct": x.get("w13_gap_pct"),
+        "early_stage_candidate": x.get("early_stage_candidate"),
+        "early_stage_rank": x.get("early_stage_rank"),
+        "early_stage_progressed": x.get("early_stage_progressed"),
+        "early_stage_important_near_2pct": x.get("early_stage_important_near_2pct", []),
+        "early_stage_touch_ma": x.get("early_stage_touch_ma", []),
+        "early_stage_fresh_breakout_ma": x.get("early_stage_fresh_breakout_ma", []),
     }
 
 
@@ -1423,9 +1602,19 @@ def scan(
     intraday = (
         {}
         if historical_close
-        else download_many(tickers, period="1d", interval="5m")
+        else download_many(
+            tickers,
+            period="1d",
+            interval="5m",
+            auto_adjust=False,
+        )
     )
-    daily = download_many(tickers, period="10y", interval="1d")
+    daily = download_many(
+        tickers,
+        period="10y",
+        interval="1d",
+        auto_adjust=False,
+    )
 
     all_symbols = []
     for row in universe.itertuples(index=False):
@@ -1468,6 +1657,10 @@ def scan(
         for x in fully_scored
         if (candidate := near_all_ma_above_candidate(x)) is not None
     ]
+    raw_early_stage_candidates = [
+        x for x in fully_scored
+        if x.get("early_stage_candidate")
+    ]
     partial_ma_candidates = list(partial_scored)
 
     # まず価格条件で絞り、業績取得件数を抑える。
@@ -1477,6 +1670,7 @@ def scan(
         + raw_all_ma_above_candidates
         + raw_near_9_of_9_candidates
         + raw_near_all_ma_above_candidates
+        + raw_early_stage_candidates
     )
     for x in all_raw_candidate_groups:
         if x.get("price") is not None and x["price"] <= MAX_CANDIDATE_PRICE:
@@ -1520,6 +1714,9 @@ def scan(
     near_all_ma_above_candidates = [
         x for x in raw_near_all_ma_above_candidates if final_screen_pass(x)
     ]
+    early_stage_candidates = [
+        x for x in raw_early_stage_candidates if final_screen_pass(x)
+    ]
 
     candidates.sort(
         key=lambda x: (-x["score"], x["universe_rank"], x["code"])
@@ -1532,6 +1729,20 @@ def scan(
     )
     near_all_ma_above_candidates.sort(
         key=lambda x: (x["near_all_ma_above_required_rise_pct"], x["universe_rank"], x["code"])
+    )
+    early_stage_candidates.sort(
+        key=lambda x: (
+            0 if x.get("early_stage_rank") == "A" else 1,
+            -x.get("ma_proximity_5pct_count", 0),
+            -x.get("ma_proximity_2pct_count", 0),
+            (
+                abs(x["nearest_ma_gap_pct"])
+                if x.get("nearest_ma_gap_pct") is not None
+                else 999.0
+            ),
+            x["universe_rank"],
+            x["code"],
+        )
     )
     partial_ma_candidates.sort(
         key=lambda x: (
@@ -1773,6 +1984,10 @@ def scan(
             x for x in near_all_ma_above_candidates
             if x["code"] not in quarantine_codes
         ]
+        early_stage_candidates = [
+            x for x in early_stage_candidates
+            if x["code"] not in quarantine_codes
+        ]
         partial_ma_candidates = [
             x for x in partial_ma_candidates
             if x["code"] not in quarantine_codes
@@ -1826,6 +2041,7 @@ def scan(
         "all_ma_above": len(all_ma_above_candidates),
         "near_9_of_9": len(near_9_of_9_candidates),
         "near_all_ma_above": len(near_all_ma_above_candidates),
+        "early_stage": len(early_stage_candidates),
         "partial_ma": len(partial_ma_candidates),
         "partial_available_ma_above": sum(
             bool(x.get("available_ma_above"))
@@ -1835,7 +2051,7 @@ def scan(
     }
 
     document = {
-        "schema_version": 11,
+        "schema_version": 12,
         "generated_at_jst": datetime.now(JST).isoformat(timespec="seconds"),
         "target_date": effective_date.isoformat(),
         "session": session,
@@ -1849,7 +2065,8 @@ def scan(
         ),
         "result_reliability": "diagnostic_warning" if quality_issues else "normal",
         "data_source": (
-            "Yahoo Finance via yfinance; auto_adjust=True, repair=True. "
+            "Yahoo Finance via yfinance; auto_adjust=False, repair=True. "
+            "通常Close/OHLC（株式分割反映・配当Adj Close補正なし）をMAに使用。 "
             + (
                 "過去日closeの判定用当日OHLCは確定日足を使用。"
                 if historical_close
@@ -1891,6 +2108,12 @@ def scan(
             "earnings_unavailable_policy": "exclude",
             "near_9_of_9": "現在価格から+1%以内の仮想価格で9本すべてがstate 7/8になる最小上昇率",
             "near_all_ma_above": "正式なall_ma_aboveではなく、現在価格から+1%以内で9本の現在MA価格水準を上回れるかを見る価格水準ベース先行指標",
+            "early_stage": (
+                "9本完備かつ7/9以上。日5・25・75、週13・26、月12の"
+                "6本中3本以上が±5%以内、日75・週26・月12の"
+                "いずれかが±2%以内、日25・週13はともに±10%以内。"
+                "A/Bランクで初動強度を表示"
+            ),
         },
         "screening_summary": {
             "raw_9_of_9": sum(x["score"] == 9 for x in raw_candidates),
@@ -1899,6 +2122,7 @@ def scan(
             "raw_all_ma_above": len(raw_all_ma_above_candidates),
             "raw_near_9_of_9": len(raw_near_9_of_9_candidates),
             "raw_near_all_ma_above": len(raw_near_all_ma_above_candidates),
+            "raw_early_stage": len(raw_early_stage_candidates),
             "price_eligible_unique_symbols": len(screening_pool),
             "fundamental": fundamental_summary,
         },
@@ -2020,6 +2244,8 @@ def scan(
         "all_ma_above_candidates": all_ma_above_candidates,
         "near_9_of_9_candidates": near_9_of_9_candidates,
         "near_all_ma_above_candidates": near_all_ma_above_candidates,
+        # TDK/SWCC型。複数MAの近接を利用した「初動」候補。
+        "early_stage_candidates": early_stage_candidates,
         # 上場後の履歴不足銘柄。存在MAでx/y判定した全件。
         "partial_ma_candidates": partial_ma_candidates,
     }
@@ -2093,6 +2319,7 @@ def scan(
         f"8/9={counts['8_of_9']} "
         f"7/9={counts['7_of_9']} "
         f"all-above={counts['all_ma_above']} "
+        f"early-stage={counts['early_stage']} "
         f"partial={counts['partial_ma']} "
         f"quarantined={counts['quarantined']} "
         f"scored={len(scored)}/{len(universe)} "
