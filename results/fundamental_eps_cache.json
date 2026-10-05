@@ -1,6 +1,6 @@
 {
   "schema_version": 5,
-  "generated_at_jst": "2026-10-05T18:50:51+09:00",
+  "generated_at_jst": "2026-10-05T19:07:17+09:00",
   "target_date": "2026-10-05",
   "definition": "TDnet XBRL: current-year company forecast EPS > latest prior full-year actual EPS; latest result misses same-period company forecast or market consensus => exclude",
   "entries": {
