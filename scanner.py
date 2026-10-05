@@ -23,7 +23,7 @@ import yfinance as yf
 JST = ZoneInfo("Asia/Tokyo")
 JPX_MASTER_URL = "https://www.jpx.co.jp/markets/statistics-equities/misc/tvdivq0000001vg2-att/data_j.xlsx"
 USER_AGENT = "tse-ma-scanner/1.7 (+github)"
-SCHEMA_VERSION = 13
+SCHEMA_VERSION = 14
 PRICE_SERIES_MODE = "normal_close_auto_adjust_false"
 
 # ---------- safety thresholds ----------
@@ -48,9 +48,15 @@ MIN_SCORED_RATIO = 0.80
 MAX_CANDIDATE_PRICE = 3500.0
 FUNDAMENTAL_CACHE_FILENAME = "fundamental_eps_cache.json"
 MIN_FUNDAMENTAL_AVAILABLE_RATIO = 0.50
-TDNET_DOCUMENT_LIMIT = 12
+TDNET_DOCUMENT_LIMIT = 24
 TDNET_CACHE_DIR = ".cache/tdnet"
-FUNDAMENTAL_CACHE_SCHEMA_VERSION = 5
+FUNDAMENTAL_CACHE_SCHEMA_VERSION = 6
+
+# v14: 進捗悪化・月足過熱の最終フィルター。
+SIGNIFICANT_PROGRESS_RELATIVE_DECLINE = 0.30
+SIGNIFICANT_PROGRESS_GAP_PP = 5.0
+SIGNIFICANT_SAME_PERIOD_PROFIT_DECLINE = 0.20
+MONTHLY_MA_OVEREXTENSION_PCT = 30.0
 
 SPECS = [
     ("d5", "日5", 5, "D"),
@@ -1126,25 +1132,91 @@ def near_9_of_9_candidate(item: dict) -> dict | None:
     return result
 
 
+
 def near_all_ma_above_candidate(item: dict) -> dict | None:
-    """Return the price-level leading indicator for all nine MAs."""
+    """⑥候補を A=株価水準未達 / B=株価達成済み・ローソク足接触 に分類する。"""
     if item.get("available_ma_count") != len(SPECS) or item.get("all_ma_above"):
         return None
     price = safe_float(item.get("price"))
     if price is None or price <= 0:
         return None
-    max_ma = max(item["states"][key]["ma"] for key in MA_KEYS)
-    required = max(0.0, (max_ma - price) / price * 100.0)
+
+    level = ma_level_fields(item)
+    max_ma = safe_float(level.get("highest_ma_value"))
+    if max_ma is None or max_ma <= 0:
+        return None
+
+    signed_required = (max_ma / price - 1.0) * 100.0
+    required = max(0.0, signed_required)
     if required > 1.0:
         return None
+
+    blockers = []
+    tf_map = {key: tf for key, _label, _length, tf in SPECS}
+    tf_name = {"D": "day", "W": "week", "M": "month"}
+    for key in MA_KEYS:
+        state = item["states"][key]
+        if state["state"] in (2, 5, 8):
+            continue
+        timeframe = tf_name[tf_map[key]]
+        ma = safe_float(state.get("ma"))
+        candle_low = safe_float(
+            ((item.get("candle") or {}).get(timeframe) or {}).get("low")
+        )
+        low_to_ma_pct = (
+            (candle_low / ma - 1.0) * 100.0
+            if candle_low is not None and ma not in (None, 0)
+            else None
+        )
+        blockers.append({
+            "key": key,
+            "label": state["label"],
+            "state": state["state"],
+            "state_label": state["state_label"],
+            "ma": state["ma"],
+            "gap_pct": state.get("gap_pct"),
+            "timeframe": timeframe,
+            "candle_low": round(candle_low, 6) if candle_low is not None else None,
+            "low_to_ma_pct": (
+                round(low_to_ma_pct, 6)
+                if low_to_ma_pct is not None else None
+            ),
+        })
+
+    blocking_timeframes = [
+        tf for tf in ("day", "week", "month")
+        if any(x["timeframe"] == tf for x in blockers)
+    ]
+    if "month" in blocking_timeframes:
+        earliest_recheck = "next_month"
+    elif "week" in blocking_timeframes:
+        earliest_recheck = "next_week"
+    elif "day" in blocking_timeframes:
+        earliest_recheck = "next_trading_day"
+    else:
+        earliest_recheck = None
+
     result = dict(item)
+    result.update(level)
+    result["near_all_ma_above_type"] = (
+        "price_below_max_ma"
+        if price < max_ma
+        else "candle_touch_after_price_clear"
+    )
+    # v13互換フィールド。B型では0のまま保持する。
     result["near_all_ma_above_required_rise_pct"] = round(required, 6)
     result["near_all_ma_above_target_price"] = round(max(price, max_ma), 6)
     result["near_all_ma_above_blocking_ma"] = [
-        f"{item['states'][key]['label']} {item['states'][key]['state_label']}"
-        for key in MA_KEYS
-        if item["states"][key]["state"] not in (2, 5, 8)
+        f"{x['label']} {x['state_label']}" for x in blockers
     ]
+    result["blocking_ma"] = [x["key"] for x in blockers]
+    result["blocking_ma_labels"] = [x["label"] for x in blockers]
+    result["blocking_ma_details"] = blockers
+    result["blocking_low_gap_pct"] = {
+        x["key"]: x["low_to_ma_pct"] for x in blockers
+    }
+    result["blocking_timeframes"] = blocking_timeframes
+    result["earliest_recheck"] = earliest_recheck
     return result
 
 
@@ -1207,8 +1279,171 @@ def comparison_passes(value: dict | None) -> bool:
     return not value or value.get("comparison") != "missed"
 
 
+
+def progress_comparison_passes(value: dict | None) -> bool:
+    """前年同期比進捗が明示的に著しく悪化した場合だけ落とす。"""
+    return not value or value.get("comparison") != "deteriorated"
+
+
+def progress_deterioration_comparison(
+    current_actual: float | None,
+    current_forecast: float | None,
+    prior_actual: float | None,
+    prior_forecast: float | None,
+    *,
+    metric: str | None = None,
+) -> dict:
+    """同期間の進捗率と利益実額を前年同期と比較する。"""
+    raw = (current_actual, current_forecast, prior_actual, prior_forecast)
+    values = tuple(safe_float(x) for x in raw)
+    if any(x is None for x in values):
+        return {
+            "status": "unavailable",
+            "comparison": "unavailable",
+            "reason": "progress_input_missing",
+            "metric": metric,
+        }
+
+    current_actual, current_forecast, prior_actual, prior_forecast = values
+    if current_forecast <= 0 or prior_forecast <= 0 or prior_actual <= 0:
+        return {
+            "status": "unavailable",
+            "comparison": "unavailable",
+            "reason": "progress_denominator_not_positive",
+            "metric": metric,
+        }
+
+    current_progress = current_actual / current_forecast * 100.0
+    prior_progress = prior_actual / prior_forecast * 100.0
+    if prior_progress <= 0:
+        return {
+            "status": "unavailable",
+            "comparison": "unavailable",
+            "reason": "prior_progress_not_positive",
+            "metric": metric,
+        }
+
+    progress_gap_pp = current_progress - prior_progress
+    relative_deterioration = (
+        (prior_progress - current_progress) / prior_progress
+    )
+    same_period_profit_yoy = (
+        (current_actual - prior_actual) / abs(prior_actual)
+    )
+    deteriorated = bool(
+        relative_deterioration >= SIGNIFICANT_PROGRESS_RELATIVE_DECLINE
+        and progress_gap_pp <= -SIGNIFICANT_PROGRESS_GAP_PP
+        and same_period_profit_yoy <= -SIGNIFICANT_SAME_PERIOD_PROFIT_DECLINE
+    )
+    return {
+        "status": "ok",
+        "comparison": "deteriorated" if deteriorated else "acceptable",
+        "reason": (
+            "progress_and_same_period_profit_significantly_deteriorated"
+            if deteriorated else None
+        ),
+        "metric": metric,
+        "current_actual": round(current_actual, 6),
+        "current_full_year_forecast": round(current_forecast, 6),
+        "prior_same_period_actual": round(prior_actual, 6),
+        "prior_full_year_forecast": round(prior_forecast, 6),
+        "current_progress_pct": round(current_progress, 4),
+        "prior_progress_pct": round(prior_progress, 4),
+        "progress_gap_pp": round(progress_gap_pp, 4),
+        "relative_progress_deterioration_pct": round(
+            relative_deterioration * 100.0, 4
+        ),
+        "same_period_profit_yoy_pct": round(
+            same_period_profit_yoy * 100.0, 4
+        ),
+        "thresholds": {
+            "relative_progress_deterioration_pct": (
+                SIGNIFICANT_PROGRESS_RELATIVE_DECLINE * 100.0
+            ),
+            "progress_gap_pp": SIGNIFICANT_PROGRESS_GAP_PP,
+            "same_period_profit_decline_pct": (
+                SIGNIFICANT_SAME_PERIOD_PROFIT_DECLINE * 100.0
+            ),
+        },
+    }
+
+
+def monthly_ma_overextension_result(item: dict | None) -> dict:
+    """月12・24・60の3本すべてが終値から+30%以上離れた場合に過熱扱い。"""
+    if not item:
+        return {
+            "status": "unavailable",
+            "comparison": "unavailable",
+            "reason": "item_missing",
+        }
+    states = item.get("states") or {}
+    gaps = {}
+    for key in ("m12", "m24", "m60"):
+        gap = safe_float((states.get(key) or {}).get("gap_pct"))
+        if gap is None:
+            return {
+                "status": "unavailable",
+                "comparison": "unavailable",
+                "reason": "monthly_ma_gap_missing",
+                "threshold_pct": MONTHLY_MA_OVEREXTENSION_PCT,
+            }
+        gaps[key] = round(gap, 4)
+    overextended = all(
+        gap >= MONTHLY_MA_OVEREXTENSION_PCT
+        for gap in gaps.values()
+    )
+    return {
+        "status": "ok",
+        "comparison": "overextended" if overextended else "acceptable",
+        "reason": "all_monthly_ma_gaps_ge_threshold" if overextended else None,
+        "threshold_pct": MONTHLY_MA_OVEREXTENSION_PCT,
+        "gaps_pct": gaps,
+    }
+
+
+def ma_level_fields(item: dict | None) -> dict:
+    """9本中最高MAと現在値との位置関係を監査用に返す。"""
+    if not item:
+        return {
+            "highest_ma_key": None,
+            "highest_ma_label": None,
+            "highest_ma_value": None,
+            "price_to_highest_ma_pct": None,
+            "highest_ma_to_price_required_pct": None,
+        }
+    price = safe_float(item.get("price"))
+    states = item.get("states") or {}
+    values = []
+    for key in MA_KEYS:
+        state = states.get(key) or {}
+        ma = safe_float(state.get("ma"))
+        if ma is not None:
+            values.append((key, state.get("label"), ma))
+    if price is None or price <= 0 or len(values) != len(MA_KEYS):
+        return {
+            "highest_ma_key": None,
+            "highest_ma_label": None,
+            "highest_ma_value": None,
+            "price_to_highest_ma_pct": None,
+            "highest_ma_to_price_required_pct": None,
+        }
+    key, label, max_ma = max(values, key=lambda x: x[2])
+    return {
+        "highest_ma_key": key,
+        "highest_ma_label": label,
+        "highest_ma_value": round(max_ma, 6),
+        "price_to_highest_ma_pct": round((price / max_ma - 1.0) * 100.0, 6),
+        "highest_ma_to_price_required_pct": round((max_ma / price - 1.0) * 100.0, 6),
+    }
+
+
+def attach_ma_level_fields(item: dict) -> dict:
+    item.update(ma_level_fields(item))
+    return item
+
+
 def result_expectation_exclusion_reasons(fundamental: dict | None) -> list[str]:
-    """銘柄が直近決算予想フィルタで落ちた理由を監査用に返す。"""
+    """直近決算・市場予想・前年同期進捗の除外理由を監査用に返す。"""
     if not fundamental:
         return []
     reasons = []
@@ -1220,7 +1455,72 @@ def result_expectation_exclusion_reasons(fundamental: dict | None) -> list[str]:
         fundamental.get("latest_result_vs_market_consensus")
     ):
         reasons.append("latest_result_below_market_consensus")
+    if not progress_comparison_passes(
+        fundamental.get("latest_progress_vs_prior")
+    ):
+        reasons.append("quarter_progress_significantly_deteriorated")
     return reasons
+
+
+def screening_exclusion_reasons(
+    item: dict | None,
+    fundamental: dict | None,
+) -> list[str]:
+    """v14共通最終フィルター。該当理由は1件に絞らず全件返す。"""
+    reasons = []
+    price = safe_float((item or {}).get("price"))
+    if price is None:
+        reasons.append("price_unavailable")
+    elif price > MAX_CANDIDATE_PRICE:
+        reasons.append("price_above_limit")
+
+    if not fundamental or fundamental.get("status") != "ok":
+        reasons.append("earnings_data_unavailable")
+    elif fundamental.get("improving") is not True:
+        reasons.append("earnings_not_improving")
+
+    reasons.extend(result_expectation_exclusion_reasons(fundamental))
+
+    monthly = monthly_ma_overextension_result(item)
+    if monthly.get("comparison") == "overextended":
+        reasons.append("monthly_ma_excessive_overextension")
+
+    # 同じ理由が重複しても順序を維持して1件にまとめる。
+    return list(dict.fromkeys(reasons))
+
+
+def all_ma_above_sort_key(item: dict):
+    gap = safe_float(item.get("price_to_highest_ma_pct"))
+    return (
+        gap if gap is not None else 999999.0,
+        item.get("universe_rank", 999999),
+        item.get("code", ""),
+    )
+
+
+def near_all_price_sort_key(item: dict):
+    gap = safe_float(item.get("highest_ma_to_price_required_pct"))
+    return (
+        gap if gap is not None else 999999.0,
+        item.get("universe_rank", 999999),
+        item.get("code", ""),
+    )
+
+
+def near_all_touch_sort_key(item: dict):
+    recheck_rank = {
+        "next_trading_day": 0,
+        "next_week": 1,
+        "next_month": 2,
+        None: 3,
+    }
+    gap = safe_float(item.get("price_to_highest_ma_pct"))
+    return (
+        recheck_rank.get(item.get("earliest_recheck"), 3),
+        gap if gap is not None else 999999.0,
+        item.get("universe_rank", 999999),
+        item.get("code", ""),
+    )
 
 
 def exact_period_company_comparison(
@@ -1233,15 +1533,18 @@ def exact_period_company_comparison(
     return "met" if actual >= forecast else "missed"
 
 
+
 def fetch_tdnet_earnings(
     tickers: list[str],
     target_date: date,
 ) -> dict[str, dict]:
     """
-    TDnet XBRLから今期会社予想EPSと直近通期実績EPSを取得する。
+    TDnet XBRLから今期会社予想EPS、前期通期実績EPS、前年同期進捗を取得する。
 
-    四半期短信のcurrent EPSは累計四半期値なので比較に使わず、
-    期間300日以上の最新実績だけを前期通期EPSとして採用する。
+    進捗率は原則として経常利益、取得不能時は営業利益を使う。
+    今期はtarget_date時点の最新通期会社予想、前年は前年同期間の短信時点の
+    通期会社予想を分母にする。比較不能ならunavailableとして、この条件だけで
+    候補を落とさない。
     """
     if not tickers:
         return {}
@@ -1266,6 +1569,30 @@ def fetch_tdnet_earnings(
             for ticker in tickers
         }
 
+    def statement_value(statements, key, period: str):
+        value = extract_values(
+            statements,
+            [key],
+            period=period,
+            consolidated=True,
+        ).get(key)
+        if value is None:
+            value = extract_values(
+                statements,
+                [key],
+                period=period,
+                consolidated=False,
+            ).get(key)
+        return value
+
+    def forecast_value(statements, key):
+        return extract_values(statements, [key]).get(key)
+
+    progress_specs = (
+        ("ordinary_income", CK.ORDINARY_INCOME, CK.FORECAST_ORDINARY_INCOME),
+        ("operating_income", CK.OPERATING_INCOME, CK.FORECAST_OPERATING_INCOME),
+    )
+
     result: dict[str, dict] = {}
     for position, ticker in enumerate(tickers, start=1):
         code = ticker.removesuffix(".T")
@@ -1287,18 +1614,22 @@ def fetch_tdnet_earnings(
             annual_actuals = []
             latest_actual = None
             dated_forecasts = []
+            progress_records = []
+            latest_metric_forecasts: dict[str, dict] = {}
+            progress_target_metric = None
+            progress_prior_period_end = None
+            progress_prior_forecast_seen = False
 
             for filing in filings:
                 statements = filing.xbrl()
+                this_filing_date = filing_date(filing)
+
                 if forecast_eps is None:
-                    forecast_value = extract_values(
-                        statements,
-                        [CK.FORECAST_EPS],
-                    ).get(CK.FORECAST_EPS)
-                    value = extracted_number(forecast_value)
+                    forecast_item = forecast_value(statements, CK.FORECAST_EPS)
+                    value = extracted_number(forecast_item)
                     period = (
-                        forecast_value.item.period
-                        if forecast_value is not None else None
+                        forecast_item.item.period
+                        if forecast_item is not None else None
                     )
                     period_end = getattr(period, "end_date", None)
                     if value is not None and period_end is not None:
@@ -1306,12 +1637,7 @@ def fetch_tdnet_earnings(
                         forecast_end = period_end
                         forecast_filing = filing
 
-                # 直近決算（四半期・中間を含む）については、同一期間末の
-                # 会社予想だけを比較する。通期予想を四半期実績に按分しない。
-                filing_forecast = extract_values(
-                    statements,
-                    [CK.FORECAST_EPS],
-                ).get(CK.FORECAST_EPS)
+                filing_forecast = forecast_value(statements, CK.FORECAST_EPS)
                 filing_forecast_value = extracted_number(filing_forecast)
                 filing_forecast_period = (
                     filing_forecast.item.period
@@ -1325,24 +1651,12 @@ def fetch_tdnet_earnings(
                     and filing_forecast_end is not None
                 ):
                     dated_forecasts.append((
-                        filing_date(filing),
+                        this_filing_date,
                         filing_forecast_end,
                         filing_forecast_value,
                     ))
 
-                actual_value = extract_values(
-                    statements,
-                    [CK.EPS],
-                    period="current",
-                    consolidated=True,
-                ).get(CK.EPS)
-                if actual_value is None:
-                    actual_value = extract_values(
-                        statements,
-                        [CK.EPS],
-                        period="current",
-                        consolidated=False,
-                    ).get(CK.EPS)
+                actual_value = statement_value(statements, CK.EPS, "current")
                 actual_eps = extracted_number(actual_value)
                 actual_period = (
                     actual_value.item.period
@@ -1351,7 +1665,7 @@ def fetch_tdnet_earnings(
                 actual_end = getattr(actual_period, "end_date", None)
                 if actual_eps is not None and actual_end is not None:
                     actual_entry = (
-                        filing_date(filing),
+                        this_filing_date,
                         actual_end,
                         actual_eps,
                         duration_days(actual_value),
@@ -1364,8 +1678,106 @@ def fetch_tdnet_earnings(
                     and (duration_days(actual_value) or 0) >= 300
                 ):
                     annual_actuals.append((actual_end, actual_eps, filing))
-                    if forecast_end is not None and actual_end < forecast_end:
-                        break
+
+                progress_record = {
+                    "filing_date": this_filing_date,
+                    "metrics": {},
+                }
+                for metric_name, actual_key, forecast_key in progress_specs:
+                    current_item = statement_value(
+                        statements, actual_key, "current"
+                    )
+                    prior_item = statement_value(
+                        statements, actual_key, "prior"
+                    )
+                    forecast_item = forecast_value(statements, forecast_key)
+
+                    current_actual = extracted_number(current_item)
+                    prior_actual_value = extracted_number(prior_item)
+                    current_period = (
+                        current_item.item.period
+                        if current_item is not None else None
+                    )
+                    prior_period = (
+                        prior_item.item.period
+                        if prior_item is not None else None
+                    )
+                    forecast_period = (
+                        forecast_item.item.period
+                        if forecast_item is not None else None
+                    )
+                    current_end = getattr(current_period, "end_date", None)
+                    prior_end = getattr(prior_period, "end_date", None)
+                    full_year_end = getattr(forecast_period, "end_date", None)
+                    full_year_forecast = extracted_number(forecast_item)
+
+                    metric_record = {
+                        "current_actual": current_actual,
+                        "prior_actual": prior_actual_value,
+                        "current_period_end": current_end,
+                        "prior_period_end": prior_end,
+                        "period_days": duration_days(current_item),
+                        "forecast": full_year_forecast,
+                        "forecast_period_end": full_year_end,
+                    }
+                    progress_record["metrics"][metric_name] = metric_record
+
+                    if (
+                        metric_name not in latest_metric_forecasts
+                        and full_year_forecast is not None
+                        and full_year_end is not None
+                    ):
+                        latest_metric_forecasts[metric_name] = {
+                            "value": full_year_forecast,
+                            "period_end": full_year_end,
+                            "filing_date": this_filing_date,
+                        }
+
+                    latest_metric_forecast = latest_metric_forecasts.get(
+                        metric_name
+                    )
+                    if (
+                        progress_target_metric is None
+                        and current_actual is not None
+                        and prior_actual_value is not None
+                        and current_end is not None
+                        and prior_end is not None
+                        and duration_days(current_item) is not None
+                        and duration_days(current_item) < 300
+                        and latest_metric_forecast is not None
+                        and latest_metric_forecast["period_end"] > current_end
+                    ):
+                        # ordinary_incomeが先に評価されるため原則経常利益。
+                        progress_target_metric = metric_name
+                        progress_prior_period_end = prior_end
+
+                    if (
+                        progress_target_metric == metric_name
+                        and progress_prior_period_end is not None
+                        and current_end == progress_prior_period_end
+                        and full_year_forecast is not None
+                        and full_year_end is not None
+                        and full_year_end > current_end
+                    ):
+                        progress_prior_forecast_seen = True
+
+                progress_records.append(progress_record)
+
+                have_prior_annual_eps = bool(
+                    forecast_end is not None
+                    and any(
+                        annual_end < forecast_end
+                        for annual_end, _eps, _filing in annual_actuals
+                    )
+                )
+                if (
+                    forecast_eps is not None
+                    and have_prior_annual_eps
+                    and progress_target_metric is not None
+                    and progress_prior_forecast_seen
+                ):
+                    # 必要な現年予想、前期通期EPS、前年同期進捗比較が揃った。
+                    break
 
             eligible_actuals = [
                 item for item in annual_actuals
@@ -1405,6 +1817,101 @@ def fetch_tdnet_earnings(
                         "source": "TDnet XBRL",
                     }
 
+            progress_result = {
+                "status": "unavailable",
+                "comparison": "unavailable",
+                "reason": "latest_quarter_or_prior_same_period_forecast_missing",
+                "source": "TDnet XBRL",
+            }
+
+            for metric_name, _actual_key, _forecast_key in progress_specs:
+                latest_forecast = latest_metric_forecasts.get(metric_name)
+                if latest_forecast is None:
+                    continue
+
+                current_source = None
+                for record in progress_records:
+                    metric = record["metrics"].get(metric_name) or {}
+                    current_actual = safe_float(metric.get("current_actual"))
+                    prior_same_actual = safe_float(metric.get("prior_actual"))
+                    current_end = metric.get("current_period_end")
+                    prior_end = metric.get("prior_period_end")
+                    days = metric.get("period_days")
+                    if not (
+                        current_actual is not None
+                        and prior_same_actual is not None
+                        and current_end is not None
+                        and prior_end is not None
+                        and days is not None
+                        and days < 300
+                        and latest_forecast["period_end"] > current_end
+                    ):
+                        continue
+                    current_source = {
+                        "record": record,
+                        "metric": metric,
+                    }
+                    break
+
+                if current_source is None:
+                    continue
+
+                current_metric = current_source["metric"]
+                prior_period_end = current_metric["prior_period_end"]
+                prior_forecast = None
+                prior_forecast_record = None
+                for record in progress_records:
+                    metric = record["metrics"].get(metric_name) or {}
+                    if metric.get("current_period_end") != prior_period_end:
+                        continue
+                    value = safe_float(metric.get("forecast"))
+                    period_end = metric.get("forecast_period_end")
+                    if (
+                        value is not None
+                        and period_end is not None
+                        and period_end > prior_period_end
+                    ):
+                        prior_forecast = value
+                        prior_forecast_record = record
+                        break
+
+                if prior_forecast is None or prior_forecast_record is None:
+                    continue
+
+                progress_result = progress_deterioration_comparison(
+                    current_metric["current_actual"],
+                    latest_forecast["value"],
+                    current_metric["prior_actual"],
+                    prior_forecast,
+                    metric=metric_name,
+                )
+                progress_result.update({
+                    "current_period_end": current_metric[
+                        "current_period_end"
+                    ].isoformat(),
+                    "prior_period_end": current_metric[
+                        "prior_period_end"
+                    ].isoformat(),
+                    "period_days": current_metric["period_days"],
+                    "current_actual_filing_date": current_source[
+                        "record"
+                    ]["filing_date"].isoformat(),
+                    "current_forecast_period_end": latest_forecast[
+                        "period_end"
+                    ].isoformat(),
+                    "current_forecast_filing_date": latest_forecast[
+                        "filing_date"
+                    ].isoformat(),
+                    "prior_forecast_period_end": prior_forecast_record[
+                        "metrics"
+                    ][metric_name]["forecast_period_end"].isoformat(),
+                    "prior_forecast_filing_date": prior_forecast_record[
+                        "filing_date"
+                    ].isoformat(),
+                    "source": "TDnet XBRL",
+                })
+                break
+
             if forecast_eps is None or prior_actual is None:
                 result[ticker] = {
                     "status": "unavailable",
@@ -1419,6 +1926,7 @@ def fetch_tdnet_earnings(
                         prior_actual[1] if prior_actual is not None else None
                     ),
                     "latest_result_vs_company_forecast": company_result,
+                    "latest_progress_vs_prior": progress_result,
                 }
             else:
                 prior_end, prior_eps, prior_filing = prior_actual
@@ -1434,12 +1942,11 @@ def fetch_tdnet_earnings(
                     ),
                     "forecast_period_end": forecast_end.isoformat(),
                     "prior_period_end": prior_end.isoformat(),
-                    "forecast_filing_date": (
-                        filing_date(forecast_filing).isoformat()
-                    ),
+                    "forecast_filing_date": filing_date(forecast_filing).isoformat(),
                     "prior_filing_date": filing_date(prior_filing).isoformat(),
                     "source": "TDnet XBRL",
                     "latest_result_vs_company_forecast": company_result,
+                    "latest_progress_vs_prior": progress_result,
                 }
         except Exception as exc:
             result[ticker] = {
@@ -1529,9 +2036,10 @@ def fetch_fundamental_screening(
         "generated_at_jst": datetime.now(JST).isoformat(timespec="seconds"),
         "target_date": target_date.isoformat(),
         "definition": (
-            "TDnet XBRL: current-year company forecast EPS "
-            "> latest prior full-year actual EPS; latest result misses "
-            "same-period company forecast or market consensus => exclude"
+            "TDnet XBRL: current-year company forecast EPS > latest prior "
+            "full-year actual EPS; latest result miss => exclude; same-period "
+            "progress relative deterioration >=30%, gap >=5pp, and profit "
+            "YoY <=-20% => exclude"
         ),
         "entries": cache_entries,
     }
@@ -1582,12 +2090,26 @@ def fetch_fundamental_screening(
             x.get("latest_result_vs_market_consensus", {}).get("comparison")
             == "missed" for x in result.values()
         ),
+        "progress_comparison_available": sum(
+            x.get("latest_progress_vs_prior", {}).get("status") == "ok"
+            for x in result.values()
+        ),
+        "progress_deteriorated": sum(
+            x.get("latest_progress_vs_prior", {}).get("comparison")
+            == "deteriorated" for x in result.values()
+        ),
+        "progress_unavailable": sum(
+            x.get("latest_progress_vs_prior", {}).get("status") != "ok"
+            for x in result.values()
+        ),
         "consensus_provider": getattr(provider, "name", type(provider).__name__),
     }
     return result, summary
 
 
+
 def attach_screening_fields(item: dict, fundamental: dict | None) -> dict:
+    monthly = monthly_ma_overextension_result(item)
     item["screening"] = {
         "price_limit": MAX_CANDIDATE_PRICE,
         "price_pass": (
@@ -1623,10 +2145,7 @@ def attach_screening_fields(item: dict, fundamental: dict | None) -> dict:
             fundamental.get("earnings_growth")
             if fundamental else None
         ),
-        "reason": (
-            fundamental.get("reason")
-            if fundamental else None
-        ),
+        "reason": fundamental.get("reason") if fundamental else None,
         "latest_result_vs_company_forecast": (
             fundamental.get("latest_result_vs_company_forecast")
             if fundamental else None
@@ -1635,6 +2154,12 @@ def attach_screening_fields(item: dict, fundamental: dict | None) -> dict:
             fundamental.get("latest_result_vs_market_consensus")
             if fundamental else None
         ),
+        "latest_progress_vs_prior": (
+            fundamental.get("latest_progress_vs_prior")
+            if fundamental else None
+        ),
+        "monthly_ma_overextension": monthly,
+        "exclusion_reasons": screening_exclusion_reasons(item, fundamental),
     }
     return item
 
@@ -1874,6 +2399,8 @@ def scan(
         + raw_early_stage_candidates
     )
     for x in all_raw_candidate_groups:
+        attach_ma_level_fields(x)
+    for x in all_raw_candidate_groups:
         if x.get("price") is not None and x["price"] <= MAX_CANDIDATE_PRICE:
             screening_pool_map[x["ticker"]] = x
     screening_pool = list(screening_pool_map.values())
@@ -1892,20 +2419,8 @@ def scan(
         )
 
     def final_screen_pass(x: dict) -> bool:
-        if x.get("price") is None or x["price"] > MAX_CANDIDATE_PRICE:
-            return False
         f = fundamental_map.get(x["ticker"])
-        return bool(
-            f
-            and f.get("status") == "ok"
-            and f.get("improving") is True
-            and comparison_passes(
-                f.get("latest_result_vs_company_forecast")
-            )
-            and comparison_passes(
-                f.get("latest_result_vs_market_consensus")
-            )
-        )
+        return not screening_exclusion_reasons(x, f)
 
     candidates = [
         x for x in raw_candidates
@@ -1928,14 +2443,9 @@ def scan(
     candidates.sort(
         key=lambda x: (-x["score"], x["universe_rank"], x["code"])
     )
-    all_ma_above_candidates.sort(
-        key=lambda x: (-x["score"], x["universe_rank"], x["code"])
-    )
+    all_ma_above_candidates.sort(key=all_ma_above_sort_key)
     near_9_of_9_candidates.sort(
         key=lambda x: (x["near_9_of_9_required_rise_pct"], x["universe_rank"], x["code"])
-    )
-    near_all_ma_above_candidates.sort(
-        key=lambda x: (x["near_all_ma_above_required_rise_pct"], x["universe_rank"], x["code"])
     )
     early_stage_candidates.sort(
         key=lambda x: (
@@ -2204,6 +2714,30 @@ def scan(
             if x["code"] not in quarantine_codes
         ]
 
+    near_all_ma_above_price_candidates = [
+        x for x in near_all_ma_above_candidates
+        if x.get("near_all_ma_above_type") == "price_below_max_ma"
+    ]
+    near_all_ma_above_touch_candidates = [
+        x for x in near_all_ma_above_candidates
+        if x.get("near_all_ma_above_type") == "candle_touch_after_price_clear"
+    ]
+    near_all_ma_above_price_candidates.sort(key=near_all_price_sort_key)
+    near_all_ma_above_touch_candidates.sort(key=near_all_touch_sort_key)
+    # v13互換combined。v14ではAを先に、Bを後に並べる。
+    near_all_ma_above_candidates = (
+        near_all_ma_above_price_candidates
+        + near_all_ma_above_touch_candidates
+    )
+
+    screening_exclusion_reason_counts = dict(sorted(Counter(
+        reason
+        for item in screening_pool
+        for reason in screening_exclusion_reasons(
+            item, fundamental_map.get(item["ticker"])
+        )
+    ).items()))
+
     quality_issues = []
     if unscored:
         quality_issues.append(f"unscored={len(unscored)}")
@@ -2252,6 +2786,8 @@ def scan(
         "all_ma_above": len(all_ma_above_candidates),
         "near_9_of_9": len(near_9_of_9_candidates),
         "near_all_ma_above": len(near_all_ma_above_candidates),
+        "near_all_ma_above_price": len(near_all_ma_above_price_candidates),
+        "near_all_ma_above_touch": len(near_all_ma_above_touch_candidates),
         "early_stage": len(early_stage_candidates),
         "partial_ma": len(partial_ma_candidates),
         "partial_available_ma_above": sum(
@@ -2326,8 +2862,20 @@ def scan(
                 "providerが市場コンセンサス未達を返した場合のみ除外。"
                 "未公表・provider未設定なら通過"
             ),
+            "same_period_progress": (
+                "原則経常利益（取得不能時は営業利益）の同期間累計実績÷"
+                "通期会社予想を前年同期と比較。相対30%以上悪化、"
+                "5.0pt以上悪化、かつ同期間利益20%以上減なら除外。"
+                "比較不能時はこの条件だけでは除外しない"
+            ),
+            "monthly_ma_overextension": (
+                "月12・24・60の終値乖離率が3本すべて+30.0%以上なら除外"
+            ),
             "near_9_of_9": "現在価格から+1%以内の仮想価格で9本すべてがstate 7/8になる最小上昇率",
-            "near_all_ma_above": "正式なall_ma_aboveではなく、現在価格から+1%以内で9本の現在MA価格水準を上回れるかを見る価格水準ベース先行指標",
+            "near_all_ma_above": (
+                "⑥A=最高MAまで+1%以内の株価水準未達型。"
+                "⑥B=株価は最高MA以上だがローソク足がMAへ接触中の型"
+            ),
             "early_stage": (
                 "9本完備かつ7/9以上。日5・25・75、週13・26、月12の"
                 "6本中3本以上が±5%以内、日75・週26・月12の"
@@ -2342,9 +2890,24 @@ def scan(
             "raw_all_ma_above": len(raw_all_ma_above_candidates),
             "raw_near_9_of_9": len(raw_near_9_of_9_candidates),
             "raw_near_all_ma_above": len(raw_near_all_ma_above_candidates),
+            "raw_near_all_ma_above_price": sum(
+                x.get("near_all_ma_above_type") == "price_below_max_ma"
+                for x in raw_near_all_ma_above_candidates
+            ),
+            "raw_near_all_ma_above_touch": sum(
+                x.get("near_all_ma_above_type")
+                == "candle_touch_after_price_clear"
+                for x in raw_near_all_ma_above_candidates
+            ),
             "raw_early_stage": len(raw_early_stage_candidates),
             "price_eligible_unique_symbols": len(screening_pool),
             "fundamental": fundamental_summary,
+            "monthly_ma_overextension_count": (
+                screening_exclusion_reason_counts.get(
+                    "monthly_ma_excessive_overextension", 0
+                )
+            ),
+            "screening_exclusion_reason_counts": screening_exclusion_reason_counts,
         },
         "counts": counts,
         "coverage": {
@@ -2381,6 +2944,25 @@ def scan(
         },
         "diagnostics": {
             "score_distribution": score_distribution,
+            "screening_exclusion_reason_counts": screening_exclusion_reason_counts,
+            "progress_comparison_available": fundamental_summary.get(
+                "progress_comparison_available", 0
+            ),
+            "progress_deteriorated_count": fundamental_summary.get(
+                "progress_deteriorated", 0
+            ),
+            "progress_unavailable_count": fundamental_summary.get(
+                "progress_unavailable", 0
+            ),
+            "monthly_ma_overextension_count": screening_exclusion_reason_counts.get(
+                "monthly_ma_excessive_overextension", 0
+            ),
+            "near_all_ma_above_price_count": len(
+                near_all_ma_above_price_candidates
+            ),
+            "near_all_ma_above_touch_count": len(
+                near_all_ma_above_touch_candidates
+            ),
             "score_fraction_distribution": score_fraction_distribution,
             "available_ma_distribution": available_ma_distribution,
             "last_bar_distribution": dict(sorted(last_bar_distribution.items())),
@@ -2445,6 +3027,17 @@ def scan(
                             fundamental_map.get(x["ticker"])
                         )
                     ),
+                    "latest_progress_comparison": (
+                        fundamental_map.get(x["ticker"], {})
+                        .get("latest_progress_vs_prior", {})
+                        .get("comparison")
+                    ),
+                    "monthly_ma_overextension": (
+                        monthly_ma_overextension_result(x)
+                    ),
+                    "exclusion_reasons": screening_exclusion_reasons(
+                        x, fundamental_map.get(x["ticker"])
+                    ),
                 }
                 for x in raw_candidates
                 if not final_screen_pass(x)
@@ -2458,6 +3051,15 @@ def scan(
                         "price_pass": x.get("price") is not None and x["price"] <= MAX_CANDIDATE_PRICE,
                         "earnings_status": fundamental_map.get(x["ticker"], {}).get("status"),
                         "earnings_improving": fundamental_map.get(x["ticker"], {}).get("improving"),
+                        "latest_progress_comparison": (
+                            fundamental_map.get(x["ticker"], {})
+                            .get("latest_progress_vs_prior", {})
+                            .get("comparison")
+                        ),
+                        "monthly_ma_overextension": monthly_ma_overextension_result(x),
+                        "exclusion_reasons": screening_exclusion_reasons(
+                            x, fundamental_map.get(x["ticker"])
+                        ),
                         "quarantined": x["code"] in quarantine_codes,
                     }
                     for x in raw_near_9_of_9_candidates
@@ -2471,6 +3073,16 @@ def scan(
                         "price_pass": x.get("price") is not None and x["price"] <= MAX_CANDIDATE_PRICE,
                         "earnings_status": fundamental_map.get(x["ticker"], {}).get("status"),
                         "earnings_improving": fundamental_map.get(x["ticker"], {}).get("improving"),
+                        "latest_progress_comparison": (
+                            fundamental_map.get(x["ticker"], {})
+                            .get("latest_progress_vs_prior", {})
+                            .get("comparison")
+                        ),
+                        "monthly_ma_overextension": monthly_ma_overextension_result(x),
+                        "exclusion_reasons": screening_exclusion_reasons(
+                            x, fundamental_map.get(x["ticker"])
+                        ),
+                        "near_all_ma_above_type": x.get("near_all_ma_above_type"),
                         "quarantined": x["code"] in quarantine_codes,
                     }
                     for x in raw_near_all_ma_above_candidates
@@ -2485,6 +3097,12 @@ def scan(
         "all_ma_above_candidates": all_ma_above_candidates,
         "near_9_of_9_candidates": near_9_of_9_candidates,
         "near_all_ma_above_candidates": near_all_ma_above_candidates,
+        "near_all_ma_above_price_candidates": (
+            near_all_ma_above_price_candidates
+        ),
+        "near_all_ma_above_touch_candidates": (
+            near_all_ma_above_touch_candidates
+        ),
         # TDK/SWCC型。複数MAの近接を利用した「初動」候補。
         "early_stage_candidates": early_stage_candidates,
         # 上場後の履歴不足銘柄。存在MAでx/y判定した全件。
@@ -2558,6 +3176,8 @@ def scan(
         f"8/9={counts['8_of_9']} "
         f"7/9={counts['7_of_9']} "
         f"all-above={counts['all_ma_above']} "
+        f"near-all-A={counts['near_all_ma_above_price']} "
+        f"near-all-B={counts['near_all_ma_above_touch']} "
         f"early-stage={counts['early_stage']} "
         f"partial={counts['partial_ma']} "
         f"quarantined={counts['quarantined']} "
