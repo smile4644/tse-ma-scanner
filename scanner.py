@@ -1207,6 +1207,22 @@ def comparison_passes(value: dict | None) -> bool:
     return not value or value.get("comparison") != "missed"
 
 
+def result_expectation_exclusion_reasons(fundamental: dict | None) -> list[str]:
+    """銘柄が直近決算予想フィルタで落ちた理由を監査用に返す。"""
+    if not fundamental:
+        return []
+    reasons = []
+    if not comparison_passes(
+        fundamental.get("latest_result_vs_company_forecast")
+    ):
+        reasons.append("latest_result_below_company_forecast")
+    if not comparison_passes(
+        fundamental.get("latest_result_vs_market_consensus")
+    ):
+        reasons.append("latest_result_below_market_consensus")
+    return reasons
+
+
 def exact_period_company_comparison(
     actual: float | None,
     forecast: float | None,
@@ -2407,6 +2423,27 @@ def scan(
                         if x.get("price") is not None
                         and x["price"] <= MAX_CANDIDATE_PRICE
                         else None
+                    ),
+                    "latest_result_company_comparison": (
+                        fundamental_map.get(x["ticker"], {})
+                        .get("latest_result_vs_company_forecast", {})
+                        .get("comparison")
+                        if x.get("price") is not None
+                        and x["price"] <= MAX_CANDIDATE_PRICE
+                        else "not_checked"
+                    ),
+                    "latest_result_consensus_comparison": (
+                        fundamental_map.get(x["ticker"], {})
+                        .get("latest_result_vs_market_consensus", {})
+                        .get("comparison")
+                        if x.get("price") is not None
+                        and x["price"] <= MAX_CANDIDATE_PRICE
+                        else "not_checked"
+                    ),
+                    "result_expectation_exclusion_reasons": (
+                        result_expectation_exclusion_reasons(
+                            fundamental_map.get(x["ticker"])
+                        )
                     ),
                 }
                 for x in raw_candidates
