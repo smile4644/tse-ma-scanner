@@ -59,6 +59,16 @@ class ResultExpectationTests(unittest.TestCase):
         )
         self.assertTrue(scanner.comparison_passes(values["0001.T"]))
 
+    def test_exclusion_reasons_are_auditable(self):
+        fundamental = {
+            "latest_result_vs_company_forecast": {"comparison": "missed"},
+            "latest_result_vs_market_consensus": {"comparison": "met"},
+        }
+        self.assertEqual(
+            scanner.result_expectation_exclusion_reasons(fundamental),
+            ["latest_result_below_company_forecast"],
+        )
+
 
 if __name__ == "__main__":
     unittest.main()
