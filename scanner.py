@@ -11,6 +11,7 @@ from collections import Counter
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import date, datetime, timedelta, time as dtime
 from pathlib import Path
+from typing import Protocol
 from zoneinfo import ZoneInfo
 
 import numpy as np
@@ -49,6 +50,7 @@ FUNDAMENTAL_CACHE_FILENAME = "fundamental_eps_cache.json"
 MIN_FUNDAMENTAL_AVAILABLE_RATIO = 0.50
 TDNET_DOCUMENT_LIMIT = 12
 TDNET_CACHE_DIR = ".cache/tdnet"
+FUNDAMENTAL_CACHE_SCHEMA_VERSION = 5
 
 SPECS = [
     ("d5", "日5", 5, "D"),
@@ -1167,6 +1169,54 @@ def filing_date(filing) -> date:
     return pd.to_datetime(filing.pubdate).date()
 
 
+class ConsensusProvider(Protocol):
+    """市場コンセンサス実績比較を供給する差し替え可能な境界。"""
+
+    name: str
+
+    def fetch_latest_result_comparisons(
+        self,
+        tickers: list[str],
+        target_date: date,
+    ) -> dict[str, dict]: ...
+
+
+class UnavailableConsensusProvider:
+    """契約データ未設定時の既定provider。未公表扱いで候補を落とさない。"""
+
+    name = "unavailable"
+
+    def fetch_latest_result_comparisons(
+        self,
+        tickers: list[str],
+        target_date: date,
+    ) -> dict[str, dict]:
+        return {
+            ticker: {
+                "status": "unavailable",
+                "comparison": "unavailable",
+                "reason": "market_consensus_not_configured",
+                "provider": self.name,
+            }
+            for ticker in tickers
+        }
+
+
+def comparison_passes(value: dict | None) -> bool:
+    """明示的な未達だけを除外し、予想未公表・取得不能は通す。"""
+    return not value or value.get("comparison") != "missed"
+
+
+def exact_period_company_comparison(
+    actual: float | None,
+    forecast: float | None,
+) -> str:
+    """同一期間の会社予想と実績を比較する。片方がなければ未公表。"""
+    if actual is None or forecast is None:
+        return "unavailable"
+    return "met" if actual >= forecast else "missed"
+
+
 def fetch_tdnet_earnings(
     tickers: list[str],
     target_date: date,
@@ -1219,6 +1269,8 @@ def fetch_tdnet_earnings(
             forecast_end = None
             forecast_filing = None
             annual_actuals = []
+            latest_actual = None
+            dated_forecasts = []
 
             for filing in filings:
                 statements = filing.xbrl()
@@ -1237,6 +1289,30 @@ def fetch_tdnet_earnings(
                         forecast_eps = value
                         forecast_end = period_end
                         forecast_filing = filing
+
+                # 直近決算（四半期・中間を含む）については、同一期間末の
+                # 会社予想だけを比較する。通期予想を四半期実績に按分しない。
+                filing_forecast = extract_values(
+                    statements,
+                    [CK.FORECAST_EPS],
+                ).get(CK.FORECAST_EPS)
+                filing_forecast_value = extracted_number(filing_forecast)
+                filing_forecast_period = (
+                    filing_forecast.item.period
+                    if filing_forecast is not None else None
+                )
+                filing_forecast_end = getattr(
+                    filing_forecast_period, "end_date", None
+                )
+                if (
+                    filing_forecast_value is not None
+                    and filing_forecast_end is not None
+                ):
+                    dated_forecasts.append((
+                        filing_date(filing),
+                        filing_forecast_end,
+                        filing_forecast_value,
+                    ))
 
                 actual_value = extract_values(
                     statements,
@@ -1257,6 +1333,15 @@ def fetch_tdnet_earnings(
                     if actual_value is not None else None
                 )
                 actual_end = getattr(actual_period, "end_date", None)
+                if actual_eps is not None and actual_end is not None:
+                    actual_entry = (
+                        filing_date(filing),
+                        actual_end,
+                        actual_eps,
+                        duration_days(actual_value),
+                    )
+                    if latest_actual is None or actual_entry[0] > latest_actual[0]:
+                        latest_actual = actual_entry
                 if (
                     actual_eps is not None
                     and actual_end is not None
@@ -1273,6 +1358,37 @@ def fetch_tdnet_earnings(
             eligible_actuals.sort(key=lambda item: item[0], reverse=True)
             prior_actual = eligible_actuals[0] if eligible_actuals else None
 
+            company_result = {
+                "status": "unavailable",
+                "comparison": "unavailable",
+                "reason": "latest_result_or_same_period_company_forecast_missing",
+                "source": "TDnet XBRL",
+            }
+            if latest_actual is not None:
+                actual_filing, actual_end, latest_actual_eps, actual_days = latest_actual
+                matching_forecasts = [
+                    x for x in dated_forecasts
+                    if x[0] < actual_filing and x[1] == actual_end
+                ]
+                matching_forecasts.sort(key=lambda x: x[0], reverse=True)
+                if matching_forecasts:
+                    forecast_date, _period_end, same_period_forecast = matching_forecasts[0]
+                    comparison = exact_period_company_comparison(
+                        latest_actual_eps, same_period_forecast
+                    )
+                    company_result = {
+                        "status": "ok",
+                        "comparison": comparison,
+                        "reason": None,
+                        "actual_eps": round(latest_actual_eps, 6),
+                        "forecast_eps": round(same_period_forecast, 6),
+                        "period_end": actual_end.isoformat(),
+                        "period_days": actual_days,
+                        "actual_filing_date": actual_filing.isoformat(),
+                        "forecast_filing_date": forecast_date.isoformat(),
+                        "source": "TDnet XBRL",
+                    }
+
             if forecast_eps is None or prior_actual is None:
                 result[ticker] = {
                     "status": "unavailable",
@@ -1286,6 +1402,7 @@ def fetch_tdnet_earnings(
                     "prior_year_eps": (
                         prior_actual[1] if prior_actual is not None else None
                     ),
+                    "latest_result_vs_company_forecast": company_result,
                 }
             else:
                 prior_end, prior_eps, prior_filing = prior_actual
@@ -1306,6 +1423,7 @@ def fetch_tdnet_earnings(
                     ),
                     "prior_filing_date": filing_date(prior_filing).isoformat(),
                     "source": "TDnet XBRL",
+                    "latest_result_vs_company_forecast": company_result,
                 }
         except Exception as exc:
             result[ticker] = {
@@ -1328,7 +1446,7 @@ def load_fundamental_cache(path: Path, target_date: date) -> dict[str, dict]:
         return {}
     try:
         doc = json.loads(path.read_text(encoding="utf-8"))
-        if doc.get("schema_version") != 4:
+        if doc.get("schema_version") != FUNDAMENTAL_CACHE_SCHEMA_VERSION:
             return {}
         if doc.get("target_date") != target_date.isoformat():
             return {}
@@ -1342,6 +1460,7 @@ def fetch_fundamental_screening(
     symbols: list[dict],
     cache_path: Path,
     target_date: date,
+    consensus_provider: ConsensusProvider | None = None,
 ) -> tuple[dict[str, dict], dict]:
     """
     価格条件を満たしたMA候補のみをTDnet XBRLから取得する。
@@ -1363,6 +1482,26 @@ def fetch_fundamental_screening(
     fetched = fetch_tdnet_earnings(missing_tickers, target_date)
     result.update(fetched)
 
+    provider = consensus_provider or UnavailableConsensusProvider()
+    consensus = provider.fetch_latest_result_comparisons(
+        list(by_ticker), target_date
+    )
+    for ticker in by_ticker:
+        entry = result.setdefault(ticker, {
+            "status": "error",
+            "improving": None,
+            "reason": "tdnet_result_missing",
+        })
+        entry["latest_result_vs_market_consensus"] = consensus.get(
+            ticker,
+            {
+                "status": "unavailable",
+                "comparison": "unavailable",
+                "reason": "provider_result_missing",
+                "provider": getattr(provider, "name", type(provider).__name__),
+            },
+        )
+
     # errorは保存せず、次回実行時に再取得する。
     cache_entries = {
         ticker: value
@@ -1370,12 +1509,13 @@ def fetch_fundamental_screening(
         if value.get("status") in {"ok", "unavailable"}
     }
     cache_doc = {
-        "schema_version": 4,
+        "schema_version": FUNDAMENTAL_CACHE_SCHEMA_VERSION,
         "generated_at_jst": datetime.now(JST).isoformat(timespec="seconds"),
         "target_date": target_date.isoformat(),
         "definition": (
             "TDnet XBRL: current-year company forecast EPS "
-            "> latest prior full-year actual EPS"
+            "> latest prior full-year actual EPS; latest result misses "
+            "same-period company forecast or market consensus => exclude"
         ),
         "entries": cache_entries,
     }
@@ -1418,6 +1558,15 @@ def fetch_fundamental_screening(
             x.get("status") != "ok"
             for x in result.values()
         ),
+        "latest_result_company_missed": sum(
+            x.get("latest_result_vs_company_forecast", {}).get("comparison")
+            == "missed" for x in result.values()
+        ),
+        "latest_result_consensus_missed": sum(
+            x.get("latest_result_vs_market_consensus", {}).get("comparison")
+            == "missed" for x in result.values()
+        ),
+        "consensus_provider": getattr(provider, "name", type(provider).__name__),
     }
     return result, summary
 
@@ -1460,6 +1609,14 @@ def attach_screening_fields(item: dict, fundamental: dict | None) -> dict:
         ),
         "reason": (
             fundamental.get("reason")
+            if fundamental else None
+        ),
+        "latest_result_vs_company_forecast": (
+            fundamental.get("latest_result_vs_company_forecast")
+            if fundamental else None
+        ),
+        "latest_result_vs_market_consensus": (
+            fundamental.get("latest_result_vs_market_consensus")
             if fundamental else None
         ),
     }
@@ -1726,6 +1883,12 @@ def scan(
             f
             and f.get("status") == "ok"
             and f.get("improving") is True
+            and comparison_passes(
+                f.get("latest_result_vs_company_forecast")
+            )
+            and comparison_passes(
+                f.get("latest_result_vs_market_consensus")
+            )
         )
 
     candidates = [
@@ -2139,6 +2302,14 @@ def scan(
                 "prior full-year actual EPS"
             ),
             "earnings_unavailable_policy": "exclude",
+            "latest_result_company_forecast": (
+                "同一期間の会社予想があり実績EPSが未達なら除外。"
+                "同一期間予想が未公表なら通過"
+            ),
+            "latest_result_market_consensus": (
+                "providerが市場コンセンサス未達を返した場合のみ除外。"
+                "未公表・provider未設定なら通過"
+            ),
             "near_9_of_9": "現在価格から+1%以内の仮想価格で9本すべてがstate 7/8になる最小上昇率",
             "near_all_ma_above": "正式なall_ma_aboveではなく、現在価格から+1%以内で9本の現在MA価格水準を上回れるかを見る価格水準ベース先行指標",
             "early_stage": (
@@ -2309,11 +2480,9 @@ def scan(
     # scannerが0終了するため、現行workflowのgit add results/で診断もコミットされる。
     diagnostics_dir = results_dir / "diagnostics"
     diagnostics_dir.mkdir(parents=True, exist_ok=True)
-    attempt_document = {
-        **document,
-        "write_status": "blocked" if gate_errors else "accepted",
-        "safety_gate_errors": gate_errors,
-    }
+    document["write_status"] = "blocked" if gate_errors else "accepted"
+    document["safety_gate_errors"] = gate_errors
+    attempt_document = dict(document)
     atomic_write_json(
         diagnostics_dir / f"latest_{session}_attempt.json",
         attempt_document,
