@@ -31,7 +31,9 @@ concurrency:
 jobs:
   scan:
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    # v14ではTDnet進捗率比較などが増え、全銘柄走査が60分近くになる場合がある。
+    # 結果保存直後に上限超過扱いとなるのを防ぐため、余裕を持たせる。
+    timeout-minutes: 90
 
     steps:
       - name: Checkout
