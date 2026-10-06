@@ -23,7 +23,7 @@ import yfinance as yf
 JST = ZoneInfo("Asia/Tokyo")
 JPX_MASTER_URL = "https://www.jpx.co.jp/markets/statistics-equities/misc/tvdivq0000001vg2-att/data_j.xlsx"
 USER_AGENT = "tse-ma-scanner/1.7 (+github)"
-SCHEMA_VERSION = 14
+SCHEMA_VERSION = 15
 PRICE_SERIES_MODE = "normal_close_auto_adjust_false"
 
 # ---------- safety thresholds ----------
@@ -52,11 +52,25 @@ TDNET_DOCUMENT_LIMIT = 24
 TDNET_CACHE_DIR = ".cache/tdnet"
 FUNDAMENTAL_CACHE_SCHEMA_VERSION = 6
 
-# v14: 進捗悪化・月足過熱の最終フィルター。
+# v15: 進捗悪化・週足/月足の過伸長を共通最終フィルターに集約。
 SIGNIFICANT_PROGRESS_RELATIVE_DECLINE = 0.30
 SIGNIFICANT_PROGRESS_GAP_PP = 5.0
 SIGNIFICANT_SAME_PERIOD_PROFIT_DECLINE = 0.20
-MONTHLY_MA_OVEREXTENSION_PCT = 30.0
+
+# 「著しい乖離」は1本のMAだけでは判定せず、各時間軸の3本すべてが
+# それぞれの期間に応じた閾値以上に下方乖離している（=終値がMAより上）
+# 場合だけ過伸長として除外する。長期MAほど自然な遅行が大きいため、
+# 一律閾値ではなく段階閾値を使う。
+WEEKLY_MA_OVEREXTENSION_THRESHOLDS = {
+    "w13": 10.0,
+    "w26": 15.0,
+    "w52": 20.0,
+}
+MONTHLY_MA_OVEREXTENSION_THRESHOLDS = {
+    "m12": 15.0,
+    "m24": 30.0,
+    "m60": 40.0,
+}
 
 SPECS = [
     ("d5", "日5", 5, "D"),
@@ -1368,38 +1382,72 @@ def progress_deterioration_comparison(
     }
 
 
-def monthly_ma_overextension_result(item: dict | None) -> dict:
-    """月12・24・60の3本すべてが終値から+30%以上離れた場合に過熱扱い。"""
+def ma_overextension_result(
+    item: dict | None,
+    thresholds: dict[str, float],
+    *,
+    missing_reason: str,
+    overextended_reason: str,
+) -> dict:
+    """時間軸内の全MAが各個別閾値以上に上方乖離しているか判定する。"""
+    threshold_map = {key: float(value) for key, value in thresholds.items()}
     if not item:
         return {
             "status": "unavailable",
             "comparison": "unavailable",
             "reason": "item_missing",
+            "thresholds_pct": threshold_map,
         }
+
     states = item.get("states") or {}
     gaps = {}
-    for key in ("m12", "m24", "m60"):
+    for key, threshold in threshold_map.items():
         gap = safe_float((states.get(key) or {}).get("gap_pct"))
         if gap is None:
             return {
                 "status": "unavailable",
                 "comparison": "unavailable",
-                "reason": "monthly_ma_gap_missing",
-                "threshold_pct": MONTHLY_MA_OVEREXTENSION_PCT,
+                "reason": missing_reason,
+                "thresholds_pct": threshold_map,
             }
         gaps[key] = round(gap, 4)
+
+    margins = {
+        key: round(gaps[key] - threshold, 4)
+        for key, threshold in threshold_map.items()
+    }
     overextended = all(
-        gap >= MONTHLY_MA_OVEREXTENSION_PCT
-        for gap in gaps.values()
+        gaps[key] >= threshold
+        for key, threshold in threshold_map.items()
     )
     return {
         "status": "ok",
         "comparison": "overextended" if overextended else "acceptable",
-        "reason": "all_monthly_ma_gaps_ge_threshold" if overextended else None,
-        "threshold_pct": MONTHLY_MA_OVEREXTENSION_PCT,
+        "reason": overextended_reason if overextended else None,
+        "thresholds_pct": threshold_map,
         "gaps_pct": gaps,
+        "threshold_margin_pct": margins,
     }
 
+
+def weekly_ma_overextension_result(item: dict | None) -> dict:
+    """週13・26・52の3本すべてが個別閾値以上なら週足過伸長扱い。"""
+    return ma_overextension_result(
+        item,
+        WEEKLY_MA_OVEREXTENSION_THRESHOLDS,
+        missing_reason="weekly_ma_gap_missing",
+        overextended_reason="all_weekly_ma_gaps_ge_thresholds",
+    )
+
+
+def monthly_ma_overextension_result(item: dict | None) -> dict:
+    """月12・24・60の3本すべてが個別閾値以上なら月足過伸長扱い。"""
+    return ma_overextension_result(
+        item,
+        MONTHLY_MA_OVEREXTENSION_THRESHOLDS,
+        missing_reason="monthly_ma_gap_missing",
+        overextended_reason="all_monthly_ma_gaps_ge_thresholds",
+    )
 
 def ma_level_fields(item: dict | None) -> dict:
     """9本中最高MAと現在値との位置関係を監査用に返す。"""
@@ -1466,7 +1514,7 @@ def screening_exclusion_reasons(
     item: dict | None,
     fundamental: dict | None,
 ) -> list[str]:
-    """v14共通最終フィルター。該当理由は1件に絞らず全件返す。"""
+    """v15共通最終フィルター。該当理由は1件に絞らず全件返す。"""
     reasons = []
     price = safe_float((item or {}).get("price"))
     if price is None:
@@ -1484,6 +1532,10 @@ def screening_exclusion_reasons(
     monthly = monthly_ma_overextension_result(item)
     if monthly.get("comparison") == "overextended":
         reasons.append("monthly_ma_excessive_overextension")
+
+    weekly = weekly_ma_overextension_result(item)
+    if weekly.get("comparison") == "overextended":
+        reasons.append("weekly_ma_excessive_overextension")
 
     # 同じ理由が重複しても順序を維持して1件にまとめる。
     return list(dict.fromkeys(reasons))
@@ -2869,7 +2921,10 @@ def scan(
                 "比較不能時はこの条件だけでは除外しない"
             ),
             "monthly_ma_overextension": (
-                "月12・24・60の終値乖離率が3本すべて+30.0%以上なら除外"
+                "月12>=+15%、月24>=+30%、月60>=+40%を3本すべて満たせば除外"
+            ),
+            "weekly_ma_overextension": (
+                "週13>=+10%、週26>=+15%、週52>=+20%を3本すべて満たせば除外"
             ),
             "near_9_of_9": "現在価格から+1%以内の仮想価格で9本すべてがstate 7/8になる最小上昇率",
             "near_all_ma_above": (
@@ -2905,6 +2960,11 @@ def scan(
             "monthly_ma_overextension_count": (
                 screening_exclusion_reason_counts.get(
                     "monthly_ma_excessive_overextension", 0
+                )
+            ),
+            "weekly_ma_overextension_count": (
+                screening_exclusion_reason_counts.get(
+                    "weekly_ma_excessive_overextension", 0
                 )
             ),
             "screening_exclusion_reason_counts": screening_exclusion_reason_counts,
@@ -2956,6 +3016,9 @@ def scan(
             ),
             "monthly_ma_overextension_count": screening_exclusion_reason_counts.get(
                 "monthly_ma_excessive_overextension", 0
+            ),
+            "weekly_ma_overextension_count": screening_exclusion_reason_counts.get(
+                "weekly_ma_excessive_overextension", 0
             ),
             "near_all_ma_above_price_count": len(
                 near_all_ma_above_price_candidates
@@ -3035,6 +3098,9 @@ def scan(
                     "monthly_ma_overextension": (
                         monthly_ma_overextension_result(x)
                     ),
+                    "weekly_ma_overextension": (
+                        weekly_ma_overextension_result(x)
+                    ),
                     "exclusion_reasons": screening_exclusion_reasons(
                         x, fundamental_map.get(x["ticker"])
                     ),
@@ -3057,6 +3123,7 @@ def scan(
                             .get("comparison")
                         ),
                         "monthly_ma_overextension": monthly_ma_overextension_result(x),
+                        "weekly_ma_overextension": weekly_ma_overextension_result(x),
                         "exclusion_reasons": screening_exclusion_reasons(
                             x, fundamental_map.get(x["ticker"])
                         ),
@@ -3079,6 +3146,7 @@ def scan(
                             .get("comparison")
                         ),
                         "monthly_ma_overextension": monthly_ma_overextension_result(x),
+                        "weekly_ma_overextension": weekly_ma_overextension_result(x),
                         "exclusion_reasons": screening_exclusion_reasons(
                             x, fundamental_map.get(x["ticker"])
                         ),
