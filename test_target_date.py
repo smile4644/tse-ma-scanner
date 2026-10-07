@@ -51,13 +51,14 @@ class TargetDateRegressionTests(unittest.TestCase):
             "1d",
         )
 
-    def test_historical_noon_uses_target_date_and_stops_at_1130(self):
+    def test_historical_noon_uses_target_date_and_stops_at_1030(self):
         idx = pd.DatetimeIndex(
             [
                 "2026-10-01 11:30:00+09:00",
                 "2026-10-02 09:00:00+09:00",
+                "2026-10-02 10:25:00+09:00",
+                "2026-10-02 10:30:00+09:00",
                 "2026-10-02 11:25:00+09:00",
-                "2026-10-02 11:30:00+09:00",
                 "2026-10-02 12:35:00+09:00",
                 "2026-10-02 15:30:00+09:00",
                 "2026-10-03 09:00:00+09:00",
@@ -65,11 +66,11 @@ class TargetDateRegressionTests(unittest.TestCase):
         )
         frame = pd.DataFrame(
             {
-                "Open": [50, 100, 101, 102, 900, 950, 999],
-                "High": [60, 101, 103, 104, 999, 999, 1000],
-                "Low": [40, 99, 100, 101, 1, 1, 998],
-                "Close": [55, 100, 102, 103, 999, 980, 999],
-                "Volume": [5, 10, 20, 30, 999, 999, 1],
+                "Open": [50, 100, 101, 102, 900, 950, 999, 1000],
+                "High": [60, 101, 103, 104, 999, 999, 1000, 1001],
+                "Low": [40, 99, 100, 101, 1, 1, 998, 999],
+                "Close": [55, 100, 102, 103, 999, 980, 999, 1000],
+                "Volume": [5, 10, 20, 30, 999, 999, 1, 1],
             },
             index=idx,
         )
@@ -82,13 +83,14 @@ class TargetDateRegressionTests(unittest.TestCase):
         self.assertEqual(bar["close"], 103.0)
         self.assertEqual(bar["volume"], 60)
         self.assertTrue(bar["fresh"])
-        self.assertIn("2026-10-02T11:30:00+09:00", bar["last_bar"])
+        self.assertEqual(bar["expected_minimum_time"], "10:25")
+        self.assertIn("2026-10-02T10:30:00+09:00", bar["last_bar"])
 
     def test_close_intraday_cutoff_stays_1530(self):
         idx = pd.DatetimeIndex(
             [
                 "2026-10-02 09:00:00+09:00",
-                "2026-10-02 15:20:00+09:00",
+                "2026-10-02 15:25:00+09:00",
                 "2026-10-02 15:30:00+09:00",
                 "2026-10-02 15:35:00+09:00",
             ]
@@ -109,6 +111,7 @@ class TargetDateRegressionTests(unittest.TestCase):
         self.assertEqual(bar["close"], 103.0)
         self.assertEqual(bar["volume"], 60)
         self.assertTrue(bar["fresh"])
+        self.assertEqual(bar["expected_minimum_time"], "15:25")
         self.assertIn("2026-10-02T15:30:00+09:00", bar["last_bar"])
 
 

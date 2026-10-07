@@ -23,7 +23,7 @@ import yfinance as yf
 JST = ZoneInfo("Asia/Tokyo")
 JPX_MASTER_URL = "https://www.jpx.co.jp/markets/statistics-equities/misc/tvdivq0000001vg2-att/data_j.xlsx"
 USER_AGENT = "tse-ma-scanner/1.7 (+github)"
-SCHEMA_VERSION = 16
+SCHEMA_VERSION = 17
 PRICE_SERIES_MODE = "normal_close_auto_adjust_false"
 
 # ---------- safety thresholds ----------
@@ -76,6 +76,20 @@ MONTHLY_MA_OVEREXTENSION_THRESHOLDS = {
 # 月足3本がすべて+15%以上、かつ3本の単純平均が+25%以上なら除外する。
 MONTHLY_MA_COMPOSITE_MIN_GAP_PCT = 15.0
 MONTHLY_MA_COMPOSITE_AVERAGE_GAP_PCT = 25.0
+
+# v17: 12時までに午前中の動向を届けるため、従来の前引け版を
+# 10:30スナップショットへ前倒しする。互換性のためsession名と
+# latest_noon.jsonは維持する。closeは15:30確定値を必須とする。
+INTRADAY_SESSION_TIMES = {
+    "noon": {
+        "cutoff": dtime(10, 30),
+        "expected_minimum": dtime(10, 25),
+    },
+    "close": {
+        "cutoff": dtime(15, 30),
+        "expected_minimum": dtime(15, 25),
+    },
+}
 
 SPECS = [
     ("d5", "日5", 5, "D"),
@@ -574,8 +588,9 @@ def intraday_bar(
     )
     work.index = idx
 
-    cutoff = dtime(11, 30) if session == "noon" else dtime(15, 30)
-    expected_minimum = dtime(11, 25) if session == "noon" else dtime(15, 20)
+    session_times = INTRADAY_SESSION_TIMES[session]
+    cutoff = session_times["cutoff"]
+    expected_minimum = session_times["expected_minimum"]
     work = work[
         (work.index.date == target_date)
         & (work.index.time <= cutoff)
@@ -672,7 +687,9 @@ def base_unscored(row, reason: str, session: str, last_bar=None):
         "daily_reference": None,
         "last_bar": last_bar,
         "intraday_fresh": False,
-        "expected_minimum_time": "11:25" if session == "noon" else "15:20",
+        "expected_minimum_time": INTRADAY_SESSION_TIMES[session][
+            "expected_minimum"
+        ].strftime("%H:%M"),
         "score": None,
         "score_denominator": 0,
         "score_label": None,
@@ -3070,7 +3087,9 @@ def scan(
             "expected_last_bar": (
                 None
                 if historical_close
-                else "11:25" if session == "noon" else "15:20"
+                else INTRADAY_SESSION_TIMES[session]["expected_minimum"].strftime(
+                    "%H:%M"
+                )
             ),
             "stale_last_bar_count": len(stale_last_bar),
             "intraday_missing_count": len(intraday_missing_codes),

@@ -263,8 +263,8 @@ class V14AuditTests(unittest.TestCase):
         scanner.attach_ma_level_fields(b)
         self.assertLess(scanner.all_ma_above_sort_key(a), scanner.all_ma_above_sort_key(b))
 
-    def test_schema_is_v16(self):
-        self.assertEqual(scanner.SCHEMA_VERSION, 16)
+    def test_schema_is_v17(self):
+        self.assertEqual(scanner.SCHEMA_VERSION, 17)
 
 
 if __name__ == "__main__":
