@@ -140,6 +140,38 @@ class V15MonthlyOverextensionTests(unittest.TestCase):
         self.assertEqual(result["comparison"], "overextended")
 
 
+class V16MonthlyCompositeOverextensionTests(unittest.TestCase):
+    def test_aozora_like_gaps_are_excluded(self):
+        item = make_item(monthly_gaps=(19.9859, 34.0853, 29.8797))
+        result = scanner.monthly_ma_composite_overextension_result(item)
+        self.assertEqual(result["comparison"], "overextended")
+        self.assertAlmostEqual(result["average_gap_pct"], 27.9836, places=4)
+        self.assertEqual(
+            scanner.screening_exclusion_reasons(item, passing_fundamental()),
+            ["monthly_ma_composite_overextension"],
+        )
+
+    def test_average_below_threshold_passes(self):
+        item = make_item(monthly_gaps=(15.0, 20.0, 39.99))
+        result = scanner.monthly_ma_composite_overextension_result(item)
+        self.assertEqual(result["comparison"], "acceptable")
+
+    def test_one_gap_below_floor_passes_even_if_average_is_high(self):
+        item = make_item(monthly_gaps=(14.99, 30.0, 40.0))
+        result = scanner.monthly_ma_composite_overextension_result(item)
+        self.assertEqual(result["comparison"], "acceptable")
+
+    def test_missing_ma_is_unavailable_and_does_not_exclude(self):
+        item = make_item(monthly_gaps=(20.0, 30.0, 40.0))
+        del item["states"]["m60"]
+        result = scanner.monthly_ma_composite_overextension_result(item)
+        self.assertEqual(result["comparison"], "unavailable")
+        self.assertNotIn(
+            "monthly_ma_composite_overextension",
+            scanner.screening_exclusion_reasons(item, passing_fundamental()),
+        )
+
+
 class V15WeeklyOverextensionTests(unittest.TestCase):
     def test_all_three_weekly_thresholds_are_excluded(self):
         item = make_item(weekly_gaps=(10.0, 15.0, 20.0))
@@ -231,8 +263,8 @@ class V14AuditTests(unittest.TestCase):
         scanner.attach_ma_level_fields(b)
         self.assertLess(scanner.all_ma_above_sort_key(a), scanner.all_ma_above_sort_key(b))
 
-    def test_schema_is_v15(self):
-        self.assertEqual(scanner.SCHEMA_VERSION, 15)
+    def test_schema_is_v16(self):
+        self.assertEqual(scanner.SCHEMA_VERSION, 16)
 
 
 if __name__ == "__main__":

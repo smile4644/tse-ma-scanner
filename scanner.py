@@ -23,7 +23,7 @@ import yfinance as yf
 JST = ZoneInfo("Asia/Tokyo")
 JPX_MASTER_URL = "https://www.jpx.co.jp/markets/statistics-equities/misc/tvdivq0000001vg2-att/data_j.xlsx"
 USER_AGENT = "tse-ma-scanner/1.7 (+github)"
-SCHEMA_VERSION = 15
+SCHEMA_VERSION = 16
 PRICE_SERIES_MODE = "normal_close_auto_adjust_false"
 
 # ---------- safety thresholds ----------
@@ -71,6 +71,11 @@ MONTHLY_MA_OVEREXTENSION_THRESHOLDS = {
     "m24": 30.0,
     "m60": 40.0,
 }
+# v16: あおぞら銀行型（長期MAのうち1本だけが個別閾値にわずかに届かず、
+# 月足全体では十分に上方乖離しているケース）を拾う総合条件。
+# 月足3本がすべて+15%以上、かつ3本の単純平均が+25%以上なら除外する。
+MONTHLY_MA_COMPOSITE_MIN_GAP_PCT = 15.0
+MONTHLY_MA_COMPOSITE_AVERAGE_GAP_PCT = 25.0
 
 SPECS = [
     ("d5", "日5", 5, "D"),
@@ -1449,6 +1454,59 @@ def monthly_ma_overextension_result(item: dict | None) -> dict:
         overextended_reason="all_monthly_ma_gaps_ge_thresholds",
     )
 
+
+def monthly_ma_composite_overextension_result(item: dict | None) -> dict:
+    """月足3本の下限と平均を併用し、総合的な上方過伸長を判定する。"""
+    thresholds = {
+        "minimum_each_gap_pct": MONTHLY_MA_COMPOSITE_MIN_GAP_PCT,
+        "minimum_average_gap_pct": MONTHLY_MA_COMPOSITE_AVERAGE_GAP_PCT,
+    }
+    if not item:
+        return {
+            "status": "unavailable",
+            "comparison": "unavailable",
+            "reason": "item_missing",
+            "thresholds_pct": thresholds,
+        }
+
+    states = item.get("states") or {}
+    gaps = {}
+    for key in ("m12", "m24", "m60"):
+        gap = safe_float((states.get(key) or {}).get("gap_pct"))
+        if gap is None:
+            return {
+                "status": "unavailable",
+                "comparison": "unavailable",
+                "reason": "monthly_ma_gap_missing",
+                "thresholds_pct": thresholds,
+            }
+        gaps[key] = round(gap, 4)
+
+    average_gap = sum(gaps.values()) / len(gaps)
+    minimum_gap = min(gaps.values())
+    overextended = (
+        minimum_gap >= MONTHLY_MA_COMPOSITE_MIN_GAP_PCT
+        and average_gap >= MONTHLY_MA_COMPOSITE_AVERAGE_GAP_PCT
+    )
+    return {
+        "status": "ok",
+        "comparison": "overextended" if overextended else "acceptable",
+        "reason": (
+            "all_monthly_ma_gaps_ge_floor_and_average_ge_threshold"
+            if overextended else None
+        ),
+        "thresholds_pct": thresholds,
+        "gaps_pct": gaps,
+        "minimum_gap_pct": round(minimum_gap, 4),
+        "average_gap_pct": round(average_gap, 4),
+        "minimum_margin_pct": round(
+            minimum_gap - MONTHLY_MA_COMPOSITE_MIN_GAP_PCT, 4
+        ),
+        "average_margin_pct": round(
+            average_gap - MONTHLY_MA_COMPOSITE_AVERAGE_GAP_PCT, 4
+        ),
+    }
+
 def ma_level_fields(item: dict | None) -> dict:
     """9本中最高MAと現在値との位置関係を監査用に返す。"""
     if not item:
@@ -1532,6 +1590,15 @@ def screening_exclusion_reasons(
     monthly = monthly_ma_overextension_result(item)
     if monthly.get("comparison") == "overextended":
         reasons.append("monthly_ma_excessive_overextension")
+
+    monthly_composite = monthly_ma_composite_overextension_result(item)
+    # 個別段階閾値ですでに除外された銘柄へ理由を重複付与せず、
+    # 総合条件で新たに拾った境界ケースだけを独立集計する。
+    if (
+        monthly.get("comparison") != "overextended"
+        and monthly_composite.get("comparison") == "overextended"
+    ):
+        reasons.append("monthly_ma_composite_overextension")
 
     weekly = weekly_ma_overextension_result(item)
     if weekly.get("comparison") == "overextended":
@@ -2162,6 +2229,7 @@ def fetch_fundamental_screening(
 
 def attach_screening_fields(item: dict, fundamental: dict | None) -> dict:
     monthly = monthly_ma_overextension_result(item)
+    monthly_composite = monthly_ma_composite_overextension_result(item)
     item["screening"] = {
         "price_limit": MAX_CANDIDATE_PRICE,
         "price_pass": (
@@ -2211,6 +2279,7 @@ def attach_screening_fields(item: dict, fundamental: dict | None) -> dict:
             if fundamental else None
         ),
         "monthly_ma_overextension": monthly,
+        "monthly_ma_composite_overextension": monthly_composite,
         "exclusion_reasons": screening_exclusion_reasons(item, fundamental),
     }
     return item
@@ -2923,6 +2992,9 @@ def scan(
             "monthly_ma_overextension": (
                 "月12>=+15%、月24>=+30%、月60>=+40%を3本すべて満たせば除外"
             ),
+            "monthly_ma_composite_overextension": (
+                "月12・24・60が各+15%以上、かつ3本の平均が+25%以上なら除外"
+            ),
             "weekly_ma_overextension": (
                 "週13>=+10%、週26>=+15%、週52>=+20%を3本すべて満たせば除外"
             ),
@@ -2960,6 +3032,11 @@ def scan(
             "monthly_ma_overextension_count": (
                 screening_exclusion_reason_counts.get(
                     "monthly_ma_excessive_overextension", 0
+                )
+            ),
+            "monthly_ma_composite_overextension_count": (
+                screening_exclusion_reason_counts.get(
+                    "monthly_ma_composite_overextension", 0
                 )
             ),
             "weekly_ma_overextension_count": (
@@ -3016,6 +3093,11 @@ def scan(
             ),
             "monthly_ma_overextension_count": screening_exclusion_reason_counts.get(
                 "monthly_ma_excessive_overextension", 0
+            ),
+            "monthly_ma_composite_overextension_count": (
+                screening_exclusion_reason_counts.get(
+                    "monthly_ma_composite_overextension", 0
+                )
             ),
             "weekly_ma_overextension_count": screening_exclusion_reason_counts.get(
                 "weekly_ma_excessive_overextension", 0
@@ -3098,6 +3180,9 @@ def scan(
                     "monthly_ma_overextension": (
                         monthly_ma_overextension_result(x)
                     ),
+                    "monthly_ma_composite_overextension": (
+                        monthly_ma_composite_overextension_result(x)
+                    ),
                     "weekly_ma_overextension": (
                         weekly_ma_overextension_result(x)
                     ),
@@ -3123,6 +3208,9 @@ def scan(
                             .get("comparison")
                         ),
                         "monthly_ma_overextension": monthly_ma_overextension_result(x),
+                        "monthly_ma_composite_overextension": (
+                            monthly_ma_composite_overextension_result(x)
+                        ),
                         "weekly_ma_overextension": weekly_ma_overextension_result(x),
                         "exclusion_reasons": screening_exclusion_reasons(
                             x, fundamental_map.get(x["ticker"])
@@ -3146,6 +3234,9 @@ def scan(
                             .get("comparison")
                         ),
                         "monthly_ma_overextension": monthly_ma_overextension_result(x),
+                        "monthly_ma_composite_overextension": (
+                            monthly_ma_composite_overextension_result(x)
+                        ),
                         "weekly_ma_overextension": weekly_ma_overextension_result(x),
                         "exclusion_reasons": screening_exclusion_reasons(
                             x, fundamental_map.get(x["ticker"])
