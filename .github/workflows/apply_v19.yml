@@ -1,0 +1,108 @@
+name: Apply v19 confirmed daily close
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Apply v19
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          p = Path("scanner.py")
+          s = p.read_text(encoding="utf-8")
+          assert "SCHEMA_VERSION = 18" in s
+          s = s.replace("SCHEMA_VERSION = 18", "SCHEMA_VERSION = 19", 1)
+          s = s.replace("historical_close", "confirmed_daily_close")
+          old = '''def intraday_period_for(session: str, effective_date: date, run_date: date) -> str:
+              """Use enough lookback to retrieve a recent historical noon session."""
+              if session == "noon" and effective_date < run_date:
+                  return "5d"
+              return "1d"
+
+
+          def scan('''
+          new = '''def intraday_period_for(session: str, effective_date: date, run_date: date) -> str:
+              """Use enough lookback to retrieve a recent historical noon session."""
+              if session == "noon" and effective_date < run_date:
+                  return "5d"
+              return "1d"
+
+
+          def uses_confirmed_daily_close(session: str) -> bool:
+              """Use the official daily OHLC, including the closing auction, for close scans."""
+              return session == "close"
+
+
+          def scan('''
+          assert old in s
+          s = s.replace(old, new, 1)
+          old_assign = 'confirmed_daily_close = effective_date < run_date and session == "close"'
+          assert old_assign in s
+          s = s.replace(old_assign, 'confirmed_daily_close = uses_confirmed_daily_close(session)', 1)
+          s = s.replace(
+              "通常実行のnoon/closeは従来どおり5分足を使う。\n    # 過去日のclose再計算だけは、その日の確定日足を判定用OHLCにする。",
+              "noonは指定時刻までの5分足、closeは同日・過去日とも確定日足を使う。\n    # クロージング・オークションを含む公式終値を反映する。",
+              1,
+          )
+          s = s.replace(
+              "過去日closeの判定用当日OHLCは確定日足を使用。",
+              "closeの判定用当日OHLCは確定日足を使用。",
+              1,
+          )
+          s = s.replace(
+              "判定用当日OHLCはnoon/closeとも5分足から生成。",
+              "noonの判定用当日OHLCは5分足から生成。",
+              1,
+          )
+          p.write_text(s, encoding="utf-8")
+
+          p = Path("test_v14_screening.py")
+          s = p.read_text(encoding="utf-8")
+          assert "test_schema_is_v18" in s
+          s = s.replace("test_schema_is_v18", "test_schema_is_v19", 1)
+          s = s.replace("scanner.SCHEMA_VERSION, 18", "scanner.SCHEMA_VERSION, 19", 1)
+          p.write_text(s, encoding="utf-8")
+
+          p = Path("test_target_date.py")
+          s = p.read_text(encoding="utf-8")
+          marker = '''    def test_session_intervals_keep_noon_light_and_close_exact(self):
+              self.assertEqual(scanner.INTRADAY_SESSION_TIMES["noon"]["interval"], "5m")
+              self.assertEqual(scanner.INTRADAY_SESSION_TIMES["close"]["interval"], "1m")
+          '''
+          addition = marker + '''
+              def test_same_day_close_uses_confirmed_daily_bar(self):
+                  self.assertTrue(scanner.uses_confirmed_daily_close("close"))
+                  self.assertFalse(scanner.uses_confirmed_daily_close("noon"))
+          '''
+          assert marker in s
+          s = s.replace(marker, addition, 1)
+          p.write_text(s, encoding="utf-8")
+          PY
+      - name: Test
+        run: |
+          pip install -r requirements.txt
+          python -m py_compile scanner.py
+          python -m unittest discover -v
+          git diff --check
+      - name: Commit v19
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git rm .github/workflows/apply_v19.yml
+          git add scanner.py test_target_date.py test_v14_screening.py
+          git commit -m "Use confirmed daily close for same-day scans"
+          git push
