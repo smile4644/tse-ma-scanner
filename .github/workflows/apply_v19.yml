@@ -1,108 +1,273 @@
-name: Apply v19 confirmed daily close
+from __future__ import annotations
 
-on:
-  workflow_dispatch:
+import unittest
+from datetime import date
 
-permissions:
-  contents: write
+import pandas as pd
 
-jobs:
-  apply:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-          cache: pip
-      - name: Apply v19
-        shell: bash
-        run: |
-          python - <<'PY'
-          from pathlib import Path
-
-          p = Path("scanner.py")
-          s = p.read_text(encoding="utf-8")
-          assert "SCHEMA_VERSION = 18" in s
-          s = s.replace("SCHEMA_VERSION = 18", "SCHEMA_VERSION = 19", 1)
-          s = s.replace("historical_close", "confirmed_daily_close")
-          old = '''def intraday_period_for(session: str, effective_date: date, run_date: date) -> str:
-              """Use enough lookback to retrieve a recent historical noon session."""
-              if session == "noon" and effective_date < run_date:
-                  return "5d"
-              return "1d"
+import scanner
 
 
-          def scan('''
-          new = '''def intraday_period_for(session: str, effective_date: date, run_date: date) -> str:
-              """Use enough lookback to retrieve a recent historical noon session."""
-              if session == "noon" and effective_date < run_date:
-                  return "5d"
-              return "1d"
+class TargetDateRegressionTests(unittest.TestCase):
+    def test_noon_comparison_requires_same_schema_and_price_series(self):
+        good = {
+            "schema_version": scanner.SCHEMA_VERSION,
+            "target_date": "2026-10-02",
+            "session": "noon",
+            "price_series_mode": scanner.PRICE_SERIES_MODE,
+        }
+        self.assertTrue(
+            scanner.noon_comparison_compatible(
+                good,
+                date(2026, 10, 2),
+            )
+        )
+
+        old_schema = dict(good)
+        old_schema["schema_version"] = scanner.SCHEMA_VERSION - 1
+        self.assertFalse(
+            scanner.noon_comparison_compatible(
+                old_schema,
+                date(2026, 10, 2),
+            )
+        )
+
+        wrong_mode = dict(good)
+        wrong_mode["price_series_mode"] = "adjusted_close_auto_adjust_true"
+        self.assertFalse(
+            scanner.noon_comparison_compatible(
+                wrong_mode,
+                date(2026, 10, 2),
+            )
+        )
+
+        wrong_date = dict(good)
+        wrong_date["target_date"] = "2026-10-01"
+        self.assertFalse(
+            scanner.noon_comparison_compatible(
+                wrong_date,
+                date(2026, 10, 2),
+            )
+        )
+
+    def test_past_noon_is_supported(self):
+        scanner.validate_target_date(
+            date(2026, 10, 2),
+            date(2026, 10, 3),
+        )
+        self.assertEqual(
+            scanner.intraday_period_for(
+                "noon",
+                date(2026, 10, 2),
+                date(2026, 10, 3),
+            ),
+            "5d",
+        )
+
+    def test_past_close_remains_supported(self):
+        scanner.validate_target_date(
+            date(2026, 10, 2),
+            date(2026, 10, 3),
+        )
+        self.assertEqual(
+            scanner.intraday_period_for(
+                "close",
+                date(2026, 10, 2),
+                date(2026, 10, 3),
+            ),
+            "1d",
+        )
+
+    def test_future_date_is_rejected(self):
+        with self.assertRaises(RuntimeError):
+            scanner.validate_target_date(
+                date(2026, 10, 4),
+                date(2026, 10, 3),
+            )
+
+    def test_same_day_noon_uses_one_day_intraday(self):
+        self.assertEqual(
+            scanner.intraday_period_for(
+                "noon",
+                date(2026, 10, 2),
+                date(2026, 10, 2),
+            ),
+            "1d",
+        )
+
+    def test_historical_noon_uses_target_date_and_stops_at_1030(self):
+        idx = pd.DatetimeIndex(
+            [
+                "2026-10-01 11:30:00+09:00",
+                "2026-10-02 09:00:00+09:00",
+                "2026-10-02 10:25:00+09:00",
+                "2026-10-02 10:30:00+09:00",
+                "2026-10-02 11:25:00+09:00",
+                "2026-10-02 12:35:00+09:00",
+                "2026-10-02 15:30:00+09:00",
+                "2026-10-03 09:00:00+09:00",
+            ]
+        )
+        frame = pd.DataFrame(
+            {
+                "Open": [
+                    50,
+                    100,
+                    101,
+                    102,
+                    900,
+                    950,
+                    999,
+                    1000,
+                ],
+                "High": [
+                    60,
+                    101,
+                    103,
+                    104,
+                    999,
+                    999,
+                    1000,
+                    1001,
+                ],
+                "Low": [
+                    40,
+                    99,
+                    100,
+                    101,
+                    1,
+                    1,
+                    998,
+                    999,
+                ],
+                "Close": [
+                    55,
+                    100,
+                    102,
+                    103,
+                    999,
+                    980,
+                    999,
+                    1000,
+                ],
+                "Volume": [
+                    5,
+                    10,
+                    20,
+                    30,
+                    999,
+                    999,
+                    1,
+                    1,
+                ],
+            },
+            index=idx,
+        )
+
+        bar = scanner.intraday_bar(
+            frame,
+            target_date=date(2026, 10, 2),
+            session="noon",
+        )
+
+        self.assertIsNotNone(bar)
+        self.assertEqual(bar["open"], 100.0)
+        self.assertEqual(bar["high"], 104.0)
+        self.assertEqual(bar["low"], 99.0)
+        self.assertEqual(bar["close"], 103.0)
+        self.assertEqual(bar["volume"], 60)
+        self.assertTrue(bar["fresh"])
+        self.assertEqual(
+            bar["expected_minimum_time"],
+            "10:25",
+        )
+        self.assertIn(
+            "2026-10-02T10:30:00+09:00",
+            bar["last_bar"],
+        )
+
+    def test_close_intraday_cutoff_stays_1530(self):
+        idx = pd.DatetimeIndex(
+            [
+                "2026-10-02 09:00:00+09:00",
+                "2026-10-02 15:25:00+09:00",
+                "2026-10-02 15:30:00+09:00",
+                "2026-10-02 15:35:00+09:00",
+            ]
+        )
+        frame = pd.DataFrame(
+            {
+                "Open": [
+                    100,
+                    101,
+                    102,
+                    900,
+                ],
+                "High": [
+                    101,
+                    103,
+                    104,
+                    999,
+                ],
+                "Low": [
+                    99,
+                    100,
+                    101,
+                    1,
+                ],
+                "Close": [
+                    100,
+                    102,
+                    103,
+                    999,
+                ],
+                "Volume": [
+                    10,
+                    20,
+                    30,
+                    999,
+                ],
+            },
+            index=idx,
+        )
+
+        bar = scanner.intraday_bar(
+            frame,
+            target_date=date(2026, 10, 2),
+            session="close",
+        )
+
+        self.assertIsNotNone(bar)
+        self.assertEqual(bar["close"], 103.0)
+        self.assertEqual(bar["volume"], 60)
+        self.assertTrue(bar["fresh"])
+        self.assertEqual(
+            bar["expected_minimum_time"],
+            "15:29",
+        )
+        self.assertIn(
+            "2026-10-02T15:30:00+09:00",
+            bar["last_bar"],
+        )
+
+    def test_session_intervals_keep_noon_light_and_close_exact(self):
+        self.assertEqual(
+            scanner.INTRADAY_SESSION_TIMES["noon"]["interval"],
+            "5m",
+        )
+        self.assertEqual(
+            scanner.INTRADAY_SESSION_TIMES["close"]["interval"],
+            "1m",
+        )
+
+    def test_same_day_close_uses_confirmed_daily_bar(self):
+        self.assertTrue(
+            scanner.uses_confirmed_daily_close("close")
+        )
+        self.assertFalse(
+            scanner.uses_confirmed_daily_close("noon")
+        )
 
 
-          def uses_confirmed_daily_close(session: str) -> bool:
-              """Use the official daily OHLC, including the closing auction, for close scans."""
-              return session == "close"
-
-
-          def scan('''
-          assert old in s
-          s = s.replace(old, new, 1)
-          old_assign = 'confirmed_daily_close = effective_date < run_date and session == "close"'
-          assert old_assign in s
-          s = s.replace(old_assign, 'confirmed_daily_close = uses_confirmed_daily_close(session)', 1)
-          s = s.replace(
-              "通常実行のnoon/closeは従来どおり5分足を使う。\n    # 過去日のclose再計算だけは、その日の確定日足を判定用OHLCにする。",
-              "noonは指定時刻までの5分足、closeは同日・過去日とも確定日足を使う。\n    # クロージング・オークションを含む公式終値を反映する。",
-              1,
-          )
-          s = s.replace(
-              "過去日closeの判定用当日OHLCは確定日足を使用。",
-              "closeの判定用当日OHLCは確定日足を使用。",
-              1,
-          )
-          s = s.replace(
-              "判定用当日OHLCはnoon/closeとも5分足から生成。",
-              "noonの判定用当日OHLCは5分足から生成。",
-              1,
-          )
-          p.write_text(s, encoding="utf-8")
-
-          p = Path("test_v14_screening.py")
-          s = p.read_text(encoding="utf-8")
-          assert "test_schema_is_v18" in s
-          s = s.replace("test_schema_is_v18", "test_schema_is_v19", 1)
-          s = s.replace("scanner.SCHEMA_VERSION, 18", "scanner.SCHEMA_VERSION, 19", 1)
-          p.write_text(s, encoding="utf-8")
-
-          p = Path("test_target_date.py")
-          s = p.read_text(encoding="utf-8")
-          marker = '''    def test_session_intervals_keep_noon_light_and_close_exact(self):
-              self.assertEqual(scanner.INTRADAY_SESSION_TIMES["noon"]["interval"], "5m")
-              self.assertEqual(scanner.INTRADAY_SESSION_TIMES["close"]["interval"], "1m")
-          '''
-          addition = marker + '''
-              def test_same_day_close_uses_confirmed_daily_bar(self):
-                  self.assertTrue(scanner.uses_confirmed_daily_close("close"))
-                  self.assertFalse(scanner.uses_confirmed_daily_close("noon"))
-          '''
-          assert marker in s
-          s = s.replace(marker, addition, 1)
-          p.write_text(s, encoding="utf-8")
-          PY
-      - name: Test
-        run: |
-          pip install -r requirements.txt
-          python -m py_compile scanner.py
-          python -m unittest discover -v
-          git diff --check
-      - name: Commit v19
-        shell: bash
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git rm .github/workflows/apply_v19.yml
-          git add scanner.py test_target_date.py test_v14_screening.py
-          git commit -m "Use confirmed daily close for same-day scans"
-          git push
+if __name__ == "__main__":
+    unittest.main(verbosity=2)
