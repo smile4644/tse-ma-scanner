@@ -23,7 +23,7 @@ import yfinance as yf
 JST = ZoneInfo("Asia/Tokyo")
 JPX_MASTER_URL = "https://www.jpx.co.jp/markets/statistics-equities/misc/tvdivq0000001vg2-att/data_j.xlsx"
 USER_AGENT = "tse-ma-scanner/1.7 (+github)"
-SCHEMA_VERSION = 18
+SCHEMA_VERSION = 19
 PRICE_SERIES_MODE = "normal_close_auto_adjust_false"
 
 # ---------- safety thresholds ----------
@@ -731,14 +731,14 @@ def analyze_symbol(
     daily_frame,
     session: str,
     target_date: date,
-    historical_close: bool = False,
+    confirmed_daily_close: bool = False,
 ):
     intra = intraday_bar(intraday_frame, target_date, session)
     daily_today = current_daily_bar(daily_frame, target_date)
 
-    # 通常実行のnoon/closeは従来どおり5分足を使う。
-    # 過去日のclose再計算だけは、その日の確定日足を判定用OHLCにする。
-    if historical_close and daily_today is not None:
+    # noonは指定時刻までの5分足、closeは同日・過去日とも確定日足を使う。
+    # クロージング・オークションを含む公式終値を反映する。
+    if confirmed_daily_close and daily_today is not None:
         current_day = {
             **daily_today,
             "source": "daily_1d_confirmed",
@@ -2340,7 +2340,7 @@ def validate_scan_before_commit(
     scored_count: int,
     diagnostic_count: int,
     invalid_ohlc_count: int,
-    historical_close: bool = False,
+    confirmed_daily_close: bool = False,
 ) -> list[str]:
     """latest/archiveを書いてよいか判定。Low逆転は隔離対象で、全体停止しない。"""
     errors: list[str] = []
@@ -2359,7 +2359,7 @@ def validate_scan_before_commit(
     min_daily = math.ceil(universe_count * MIN_DAILY_10Y_DOWNLOAD_RATIO)
     min_scored = math.ceil(universe_count * MIN_SCORED_RATIO)
 
-    if historical_close:
+    if confirmed_daily_close:
         if current_day_intraday_count < min_intraday:
             errors.append(
                 f"target_daily_bar={current_day_intraday_count} < {min_intraday}"
@@ -2447,6 +2447,12 @@ def intraday_period_for(session: str, effective_date: date, run_date: date) -> s
     return "1d"
 
 
+
+def uses_confirmed_daily_close(session: str) -> bool:
+    """Use the official daily OHLC, including the closing auction, for close scans."""
+    return session == "close"
+
+
 def scan(
     session: str,
     universe_path: Path,
@@ -2457,7 +2463,7 @@ def scan(
     effective_date = target_date or run_date
     validate_target_date(effective_date, run_date)
     historical_noon = effective_date < run_date and session == "noon"
-    historical_close = effective_date < run_date and session == "close"
+    confirmed_daily_close = uses_confirmed_daily_close(session)
 
     universe, universe_meta = build_liquidity_universe(
         universe_path,
@@ -2468,7 +2474,7 @@ def scan(
     intraday_period = intraday_period_for(session, effective_date, run_date)
     intraday = (
         {}
-        if historical_close
+        if confirmed_daily_close
         else download_many(
             tickers,
             period=intraday_period,
@@ -2492,7 +2498,7 @@ def scan(
                 daily.get(row.ticker),
                 session,
                 effective_date,
-                historical_close,
+                confirmed_daily_close,
             )
         )
     all_symbols.sort(key=lambda x: x["universe_rank"])
@@ -2633,7 +2639,7 @@ def scan(
             continue
         bar = (
             "daily"
-            if historical_close
+            if confirmed_daily_close
             else datetime.fromisoformat(x["last_bar"]).strftime("%H:%M")
         )
         last_bar_distribution[bar] = last_bar_distribution.get(bar, 0) + 1
@@ -2648,7 +2654,7 @@ def scan(
     current_day_intraday_count = len(universe) - len(intraday_missing_codes)
     fresh_intraday_count = current_day_intraday_count - len(stale_last_bar)
 
-    # 1日足は判定には使わず、5分足終値との照合だけに使う。
+    # closeでは確定日足を判定OHLCに使い、noonでは日足は照合用に保持する。
     close_daily_reference_count = 0
     close_source_mismatch = []
     if session == "close":
@@ -2946,7 +2952,7 @@ def scan(
         "session_label": "前引け確定版" if session == "noon" else "大引け確定版",
         "market_status": (
             "confirmed_daily_data_available"
-            if historical_close and current_day_intraday_count > 0
+            if confirmed_daily_close and current_day_intraday_count > 0
             else "open_data_available"
             if current_day_intraday_count > 0
             else "closed_or_data_unavailable"
@@ -2957,12 +2963,12 @@ def scan(
             "Yahoo Finance via yfinance; auto_adjust=False, repair=True. "
             "通常Close/OHLC（株式分割反映・配当Adj Close補正なし）をMAに使用。 "
             + (
-                "過去日closeの判定用当日OHLCは確定日足を使用。"
-                if historical_close
-                else "判定用当日OHLCはnoon/closeとも5分足から生成。"
+                "closeの判定用当日OHLCは確定日足を使用。"
+                if confirmed_daily_close
+                else "noonの判定用当日OHLCは5分足から生成。"
             )
             + "日・週・月MAは同一の調整済み日足から生成。"
-            + ("" if historical_close else "当日1日足はclose時の照合専用。")
+            + ("" if confirmed_daily_close else "当日1日足はclose時の照合専用。")
         ),
         "universe_definition": (
             "東証プライム・スタンダード・グロースの内国普通株から、"
@@ -3069,7 +3075,7 @@ def scan(
         "counts": counts,
         "coverage": {
             "price_source_mode": (
-                "confirmed_daily" if historical_close else "intraday_5m"
+                "confirmed_daily_close" if confirmed_daily_close else "intraday_5m"
             ),
             "current_day_intraday": current_day_intraday_count,
             "fresh_intraday": fresh_intraday_count,
@@ -3089,7 +3095,7 @@ def scan(
             "issues": quality_issues,
             "expected_last_bar": (
                 None
-                if historical_close
+                if confirmed_daily_close
                 else INTRADAY_SESSION_TIMES[session]["expected_minimum"].strftime(
                     "%H:%M"
                 )
@@ -3299,7 +3305,7 @@ def scan(
         scored_count=len(scored),
         diagnostic_count=len(diagnostic_symbols),
         invalid_ohlc_count=len(invalid_ohlc),
-        historical_close=historical_close,
+        confirmed_daily_close=confirmed_daily_close,
     )
     if (
         fundamental_summary.get("requested", 0) > 0
