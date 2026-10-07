@@ -20,7 +20,7 @@ on:
   # 初回作成時に10月7日大引け版を検証する。以降の通常スキャンはworkflow_run。
   push:
     paths:
-      - .github/workflows/short_ma.yml
+      - .github/workflows/tse_ma_short.yml
 
 permissions:
   contents: write
