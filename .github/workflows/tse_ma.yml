@@ -5,8 +5,12 @@ on:
     # GitHub Actions cron is UTC.
     # 01:35 UTC = 10:35 JST (10:30スナップショットの5分後)
     - cron: "35 1 * * 1-5"
+    # 02:05 UTC = 11:05 JST (午前版の再取得。12時までの完成率を高める)
+    - cron: "5 2 * * 1-5"
     # 06:40 UTC = 15:40 JST (大引け15:30の10分後)
     - cron: "40 6 * * 1-5"
+    # 07:40 UTC = 16:40 JST (終値5分足の配信遅延時の再取得。18時までに完成)
+    - cron: "40 7 * * 1-5"
   workflow_dispatch:
     inputs:
       session:
@@ -54,7 +58,8 @@ jobs:
         run: |
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
             SESSION="${{ inputs.session }}"
-          elif [ "${{ github.event.schedule }}" = "35 1 * * 1-5" ]; then
+          elif [ "${{ github.event.schedule }}" = "35 1 * * 1-5" ] || \
+               [ "${{ github.event.schedule }}" = "5 2 * * 1-5" ]; then
             SESSION="noon"
           else
             SESSION="close"
