@@ -111,8 +111,12 @@ class TargetDateRegressionTests(unittest.TestCase):
         self.assertEqual(bar["close"], 103.0)
         self.assertEqual(bar["volume"], 60)
         self.assertTrue(bar["fresh"])
-        self.assertEqual(bar["expected_minimum_time"], "15:25")
+        self.assertEqual(bar["expected_minimum_time"], "15:29")
         self.assertIn("2026-10-02T15:30:00+09:00", bar["last_bar"])
+
+    def test_session_intervals_keep_noon_light_and_close_exact(self):
+        self.assertEqual(scanner.INTRADAY_SESSION_TIMES["noon"]["interval"], "5m")
+        self.assertEqual(scanner.INTRADAY_SESSION_TIMES["close"]["interval"], "1m")
 
 
 if __name__ == "__main__":

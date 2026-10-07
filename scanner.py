@@ -23,7 +23,7 @@ import yfinance as yf
 JST = ZoneInfo("Asia/Tokyo")
 JPX_MASTER_URL = "https://www.jpx.co.jp/markets/statistics-equities/misc/tvdivq0000001vg2-att/data_j.xlsx"
 USER_AGENT = "tse-ma-scanner/1.7 (+github)"
-SCHEMA_VERSION = 17
+SCHEMA_VERSION = 18
 PRICE_SERIES_MODE = "normal_close_auto_adjust_false"
 
 # ---------- safety thresholds ----------
@@ -79,15 +79,18 @@ MONTHLY_MA_COMPOSITE_AVERAGE_GAP_PCT = 25.0
 
 # v17: 12時までに午前中の動向を届けるため、従来の前引け版を
 # 10:30スナップショットへ前倒しする。互換性のためsession名と
-# latest_noon.jsonは維持する。closeは15:30確定値を必須とする。
+# latest_noon.jsonは維持する。v18ではcloseのみ1分足を使い、
+# 15:25～15:30のクロージング・オークションを含む終値を必須とする。
 INTRADAY_SESSION_TIMES = {
     "noon": {
         "cutoff": dtime(10, 30),
         "expected_minimum": dtime(10, 25),
+        "interval": "5m",
     },
     "close": {
         "cutoff": dtime(15, 30),
-        "expected_minimum": dtime(15, 25),
+        "expected_minimum": dtime(15, 29),
+        "interval": "1m",
     },
 }
 
@@ -2469,7 +2472,7 @@ def scan(
         else download_many(
             tickers,
             period=intraday_period,
-            interval="5m",
+            interval=INTRADAY_SESSION_TIMES[session]["interval"],
             auto_adjust=False,
         )
     )
