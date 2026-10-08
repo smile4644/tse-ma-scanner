@@ -17,10 +17,6 @@ on:
         description: "対象日 YYYY-MM-DD（空欄は日本時間の当日）"
         required: false
         type: string
-  # 初回作成時に10月7日大引け版を検証する。以降の通常スキャンはworkflow_run。
-  push:
-    paths:
-      - .github/workflows/tse_ma_short.yml
 
 permissions:
   contents: write
@@ -96,16 +92,14 @@ jobs:
                           reason = 'Upstream archive has changed since this run; skip outdated run'
                       else:
                           run = True
-          elif event_name == 'push':
-              # First-run regression/backfill for the user's requested close date.
-              session, target = 'close', '2026-10-07'
-              run = True
-          else:
+          elif event_name == 'workflow_dispatch':
               session = event['inputs']['session']
               target = (event['inputs'].get('target_date')
                         or datetime.now(ZoneInfo('Asia/Tokyo')).date().isoformat())
               date.fromisoformat(target)
               run = True
+          else:
+              raise ValueError(f'Unexpected workflow event: {event_name}')
 
           if run:
               if session not in ('noon', 'close'):
@@ -146,6 +140,37 @@ jobs:
           current = json.loads(archive.read_text())
           if current['target_date'] != os.environ['TARGET_DATE']:
               raise RuntimeError('Incorrect short target date')
+          gate = current.get('trade_safety_gate') or {}
+          if gate.get('version') != 3 or gate.get('target_date') != current['target_date']:
+              raise RuntimeError('Missing or outdated short trade safety gate')
+          groups = (
+              'short_9_of_9_candidates', 'near_short_9_of_9_candidates',
+              'short_8_of_9_candidates', 'short_7_of_9_candidates',
+              'all_ma_below_candidates', 'near_all_ma_below_candidates',
+              'near_all_ma_below_price_candidates',
+              'near_all_ma_below_touch_candidates',
+          )
+          unique = {}
+          for group in groups:
+              candidates = current.get(group)
+              if not isinstance(candidates, list):
+                  raise RuntimeError(f'Missing short research group: {group}')
+              for candidate in candidates:
+                  safety = candidate.get('trade_safety')
+                  if not isinstance(safety, dict) or safety.get('status') not in (
+                          'eligible', 'excluded', 'verification_required'):
+                      raise RuntimeError(f'Missing short safety decision: {group}')
+                  if safety.get('order_ready') != (safety['status'] == 'eligible'):
+                      raise RuntimeError(f'Inconsistent short order readiness: {group}')
+                  unique[str(candidate['code'])] = safety['status']
+          if gate.get('unique_candidates') != len(unique):
+              raise RuntimeError('Short safety coverage mismatch')
+          expected_counts = {
+              status: list(unique.values()).count(status)
+              for status in ('eligible', 'excluded', 'verification_required')
+          }
+          if gate.get('counts') != expected_counts:
+              raise RuntimeError('Short safety status counts mismatch')
           coverage = current['screening_summary']['fundamental']
           if coverage.get('requested', 0) and coverage.get('available_ratio', 0) < 0.5:
               raise RuntimeError('Short EPS coverage is below 50%: no unreliable results will be committed')
@@ -166,13 +191,48 @@ jobs:
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          # Protect the newest published result against a delayed re-run.
+          git fetch origin main
+          python - <<'PY'
+          import json, os, pathlib, subprocess
+          session = '${{ steps.source.outputs.session }}'
+          latest = pathlib.Path('results') / f'latest_short_{session}.json'
+          remote = subprocess.run(
+              ['git', 'show', f'origin/main:{latest.as_posix()}'],
+              capture_output=True, text=True, check=False,
+          )
+          if remote.returncode == 0:
+              try:
+                  old = json.loads(remote.stdout)
+              except json.JSONDecodeError as exc:
+                  raise RuntimeError('Invalid remote short JSON') from exc
+              new = json.loads(latest.read_text())
+              version = lambda d: (
+                  d.get('target_date') or '',
+                  d.get('source_generated_at_jst') or '',
+              )
+              if version(old) > version(new):
+                  subprocess.run(
+                      ['git', 'checkout', 'origin/main', '--', latest.as_posix()],
+                      check=True,
+                  )
+                  print('Protected newer remote short result')
+          PY
           git add results/latest_short_*.json results/short_archive/ results/short_fundamental_eps_cache.json results/short_research/
           if git diff --cached --quiet; then
             echo 'No changed short results.'
           else
             git commit -m "Update TSE short results (${{ steps.source.outputs.target_date }} ${{ steps.source.outputs.session }})"
-            git pull --rebase origin main
-            git push origin HEAD:main
+            for attempt in 1 2 3 4 5; do
+              git pull --rebase origin main
+              if git push origin HEAD:main; then
+                exit 0
+              fi
+              echo "Short result push raced with another workflow (${attempt}/5)."
+              sleep $((attempt * 2))
+            done
+            echo "Failed to save short results after 5 push attempts." >&2
+            exit 1
           fi
       - name: Upload short results
         if: ${{ steps.source.outputs.run == 'true' }}
