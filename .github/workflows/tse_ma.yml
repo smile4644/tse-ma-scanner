@@ -86,10 +86,25 @@ jobs:
           git add data/universe_top1000.csv results/
           if git diff --cached --quiet; then
             echo "No changes to commit."
-          else
-            git commit -m "Update TSE MA results (${SESSION})"
-            git push
+            exit 0
           fi
+
+          git commit -m "Update TSE MA results (${SESSION})"
+
+          # The short-scanner workflow can update main while this long scan is running.
+          # Rebase the generated-results commit and retry instead of losing the run.
+          for attempt in 1 2 3 4 5; do
+            git pull --rebase origin main
+            if git push origin HEAD:main; then
+              echo "Results pushed on attempt $attempt."
+              exit 0
+            fi
+            echo "Push attempt $attempt failed; retrying after remote refresh."
+            sleep $((attempt * 5))
+          done
+
+          echo "Failed to push results after 5 attempts." >&2
+          exit 1
 
       - name: Upload result artifact
         uses: actions/upload-artifact@v4
