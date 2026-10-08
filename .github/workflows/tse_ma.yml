@@ -81,8 +81,63 @@ jobs:
       - name: Save results to repository
         shell: bash
         run: |
+          set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          # Compare with the current remote state before committing. A manual
+          # backfill or an older queued run must not replace a newer official JSON.
+          git fetch origin main
+          python - <<'PY'
+          import json
+          import os
+          import pathlib
+          import subprocess
+
+          session = os.environ["SESSION"]
+          latest = pathlib.Path("results") / f"latest_{session}.json"
+          candidate = json.loads(latest.read_text())
+          target_date = candidate.get("target_date") or ""
+          generated_at = candidate.get("generated_at_jst") or ""
+
+          if candidate.get("write_status") != "accepted":
+              raise RuntimeError("Only accepted results may be saved as official JSON")
+          if candidate.get("safety_gate_errors"):
+              raise RuntimeError("Safety gate errors prevent saving official JSON")
+
+          candidate_version = (target_date, generated_at)
+          protected = [
+              latest,
+              pathlib.Path("results/diagnostics") / f"latest_{session}_attempt.json",
+              pathlib.Path("results/archive") / f"{target_date}_{session}.json",
+              pathlib.Path("results/diagnostics") / f"{target_date}_{session}_attempt.json",
+          ]
+
+          for path in protected:
+              shown = subprocess.run(
+                  ["git", "show", f"origin/main:{path.as_posix()}"],
+                  check=False,
+                  capture_output=True,
+                  text=True,
+              )
+              if shown.returncode != 0:
+                  continue
+              try:
+                  remote = json.loads(shown.stdout)
+              except json.JSONDecodeError as exc:
+                  raise RuntimeError(f"Remote JSON is invalid: {path}") from exc
+              remote_version = (
+                  remote.get("target_date") or "",
+                  remote.get("generated_at_jst") or "",
+              )
+              if remote_version > candidate_version:
+                  subprocess.run(
+                      ["git", "checkout", "origin/main", "--", path.as_posix()],
+                      check=True,
+                  )
+                  print(f"Kept newer remote result: {path} {remote_version}")
+          PY
+
           git add data/universe_top1000.csv results/
           if git diff --cached --quiet; then
             echo "No changes to commit."
@@ -91,19 +146,17 @@ jobs:
 
           git commit -m "Update TSE MA results (${SESSION})"
 
-          # The short-scanner workflow can update main while this long scan is running.
-          # Rebase the generated-results commit and retry instead of losing the run.
+          # Another workflow (for example, the short scanner) can update main
+          # after checkout. Rebase and retry instead of losing this accepted run.
           for attempt in 1 2 3 4 5; do
             git pull --rebase origin main
             if git push origin HEAD:main; then
-              echo "Results pushed on attempt $attempt."
               exit 0
             fi
-            echo "Push attempt $attempt failed; retrying after remote refresh."
-            sleep $((attempt * 5))
+            echo "Push raced with another workflow; retrying (${attempt}/5)."
+            sleep $((attempt * 2))
           done
-
-          echo "Failed to push results after 5 attempts." >&2
+          echo "Failed to save results after 5 push attempts." >&2
           exit 1
 
       - name: Upload result artifact
