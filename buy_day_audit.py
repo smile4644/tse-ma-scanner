@@ -36,6 +36,18 @@ def cohorts(document):
     }
 
 
+def _bar_matches_target_date(last_bar, target_date):
+    """Accept YYYY-MM-DD or an ISO datetime for the target Japanese trading date."""
+    if not isinstance(last_bar, str):
+        return False
+    if len(last_bar) > 10 and last_bar[10] not in ('T', ' '):
+        return False
+    try:
+        return date.fromisoformat(last_bar[:10]) == date.fromisoformat(target_date)
+    except ValueError:
+        return False
+
+
 def validate(prior, following, benchmark_prior, benchmark_following):
     for doc in (prior, following):
         if doc.get('write_status') != 'accepted' or doc.get('safety_gate_errors'):
@@ -63,7 +75,7 @@ def validate(prior, following, benchmark_prior, benchmark_following):
             old, new = item.get('price'), nxt.get('price') if nxt else None
             reason = ('missing_today_universe' if nxt is None else
                       'quarantined_today' if nxt.get('quarantined') else
-                      'date_mismatch' if nxt.get('last_bar') != following['target_date'] else
+                      'date_mismatch' if not _bar_matches_target_date(nxt.get('last_bar'), following['target_date']) else
                       'price_invalid' if not isinstance(old, (int, float)) or not isinstance(new, (int, float))
                        or old <= 0 or new <= 0 else None)
             entry = {'cohort': group, 'code': code, 'name': item.get('name'),
