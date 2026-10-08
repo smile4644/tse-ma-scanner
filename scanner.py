@@ -18,6 +18,7 @@ import numpy as np
 import pandas as pd
 import requests
 import scipy  # yfinance repair=True が利用する依存関係
+from annual_eps_core import collect_eps_forecasts, select_full_year_forecast
 import yfinance as yf
 
 JST = ZoneInfo("Asia/Tokyo")
@@ -50,7 +51,7 @@ FUNDAMENTAL_CACHE_FILENAME = "fundamental_eps_cache.json"
 MIN_FUNDAMENTAL_AVAILABLE_RATIO = 0.50
 TDNET_DOCUMENT_LIMIT = 24
 TDNET_CACHE_DIR = ".cache/tdnet"
-FUNDAMENTAL_CACHE_SCHEMA_VERSION = 6
+FUNDAMENTAL_CACHE_SCHEMA_VERSION = 7
 
 # v15: 進捗悪化・週足/月足の過伸長を共通最終フィルターに集約。
 SIGNIFICANT_PROGRESS_RELATIVE_DECLINE = 0.30
@@ -1690,7 +1691,7 @@ def fetch_tdnet_earnings(
 
     try:
         import tdnet
-        from tdnet import CK, extract_values
+        from tdnet import CK, extract_values, MapperContext, forecast_mapper, summary_mapper
 
         tdnet.configure(
             cache_dir=TDNET_CACHE_DIR,
@@ -1751,6 +1752,7 @@ def fetch_tdnet_earnings(
             forecast_end = None
             forecast_filing = None
             annual_actuals = []
+            annual_eps_forecast_records = []
             latest_actual = None
             dated_forecasts = []
             progress_records = []
@@ -1762,6 +1764,12 @@ def fetch_tdnet_earnings(
             for filing in filings:
                 statements = filing.xbrl()
                 this_filing_date = filing_date(filing)
+                # Retain interim AND full-year forecasts in this filing.
+                # extract_values(CK.FORECAST_EPS) alone returns only one.
+                annual_eps_forecast_records.extend(collect_eps_forecasts(
+                    statements, filing, CK.FORECAST_EPS, MapperContext(),
+                    (forecast_mapper, summary_mapper),
+                ))
 
                 if forecast_eps is None:
                     forecast_item = forecast_value(statements, CK.FORECAST_EPS)
@@ -1902,12 +1910,10 @@ def fetch_tdnet_earnings(
 
                 progress_records.append(progress_record)
 
-                have_prior_annual_eps = bool(
-                    forecast_end is not None
-                    and any(
-                        annual_end < forecast_end
-                        for annual_end, _eps, _filing in annual_actuals
-                    )
+                have_prior_annual_eps = (
+                    select_full_year_forecast(
+                        annual_eps_forecast_records, annual_actuals, target_date
+                    ) is not None
                 )
                 if (
                     forecast_eps is not None
@@ -1918,12 +1924,21 @@ def fetch_tdnet_earnings(
                     # 必要な現年予想、前期通期EPS、前年同期進捗比較が揃った。
                     break
 
-            eligible_actuals = [
-                item for item in annual_actuals
-                if forecast_end is None or item[0] < forecast_end
-            ]
-            eligible_actuals.sort(key=lambda item: item[0], reverse=True)
-            prior_actual = eligible_actuals[0] if eligible_actuals else None
+            # A half-year EPS and prior FULL-year EPS are not comparable.
+            # Select the fiscal-year guidance ~1 year after annual EPS actual.
+            # Fail closed if no trustworthy pair is found.
+            selected_annual_eps = select_full_year_forecast(
+                annual_eps_forecast_records, annual_actuals, target_date
+            )
+            if selected_annual_eps is not None:
+                forecast_filing, forecast_end, forecast_eps, prior_actual = (
+                    selected_annual_eps
+                )
+            else:
+                forecast_filing = None
+                forecast_end = None
+                forecast_eps = None
+                prior_actual = None
 
             company_result = {
                 "status": "unavailable",
