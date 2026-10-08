@@ -46,7 +46,7 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
       - name: Short regression tests
-        run: python -m unittest -q test_short_scanner.py test_short_eps_guard.py
+        run: python -m unittest -q test_short_scanner.py test_short_eps_guard.py test_short_trade_safety.py
       - name: Read the upstream result artifact
         if: ${{ github.event_name == 'workflow_run' }}
         uses: actions/download-artifact@v4
@@ -138,6 +138,7 @@ jobs:
           fi
           python short_scanner.py --session "$SESSION" --target-date "$TARGET_DATE"
           python short_eps_guard.py --session "$SESSION" --target-date "$TARGET_DATE" --overwrite
+          python short_trade_safety.py --session "$SESSION" --target-date "$TARGET_DATE"
           python - <<'PY'
           import json, os, pathlib, shutil
           path = pathlib.Path('results') / f"latest_short_{os.environ['SESSION']}.json"
