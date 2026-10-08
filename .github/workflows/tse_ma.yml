@@ -52,6 +52,9 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
+      - name: Buy audit regression tests
+        run: python -m unittest -q test_buy_day_audit.py
+
       - name: Select session
         id: session
         shell: bash
