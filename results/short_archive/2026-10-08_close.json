@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
-  "generated_at_jst": "2026-10-08T16:14:41+09:00",
+  "generated_at_jst": "2026-10-08T16:57:41+09:00",
   "target_date": "2026-10-08",
   "session": "close",
   "source_scan": "results/archive/2026-10-08_close.json",
   "source_schema_version": 19,
-  "source_generated_at_jst": "2026-10-08T16:13:01+09:00",
+  "source_generated_at_jst": "2026-10-08T16:56:50+09:00",
   "source_price_series_mode": "normal_close_auto_adjust_false",
   "strategy": "short_mirror_of_tse_ma_scanner_v19",
   "ma_order": [
@@ -66,8 +66,8 @@
     "price_eligible_unique_symbols": 192,
     "fundamental": {
       "requested": 192,
-      "cache_hits": 189,
-      "fetched": 3,
+      "cache_hits": 191,
+      "fetched": 1,
       "available": 167,
       "available_ratio": 0.8698,
       "improving": 102,
@@ -98,7 +98,7 @@
       "comparable_eps_count": 164,
       "comparable_eps_requested": 192,
       "comparable_eps_ratio": 0.8542,
-      "validated_at_jst": "2026-10-08T16:14:41+09:00",
+      "validated_at_jst": "2026-10-08T16:57:42+09:00",
       "decision": "fail_closed",
       "annual_comparison_gap_days": [
         330,
@@ -33406,7 +33406,7 @@
     "comparable_eps_count": 164,
     "comparable_eps_requested": 192,
     "comparable_eps_ratio": 0.8542,
-    "validated_at_jst": "2026-10-08T16:14:41+09:00",
+    "validated_at_jst": "2026-10-08T16:57:42+09:00",
     "decision": "fail_closed",
     "annual_comparison_gap_days": [
       330,
