@@ -22,6 +22,22 @@ class BacktestTests(unittest.TestCase):
         self.assertEqual(z['summary']['①9/9']['matched'],1)
         self.assertEqual(z['rows'][0]['code'],'1111')
         self.assertTrue(z['rows'][0]['beat_benchmark'])
+    def test_same_day_intraday_datetime_is_accepted(self):
+        a=source('2026-10-07',[{'code':'1111','name':'A','score':9,'price':100}],[])
+        b=source('2026-10-08',[],[{'code':'1111','price':98,'quarantined':False,
+          'last_bar':'2026-10-08T15:25:00+09:00'}])
+        z=validate(a,b,100,99)
+        self.assertEqual(z['summary']['①9/9']['matched'],1)
+        self.assertEqual(z['rows'][0]['status'],'matched')
+
+    def test_stale_intraday_datetime_is_rejected(self):
+        a=source('2026-10-07',[{'code':'1111','name':'A','score':9,'price':100}],[])
+        b=source('2026-10-08',[],[{'code':'1111','price':98,'quarantined':False,
+          'last_bar':'2026-10-07T15:25:00+09:00'}])
+        z=validate(a,b,100,99)
+        self.assertEqual(z['summary']['①9/9']['matched'],0)
+        self.assertEqual(z['rows'][0]['status'],'date_mismatch')
+
     def test_quarantine_reported_not_counted(self):
         a=source('2026-10-07',[{'code':'1111','name':'A','score':9,'price':100}],[])
         b=source('2026-10-08',[],[{'code':'1111','price':99,'quarantined':True,'last_bar':'2026-10-08'}])
