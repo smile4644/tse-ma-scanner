@@ -166,7 +166,7 @@ jobs:
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add results/latest_short_*.json results/short_archive/ results/short_fundamental_eps_cache.json
+          git add results/latest_short_*.json results/short_archive/ results/short_fundamental_eps_cache.json results/short_research/
           if git diff --cached --quiet; then
             echo 'No changed short results.'
           else
@@ -182,4 +182,6 @@ jobs:
           path: |
             results/latest_short_${{ steps.source.outputs.session }}.json
             results/short_archive/${{ steps.source.outputs.target_date }}_${{ steps.source.outputs.session }}.json
+            results/short_research/${{ steps.source.outputs.target_date }}_${{ steps.source.outputs.session }}_review.csv
           retention-days: 14
+
