@@ -22,6 +22,9 @@ def row(**overrides):
         'jpx_lending_eligible': 'yes',
         'jsf_last5_reverse_fees_yen': '0;0;0;0;0',
         'jsf_last5_shortage': 'no;no;no;no;no',
+        'sbi_public_alert_status': 'none',
+        'sbi_public_alert_checked_date': '2026-10-08',
+        'sbi_public_alert_source': 'SBI public notice page',
     }
     base.update(overrides)
     return base
@@ -71,6 +74,25 @@ class RiskGateTests(unittest.TestCase):
                        {'earnings_checked_date': '2026-10-07'}):
             with self.subTest(change=change):
                 self.assertFalse(evaluate(row(**change), TARGET)['order_ready'])
+    def test_sbi_public_caution_and_stop_are_excluded(self):
+        for value in ('loan_caution', 'new_sell_suspended'):
+            with self.subTest(value=value):
+                verdict = evaluate(row(sbi_public_alert_status=value), TARGET)
+                self.assertEqual(verdict['status'], 'excluded')
+                self.assertFalse(verdict['order_ready'])
+
+    def test_missing_public_check_is_not_order_ready(self):
+        for updates in ({'sbi_public_alert_status': ''},
+                        {'sbi_public_alert_checked_date': '2026-10-07'},
+                        {'sbi_public_alert_source': ''}):
+            with self.subTest(updates=updates):
+                self.assertEqual(evaluate(row(**updates), TARGET)['status'],
+                                 'verification_required')
+
+    def test_public_negative_retained_when_historical(self):
+        self.assertEqual(evaluate(row(sbi_public_alert_status='new_sell_suspended',
+            sbi_public_alert_checked_date='2026-10-07'), TARGET)['status'], 'excluded')
+
     def test_all_six_research_groups_preserved(self):
         doc = {'target_date': TARGET.isoformat(), **{
             group: [{'code': str(i+1000), 'price': 110}] for i, group in enumerate(GROUPS)}}
@@ -79,6 +101,17 @@ class RiskGateTests(unittest.TestCase):
         self.assertEqual(doc['trade_safety_gate']['counts']['verification_required'], 5)
         self.assertEqual(len(doc['short_9_of_9_candidates']), 1)
         self.assertTrue(doc['short_9_of_9_candidates'][0]['trade_safety']['order_ready'])
+
+    def test_extra_groups_also_get_safety_flags(self):
+        doc = {'target_date': TARGET.isoformat(), **{group: [] for group in GROUPS}}
+        doc['near_all_ma_below_price_candidates'] = [{'code': '2315'}]
+        doc['near_all_ma_below_touch_candidates'] = [{'code': '9305'}]
+        apply_gate(doc, {'2315': row(sbi_public_alert_status='loan_caution'),
+                         '9305': row(sbi_public_alert_status='new_sell_suspended')})
+        self.assertEqual(doc['trade_safety_gate']['counts']['excluded'], 2)
+        for group in ('near_all_ma_below_price_candidates',
+                      'near_all_ma_below_touch_candidates'):
+            self.assertEqual(doc[group][0]['trade_safety']['status'], 'excluded')
     def test_archive_latest_mismatch_refuses_overwrite(self):
         with tempfile.TemporaryDirectory() as t:
             p = Path(t)
@@ -95,3 +128,4 @@ class RiskGateTests(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
