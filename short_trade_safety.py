@@ -1,4 +1,4 @@
-"""Fail-closed execution-safety audit for six short-scanner research groups.
+"""Fail-closed execution-safety audit for short-scanner research groups.
 
 Optional same-day checks: data/short_trade_checks_YYYY-MM-DD.csv
 One row per ticker, with independent date-stamped broker, JSF and earnings evidence.
@@ -19,6 +19,10 @@ GROUPS = (
     'short_8_of_9_candidates', 'short_7_of_9_candidates',
     'all_ma_below_candidates', 'near_all_ma_below_candidates',
 )
+EXTRA_GROUPS = (
+    'near_all_ma_below_price_candidates',
+    'near_all_ma_below_touch_candidates',
+)
 JST = ZoneInfo('Asia/Tokyo')
 REQUIRED_COLUMNS = (
     'code', 'sbi_system_sellable', 'sbi_checked_date', 'sbi_source',
@@ -33,6 +37,7 @@ EXCLUDE_FLAGS = {
     'jsf_stock_shortage', 'earnings_within_7_days',
     'jpx_not_lendable', 'jsf_recent_fee_high_risk',
     'jsf_recent_shortage_high_risk',
+    'sbi_public_loan_caution', 'sbi_public_sell_suspended',
 }
 
 
@@ -97,6 +102,22 @@ def evaluate(row, target):
     if not row:
         return {'status': 'verification_required', 'flags': ['all_checks_missing'],
                 'order_ready': False}
+
+    # A public SBI lending warning blocks new-short approval independent of
+    # broker order-screen availability. A published "none" does NOT establish
+    # actual orderability: the fresh broker-specific check is still mandatory.
+    alert = str(row.get('sbi_public_alert_status') or '').strip().lower()
+    alert_date = _on_date(row.get('sbi_public_alert_checked_date'))
+    alert_source = str(row.get('sbi_public_alert_source') or '').strip()
+    if alert in ('loan_caution', 'new_sell_suspended'):
+        # Keep negative evidence until a *fresh* official clear notice replaces it.
+        if alert_date and alert_date <= target and alert_source:
+            flags.append('sbi_public_loan_caution' if alert == 'loan_caution'
+                         else 'sbi_public_sell_suspended')
+        else:
+            flags.append('sbi_public_alert_unconfirmed')
+    elif alert != 'none' or alert_date != target or not alert_source:
+        flags.append('sbi_public_alert_unconfirmed')
 
     # JPX loanable status differs from generic margin-buy eligibility.
     jpx_date = _on_date(row.get('jpx_checked_date'), target)
@@ -165,8 +186,9 @@ def apply_gate(doc, checks):
     if missing:
         raise ValueError(f'Short groups absent: {missing}')
     seen = {}
-    eligible = {g: [] for g in GROUPS}
-    for group in GROUPS:
+    groups = GROUPS + tuple(g for g in EXTRA_GROUPS if isinstance(doc.get(g), list))
+    eligible = {g: [] for g in groups}
+    for group in groups:
         for candidate in doc[group]:
             code = str(candidate.get('code', '')).strip()
             if not code:
@@ -178,15 +200,47 @@ def apply_gate(doc, checks):
     tallies = {s: sum(v['status'] == s for v in seen.values())
                for s in ('eligible', 'excluded', 'verification_required')}
     doc['trade_safety_gate'] = {
-        'version': 2, 'checked_at_jst': datetime.now(JST).isoformat(timespec='seconds'),
+        'version': 3, 'checked_at_jst': datetime.now(JST).isoformat(timespec='seconds'),
         'target_date': target.isoformat(), 'unique_candidates': len(seen),
         'counts': tallies, 'order_ready_codes_by_group': eligible,
         'risk_file_rows': len(checks),
         'policy': ('All six groups remain research output. Only order_ready=true may be '
                    'considered for an order after a fresh SBI order-screen check. '
-                   'Five-session history is required. Even a zero reported fee does not guarantee future reverse fees.'),
+                   'Five-session history and dated public SBI alerts are required. '
+                   'Even a zero reported fee does not guarantee future reverse fees.'),
     }
     return doc
+
+
+def export_research_queue(doc, checks, path):
+    """Write one row per ticker (not per overlapping group) for evidence review."""
+    groups = GROUPS + tuple(g for g in EXTRA_GROUPS if isinstance(doc.get(g), list))
+    candidates = {}
+    for group in groups:
+        for item in doc[group]:
+            code = str(item['code'])
+            obj = candidates.setdefault(code, {'code': code,
+                                                'name': item.get('name', ''),
+                                                'price': item.get('price', ''),
+                                                'groups': []})
+            obj['groups'].append(group)
+    names = ('code', 'name', 'price', 'groups', 'verdict', 'flags',
+             *REQUIRED_COLUMNS[1:],
+             'sbi_public_alert_status', 'sbi_public_alert_checked_date',
+             'sbi_public_alert_source')
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open('w', encoding='utf-8-sig', newline='') as handle:
+        writer = csv.DictWriter(handle, fieldnames=names)
+        writer.writeheader()
+        for code, item in sorted(candidates.items()):
+            evidence = checks.get(code, {})
+            verdict = evaluate(evidence, date.fromisoformat(doc['target_date']))
+            row = {key: evidence.get(key, '') for key in names}
+            row.update(code=code, name=item['name'], price=item['price'],
+                       groups=';'.join(item['groups']), verdict=verdict['status'],
+                       flags=';'.join(verdict['flags']))
+            writer.writerow(row)
+    return len(candidates)
 
 
 def atomic_write(path, doc):
@@ -217,6 +271,8 @@ def run(results_dir, session, target, checks_path=None):
     path = checks_path or Path('data') / f'short_trade_checks_{target}.csv'
     checks = read_checks(path)
     apply_gate(doc, checks)
+    export_research_queue(doc, checks,
+        results_dir / 'short_research' / f'{target}_{session}_review.csv')
     atomic_write(archive, doc)
     atomic_write(latest, doc)
     return doc['trade_safety_gate']
@@ -231,3 +287,4 @@ if __name__ == '__main__':
     args = parser.parse_args()
     print(json.dumps(run(args.results_dir, args.session, args.target_date,
                          args.checks_path), ensure_ascii=False))
+
