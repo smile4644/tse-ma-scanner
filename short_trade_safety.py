@@ -25,10 +25,14 @@ REQUIRED_COLUMNS = (
     'jsf_asof_date', 'jsf_source', 'jsf_restriction',
     'jsf_reverse_fee_yen', 'jsf_stock_shortage',
     'earnings_checked_date', 'earnings_source', 'next_earnings_date',
+    'jpx_checked_date', 'jpx_source', 'jpx_lending_eligible',
+    'jsf_last5_reverse_fees_yen', 'jsf_last5_shortage',
 )
 EXCLUDE_FLAGS = {
     'sbi_sell_not_allowed', 'jsf_restricted', 'jsf_positive_reverse_fee',
     'jsf_stock_shortage', 'earnings_within_7_days',
+    'jpx_not_lendable', 'jsf_recent_fee_high_risk',
+    'jsf_recent_shortage_high_risk',
 }
 
 
@@ -62,12 +66,47 @@ def read_checks(path):
         return checks
 
 
+def _recent_jsf_history(row, flags):
+    """Check five confirmed trading sessions, newest first. Never infer zero for missing data."""
+    raw_fees = str(row.get('jsf_last5_reverse_fees_yen') or '').strip()
+    fee_parts = [v.strip() for v in raw_fees.split(';')]
+    if len(fee_parts) != 5:
+        flags.append('jsf_recent_fee_history_unconfirmed')
+    else:
+        try:
+            fees = [float(v) for v in fee_parts]
+            if any(not math.isfinite(v) or v < 0 for v in fees):
+                raise ValueError('invalid fee')
+            # 2 of last 5 charged, or a significant fee on any day.
+            if sum(v > 0 for v in fees) >= 2 or max(fees) >= 0.10:
+                flags.append('jsf_recent_fee_high_risk')
+        except (ValueError, TypeError):
+            flags.append('jsf_recent_fee_history_unconfirmed')
+    raw_short = str(row.get('jsf_last5_shortage') or '').strip()
+    short_parts = [v.strip() for v in raw_short.split(';')]
+    shortages = [_yes_no(v) for v in short_parts]
+    if len(shortages) != 5 or any(v is None for v in shortages):
+        flags.append('jsf_recent_shortage_history_unconfirmed')
+    elif sum(shortages) >= 2:
+        flags.append('jsf_recent_shortage_high_risk')
+
+
 def evaluate(row, target):
     """Return verdict with explicit failures; historical zero fee is not a guarantee."""
     flags = []
     if not row:
         return {'status': 'verification_required', 'flags': ['all_checks_missing'],
                 'order_ready': False}
+
+    # JPX loanable status differs from generic margin-buy eligibility.
+    jpx_date = _on_date(row.get('jpx_checked_date'), target)
+    if not jpx_date or not row.get('jpx_source', '').strip():
+        flags.append('jpx_lending_check_missing_or_stale')
+    lendable = _yes_no(row.get('jpx_lending_eligible'))
+    if lendable is False and jpx_date:
+        flags.append('jpx_not_lendable')
+    elif lendable is not True:
+        flags.append('jpx_lending_unconfirmed')
 
     broker_date = _on_date(row.get('sbi_checked_date'), target)
     if not broker_date or not row.get('sbi_source', '').strip():
@@ -99,6 +138,8 @@ def evaluate(row, target):
             flags.append('jsf_positive_reverse_fee')
     except (ValueError, TypeError):
         flags.append('jsf_reverse_fee_unconfirmed')
+
+    _recent_jsf_history(row, flags)
 
     earnings_checked = _on_date(row.get('earnings_checked_date'), target)
     if not earnings_checked or not row.get('earnings_source', '').strip():
@@ -137,13 +178,13 @@ def apply_gate(doc, checks):
     tallies = {s: sum(v['status'] == s for v in seen.values())
                for s in ('eligible', 'excluded', 'verification_required')}
     doc['trade_safety_gate'] = {
-        'version': 1, 'checked_at_jst': datetime.now(JST).isoformat(timespec='seconds'),
+        'version': 2, 'checked_at_jst': datetime.now(JST).isoformat(timespec='seconds'),
         'target_date': target.isoformat(), 'unique_candidates': len(seen),
         'counts': tallies, 'order_ready_codes_by_group': eligible,
         'risk_file_rows': len(checks),
         'policy': ('All six groups remain research output. Only order_ready=true may be '
                    'considered for an order after a fresh SBI order-screen check. '
-                   'Historical JSF reverse fee of zero does not rule out future reverse fees.'),
+                   'Five-session history is required. Even a zero reported fee does not guarantee future reverse fees.'),
     }
     return doc
 

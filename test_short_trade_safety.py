@@ -17,6 +17,11 @@ def row(**overrides):
         'jsf_reverse_fee_yen': '0', 'jsf_stock_shortage': 'no',
         'earnings_checked_date': '2026-10-08', 'earnings_source': 'JPX issuer notice',
         'next_earnings_date': '2026-10-23',
+        'jpx_checked_date': '2026-10-08',
+        'jpx_source': 'JPX official margin lending list and updates',
+        'jpx_lending_eligible': 'yes',
+        'jsf_last5_reverse_fees_yen': '0;0;0;0;0',
+        'jsf_last5_shortage': 'no;no;no;no;no',
     }
     base.update(overrides)
     return base
@@ -34,6 +39,28 @@ class RiskGateTests(unittest.TestCase):
                        {'jsf_restriction': 'yes'}, {'jsf_stock_shortage': 'yes'}):
             with self.subTest(change=change):
                 self.assertEqual(evaluate(row(**change), TARGET)['status'], 'excluded')
+    def test_recent_reverse_fee_risk_is_excluded_even_with_current_zero(self):
+        for history in ('0;0.05;0;0.05;0', '0;0;0;0.10;0'):
+            with self.subTest(history=history):
+                result = evaluate(row(jsf_last5_reverse_fees_yen=history), TARGET)
+                self.assertIn('jsf_recent_fee_high_risk', result['flags'])
+                self.assertEqual(result['status'], 'excluded')
+
+    def test_recent_shortage_risk_is_excluded(self):
+        result = evaluate(row(jsf_last5_shortage='no;yes;no;yes;no'), TARGET)
+        self.assertEqual(result['status'], 'excluded')
+
+    def test_missing_history_is_not_eligible(self):
+        for update in ({'jsf_last5_reverse_fees_yen': ''},
+                       {'jsf_last5_shortage': 'no;no;no'}):
+            with self.subTest(update=update):
+                self.assertEqual(evaluate(row(**update), TARGET)['status'],
+                                 'verification_required')
+
+    def test_jpx_not_lendable_and_unknown(self):
+        self.assertEqual(evaluate(row(jpx_lending_eligible='no'), TARGET)['status'], 'excluded')
+        self.assertEqual(evaluate(row(jpx_lending_eligible=''), TARGET)['status'], 'verification_required')
+
     def test_earnings_within_week_is_excluded(self):
         self.assertEqual(evaluate(row(next_earnings_date='2026-10-15'), TARGET)['status'], 'excluded')
     def test_future_not_known_is_unverified(self):
