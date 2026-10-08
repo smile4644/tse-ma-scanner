@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at_jst": "2026-10-08T16:57:41+09:00",
+  "generated_at_jst": "2026-10-08T20:47:07+09:00",
   "target_date": "2026-10-08",
   "session": "close",
   "source_scan": "results/archive/2026-10-08_close.json",
@@ -66,8 +66,8 @@
     "price_eligible_unique_symbols": 192,
     "fundamental": {
       "requested": 192,
-      "cache_hits": 191,
-      "fetched": 1,
+      "cache_hits": 0,
+      "fetched": 192,
       "available": 167,
       "available_ratio": 0.8698,
       "improving": 102,
@@ -78,7 +78,7 @@
         "TdnetAPIError: HTTP 404: HTTP 404": 1
       },
       "unavailable_or_error": 25,
-      "latest_result_company_missed": 15,
+      "latest_result_company_missed": 16,
       "latest_result_consensus_missed": 0,
       "progress_comparison_available": 146,
       "progress_deteriorated": 21,
@@ -98,7 +98,7 @@
       "comparable_eps_count": 164,
       "comparable_eps_requested": 192,
       "comparable_eps_ratio": 0.8542,
-      "validated_at_jst": "2026-10-08T16:57:42+09:00",
+      "validated_at_jst": "2026-10-08T20:47:07+09:00",
       "decision": "fail_closed",
       "annual_comparison_gap_days": [
         330,
@@ -377,6 +377,13 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "all_checks_missing"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -628,6 +635,13 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "all_checks_missing"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -873,6 +887,13 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "all_checks_missing"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -1118,6 +1139,13 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "all_checks_missing"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -1363,6 +1391,13 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "all_checks_missing"
+        ],
+        "order_ready": false
       }
     }
   ],
@@ -1621,6 +1656,13 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "all_checks_missing"
+        ],
+        "order_ready": false
       }
     }
   ],
@@ -1871,6 +1913,13 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "all_checks_missing"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -2125,6 +2174,13 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "all_checks_missing"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -2373,6 +2429,13 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "all_checks_missing"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -2613,6 +2676,13 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "all_checks_missing"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -2861,6 +2931,13 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "all_checks_missing"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -3109,6 +3186,13 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "all_checks_missing"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -3356,6 +3440,13 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "all_checks_missing"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -3603,6 +3694,13 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "all_checks_missing"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -3850,6 +3948,13 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "all_checks_missing"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -4097,6 +4202,13 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "all_checks_missing"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -4330,6 +4442,13 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "all_checks_missing"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -4577,6 +4696,13 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "all_checks_missing"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -4824,6 +4950,13 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "all_checks_missing"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -5077,6 +5210,13 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "all_checks_missing"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -5324,6 +5464,13 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "all_checks_missing"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -5577,6 +5724,13 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "all_checks_missing"
+        ],
+        "order_ready": false
       }
     }
   ],
@@ -5828,6 +5982,13 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "all_checks_missing"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -6083,6 +6244,13 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "all_checks_missing"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -6332,6 +6500,13 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "all_checks_missing"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -6580,6 +6755,13 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "all_checks_missing"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -6828,6 +7010,13 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "all_checks_missing"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -7076,6 +7265,13 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "all_checks_missing"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -7324,6 +7520,13 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "all_checks_missing"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -7572,6 +7775,13 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "all_checks_missing"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -7820,6 +8030,13 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "all_checks_missing"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -8068,6 +8285,13 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "all_checks_missing"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -8316,6 +8540,13 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "all_checks_missing"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -8564,6 +8795,13 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "all_checks_missing"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -8812,6 +9050,13 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "all_checks_missing"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -9060,6 +9305,13 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "all_checks_missing"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -9314,6 +9566,13 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "all_checks_missing"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -9548,6 +9807,13 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "all_checks_missing"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -9796,6 +10062,13 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "all_checks_missing"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -10044,6 +10317,13 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "all_checks_missing"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -10292,6 +10572,13 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "all_checks_missing"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -10540,6 +10827,13 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "all_checks_missing"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -10774,6 +11068,13 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "all_checks_missing"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -11008,6 +11309,13 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "all_checks_missing"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -11256,6 +11564,13 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "all_checks_missing"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -11504,6 +11819,13 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "all_checks_missing"
+        ],
+        "order_ready": false
       }
     }
   ],
@@ -11755,6 +12077,13 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "all_checks_missing"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -12002,6 +12331,13 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "all_checks_missing"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -12247,6 +12583,13 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "all_checks_missing"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -12495,6 +12838,13 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "all_checks_missing"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -12729,6 +13079,13 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "all_checks_missing"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -12982,6 +13339,13 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "all_checks_missing"
+        ],
+        "order_ready": false
       }
     }
   ],
@@ -13260,6 +13624,13 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "all_checks_missing"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -13553,6 +13924,13 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "all_checks_missing"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -13876,6 +14254,13 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "all_checks_missing"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -14152,6 +14537,13 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "all_checks_missing"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -14460,6 +14852,13 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "all_checks_missing"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -14737,6 +15136,13 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "all_checks_missing"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -15015,6 +15421,13 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "all_checks_missing"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -15337,6 +15750,13 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "all_checks_missing"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -15642,6 +16062,13 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "all_checks_missing"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -15949,6 +16376,13 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "all_checks_missing"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -16286,6 +16720,13 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "all_checks_missing"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -16549,6 +16990,13 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "all_checks_missing"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -16825,6 +17273,13 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "all_checks_missing"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -17099,6 +17554,13 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "all_checks_missing"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -17373,6 +17835,13 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "all_checks_missing"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -17650,6 +18119,13 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "all_checks_missing"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -17928,6 +18404,13 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "all_checks_missing"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -18254,6 +18737,13 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "all_checks_missing"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -18546,6 +19036,13 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "all_checks_missing"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -18824,6 +19321,13 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "all_checks_missing"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -19133,6 +19637,13 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "all_checks_missing"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -19428,6 +19939,13 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "all_checks_missing"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -19690,6 +20208,13 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "all_checks_missing"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -19996,6 +20521,13 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "all_checks_missing"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -20303,6 +20835,13 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "all_checks_missing"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -20582,6 +21121,13 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "all_checks_missing"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -20873,6 +21419,13 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "all_checks_missing"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -21137,6 +21690,13 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "all_checks_missing"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -21419,6 +21979,13 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "all_checks_missing"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -21696,6 +22263,13 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "all_checks_missing"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -21986,6 +22560,13 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "all_checks_missing"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -22262,6 +22843,13 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "all_checks_missing"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -22539,6 +23127,13 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "all_checks_missing"
+        ],
+        "order_ready": false
       }
     }
   ],
@@ -33347,33 +33942,6 @@
       }
     },
     {
-      "code": "1925",
-      "name": "大和ハウス工業",
-      "ticker": "1925.T",
-      "group": "short_8_of_9_candidates",
-      "price": 2166.0,
-      "exclusion_reasons": [
-        "known_split_eps_basis_unverified"
-      ],
-      "eps_validation": {
-        "passed": false,
-        "reasons": [
-          "known_split_eps_basis_unverified"
-        ],
-        "forecast_period_end": "2027-03-31",
-        "prior_period_end": "2026-03-31",
-        "period_gap_days": 365,
-        "annual_comparison_range_days": [
-          330,
-          400
-        ],
-        "known_split": {
-          "effective_date": "2026-10-01",
-          "ratio": "1:2"
-        }
-      }
-    },
-    {
       "code": "7649",
       "name": "スギホールディングス",
       "ticker": "7649.T",
@@ -33399,6 +33967,33 @@
           "ratio": "1:2"
         }
       }
+    },
+    {
+      "code": "1925",
+      "name": "大和ハウス工業",
+      "ticker": "1925.T",
+      "group": "short_8_of_9_candidates",
+      "price": 2166.0,
+      "exclusion_reasons": [
+        "known_split_eps_basis_unverified"
+      ],
+      "eps_validation": {
+        "passed": false,
+        "reasons": [
+          "known_split_eps_basis_unverified"
+        ],
+        "forecast_period_end": "2027-03-31",
+        "prior_period_end": "2026-03-31",
+        "period_gap_days": 365,
+        "annual_comparison_range_days": [
+          330,
+          400
+        ],
+        "known_split": {
+          "effective_date": "2026-10-01",
+          "ratio": "1:2"
+        }
+      }
     }
   ],
   "eps_comparability_guard": {
@@ -33406,7 +34001,7 @@
     "comparable_eps_count": 164,
     "comparable_eps_requested": 192,
     "comparable_eps_ratio": 0.8542,
-    "validated_at_jst": "2026-10-08T16:57:42+09:00",
+    "validated_at_jst": "2026-10-08T20:47:07+09:00",
     "decision": "fail_closed",
     "annual_comparison_gap_days": [
       330,
@@ -33438,5 +34033,26 @@
       "known_split_eps_basis_unverified": 2
     },
     "note": "Exclusions are provisional. Recover true full-year EPS at TDnet source for definitive ranking."
+  },
+  "trade_safety_gate": {
+    "version": 2,
+    "checked_at_jst": "2026-10-08T20:47:07+09:00",
+    "target_date": "2026-10-08",
+    "unique_candidates": 57,
+    "counts": {
+      "eligible": 0,
+      "excluded": 0,
+      "verification_required": 57
+    },
+    "order_ready_codes_by_group": {
+      "short_9_of_9_candidates": [],
+      "near_short_9_of_9_candidates": [],
+      "short_8_of_9_candidates": [],
+      "short_7_of_9_candidates": [],
+      "all_ma_below_candidates": [],
+      "near_all_ma_below_candidates": []
+    },
+    "risk_file_rows": 0,
+    "policy": "All six groups remain research output. Only order_ready=true may be considered for an order after a fresh SBI order-screen check. Five-session history is required. Even a zero reported fee does not guarantee future reverse fees."
   }
 }
