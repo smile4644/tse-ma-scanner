@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at_jst": "2026-10-08T20:47:07+09:00",
+  "generated_at_jst": "2026-10-08T22:54:49+09:00",
   "target_date": "2026-10-08",
   "session": "close",
   "source_scan": "results/archive/2026-10-08_close.json",
@@ -66,8 +66,8 @@
     "price_eligible_unique_symbols": 192,
     "fundamental": {
       "requested": 192,
-      "cache_hits": 0,
-      "fetched": 192,
+      "cache_hits": 191,
+      "fetched": 1,
       "available": 167,
       "available_ratio": 0.8698,
       "improving": 102,
@@ -98,7 +98,7 @@
       "comparable_eps_count": 164,
       "comparable_eps_requested": 192,
       "comparable_eps_ratio": 0.8542,
-      "validated_at_jst": "2026-10-08T20:47:07+09:00",
+      "validated_at_jst": "2026-10-08T22:54:50+09:00",
       "decision": "fail_closed",
       "annual_comparison_gap_days": [
         330,
@@ -381,7 +381,19 @@
       "trade_safety": {
         "status": "verification_required",
         "flags": [
-          "all_checks_missing"
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
         ],
         "order_ready": false
       }
@@ -639,7 +651,19 @@
       "trade_safety": {
         "status": "verification_required",
         "flags": [
-          "all_checks_missing"
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
         ],
         "order_ready": false
       }
@@ -891,7 +915,19 @@
       "trade_safety": {
         "status": "verification_required",
         "flags": [
-          "all_checks_missing"
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
         ],
         "order_ready": false
       }
@@ -1143,7 +1179,19 @@
       "trade_safety": {
         "status": "verification_required",
         "flags": [
-          "all_checks_missing"
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
         ],
         "order_ready": false
       }
@@ -1395,7 +1443,19 @@
       "trade_safety": {
         "status": "verification_required",
         "flags": [
-          "all_checks_missing"
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
         ],
         "order_ready": false
       }
@@ -1660,7 +1720,19 @@
       "trade_safety": {
         "status": "verification_required",
         "flags": [
-          "all_checks_missing"
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
         ],
         "order_ready": false
       }
@@ -1917,7 +1989,19 @@
       "trade_safety": {
         "status": "verification_required",
         "flags": [
-          "all_checks_missing"
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
         ],
         "order_ready": false
       }
@@ -2178,7 +2262,19 @@
       "trade_safety": {
         "status": "verification_required",
         "flags": [
-          "all_checks_missing"
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
         ],
         "order_ready": false
       }
@@ -2431,9 +2527,21 @@
         "known_split": null
       },
       "trade_safety": {
-        "status": "verification_required",
+        "status": "excluded",
         "flags": [
-          "all_checks_missing"
+          "sbi_public_loan_caution",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
         ],
         "order_ready": false
       }
@@ -2680,7 +2788,19 @@
       "trade_safety": {
         "status": "verification_required",
         "flags": [
-          "all_checks_missing"
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
         ],
         "order_ready": false
       }
@@ -2935,7 +3055,19 @@
       "trade_safety": {
         "status": "verification_required",
         "flags": [
-          "all_checks_missing"
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
         ],
         "order_ready": false
       }
@@ -3190,7 +3322,19 @@
       "trade_safety": {
         "status": "verification_required",
         "flags": [
-          "all_checks_missing"
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
         ],
         "order_ready": false
       }
@@ -3444,7 +3588,19 @@
       "trade_safety": {
         "status": "verification_required",
         "flags": [
-          "all_checks_missing"
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
         ],
         "order_ready": false
       }
@@ -3698,7 +3854,19 @@
       "trade_safety": {
         "status": "verification_required",
         "flags": [
-          "all_checks_missing"
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
         ],
         "order_ready": false
       }
@@ -3952,7 +4120,19 @@
       "trade_safety": {
         "status": "verification_required",
         "flags": [
-          "all_checks_missing"
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
         ],
         "order_ready": false
       }
@@ -4206,7 +4386,19 @@
       "trade_safety": {
         "status": "verification_required",
         "flags": [
-          "all_checks_missing"
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
         ],
         "order_ready": false
       }
@@ -4446,7 +4638,19 @@
       "trade_safety": {
         "status": "verification_required",
         "flags": [
-          "all_checks_missing"
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
         ],
         "order_ready": false
       }
@@ -4700,7 +4904,19 @@
       "trade_safety": {
         "status": "verification_required",
         "flags": [
-          "all_checks_missing"
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
         ],
         "order_ready": false
       }
@@ -4954,7 +5170,19 @@
       "trade_safety": {
         "status": "verification_required",
         "flags": [
-          "all_checks_missing"
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
         ],
         "order_ready": false
       }
@@ -5214,7 +5442,19 @@
       "trade_safety": {
         "status": "verification_required",
         "flags": [
-          "all_checks_missing"
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
         ],
         "order_ready": false
       }
@@ -5468,7 +5708,19 @@
       "trade_safety": {
         "status": "verification_required",
         "flags": [
-          "all_checks_missing"
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
         ],
         "order_ready": false
       }
@@ -5728,7 +5980,19 @@
       "trade_safety": {
         "status": "verification_required",
         "flags": [
-          "all_checks_missing"
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
         ],
         "order_ready": false
       }
@@ -5986,7 +6250,19 @@
       "trade_safety": {
         "status": "verification_required",
         "flags": [
-          "all_checks_missing"
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
         ],
         "order_ready": false
       }
@@ -6248,7 +6524,19 @@
       "trade_safety": {
         "status": "verification_required",
         "flags": [
-          "all_checks_missing"
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
         ],
         "order_ready": false
       }
@@ -6504,7 +6792,19 @@
       "trade_safety": {
         "status": "verification_required",
         "flags": [
-          "all_checks_missing"
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
         ],
         "order_ready": false
       }
@@ -6759,7 +7059,19 @@
       "trade_safety": {
         "status": "verification_required",
         "flags": [
-          "all_checks_missing"
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
         ],
         "order_ready": false
       }
@@ -7014,7 +7326,19 @@
       "trade_safety": {
         "status": "verification_required",
         "flags": [
-          "all_checks_missing"
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
         ],
         "order_ready": false
       }
@@ -7269,7 +7593,19 @@
       "trade_safety": {
         "status": "verification_required",
         "flags": [
-          "all_checks_missing"
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
         ],
         "order_ready": false
       }
@@ -7524,7 +7860,19 @@
       "trade_safety": {
         "status": "verification_required",
         "flags": [
-          "all_checks_missing"
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
         ],
         "order_ready": false
       }
@@ -7779,7 +8127,19 @@
       "trade_safety": {
         "status": "verification_required",
         "flags": [
-          "all_checks_missing"
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
         ],
         "order_ready": false
       }
@@ -8034,7 +8394,19 @@
       "trade_safety": {
         "status": "verification_required",
         "flags": [
-          "all_checks_missing"
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
         ],
         "order_ready": false
       }
@@ -8289,7 +8661,19 @@
       "trade_safety": {
         "status": "verification_required",
         "flags": [
-          "all_checks_missing"
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
         ],
         "order_ready": false
       }
@@ -8544,7 +8928,19 @@
       "trade_safety": {
         "status": "verification_required",
         "flags": [
-          "all_checks_missing"
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
         ],
         "order_ready": false
       }
@@ -8799,7 +9195,19 @@
       "trade_safety": {
         "status": "verification_required",
         "flags": [
-          "all_checks_missing"
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
         ],
         "order_ready": false
       }
@@ -9054,7 +9462,19 @@
       "trade_safety": {
         "status": "verification_required",
         "flags": [
-          "all_checks_missing"
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
         ],
         "order_ready": false
       }
@@ -9309,7 +9729,19 @@
       "trade_safety": {
         "status": "verification_required",
         "flags": [
-          "all_checks_missing"
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
         ],
         "order_ready": false
       }
@@ -9570,7 +10002,19 @@
       "trade_safety": {
         "status": "verification_required",
         "flags": [
-          "all_checks_missing"
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
         ],
         "order_ready": false
       }
@@ -9811,7 +10255,19 @@
       "trade_safety": {
         "status": "verification_required",
         "flags": [
-          "all_checks_missing"
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
         ],
         "order_ready": false
       }
@@ -10066,7 +10522,19 @@
       "trade_safety": {
         "status": "verification_required",
         "flags": [
-          "all_checks_missing"
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
         ],
         "order_ready": false
       }
@@ -10321,7 +10789,19 @@
       "trade_safety": {
         "status": "verification_required",
         "flags": [
-          "all_checks_missing"
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
         ],
         "order_ready": false
       }
@@ -10576,7 +11056,19 @@
       "trade_safety": {
         "status": "verification_required",
         "flags": [
-          "all_checks_missing"
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
         ],
         "order_ready": false
       }
@@ -10829,9 +11321,21 @@
         "known_split": null
       },
       "trade_safety": {
-        "status": "verification_required",
+        "status": "excluded",
         "flags": [
-          "all_checks_missing"
+          "sbi_public_sell_suspended",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
         ],
         "order_ready": false
       }
@@ -11072,7 +11576,19 @@
       "trade_safety": {
         "status": "verification_required",
         "flags": [
-          "all_checks_missing"
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
         ],
         "order_ready": false
       }
@@ -11313,7 +11829,19 @@
       "trade_safety": {
         "status": "verification_required",
         "flags": [
-          "all_checks_missing"
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
         ],
         "order_ready": false
       }
@@ -11568,7 +12096,19 @@
       "trade_safety": {
         "status": "verification_required",
         "flags": [
-          "all_checks_missing"
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
         ],
         "order_ready": false
       }
@@ -11823,7 +12363,19 @@
       "trade_safety": {
         "status": "verification_required",
         "flags": [
-          "all_checks_missing"
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
         ],
         "order_ready": false
       }
@@ -12081,7 +12633,19 @@
       "trade_safety": {
         "status": "verification_required",
         "flags": [
-          "all_checks_missing"
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
         ],
         "order_ready": false
       }
@@ -12335,7 +12899,19 @@
       "trade_safety": {
         "status": "verification_required",
         "flags": [
-          "all_checks_missing"
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
         ],
         "order_ready": false
       }
@@ -12587,7 +13163,19 @@
       "trade_safety": {
         "status": "verification_required",
         "flags": [
-          "all_checks_missing"
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
         ],
         "order_ready": false
       }
@@ -12842,7 +13430,19 @@
       "trade_safety": {
         "status": "verification_required",
         "flags": [
-          "all_checks_missing"
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
         ],
         "order_ready": false
       }
@@ -13083,7 +13683,19 @@
       "trade_safety": {
         "status": "verification_required",
         "flags": [
-          "all_checks_missing"
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
         ],
         "order_ready": false
       }
@@ -13343,7 +13955,19 @@
       "trade_safety": {
         "status": "verification_required",
         "flags": [
-          "all_checks_missing"
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
         ],
         "order_ready": false
       }
@@ -13628,7 +14252,19 @@
       "trade_safety": {
         "status": "verification_required",
         "flags": [
-          "all_checks_missing"
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
         ],
         "order_ready": false
       }
@@ -13928,7 +14564,19 @@
       "trade_safety": {
         "status": "verification_required",
         "flags": [
-          "all_checks_missing"
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
         ],
         "order_ready": false
       }
@@ -14258,7 +14906,19 @@
       "trade_safety": {
         "status": "verification_required",
         "flags": [
-          "all_checks_missing"
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
         ],
         "order_ready": false
       }
@@ -14541,7 +15201,19 @@
       "trade_safety": {
         "status": "verification_required",
         "flags": [
-          "all_checks_missing"
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
         ],
         "order_ready": false
       }
@@ -14856,7 +15528,19 @@
       "trade_safety": {
         "status": "verification_required",
         "flags": [
-          "all_checks_missing"
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
         ],
         "order_ready": false
       }
@@ -15140,7 +15824,19 @@
       "trade_safety": {
         "status": "verification_required",
         "flags": [
-          "all_checks_missing"
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
         ],
         "order_ready": false
       }
@@ -15425,7 +16121,19 @@
       "trade_safety": {
         "status": "verification_required",
         "flags": [
-          "all_checks_missing"
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
         ],
         "order_ready": false
       }
@@ -15754,7 +16462,19 @@
       "trade_safety": {
         "status": "verification_required",
         "flags": [
-          "all_checks_missing"
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
         ],
         "order_ready": false
       }
@@ -16066,7 +16786,19 @@
       "trade_safety": {
         "status": "verification_required",
         "flags": [
-          "all_checks_missing"
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
         ],
         "order_ready": false
       }
@@ -16380,7 +17112,19 @@
       "trade_safety": {
         "status": "verification_required",
         "flags": [
-          "all_checks_missing"
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
         ],
         "order_ready": false
       }
@@ -16724,7 +17468,19 @@
       "trade_safety": {
         "status": "verification_required",
         "flags": [
-          "all_checks_missing"
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
         ],
         "order_ready": false
       }
@@ -16994,7 +17750,19 @@
       "trade_safety": {
         "status": "verification_required",
         "flags": [
-          "all_checks_missing"
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
         ],
         "order_ready": false
       }
@@ -17277,7 +18045,19 @@
       "trade_safety": {
         "status": "verification_required",
         "flags": [
-          "all_checks_missing"
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
         ],
         "order_ready": false
       }
@@ -17558,7 +18338,19 @@
       "trade_safety": {
         "status": "verification_required",
         "flags": [
-          "all_checks_missing"
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
         ],
         "order_ready": false
       }
@@ -17839,7 +18631,19 @@
       "trade_safety": {
         "status": "verification_required",
         "flags": [
-          "all_checks_missing"
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
         ],
         "order_ready": false
       }
@@ -18123,7 +18927,19 @@
       "trade_safety": {
         "status": "verification_required",
         "flags": [
-          "all_checks_missing"
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
         ],
         "order_ready": false
       }
@@ -18408,7 +19224,19 @@
       "trade_safety": {
         "status": "verification_required",
         "flags": [
-          "all_checks_missing"
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
         ],
         "order_ready": false
       }
@@ -18741,7 +19569,19 @@
       "trade_safety": {
         "status": "verification_required",
         "flags": [
-          "all_checks_missing"
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
         ],
         "order_ready": false
       }
@@ -19040,7 +19880,19 @@
       "trade_safety": {
         "status": "verification_required",
         "flags": [
-          "all_checks_missing"
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
         ],
         "order_ready": false
       }
@@ -19325,7 +20177,19 @@
       "trade_safety": {
         "status": "verification_required",
         "flags": [
-          "all_checks_missing"
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
         ],
         "order_ready": false
       }
@@ -19641,7 +20505,19 @@
       "trade_safety": {
         "status": "verification_required",
         "flags": [
-          "all_checks_missing"
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
         ],
         "order_ready": false
       }
@@ -19943,7 +20819,19 @@
       "trade_safety": {
         "status": "verification_required",
         "flags": [
-          "all_checks_missing"
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
         ],
         "order_ready": false
       }
@@ -20212,7 +21100,19 @@
       "trade_safety": {
         "status": "verification_required",
         "flags": [
-          "all_checks_missing"
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
         ],
         "order_ready": false
       }
@@ -20523,9 +21423,21 @@
         "known_split": null
       },
       "trade_safety": {
-        "status": "verification_required",
+        "status": "excluded",
         "flags": [
-          "all_checks_missing"
+          "sbi_public_loan_caution",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
         ],
         "order_ready": false
       }
@@ -20839,7 +21751,19 @@
       "trade_safety": {
         "status": "verification_required",
         "flags": [
-          "all_checks_missing"
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
         ],
         "order_ready": false
       }
@@ -21125,7 +22049,19 @@
       "trade_safety": {
         "status": "verification_required",
         "flags": [
-          "all_checks_missing"
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
         ],
         "order_ready": false
       }
@@ -21423,7 +22359,19 @@
       "trade_safety": {
         "status": "verification_required",
         "flags": [
-          "all_checks_missing"
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
         ],
         "order_ready": false
       }
@@ -21694,7 +22642,19 @@
       "trade_safety": {
         "status": "verification_required",
         "flags": [
-          "all_checks_missing"
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
         ],
         "order_ready": false
       }
@@ -21983,7 +22943,19 @@
       "trade_safety": {
         "status": "verification_required",
         "flags": [
-          "all_checks_missing"
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
         ],
         "order_ready": false
       }
@@ -22267,7 +23239,19 @@
       "trade_safety": {
         "status": "verification_required",
         "flags": [
-          "all_checks_missing"
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
         ],
         "order_ready": false
       }
@@ -22564,7 +23548,19 @@
       "trade_safety": {
         "status": "verification_required",
         "flags": [
-          "all_checks_missing"
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
         ],
         "order_ready": false
       }
@@ -22847,7 +23843,19 @@
       "trade_safety": {
         "status": "verification_required",
         "flags": [
-          "all_checks_missing"
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
         ],
         "order_ready": false
       }
@@ -23131,7 +24139,19 @@
       "trade_safety": {
         "status": "verification_required",
         "flags": [
-          "all_checks_missing"
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
         ],
         "order_ready": false
       }
@@ -23412,6 +24432,25 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -23705,6 +24744,25 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -24028,6 +25086,25 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -24304,6 +25381,25 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -24612,6 +25708,25 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -24889,6 +26004,25 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -25167,6 +26301,25 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -25489,6 +26642,25 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -25794,6 +26966,25 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -26101,6 +27292,25 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -26438,6 +27648,25 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
+        ],
+        "order_ready": false
       }
     }
   ],
@@ -26703,6 +27932,25 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -26979,6 +28227,25 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -27253,6 +28520,25 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -27527,6 +28813,25 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -27804,6 +29109,25 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -28082,6 +29406,25 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -28408,6 +29751,25 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -28700,6 +30062,25 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -28978,6 +30359,25 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -29287,6 +30687,25 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -29582,6 +31001,25 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -29844,6 +31282,25 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -30150,6 +31607,25 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "excluded",
+        "flags": [
+          "sbi_public_loan_caution",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -30457,6 +31933,25 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -30736,6 +32231,25 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -31027,6 +32541,25 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -31291,6 +32824,25 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -31573,6 +33125,25 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -31850,6 +33421,25 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -32140,6 +33730,25 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -32416,6 +34025,25 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
+        ],
+        "order_ready": false
       }
     },
     {
@@ -32693,6 +34321,25 @@
           400
         ],
         "known_split": null
+      },
+      "trade_safety": {
+        "status": "verification_required",
+        "flags": [
+          "sbi_public_alert_unconfirmed",
+          "jpx_lending_check_missing_or_stale",
+          "jpx_lending_unconfirmed",
+          "sbi_check_missing_or_stale",
+          "sbi_sellability_unconfirmed",
+          "jsf_check_missing_or_stale",
+          "jsf_restriction_unconfirmed",
+          "jsf_shortage_unconfirmed",
+          "jsf_reverse_fee_unconfirmed",
+          "jsf_recent_fee_history_unconfirmed",
+          "jsf_recent_shortage_history_unconfirmed",
+          "earnings_check_missing_or_stale",
+          "next_earnings_date_unconfirmed"
+        ],
+        "order_ready": false
       }
     }
   ],
@@ -34001,7 +35648,7 @@
     "comparable_eps_count": 164,
     "comparable_eps_requested": 192,
     "comparable_eps_ratio": 0.8542,
-    "validated_at_jst": "2026-10-08T20:47:07+09:00",
+    "validated_at_jst": "2026-10-08T22:54:50+09:00",
     "decision": "fail_closed",
     "annual_comparison_gap_days": [
       330,
@@ -34035,14 +35682,14 @@
     "note": "Exclusions are provisional. Recover true full-year EPS at TDnet source for definitive ranking."
   },
   "trade_safety_gate": {
-    "version": 2,
-    "checked_at_jst": "2026-10-08T20:47:07+09:00",
+    "version": 3,
+    "checked_at_jst": "2026-10-08T22:54:50+09:00",
     "target_date": "2026-10-08",
     "unique_candidates": 57,
     "counts": {
       "eligible": 0,
-      "excluded": 0,
-      "verification_required": 57
+      "excluded": 2,
+      "verification_required": 55
     },
     "order_ready_codes_by_group": {
       "short_9_of_9_candidates": [],
@@ -34050,9 +35697,11 @@
       "short_8_of_9_candidates": [],
       "short_7_of_9_candidates": [],
       "all_ma_below_candidates": [],
-      "near_all_ma_below_candidates": []
+      "near_all_ma_below_candidates": [],
+      "near_all_ma_below_price_candidates": [],
+      "near_all_ma_below_touch_candidates": []
     },
-    "risk_file_rows": 0,
-    "policy": "All six groups remain research output. Only order_ready=true may be considered for an order after a fresh SBI order-screen check. Five-session history is required. Even a zero reported fee does not guarantee future reverse fees."
+    "risk_file_rows": 57,
+    "policy": "All six groups remain research output. Only order_ready=true may be considered for an order after a fresh SBI order-screen check. Five-session history and dated public SBI alerts are required. Even a zero reported fee does not guarantee future reverse fees."
   }
 }
