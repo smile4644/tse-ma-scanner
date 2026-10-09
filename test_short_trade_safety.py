@@ -93,6 +93,12 @@ class RiskGateTests(unittest.TestCase):
         self.assertEqual(evaluate(row(sbi_public_alert_status='new_sell_suspended',
             sbi_public_alert_checked_date='2026-10-07'), TARGET)['status'], 'excluded')
 
+    def test_official_jsf_non_loanable_blocks_even_approved_order_screen(self):
+        result = evaluate(row(jsf_public_lending_status='not_loanable'), TARGET)
+        self.assertEqual(result['status'], 'excluded')
+        self.assertFalse(result['order_ready'])
+        self.assertIn('jsf_public_not_loanable', result['flags'])
+
     def test_all_six_research_groups_preserved(self):
         doc = {'target_date': TARGET.isoformat(), **{
             group: [{'code': str(i+1000), 'price': 110}] for i, group in enumerate(GROUPS)}}
