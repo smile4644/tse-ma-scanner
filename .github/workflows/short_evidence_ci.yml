@@ -27,3 +27,7 @@ jobs:
         run: python -m py_compile short_trade_safety.py short_evidence_collect.py
       - name: Risk evidence and execution safety tests
         run: python -m unittest -q test_short_trade_safety.py test_short_evidence_collect.py
+      - name: Official public-source ingestion smoke check (no publish)
+        run: |
+          python short_evidence_collect.py --session close --target-date 2026-10-09
+          cat results/short_evidence/2026-10-09_close_status.json
