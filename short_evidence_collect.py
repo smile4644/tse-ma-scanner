@@ -14,6 +14,7 @@ import io
 import json
 import re
 import urllib.request
+from html.parser import HTMLParser
 from datetime import date, datetime, timedelta
 from pathlib import Path
 from zoneinfo import ZoneInfo
@@ -95,6 +96,89 @@ def find_columns(rows: list[dict], must_have: tuple[tuple[str,...],...], label: 
         raise ValueError(f'{label} schema unknown; refusing inference: {sorted(rows[0])}')
 
 
+SBI_ALERT_URL = 'https://search.sbisec.co.jp/v2/popwin/attention/stock/margin.html'
+
+
+class _TableRows(HTMLParser):
+    """Only table cells. Never parse risk language from narrative footnotes."""
+    def __init__(self):
+        super().__init__()
+        self.rows, self.cells, self.cell = [], [], []
+        self.in_row = False
+        self.in_cell = False
+    def handle_starttag(self, tag, attrs):
+        if tag == 'tr':
+            self.in_row, self.cells = True, []
+        elif tag in ('th', 'td') and self.in_row:
+            self.in_cell, self.cell = True, []
+    def handle_data(self, data):
+        if self.in_cell:
+            self.cell.append(data)
+    def handle_endtag(self, tag):
+        if tag in ('th', 'td') and self.in_cell:
+            self.cells.append(''.join(self.cell).strip())
+            self.in_cell = False
+        elif tag == 'tr' and self.in_row:
+            if self.cells:
+                self.rows.append(self.cells)
+            self.in_row = False
+            self.in_cell = False
+
+
+def parse_sbi_public_alerts(html: str, target: date) -> dict:
+    """Parse negative SBI public notices; absence NEVER becomes 'none'."""
+    text = re.sub('<[^>]+>', ' ', html)
+    match = re.search(r'更新[^0-9]{0,30}(\d{1,2})/(\d{1,2})', text)
+    asof = ''
+    if match:
+        try:
+            d = date(target.year, int(match.group(1)), int(match.group(2)))
+            if 0 <= (target-d).days <= 7:
+                asof = d.isoformat()
+        except ValueError:
+            pass
+    parser = _TableRows()
+    parser.feed(html)
+    alerts = {}
+    for cells in parser.rows:
+        joined = ' '.join(cells)
+        # Code must occupy its own field, never emerge from prose.
+        code = next((x.strip() for x in cells
+                    if re.fullmatch(r'\d{4,5}|\d{3}[A-Za-z]', x.strip())), '')
+        if not code or not re.search(r'日証金|証金',joined):
+            continue
+        if '新規売停止' in joined or '売建停止' in joined:
+            alerts[code] = 'new_sell_suspended'
+        elif '貸株注意喚起' in joined:
+            if alerts.get(code) != 'new_sell_suspended':
+                alerts[code] = 'loan_caution'
+    return {'source': SBI_ALERT_URL, 'asof_date': asof,
+            'status':'ok' if asof else 'unverified_date', 'alerts': alerts}
+
+
+def fetch_sbi_public_alerts(target: date) -> dict:
+    try:
+        request=urllib.request.Request(SBI_ALERT_URL,
+                         headers={'User-Agent':'Mozilla/5.0 (short-risk-audit)'})
+        with urllib.request.urlopen(request,timeout=20) as response:
+            body=response.read(2_500_001)
+        if len(body)>2_500_000:
+            raise ValueError('Oversized notice page')
+        html = None
+        for encoding in ('utf-8','cp932','shift_jis'):
+            try:
+                html=body.decode(encoding)
+                break
+            except UnicodeDecodeError:
+                pass
+        if html is None:
+            raise ValueError('Unknown encoding')
+        return parse_sbi_public_alerts(html,target)
+    except Exception as exc:
+        return {'source':SBI_ALERT_URL,'asof_date':'',
+                'status':f'unavailable:{type(exc).__name__}', 'alerts':{}}
+
+
 def official_snapshot(tables: dict[str, list[dict]], captured_date: date) -> dict:
     """Parse fail-closed: identifiable date/schema required before any evidence."""
     names = {k: v for k, v in SOURCES.items()}
@@ -136,6 +220,7 @@ def collect(target_date: date) -> dict:
     for kind, message in errors.items():
         snap['source_status'][kind] = message
         snap['rows'][kind] = {}
+    snap['sbi_public'] = fetch_sbi_public_alerts(target_date)
     return snap
 
 
@@ -151,6 +236,15 @@ def add_official(checks: dict, code: str, source: dict, history: list[dict], tar
     evidence = {'jsf_classification': 'unverified', 'jsf_date': '',
                 'jsf_fee': None, 'jsf_stock_shortage': 'unverified',
                 'jsf_restriction': 'unverified', 'checks': [], 'jsf_balance_asof_date': '', 'jsf_lending_excess_shares': None}
+    # Only explicit SBI public alerts veto. Being absent from a list does not
+    # establish SBI制度信用新規売建 availability or clearance of alerts.
+    public = source.get('sbi_public', {})
+    current_alert = public.get('alerts',{}).get(code)
+    if current_alert and public.get('asof_date'):
+        row['sbi_public_alert_status'] = current_alert
+        row['sbi_public_alert_checked_date'] = public['asof_date']
+        row['sbi_public_alert_source'] = SBI_ALERT_URL
+        evidence['checks'].append('sbi_public_'+current_alert)
     state = source.get('source_status', {})
     sources = source.get('rows', {})
     if state.get('meigara') == 'ok':
@@ -347,6 +441,10 @@ def run(session: str, target: date, results_dir: Path=Path('results'),
     if not snap_path.exists():
         small = {'schema': 1, 'captured_at_jst': snapshot.get('captured_at_jst'),
                  'source_urls': snapshot.get('source_urls',{}),
+                 'sbi_public': {'source': SBI_ALERT_URL,
+                      'status':snapshot.get('sbi_public',{}).get('status'),
+                      'asof_date':snapshot.get('sbi_public',{}).get('asof_date'),
+                      'alerts':{c:v for c,v in snapshot.get('sbi_public',{}).get('alerts',{}).items() if c in universe}},
                  'source_status': snapshot.get('source_status',{}),
                  'rows': {'shina': {}}}
         for code in universe:
@@ -361,6 +459,7 @@ def run(session: str, target: date, results_dir: Path=Path('results'),
            'candidates':len(out),'statuses':{k:sum(x['final_status']==k for x in review)
                     for k in ('eligible','excluded','verification_required')},
            'official_source_status':snapshot.get('source_status',{}),
+           'sbi_public_status':snapshot.get('sbi_public',{}).get('status','unavailable'),
            'generated_checks_path':str(output),'review_path':str(report),
            'source_urls':snapshot.get('source_urls',{})}
     (storage/f'{target}_{session}_status.json').write_text(json.dumps(stats,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
