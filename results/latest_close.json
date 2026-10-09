@@ -1,6 +1,6 @@
 {
   "schema_version": 19,
-  "generated_at_jst": "2026-10-09T16:08:58+09:00",
+  "generated_at_jst": "2026-10-09T16:59:02+09:00",
   "target_date": "2026-10-09",
   "session": "close",
   "session_label": "大引け確定版",
@@ -13,10 +13,10 @@
   "universe_count": 1544,
   "universe_build": {
     "jpx_master_count": 3702,
-    "master_daily_downloaded": 3701,
+    "master_daily_downloaded": 3702,
     "master_daily_required_min": 3147,
     "latest_as_of": "2026-10-08",
-    "latest_as_of_source_rows": 3691,
+    "latest_as_of_source_rows": 3693,
     "universe_count": 1544,
     "universe_age_days": 1,
     "liquidity_lookback_days": 20,
@@ -83,8 +83,8 @@
     "price_eligible_unique_symbols": 379,
     "fundamental": {
       "requested": 379,
-      "cache_hits": 364,
-      "fetched": 15,
+      "cache_hits": 379,
+      "fetched": 0,
       "available": 358,
       "available_ratio": 0.9446,
       "improving": 240,
@@ -123,9 +123,9 @@
     "near_all_ma_above_price": 15,
     "near_all_ma_above_touch": 47,
     "early_stage": 21,
-    "partial_ma": 92,
+    "partial_ma": 93,
     "partial_available_ma_above": 2,
-    "quarantined": 130
+    "quarantined": 125
   },
   "coverage": {
     "price_source_mode": "confirmed_daily_close",
@@ -144,14 +144,14 @@
     "quality_status": "warning",
     "issues": [
       "unscored=1",
-      "quarantined_noon_to_close_low_increase=130"
+      "quarantined_noon_to_close_low_increase=125"
     ],
     "expected_last_bar": null,
     "stale_last_bar_count": 0,
     "intraday_missing_count": 1,
     "invalid_ohlc_count": 0,
-    "impossible_noon_to_close_low_increase_count": 140,
-    "quarantined_symbol_count": 130,
+    "impossible_noon_to_close_low_increase_count": 125,
+    "quarantined_symbol_count": 125,
     "daily_vs_intraday_close_diff_ge_1pct_count": 0
   },
   "diagnostics": {
@@ -272,71 +272,11 @@
         "close_price_source": "daily_1d_confirmed"
       },
       {
-        "code": "8604",
-        "name": "野村ホールディングス",
-        "timeframe": "day",
-        "noon_low": 1478.5,
-        "close_low": 1479.0,
-        "noon_last_bar": "2026-10-09T10:30:00+09:00",
-        "close_last_bar": "2026-10-09",
-        "close_price_source": "daily_1d_confirmed"
-      },
-      {
-        "code": "8604",
-        "name": "野村ホールディングス",
-        "timeframe": "week",
-        "noon_low": 1478.5,
-        "close_low": 1479.0,
-        "noon_last_bar": "2026-10-09T10:30:00+09:00",
-        "close_last_bar": "2026-10-09",
-        "close_price_source": "daily_1d_confirmed"
-      },
-      {
-        "code": "8604",
-        "name": "野村ホールディングス",
-        "timeframe": "month",
-        "noon_low": 1478.5,
-        "close_low": 1479.0,
-        "noon_last_bar": "2026-10-09T10:30:00+09:00",
-        "close_last_bar": "2026-10-09",
-        "close_price_source": "daily_1d_confirmed"
-      },
-      {
         "code": "1928",
         "name": "積水ハウス",
         "timeframe": "day",
         "noon_low": 3334.0,
         "close_low": 3338.0,
-        "noon_last_bar": "2026-10-09T10:30:00+09:00",
-        "close_last_bar": "2026-10-09",
-        "close_price_source": "daily_1d_confirmed"
-      },
-      {
-        "code": "5838",
-        "name": "楽天銀行",
-        "timeframe": "day",
-        "noon_low": 6058.0,
-        "close_low": 6073.0,
-        "noon_last_bar": "2026-10-09T10:30:00+09:00",
-        "close_last_bar": "2026-10-09",
-        "close_price_source": "daily_1d_confirmed"
-      },
-      {
-        "code": "5838",
-        "name": "楽天銀行",
-        "timeframe": "week",
-        "noon_low": 6058.0,
-        "close_low": 6073.0,
-        "noon_last_bar": "2026-10-09T10:30:00+09:00",
-        "close_last_bar": "2026-10-09",
-        "close_price_source": "daily_1d_confirmed"
-      },
-      {
-        "code": "5838",
-        "name": "楽天銀行",
-        "timeframe": "month",
-        "noon_low": 6058.0,
-        "close_low": 6073.0,
         "noon_last_bar": "2026-10-09T10:30:00+09:00",
         "close_last_bar": "2026-10-09",
         "close_price_source": "daily_1d_confirmed"
@@ -442,36 +382,6 @@
         "close_price_source": "daily_1d_confirmed"
       },
       {
-        "code": "8343",
-        "name": "秋田銀行",
-        "timeframe": "day",
-        "noon_low": 1731.0,
-        "close_low": 1751.0,
-        "noon_last_bar": "2026-10-09T10:30:00+09:00",
-        "close_last_bar": "2026-10-09",
-        "close_price_source": "daily_1d_confirmed"
-      },
-      {
-        "code": "8343",
-        "name": "秋田銀行",
-        "timeframe": "week",
-        "noon_low": 1731.0,
-        "close_low": 1751.0,
-        "noon_last_bar": "2026-10-09T10:30:00+09:00",
-        "close_last_bar": "2026-10-09",
-        "close_price_source": "daily_1d_confirmed"
-      },
-      {
-        "code": "8343",
-        "name": "秋田銀行",
-        "timeframe": "month",
-        "noon_low": 1731.0,
-        "close_low": 1751.0,
-        "noon_last_bar": "2026-10-09T10:30:00+09:00",
-        "close_last_bar": "2026-10-09",
-        "close_price_source": "daily_1d_confirmed"
-      },
-      {
         "code": "9001",
         "name": "東武鉄道",
         "timeframe": "day",
@@ -527,36 +437,6 @@
         "timeframe": "day",
         "noon_low": 1530.0,
         "close_low": 1542.0,
-        "noon_last_bar": "2026-10-09T10:30:00+09:00",
-        "close_last_bar": "2026-10-09",
-        "close_price_source": "daily_1d_confirmed"
-      },
-      {
-        "code": "8345",
-        "name": "岩手銀行",
-        "timeframe": "day",
-        "noon_low": 2440.0,
-        "close_low": 2441.0,
-        "noon_last_bar": "2026-10-09T10:30:00+09:00",
-        "close_last_bar": "2026-10-09",
-        "close_price_source": "daily_1d_confirmed"
-      },
-      {
-        "code": "8345",
-        "name": "岩手銀行",
-        "timeframe": "week",
-        "noon_low": 2440.0,
-        "close_low": 2441.0,
-        "noon_last_bar": "2026-10-09T10:30:00+09:00",
-        "close_last_bar": "2026-10-09",
-        "close_price_source": "daily_1d_confirmed"
-      },
-      {
-        "code": "8345",
-        "name": "岩手銀行",
-        "timeframe": "month",
-        "noon_low": 2440.0,
-        "close_low": 2441.0,
         "noon_last_bar": "2026-10-09T10:30:00+09:00",
         "close_last_bar": "2026-10-09",
         "close_price_source": "daily_1d_confirmed"
@@ -1182,36 +1062,6 @@
         "close_price_source": "daily_1d_confirmed"
       },
       {
-        "code": "3444",
-        "name": "菊池製作所",
-        "timeframe": "day",
-        "noon_low": 1058.0,
-        "close_low": 1063.0,
-        "noon_last_bar": "2026-10-09T10:30:00+09:00",
-        "close_last_bar": "2026-10-09",
-        "close_price_source": "daily_1d_confirmed"
-      },
-      {
-        "code": "3444",
-        "name": "菊池製作所",
-        "timeframe": "week",
-        "noon_low": 1058.0,
-        "close_low": 1060.0,
-        "noon_last_bar": "2026-10-09T10:30:00+09:00",
-        "close_last_bar": "2026-10-09",
-        "close_price_source": "daily_1d_confirmed"
-      },
-      {
-        "code": "3444",
-        "name": "菊池製作所",
-        "timeframe": "month",
-        "noon_low": 1058.0,
-        "close_low": 1060.0,
-        "noon_last_bar": "2026-10-09T10:30:00+09:00",
-        "close_last_bar": "2026-10-09",
-        "close_price_source": "daily_1d_confirmed"
-      },
-      {
         "code": "7821",
         "name": "前田工繊",
         "timeframe": "day",
@@ -1688,30 +1538,6 @@
         }
       },
       {
-        "code": "8604",
-        "name": "野村ホールディングス",
-        "reason": "noon_to_close_low_increase",
-        "last_bar": "2026-10-09",
-        "candle": {
-          "day": {
-            "open": 1509.0,
-            "high": 1509.0,
-            "low": 1479.0,
-            "close": 1486.5
-          },
-          "week": {
-            "high": 1545.5,
-            "low": 1479.0,
-            "close": 1486.5
-          },
-          "month": {
-            "high": 1559.0,
-            "low": 1479.0,
-            "close": 1486.5
-          }
-        }
-      },
-      {
         "code": "1928",
         "name": "積水ハウス",
         "reason": "noon_to_close_low_increase",
@@ -1732,30 +1558,6 @@
             "high": 3378.0,
             "low": 3289.0,
             "close": 3349.0
-          }
-        }
-      },
-      {
-        "code": "5838",
-        "name": "楽天銀行",
-        "reason": "noon_to_close_low_increase",
-        "last_bar": "2026-10-09",
-        "candle": {
-          "day": {
-            "open": 6280.0,
-            "high": 6298.0,
-            "low": 6073.0,
-            "close": 6092.0
-          },
-          "week": {
-            "high": 6579.0,
-            "low": 6073.0,
-            "close": 6092.0
-          },
-          "month": {
-            "high": 6579.0,
-            "low": 6073.0,
-            "close": 6092.0
           }
         }
       },
@@ -2000,30 +1802,6 @@
         }
       },
       {
-        "code": "8343",
-        "name": "秋田銀行",
-        "reason": "noon_to_close_low_increase",
-        "last_bar": "2026-10-09",
-        "candle": {
-          "day": {
-            "open": 1800.0,
-            "high": 1830.0,
-            "low": 1751.0,
-            "close": 1767.0
-          },
-          "week": {
-            "high": 2071.0,
-            "low": 1751.0,
-            "close": 1767.0
-          },
-          "month": {
-            "high": 2109.0,
-            "low": 1751.0,
-            "close": 1767.0
-          }
-        }
-      },
-      {
         "code": "9001",
         "name": "東武鉄道",
         "reason": "noon_to_close_low_increase",
@@ -2164,30 +1942,6 @@
             "high": 1580.0,
             "low": 1481.0,
             "close": 1570.0
-          }
-        }
-      },
-      {
-        "code": "8345",
-        "name": "岩手銀行",
-        "reason": "noon_to_close_low_increase",
-        "last_bar": "2026-10-09",
-        "candle": {
-          "day": {
-            "open": 2481.0,
-            "high": 2549.0,
-            "low": 2441.0,
-            "close": 2506.0
-          },
-          "week": {
-            "high": 2865.0,
-            "low": 2441.0,
-            "close": 2506.0
-          },
-          "month": {
-            "high": 2925.0,
-            "low": 2441.0,
-            "close": 2506.0
           }
         }
       },
@@ -2799,7 +2553,7 @@
         "candle": {
           "day": {
             "open": 2214.0,
-            "high": 2226.0,
+            "high": 2229.0,
             "low": 2207.0,
             "close": 2218.0
           },
@@ -2847,17 +2601,17 @@
         "candle": {
           "day": {
             "open": 1537.0,
-            "high": 1568.0,
+            "high": 1571.0,
             "low": 1523.0,
             "close": 1550.0
           },
           "week": {
-            "high": 1568.0,
+            "high": 1571.0,
             "low": 1372.0,
             "close": 1550.0
           },
           "month": {
-            "high": 1568.0,
+            "high": 1571.0,
             "low": 1351.0,
             "close": 1550.0
           }
@@ -3543,7 +3297,7 @@
         "candle": {
           "day": {
             "open": 1397.0,
-            "high": 1430.0,
+            "high": 1429.0,
             "low": 1396.0,
             "close": 1424.0
           },
@@ -3676,30 +3430,6 @@
             "high": 1096.0,
             "low": 1010.0,
             "close": 1062.0
-          }
-        }
-      },
-      {
-        "code": "3444",
-        "name": "菊池製作所",
-        "reason": "noon_to_close_low_increase",
-        "last_bar": "2026-10-09",
-        "candle": {
-          "day": {
-            "open": 1065.0,
-            "high": 1100.0,
-            "low": 1063.0,
-            "close": 1084.0
-          },
-          "week": {
-            "high": 1240.0,
-            "low": 1060.0,
-            "close": 1084.0
-          },
-          "month": {
-            "high": 1240.0,
-            "low": 1060.0,
-            "close": 1084.0
           }
         }
       },
@@ -4789,8 +4519,8 @@
       "source_schema_version": 19,
       "source_generated_at_jst": "2026-10-09T11:48:32+09:00",
       "noon_candidate_count": 108,
-      "retained_score_7_plus": 87,
-      "dropped_or_quarantined": 21
+      "retained_score_7_plus": 88,
+      "dropped_or_quarantined": 20
     },
     "dropped_from_noon": [
       {
@@ -4820,14 +4550,6 @@
       {
         "code": "8043",
         "name": "スターゼン",
-        "noon_score": 8,
-        "close_score": 8,
-        "reason": "quarantined_noon_to_close_low_increase",
-        "close_last_bar": "2026-10-09"
-      },
-      {
-        "code": "3444",
-        "name": "菊池製作所",
         "noon_score": 8,
         "close_score": 8,
         "reason": "quarantined_noon_to_close_low_increase",
@@ -72347,12 +72069,12 @@
         "tier": 0,
         "all_ma_above": false,
         "available_ma_above": false,
-        "quarantined": true,
-        "day_low": 1479.0,
+        "quarantined": false,
+        "day_low": 1478.5,
         "day_high": 1509.0,
-        "week_low": 1479.0,
+        "week_low": 1478.5,
         "week_high": 1545.5,
-        "month_low": 1479.0,
+        "month_low": 1478.5,
         "month_high": 1559.0,
         "state_vector": [
           0,
@@ -76455,7 +76177,7 @@
         "all_ma_above": false,
         "available_ma_above": false,
         "quarantined": false,
-        "day_low": 3338.0,
+        "day_low": 3339.0,
         "day_high": 3400.0,
         "week_low": 3281.0,
         "week_high": 3400.0,
@@ -82803,12 +82525,12 @@
         "tier": 0,
         "all_ma_above": false,
         "available_ma_above": false,
-        "quarantined": true,
-        "day_low": 6073.0,
+        "quarantined": false,
+        "day_low": 6058.0,
         "day_high": 6298.0,
-        "week_low": 6073.0,
+        "week_low": 6058.0,
         "week_high": 6579.0,
-        "month_low": 6073.0,
+        "month_low": 6058.0,
         "month_high": 6579.0,
         "state_vector": [
           0,
@@ -83305,7 +83027,7 @@
         "available_ma_above": false,
         "quarantined": false,
         "day_low": 1170.5,
-        "day_high": 1189.0,
+        "day_high": 1190.0,
         "week_low": 1161.5,
         "week_high": 1190.5,
         "month_low": 1161.5,
@@ -103402,7 +103124,7 @@
         "all_ma_above": false,
         "available_ma_above": false,
         "quarantined": false,
-        "day_low": 2543.0,
+        "day_low": 2542.5,
         "day_high": 2584.5,
         "week_low": 2517.0,
         "week_high": 2594.5,
@@ -105739,7 +105461,7 @@
         "available_ma_above": false,
         "quarantined": false,
         "day_low": 2480.0,
-        "day_high": 2603.0,
+        "day_high": 2599.0,
         "week_low": 2420.0,
         "week_high": 2664.0,
         "month_low": 2420.0,
@@ -108106,18 +107828,18 @@
         "tier": 1,
         "all_ma_above": false,
         "available_ma_above": false,
-        "quarantined": true,
-        "day_low": 1751.0,
+        "quarantined": false,
+        "day_low": 1731.0,
         "day_high": 1830.0,
-        "week_low": 1751.0,
+        "week_low": 1731.0,
         "week_high": 2071.0,
-        "month_low": 1751.0,
+        "month_low": 1731.0,
         "month_high": 2109.0,
         "state_vector": [
           0,
           0,
           8,
-          8,
+          7,
           8,
           8,
           8,
@@ -108172,10 +107894,10 @@
         "early_stage_rank": null,
         "early_stage_progressed": false,
         "early_stage_important_near_2pct": [],
-        "early_stage_touch_ma": [],
-        "early_stage_fresh_breakout_ma": [
+        "early_stage_touch_ma": [
           "週13"
-        ]
+        ],
+        "early_stage_fresh_breakout_ma": []
       },
       {
         "code": "8418",
@@ -109935,7 +109657,7 @@
         "all_ma_above": false,
         "available_ma_above": false,
         "quarantined": false,
-        "day_low": 2823.0,
+        "day_low": 2821.5,
         "day_high": 2869.0,
         "week_low": 2738.5,
         "week_high": 2872.5,
@@ -114905,12 +114627,12 @@
         "tier": 1,
         "all_ma_above": false,
         "available_ma_above": false,
-        "quarantined": true,
-        "day_low": 2441.0,
+        "quarantined": false,
+        "day_low": 2440.0,
         "day_high": 2549.0,
-        "week_low": 2441.0,
+        "week_low": 2440.0,
         "week_high": 2865.0,
-        "month_low": 2441.0,
+        "month_low": 2440.0,
         "month_high": 2925.0,
         "state_vector": [
           0,
@@ -116072,7 +115794,7 @@
         "available_ma_above": false,
         "quarantined": false,
         "day_low": 2366.0,
-        "day_high": 2488.0,
+        "day_high": 2487.0,
         "week_low": 2366.0,
         "week_high": 2604.0,
         "month_low": 2366.0,
@@ -121359,7 +121081,7 @@
         "available_ma_above": false,
         "quarantined": false,
         "day_low": 1188.0,
-        "day_high": 1202.0,
+        "day_high": 1203.0,
         "week_low": 1185.0,
         "week_high": 1252.0,
         "month_low": 1185.0,
@@ -127691,7 +127413,7 @@
         "available_ma_above": false,
         "quarantined": false,
         "day_low": 978.0,
-        "day_high": 1059.0,
+        "day_high": 1060.0,
         "week_low": 967.0,
         "week_high": 1077.0,
         "month_low": 883.0,
@@ -132760,7 +132482,7 @@
         "available_ma_above": false,
         "quarantined": false,
         "day_low": 2031.0,
-        "day_high": 2085.0,
+        "day_high": 2086.0,
         "week_low": 2031.0,
         "week_high": 2215.0,
         "month_low": 2031.0,
@@ -140159,7 +139881,7 @@
         "available_ma_above": false,
         "quarantined": false,
         "day_low": 1663.0,
-        "day_high": 1758.0,
+        "day_high": 1757.0,
         "week_low": 1663.0,
         "week_high": 1853.0,
         "month_low": 1663.0,
@@ -145043,7 +144765,7 @@
         "available_ma_above": false,
         "quarantined": true,
         "day_low": 2207.0,
-        "day_high": 2226.0,
+        "day_high": 2229.0,
         "week_low": 2190.0,
         "week_high": 2263.0,
         "month_low": 2190.0,
@@ -146963,11 +146685,11 @@
         "available_ma_above": true,
         "quarantined": true,
         "day_low": 1523.0,
-        "day_high": 1568.0,
+        "day_high": 1571.0,
         "week_low": 1372.0,
-        "week_high": 1568.0,
+        "week_high": 1571.0,
         "month_low": 1351.0,
-        "month_high": 1568.0,
+        "month_high": 1571.0,
         "state_vector": [
           8,
           8,
@@ -147052,7 +146774,7 @@
         "available_ma_above": false,
         "quarantined": false,
         "day_low": 1353.0,
-        "day_high": 1560.0,
+        "day_high": 1552.0,
         "week_low": 1353.0,
         "week_high": 1967.0,
         "month_low": 1353.0,
@@ -155845,7 +155567,7 @@
         "available_ma_above": false,
         "quarantined": false,
         "day_low": 1093.0,
-        "day_high": 1139.0,
+        "day_high": 1132.0,
         "week_low": 1093.0,
         "week_high": 1389.0,
         "month_low": 1093.0,
@@ -159149,7 +158871,7 @@
         "available_ma_above": false,
         "quarantined": false,
         "day_low": 2756.0,
-        "day_high": 2900.0,
+        "day_high": 2894.0,
         "week_low": 2756.0,
         "week_high": 3270.0,
         "month_low": 2756.0,
@@ -171531,7 +171253,7 @@
         "available_ma_above": false,
         "quarantined": false,
         "day_low": 369.0,
-        "day_high": 414.0,
+        "day_high": 413.0,
         "week_low": 353.0,
         "week_high": 422.0,
         "month_low": 338.0,
@@ -171913,7 +171635,7 @@
         "available_ma_above": false,
         "quarantined": true,
         "day_low": 1396.0,
-        "day_high": 1430.0,
+        "day_high": 1429.0,
         "week_low": 1381.0,
         "week_high": 1451.0,
         "month_low": 1381.0,
@@ -175815,12 +175537,12 @@
         "tier": 2,
         "all_ma_above": false,
         "available_ma_above": false,
-        "quarantined": true,
-        "day_low": 1063.0,
+        "quarantined": false,
+        "day_low": 1058.0,
         "day_high": 1100.0,
-        "week_low": 1060.0,
+        "week_low": 1058.0,
         "week_high": 1240.0,
-        "month_low": 1060.0,
+        "month_low": 1058.0,
         "month_high": 1240.0,
         "state_vector": [
           0,
@@ -195325,11 +195047,11 @@
         "all_ma_above": false,
         "available_ma_above": false,
         "quarantined": false,
-        "day_low": 11900.0,
+        "day_low": 11960.0,
         "day_high": 12320.0,
-        "week_low": 11900.0,
+        "week_low": 11960.0,
         "week_high": 12540.0,
-        "month_low": 11900.0,
+        "month_low": 11960.0,
         "month_high": 12540.0,
         "state_vector": [
           1,
@@ -198484,7 +198206,7 @@
         "available_ma_above": false,
         "quarantined": false,
         "day_low": 1045.0,
-        "day_high": 1088.0,
+        "day_high": 1087.0,
         "week_low": 1045.0,
         "week_high": 1194.0,
         "month_low": 1045.0,
@@ -203305,7 +203027,7 @@
         "available_ma_above": false,
         "quarantined": false,
         "day_low": 962.0,
-        "day_high": 981.0,
+        "day_high": 982.0,
         "week_low": 962.0,
         "week_high": 999.0,
         "month_low": 962.0,
@@ -210509,7 +210231,7 @@
         "available_ma_above": false,
         "quarantined": false,
         "day_low": 3310.0,
-        "day_high": 3390.0,
+        "day_high": 3395.0,
         "week_low": 3310.0,
         "week_high": 3570.0,
         "month_low": 3310.0,
@@ -235966,7 +235688,7 @@
       "daily_volume": 37000,
       "daily_reference": {
         "open": 962.0,
-        "high": 981.0,
+        "high": 982.0,
         "low": 962.0,
         "close": 972.0,
         "volume": 37000
@@ -235977,7 +235699,7 @@
       "candle": {
         "day": {
           "open": 962.0,
-          "high": 981.0,
+          "high": 982.0,
           "low": 962.0,
           "close": 972.0
         },
@@ -284117,7 +283839,7 @@
       "daily_volume": 37000,
       "daily_reference": {
         "open": 962.0,
-        "high": 981.0,
+        "high": 982.0,
         "low": 962.0,
         "close": 972.0,
         "volume": 37000
@@ -284128,7 +283850,7 @@
       "candle": {
         "day": {
           "open": 962.0,
-          "high": 981.0,
+          "high": 982.0,
           "low": 962.0,
           "close": 972.0
         },
@@ -293446,7 +293168,7 @@
       "daily_volume": 857800,
       "daily_reference": {
         "open": 985.0,
-        "high": 1059.0,
+        "high": 1060.0,
         "low": 978.0,
         "close": 1035.0,
         "volume": 857800
@@ -293457,7 +293179,7 @@
       "candle": {
         "day": {
           "open": 985.0,
-          "high": 1059.0,
+          "high": 1060.0,
           "low": 978.0,
           "close": 1035.0
         },
@@ -294099,6 +293821,166 @@
       "early_stage_fresh_breakout_ma": []
     },
     {
+      "code": "5838",
+      "name": "楽天銀行",
+      "market": "プライム（内国株式）",
+      "ticker": "5838.T",
+      "universe_rank": 190,
+      "previous_day_volume": 1260900,
+      "price": 6092.0,
+      "price_source": "daily_1d_confirmed",
+      "intraday_close": null,
+      "intraday_volume": null,
+      "daily_volume": 1092900,
+      "daily_reference": {
+        "open": 6280.0,
+        "high": 6298.0,
+        "low": 6058.0,
+        "close": 6092.0,
+        "volume": 1092900
+      },
+      "last_bar": "2026-10-09",
+      "intraday_fresh": true,
+      "expected_minimum_time": null,
+      "candle": {
+        "day": {
+          "open": 6280.0,
+          "high": 6298.0,
+          "low": 6058.0,
+          "close": 6092.0
+        },
+        "week": {
+          "high": 6579.0,
+          "low": 6058.0,
+          "close": 6092.0
+        },
+        "month": {
+          "high": 6579.0,
+          "low": 6058.0,
+          "close": 6092.0
+        }
+      },
+      "score": 3,
+      "score_denominator": 8,
+      "score_label": "3/8",
+      "available_ma_count": 8,
+      "missing_ma_count": 1,
+      "missing_ma": [
+        "月60"
+      ],
+      "analysis_status": "partial_scored",
+      "analysis_failure_reason": null,
+      "tier": 0,
+      "all_ma_above": false,
+      "available_ma_above": false,
+      "non_upward_ma": [
+        "週26"
+      ],
+      "status_code": 34090875,
+      "fail_mask": 115,
+      "states": {
+        "d5": {
+          "label": "日5",
+          "state": 0,
+          "state_label": "↓下",
+          "pass": false,
+          "ma": 6334.4,
+          "ma_prev": 6365.0,
+          "gap_pct": -3.8267
+        },
+        "d25": {
+          "label": "日25",
+          "state": 0,
+          "state_label": "↓下",
+          "pass": false,
+          "ma": 6352.96,
+          "ma_prev": 6365.92,
+          "gap_pct": -4.1077
+        },
+        "d75": {
+          "label": "日75",
+          "state": 8,
+          "state_label": "↑上",
+          "pass": true,
+          "ma": 5896.8933,
+          "ma_prev": 5883.9867,
+          "gap_pct": 3.3086
+        },
+        "w13": {
+          "label": "週13",
+          "state": 8,
+          "state_label": "↑上",
+          "pass": true,
+          "ma": 6046.1538,
+          "ma_prev": 6018.6923,
+          "gap_pct": 0.7583
+        },
+        "w26": {
+          "label": "週26",
+          "state": 2,
+          "state_label": "↓上",
+          "pass": false,
+          "ma": 5801.5385,
+          "ma_prev": 5824.9231,
+          "gap_pct": 5.0066
+        },
+        "w52": {
+          "label": "週52",
+          "state": 1,
+          "state_label": "↓接触",
+          "pass": false,
+          "ma": 6488.1731,
+          "ma_prev": 6526.3077,
+          "gap_pct": -6.1061
+        },
+        "m12": {
+          "label": "月12",
+          "state": 1,
+          "state_label": "↓接触",
+          "pass": false,
+          "ma": 6176.0833,
+          "ma_prev": 6375.5,
+          "gap_pct": -1.3614
+        },
+        "m24": {
+          "label": "月24",
+          "state": 7,
+          "state_label": "↑接触",
+          "pass": true,
+          "ma": 6333.7083,
+          "ma_prev": 6210.4583,
+          "gap_pct": -3.8162
+        }
+      },
+      "failures": [
+        "日5 ↓下",
+        "日25 ↓下",
+        "週26 ↓上",
+        "週52 ↓接触",
+        "月12 ↓接触"
+      ],
+      "important_touches": [],
+      "ma_proximity_2pct_count": 2,
+      "ma_proximity_5pct_count": 5,
+      "nearest_ma_key": "w13",
+      "nearest_ma_label": "週13",
+      "nearest_ma_gap_pct": 0.7583,
+      "d25_gap_pct": -4.1077,
+      "w13_gap_pct": 0.7583,
+      "early_stage_candidate": false,
+      "early_stage_rank": null,
+      "early_stage_progressed": false,
+      "early_stage_important_near_2pct": [
+        "月12"
+      ],
+      "early_stage_touch_ma": [
+        "月12"
+      ],
+      "early_stage_fresh_breakout_ma": [
+        "週13"
+      ]
+    },
+    {
       "code": "247A",
       "name": "Ａｉロボティクス",
       "market": "グロース（内国株式）",
@@ -294588,7 +294470,7 @@
       "daily_volume": 132900,
       "daily_reference": {
         "open": 2760.0,
-        "high": 2900.0,
+        "high": 2894.0,
         "low": 2756.0,
         "close": 2856.0,
         "volume": 132900
@@ -294599,7 +294481,7 @@
       "candle": {
         "day": {
           "open": 2760.0,
-          "high": 2900.0,
+          "high": 2894.0,
           "low": 2756.0,
           "close": 2856.0
         },
