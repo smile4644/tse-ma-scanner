@@ -1,0 +1,29 @@
+name: TSE Short Evidence CI
+
+on:
+  push:
+    paths:
+      - 'short_evidence_collect.py'
+      - 'test_short_evidence_collect.py'
+      - 'short_trade_safety.py'
+      - 'test_short_trade_safety.py'
+      - '.github/workflows/tse_ma_short.yml'
+      - '.github/workflows/short_evidence_ci.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify source syntax
+        run: python -m py_compile short_trade_safety.py short_evidence_collect.py
+      - name: Risk evidence and execution safety tests
+        run: python -m unittest -q test_short_trade_safety.py test_short_evidence_collect.py
