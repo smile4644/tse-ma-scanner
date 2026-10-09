@@ -197,7 +197,7 @@ def official_snapshot(tables: dict[str, list[dict]], captured_date: date) -> dic
               'source_urls': {k: BASE + v for k,v in names.items()},
               'source_status': {}, 'rows': {}}
     source_schema = {
-      'meigara': (('コード','銘柄コード'), ('貸借区分','区分','貸借取引対象区分')),
+      'meigara': (('コード','銘柄コード'), ('貸借区分','区分','貸借取引対象区分','貸借銘柄区分（東証）')),
       'shina': (('コード','銘柄コード'), ('貸借申込日','申込日'), ('当日品貸料率','当日品貸料率円','品貸料率','品貸料率円')),
       'zandaka': (('コード','銘柄コード'), ('申込日','貸借申込日'), ('融資残高株数','融資残高','融資残高株数株口'), ('貸株残高株数','貸株残高','貸株残高株数株口')),
       'seigen': (('コード','銘柄コード'),),
@@ -261,7 +261,12 @@ def add_official(checks: dict, code: str, source: dict, history: list[dict], tar
     if state.get('meigara') == 'ok':
         m = sources.get('meigara', {}).get(code)
         if m:
-            cls = field(m,'貸借区分','区分','貸借取引対象区分')
+            cls = field(m,'貸借区分','区分','貸借取引対象区分','貸借銘柄区分（東証）')
+            classified_date = parse_date(field(m,'貸借申込日','申込日'))
+            if classified_date and not (target-timedelta(days=4) <=
+                                       date.fromisoformat(classified_date) <= target):
+                cls = ''
+                evidence['checks'].append('jsf_classification_stale')
             if cls in ('1', '貸借', '貸借銘柄'):
                 evidence['jsf_classification'] = 'loanable'
                 row['jsf_public_lending_status'] = 'loanable'
