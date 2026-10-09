@@ -42,7 +42,7 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
       - name: Short regression tests
-        run: python -m unittest -q test_short_scanner.py test_short_eps_guard.py test_short_trade_safety.py
+        run: python -m unittest -q test_short_scanner.py test_short_eps_guard.py test_short_trade_safety.py test_short_evidence_collect.py
       - name: Read the upstream result artifact
         if: ${{ github.event_name == 'workflow_run' }}
         uses: actions/download-artifact@v4
@@ -132,7 +132,9 @@ jobs:
           fi
           python short_scanner.py --session "$SESSION" --target-date "$TARGET_DATE"
           python short_eps_guard.py --session "$SESSION" --target-date "$TARGET_DATE" --overwrite
-          python short_trade_safety.py --session "$SESSION" --target-date "$TARGET_DATE"
+          # JSF public data is advisory. Unverified broker/issuer/exchange fields stay blank.
+          python short_evidence_collect.py --session "$SESSION" --target-date "$TARGET_DATE"
+          python short_trade_safety.py --session "$SESSION" --target-date "$TARGET_DATE" --checks-path "results/short_evidence/${TARGET_DATE}_checks_${SESSION}.csv"
           python - <<'PY'
           import json, os, pathlib, shutil
           path = pathlib.Path('results') / f"latest_short_{os.environ['SESSION']}.json"
@@ -218,7 +220,7 @@ jobs:
                   )
                   print('Protected newer remote short result')
           PY
-          git add results/latest_short_*.json results/short_archive/ results/short_fundamental_eps_cache.json results/short_research/
+          git add results/latest_short_*.json results/short_archive/ results/short_fundamental_eps_cache.json results/short_research/ results/short_evidence/
           if git diff --cached --quiet; then
             echo 'No changed short results.'
           else
@@ -243,5 +245,8 @@ jobs:
             results/latest_short_${{ steps.source.outputs.session }}.json
             results/short_archive/${{ steps.source.outputs.target_date }}_${{ steps.source.outputs.session }}.json
             results/short_research/${{ steps.source.outputs.target_date }}_${{ steps.source.outputs.session }}_review.csv
+            results/short_evidence/${{ steps.source.outputs.target_date }}_${{ steps.source.outputs.session }}_review.csv
+            results/short_evidence/${{ steps.source.outputs.target_date }}_${{ steps.source.outputs.session }}_status.json
+            results/short_evidence/${{ steps.source.outputs.target_date }}_checks_${{ steps.source.outputs.session }}.csv
           retention-days: 14
 
