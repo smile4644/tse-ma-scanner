@@ -77,6 +77,31 @@ class ParseTests(unittest.TestCase):
         a,_=c.add_official(manual,'8278',x,[],D)
         self.assertEqual(a['sbi_system_sellable'],'yes')
         self.assertEqual(a['next_earnings_date'],'2026-10-27')
+    def test_sbi_official_alert_parsing_and_no_false_clearance(self):
+        html = ('<p>本日の注意銘柄 更新 10/9（金） 20:00</p>'
+                '<table><tr><td>ヤマタネ</td><td>9305</td>'
+                '<td>日証金</td><td>新規売停止</td></tr>'
+                '<tr><td>CAICA</td><td>2315</td>'
+                '<td>日証金</td><td>貸株注意喚起</td></tr>'
+                '<tr><td>別銘柄</td><td>9999</td>'
+                '<td>東証</td><td>日々公表</td></tr></table>')
+        parsed=c.parse_sbi_public_alerts(html,D)
+        self.assertEqual(parsed['asof_date'],D.isoformat())
+        self.assertEqual(parsed['alerts']['9305'],'new_sell_suspended')
+        self.assertEqual(parsed['alerts']['2315'],'loan_caution')
+        self.assertNotIn('9999',parsed['alerts'])
+    def test_sbi_public_alert_overrides_manual_clearance(self):
+        x=rows(); x['sbi_public']={'asof_date':D.isoformat(),
+                    'alerts':{'8278':'loan_caution'}}
+        a,b=c.add_official({'sbi_public_alert_status':'none'},'8278',x,[],D)
+        self.assertEqual(a['sbi_public_alert_status'],'loan_caution')
+    def test_sbi_missing_update_date_not_treated_as_fresh(self):
+        r=c.parse_sbi_public_alerts('<table><tr><td>会社</td><td>8278</td><td>日証金</td><td>新規売停止</td></tr></table>',D)
+        self.assertEqual(r['status'],'unverified_date')
+        x=rows(); x['sbi_public']=r
+        a,b=c.add_official({},'8278',x,[],D)
+        self.assertNotIn('sbi_public_alert_status',a)
+
     def test_csv_field_names(self):
         with tempfile.TemporaryDirectory() as td:
             p=Path(td)/'x.csv'
