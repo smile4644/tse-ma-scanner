@@ -65,6 +65,17 @@ class ParseTests(unittest.TestCase):
         a,b=c.add_official({},'8278',x,[],D)
         self.assertEqual(a['jsf_public_lending_status'],'not_loanable')
         self.assertEqual(a['jsf_restriction'],'yes')
+    def test_actual_jsf_meigara_schema_and_freshness(self):
+        x=rows()
+        x['rows']['meigara']={'8278':{'コード':'8278','貸借申込日':'20261009',
+                                              '貸借銘柄区分（東証）':'2'}}
+        a,b=c.add_official({},'8278',x,[],D)
+        self.assertEqual(a['jsf_public_lending_status'],'not_loanable')
+        x['rows']['meigara']['8278']['貸借申込日']='20250101'
+        a,b=c.add_official({},'8278',x,[],D)
+        self.assertNotIn('jsf_public_lending_status',a)
+        self.assertIn('jsf_classification_stale',b['checks'])
+
     def test_stale_does_not_approve(self):
         x=rows(fee='0.0',asof='20260101')
         a,b=c.add_official({},'8278',x,[],D)
