@@ -45,9 +45,20 @@ def download_csv(url: str) -> list[dict]:
             continue
     else:
         raise ValueError('Unsupported CSV encoding')
-    data = list(csv.DictReader(io.StringIO(text)))
-    if not data or not data[0]:
-        raise ValueError(f'No rows in {url}')
+    # JSF files begin with title/as-of metadata rows before the actual header.
+    # Never assume the first CSV row names the data columns.
+    raw = list(csv.reader(io.StringIO(text)))
+    headers = {'コード', '銘柄コード', '証券コード', 'コード番号', '銘柄ｺｰﾄﾞ'}
+    start = next((i for i, columns in enumerate(raw[:40])
+                  if len(columns) >= 3 and any(norm(col) in {norm(x) for x in headers}
+                                               for col in columns)), None)
+    if start is None:
+        raise ValueError(f'No recognizable code-column header in {url}')
+    names = [col.replace('\ufeff','').strip() for col in raw[start]]
+    data = [dict(zip(names, cells)) for cells in raw[start+1:]
+            if len(cells) >= len(names) and any(str(x).strip() for x in cells)]
+    if not data:
+        raise ValueError(f'No data rows after header in {url}')
     return data
 
 
@@ -64,7 +75,7 @@ def field(row: dict, *names: str) -> str:
 
 
 def code_of(row: dict) -> str:
-    value = field(row, '銘柄コード', 'コード', '証券コード', 'コード番号')
+    value = field(row, '銘柄コード', 'コード', '証券コード', 'コード番号', '銘柄ｺｰﾄﾞ')
     value = value.strip().upper().replace('.T', '')
     return value if re.fullmatch(r'[0-9]{4,5}|[0-9]{3}[A-Z]', value) else ''
 
