@@ -38,6 +38,7 @@ EXCLUDE_FLAGS = {
     'jpx_not_lendable', 'jsf_recent_fee_high_risk',
     'jsf_recent_shortage_high_risk',
     'sbi_public_loan_caution', 'sbi_public_sell_suspended',
+    'jsf_public_not_loanable',
 }
 
 
@@ -118,6 +119,11 @@ def evaluate(row, target):
             flags.append('sbi_public_alert_unconfirmed')
     elif alert != 'none' or alert_date != target or not alert_source:
         flags.append('sbi_public_alert_unconfirmed')
+
+    # An independent JSF classification may veto a sale; it never grants
+    # affirmative SBI sellability or replaces the exchange confirmation.
+    if str(row.get('jsf_public_lending_status') or '').strip().lower() == 'not_loanable':
+        flags.append('jsf_public_not_loanable')
 
     # JPX loanable status differs from generic margin-buy eligibility.
     jpx_date = _on_date(row.get('jpx_checked_date'), target)
