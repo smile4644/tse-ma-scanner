@@ -29,5 +29,22 @@ jobs:
         run: python -m unittest -q test_short_trade_safety.py test_short_evidence_collect.py
       - name: Official public-source ingestion smoke check (no publish)
         run: |
-          python short_evidence_collect.py --session close --target-date 2026-10-09
-          cat results/short_evidence/2026-10-09_close_status.json
+          python - <<'PY'
+          import json
+          import subprocess
+          from pathlib import Path
+          doc = json.loads(Path('results/latest_short_close.json').read_text())
+          target = doc['target_date']
+          subprocess.run(['python', 'short_evidence_collect.py', '--session', 'close',
+                          '--target-date', target], check=True)
+          print(Path(f'results/short_evidence/{target}_close_status.json').read_text())
+          PY
+      - name: Preserve dated safety review artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: tse-short-evidence-${{ github.run_id }}
+          path: |
+            results/short_evidence/*_close_review.csv
+            results/short_evidence/*_close_status.json
+            results/short_evidence/*_checks_close.csv
+          retention-days: 14
