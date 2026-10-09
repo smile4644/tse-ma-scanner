@@ -26,7 +26,9 @@ JST = ZoneInfo('Asia/Tokyo')
 REPORT_COLS = ('code', 'name', 'price', 'jsf_classification',
                'jsf_rate_asof_date', 'jsf_reverse_fee_yen',
                'jsf_stock_shortage', 'jsf_restriction',
-               'jsf_evidence', 'broker_status', 'earnings_status', 'final_status')
+               'jsf_evidence', 'broker_status', 'sbi_public_alert_status',
+               'earnings_status', 'next_earnings_date', 'earnings_source',
+               'final_status')
 
 
 def download_csv(url: str) -> list[dict]:
@@ -443,7 +445,10 @@ def run(session: str, target: date, results_dir: Path=Path('results'),
                        'jsf_restriction':info['jsf_restriction'],
                        'jsf_evidence':';'.join(info['checks']),
                        'broker_status':'verified' if verified.get('sbi_system_sellable') == 'yes' and verified.get('sbi_checked_date') == target.isoformat() else 'verification_required',
-                       'earnings_status':'verified' if verified.get('next_earnings_date') and verified.get('earnings_checked_date')==target.isoformat() else 'verification_required',
+                       'sbi_public_alert_status':verified.get('sbi_public_alert_status','unverified'),
+                       'earnings_status':'verified' if verified.get('next_earnings_date') and verified.get('earnings_source') and verified.get('earnings_checked_date')==target.isoformat() else 'verification_required',
+                       'next_earnings_date':verified.get('next_earnings_date',''),
+                       'earnings_source':verified.get('earnings_source',''),
                        'final_status':gate['status']})
     output=storage/f'{target}_checks_{session}.csv'
     with output.open('w',encoding='utf-8-sig',newline='') as f:
