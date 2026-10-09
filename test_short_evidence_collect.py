@@ -33,6 +33,18 @@ class ParseTests(unittest.TestCase):
         self.assertNotIn('next_earnings_date',a)
         self.assertNotIn('jpx_lending_eligible',a)
         self.assertFalse(a.get('jsf_last5_reverse_fees_yen'))
+    def test_prefatory_metadata_rows_skipped(self):
+        sample=('貸借取引対象銘柄一覧,,\n20261009,,\n'
+                'コード,銘柄名,貸借区分\n8278,フジ,1\n')
+        class FakeResponse:
+            def __enter__(self): return self
+            def __exit__(self,*a): pass
+            def read(self, n): return sample.encode('utf-8')
+        with patch('urllib.request.urlopen',return_value=FakeResponse()):
+            rows=c.download_csv('https://www.taisyaku.jp/data/meigara.csv')
+        self.assertEqual(len(rows),1)
+        self.assertEqual(rows[0]['コード'],'8278')
+
     def test_bad_schema_fails_closed(self):
         x=rows(); x=c.official_snapshot({'shina':[{'code':'8278','fee':'0'}]},D)
         self.assertTrue(x['source_status']['shina'].startswith('invalid'))
