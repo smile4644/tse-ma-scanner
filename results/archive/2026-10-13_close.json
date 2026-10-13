@@ -1,11 +1,11 @@
 {
   "schema_version": 19,
-  "generated_at_jst": "2026-10-13T16:16:21+09:00",
+  "generated_at_jst": "2026-10-13T17:01:55+09:00",
   "target_date": "2026-10-13",
   "session": "close",
   "session_label": "大引け確定版",
   "market_status": "confirmed_daily_data_available",
-  "result_reliability": "diagnostic_warning",
+  "result_reliability": "normal",
   "price_series_mode": "normal_close_auto_adjust_false",
   "data_source": "Yahoo Finance via yfinance; auto_adjust=False, repair=True. 通常Close/OHLC（株式分割反映・配当Adj Close補正なし）をMAに使用。 closeの判定用当日OHLCは確定日足を使用。日・週・月MAは同一の調整済み日足から生成。",
   "universe_definition": "東証プライム・スタンダード・グロースの内国普通株から、過去20営業日の売買代金中央値1億円以上、前営業日の売買代金5000万円以上、かつ20営業日中15営業日以上の有効データがある銘柄",
@@ -16,7 +16,7 @@
     "master_daily_downloaded": 3702,
     "master_daily_required_min": 3147,
     "latest_as_of": "2026-10-09",
-    "latest_as_of_source_rows": 3689,
+    "latest_as_of_source_rows": 3690,
     "universe_count": 1540,
     "universe_age_days": 4,
     "liquidity_lookback_days": 20,
@@ -74,17 +74,17 @@
     "raw_9_of_9": 202,
     "raw_8_of_9": 205,
     "raw_7_of_9": 213,
-    "raw_all_ma_above": 106,
+    "raw_all_ma_above": 107,
     "raw_near_9_of_9": 62,
-    "raw_near_all_ma_above": 337,
+    "raw_near_all_ma_above": 336,
     "raw_near_all_ma_above_price": 117,
-    "raw_near_all_ma_above_touch": 220,
+    "raw_near_all_ma_above_touch": 219,
     "raw_early_stage": 85,
     "price_eligible_unique_symbols": 400,
     "fundamental": {
       "requested": 400,
-      "cache_hits": 381,
-      "fetched": 19,
+      "cache_hits": 399,
+      "fetched": 1,
       "available": 376,
       "available_ratio": 0.94,
       "improving": 244,
@@ -127,7 +127,7 @@
     "early_stage": 22,
     "partial_ma": 100,
     "partial_available_ma_above": 8,
-    "quarantined": 1
+    "quarantined": 0
   },
   "coverage": {
     "price_source_mode": "confirmed_daily_close",
@@ -143,16 +143,14 @@
     "close_daily_reference": 1540
   },
   "data_quality": {
-    "quality_status": "warning",
-    "issues": [
-      "quarantined_noon_to_close_low_increase=1"
-    ],
+    "quality_status": "ok",
+    "issues": [],
     "expected_last_bar": null,
     "stale_last_bar_count": 0,
     "intraday_missing_count": 0,
     "invalid_ohlc_count": 0,
-    "impossible_noon_to_close_low_increase_count": 2,
-    "quarantined_symbol_count": 1,
+    "impossible_noon_to_close_low_increase_count": 0,
+    "quarantined_symbol_count": 0,
     "daily_vs_intraday_close_diff_ge_1pct_count": 0
   },
   "diagnostics": {
@@ -161,8 +159,8 @@
       "1": 105,
       "2": 164,
       "3": 136,
-      "4": 130,
-      "5": 143,
+      "4": 129,
+      "5": 144,
       "6": 154,
       "7": 230,
       "8": 214,
@@ -215,11 +213,11 @@
       "4/5": 2,
       "4/7": 1,
       "4/8": 7,
-      "4/9": 119,
+      "4/9": 118,
       "5/5": 1,
       "5/7": 2,
       "5/8": 7,
-      "5/9": 133,
+      "5/9": 134,
       "6/6": 1,
       "6/7": 2,
       "6/8": 4,
@@ -250,54 +248,8 @@
     "stale_last_bar_symbols": [],
     "invalid_ohlc": [],
     "daily_vs_intraday_close_diff_ge_1pct": [],
-    "impossible_noon_to_close_low_increases": [
-      {
-        "code": "3131",
-        "name": "シンデン・ハイテックス",
-        "timeframe": "day",
-        "noon_low": 8010.0,
-        "close_low": 8040.0,
-        "noon_last_bar": "2026-10-13T10:30:00+09:00",
-        "close_last_bar": "2026-10-13",
-        "close_price_source": "daily_1d_confirmed"
-      },
-      {
-        "code": "3131",
-        "name": "シンデン・ハイテックス",
-        "timeframe": "week",
-        "noon_low": 8010.0,
-        "close_low": 8040.0,
-        "noon_last_bar": "2026-10-13T10:30:00+09:00",
-        "close_last_bar": "2026-10-13",
-        "close_price_source": "daily_1d_confirmed"
-      }
-    ],
-    "quarantined_symbols": [
-      {
-        "code": "3131",
-        "name": "シンデン・ハイテックス",
-        "reason": "noon_to_close_low_increase",
-        "last_bar": "2026-10-13",
-        "candle": {
-          "day": {
-            "open": 8730.0,
-            "high": 8750.0,
-            "low": 8040.0,
-            "close": 8110.0
-          },
-          "week": {
-            "high": 8750.0,
-            "low": 8040.0,
-            "close": 8110.0
-          },
-          "month": {
-            "high": 9050.0,
-            "low": 7930.0,
-            "close": 8110.0
-          }
-        }
-      }
-    ],
+    "impossible_noon_to_close_low_increases": [],
+    "quarantined_symbols": [],
     "noon_comparison": {
       "status": "comparable",
       "source_schema_version": 19,
@@ -40392,7 +40344,7 @@
             "monthly_ma_excessive_overextension",
             "weekly_ma_excessive_overextension"
           ],
-          "quarantined": true
+          "quarantined": false
         },
         {
           "code": "6859",
@@ -46845,80 +46797,6 @@
             "monthly_ma_composite_overextension"
           ],
           "near_all_ma_above_type": "price_below_max_ma",
-          "quarantined": false
-        },
-        {
-          "code": "4373",
-          "name": "シンプレクス・ホールディングス",
-          "score": 8,
-          "price": 1184.0,
-          "required_rise_pct": 0.0,
-          "price_pass": true,
-          "earnings_status": "ok",
-          "earnings_improving": true,
-          "latest_progress_comparison": "acceptable",
-          "monthly_ma_overextension": {
-            "status": "ok",
-            "comparison": "acceptable",
-            "reason": null,
-            "thresholds_pct": {
-              "m12": 15.0,
-              "m24": 30.0,
-              "m60": 40.0
-            },
-            "gaps_pct": {
-              "m12": 15.2779,
-              "m24": 25.3642,
-              "m60": 61.2713
-            },
-            "threshold_margin_pct": {
-              "m12": 0.2779,
-              "m24": -4.6358,
-              "m60": 21.2713
-            }
-          },
-          "monthly_ma_composite_overextension": {
-            "status": "ok",
-            "comparison": "overextended",
-            "reason": "all_monthly_ma_gaps_ge_floor_and_average_ge_threshold",
-            "thresholds_pct": {
-              "minimum_each_gap_pct": 15.0,
-              "minimum_average_gap_pct": 25.0
-            },
-            "gaps_pct": {
-              "m12": 15.2779,
-              "m24": 25.3642,
-              "m60": 61.2713
-            },
-            "minimum_gap_pct": 15.2779,
-            "average_gap_pct": 33.9711,
-            "minimum_margin_pct": 0.2779,
-            "average_margin_pct": 8.9711
-          },
-          "weekly_ma_overextension": {
-            "status": "ok",
-            "comparison": "acceptable",
-            "reason": null,
-            "thresholds_pct": {
-              "w13": 10.0,
-              "w26": 15.0,
-              "w52": 20.0
-            },
-            "gaps_pct": {
-              "w13": 2.5108,
-              "w26": 10.3211,
-              "w52": 16.6784
-            },
-            "threshold_margin_pct": {
-              "w13": -7.4892,
-              "w26": -4.6789,
-              "w52": -3.3216
-            }
-          },
-          "exclusion_reasons": [
-            "monthly_ma_composite_overextension"
-          ],
-          "near_all_ma_above_type": "candle_touch_after_price_clear",
           "quarantined": false
         },
         {
@@ -62763,9 +62641,9 @@
         "available_ma_above": false,
         "quarantined": false,
         "day_low": 2471.0,
-        "day_high": 2593.5,
+        "day_high": 2593.0,
         "week_low": 2471.0,
-        "week_high": 2593.5,
+        "week_high": 2593.0,
         "month_low": 2345.5,
         "month_high": 2868.5,
         "state_vector": [
@@ -64123,9 +64001,9 @@
         "available_ma_above": false,
         "quarantined": false,
         "day_low": 24980.0,
-        "day_high": 25500.0,
+        "day_high": 25495.0,
         "week_low": 24980.0,
-        "week_high": 25500.0,
+        "week_high": 25495.0,
         "month_low": 23680.0,
         "month_high": 25505.0,
         "state_vector": [
@@ -66028,11 +65906,11 @@
         "available_ma_above": false,
         "quarantined": false,
         "day_low": 4464.0,
-        "day_high": 4538.0,
+        "day_high": 4537.0,
         "week_low": 4464.0,
-        "week_high": 4538.0,
+        "week_high": 4537.0,
         "month_low": 4104.0,
-        "month_high": 4538.0,
+        "month_high": 4537.0,
         "state_vector": [
           7,
           8,
@@ -84608,11 +84486,11 @@
         "all_ma_above": false,
         "available_ma_above": false,
         "quarantined": false,
-        "day_low": 2146.0,
+        "day_low": 2144.0,
         "day_high": 2271.0,
-        "week_low": 2146.0,
+        "week_low": 2144.0,
         "week_high": 2271.0,
-        "month_low": 2146.0,
+        "month_low": 2144.0,
         "month_high": 2600.0,
         "state_vector": [
           0,
@@ -85480,11 +85358,11 @@
         "all_ma_above": false,
         "available_ma_above": false,
         "quarantined": false,
-        "day_low": 2860.5,
+        "day_low": 2863.0,
         "day_high": 2980.0,
-        "week_low": 2860.5,
+        "week_low": 2863.0,
         "week_high": 2980.0,
-        "month_low": 2860.5,
+        "month_low": 2863.0,
         "month_high": 3160.0,
         "state_vector": [
           0,
@@ -95310,9 +95188,9 @@
         "all_ma_above": false,
         "available_ma_above": false,
         "quarantined": false,
-        "day_low": 2116.5,
+        "day_low": 2116.0,
         "day_high": 2172.0,
-        "week_low": 2116.5,
+        "week_low": 2116.0,
         "week_high": 2172.0,
         "month_low": 2110.0,
         "month_high": 2230.5,
@@ -98602,9 +98480,9 @@
         "all_ma_above": false,
         "available_ma_above": false,
         "quarantined": false,
-        "day_low": 3681.0,
+        "day_low": 3679.0,
         "day_high": 3750.0,
-        "week_low": 3681.0,
+        "week_low": 3679.0,
         "week_high": 3750.0,
         "month_low": 3490.0,
         "month_high": 3750.0,
@@ -103755,11 +103633,11 @@
         "all_ma_above": false,
         "available_ma_above": false,
         "quarantined": false,
-        "day_low": 1668.0,
+        "day_low": 1669.0,
         "day_high": 1818.0,
-        "week_low": 1668.0,
+        "week_low": 1669.0,
         "week_high": 1818.0,
-        "month_low": 1668.0,
+        "month_low": 1669.0,
         "month_high": 2109.0,
         "state_vector": [
           0,
@@ -106569,9 +106447,9 @@
         "all_ma_above": false,
         "available_ma_above": false,
         "quarantined": false,
-        "day_low": 3655.0,
+        "day_low": 3670.0,
         "day_high": 3890.0,
-        "week_low": 3655.0,
+        "week_low": 3670.0,
         "week_high": 3890.0,
         "month_low": 3385.0,
         "month_high": 3890.0,
@@ -107046,11 +106924,11 @@
         "all_ma_above": false,
         "available_ma_above": false,
         "quarantined": false,
-        "day_low": 2051.0,
+        "day_low": 2050.0,
         "day_high": 2156.0,
-        "week_low": 2051.0,
+        "week_low": 2050.0,
         "week_high": 2156.0,
-        "month_low": 2051.0,
+        "month_low": 2050.0,
         "month_high": 2336.0,
         "state_vector": [
           0,
@@ -107423,17 +107301,17 @@
         "analysis_status": "scored",
         "analysis_failure_reason": null,
         "tier": 2,
-        "all_ma_above": false,
-        "available_ma_above": false,
+        "all_ma_above": true,
+        "available_ma_above": true,
         "quarantined": false,
-        "day_low": 1168.0,
+        "day_low": 1169.0,
         "day_high": 1204.0,
-        "week_low": 1168.0,
+        "week_low": 1169.0,
         "week_high": 1204.0,
         "month_low": 1086.0,
         "month_high": 1204.0,
         "state_vector": [
-          7,
+          8,
           2,
           8,
           8,
@@ -107490,10 +107368,10 @@
         "early_stage_rank": null,
         "early_stage_progressed": false,
         "early_stage_important_near_2pct": [],
-        "early_stage_touch_ma": [
+        "early_stage_touch_ma": [],
+        "early_stage_fresh_breakout_ma": [
           "日5"
-        ],
-        "early_stage_fresh_breakout_ma": []
+        ]
       },
       {
         "code": "4922",
@@ -113422,11 +113300,11 @@
         "available_ma_above": false,
         "quarantined": false,
         "day_low": 3712.0,
-        "day_high": 3881.0,
+        "day_high": 3880.0,
         "week_low": 3712.0,
-        "week_high": 3881.0,
+        "week_high": 3880.0,
         "month_low": 3570.0,
-        "month_high": 3881.0,
+        "month_high": 3880.0,
         "state_vector": [
           7,
           8,
@@ -131336,9 +131214,9 @@
         "all_ma_above": false,
         "available_ma_above": false,
         "quarantined": false,
-        "day_low": 2259.0,
+        "day_low": 2258.0,
         "day_high": 2287.0,
-        "week_low": 2259.0,
+        "week_low": 2258.0,
         "week_high": 2287.0,
         "month_low": 2206.0,
         "month_high": 2287.0,
@@ -153276,11 +153154,11 @@
         "available_ma_above": false,
         "quarantined": false,
         "day_low": 2176.0,
-        "day_high": 2203.0,
+        "day_high": 2204.0,
         "week_low": 2176.0,
-        "week_high": 2203.0,
+        "week_high": 2204.0,
         "month_low": 2030.0,
-        "month_high": 2203.0,
+        "month_high": 2204.0,
         "state_vector": [
           8,
           8,
@@ -155695,9 +155573,9 @@
         "available_ma_above": false,
         "quarantined": false,
         "day_low": 2642.0,
-        "day_high": 2711.0,
+        "day_high": 2712.0,
         "week_low": 2642.0,
-        "week_high": 2711.0,
+        "week_high": 2712.0,
         "month_low": 2636.0,
         "month_high": 2751.0,
         "state_vector": [
@@ -166387,11 +166265,11 @@
         "available_ma_above": false,
         "quarantined": false,
         "day_low": 2420.0,
-        "day_high": 2467.0,
+        "day_high": 2466.0,
         "week_low": 2420.0,
-        "week_high": 2467.0,
+        "week_high": 2466.0,
         "month_low": 2305.0,
-        "month_high": 2467.0,
+        "month_high": 2466.0,
         "state_vector": [
           8,
           8,
@@ -166768,10 +166646,10 @@
         "tier": 2,
         "all_ma_above": false,
         "available_ma_above": false,
-        "quarantined": true,
-        "day_low": 8040.0,
+        "quarantined": false,
+        "day_low": 8010.0,
         "day_high": 8750.0,
-        "week_low": 8040.0,
+        "week_low": 8010.0,
         "week_high": 8750.0,
         "month_low": 7930.0,
         "month_high": 9050.0,
@@ -171854,9 +171732,9 @@
         "all_ma_above": false,
         "available_ma_above": false,
         "quarantined": false,
-        "day_low": 2123.0,
+        "day_low": 2122.0,
         "day_high": 2155.0,
-        "week_low": 2123.0,
+        "week_low": 2122.0,
         "week_high": 2155.0,
         "month_low": 2060.0,
         "month_high": 2183.0,
@@ -177293,11 +177171,11 @@
         "all_ma_above": false,
         "available_ma_above": false,
         "quarantined": false,
-        "day_low": 1335.0,
+        "day_low": 1333.0,
         "day_high": 1386.0,
-        "week_low": 1335.0,
+        "week_low": 1333.0,
         "week_high": 1386.0,
-        "month_low": 1335.0,
+        "month_low": 1333.0,
         "month_high": 1514.0,
         "state_vector": [
           0,
@@ -182839,9 +182717,9 @@
         "last_bar": "2026-10-13",
         "intraday_fresh": true,
         "expected_minimum_time": null,
-        "score": 4,
+        "score": 5,
         "score_denominator": 9,
-        "score_label": "4/9",
+        "score_label": "5/9",
         "available_ma_count": 9,
         "missing_ma": [],
         "analysis_status": "scored",
@@ -182851,14 +182729,14 @@
         "available_ma_above": false,
         "quarantined": false,
         "day_low": 376.0,
-        "day_high": 410.0,
+        "day_high": 412.0,
         "week_low": 376.0,
-        "week_high": 410.0,
+        "week_high": 412.0,
         "month_low": 371.0,
         "month_high": 469.0,
         "state_vector": [
           0,
-          6,
+          7,
           8,
           8,
           1,
@@ -182902,7 +182780,6 @@
         ],
         "failures": [
           "日5 ↓下",
-          "日25 ↑下",
           "週26 ↓接触",
           "月24 ↓接触",
           "月60 ↓接触"
@@ -182922,6 +182799,7 @@
           "月12"
         ],
         "early_stage_touch_ma": [
+          "日25",
           "週26",
           "月12"
         ],
@@ -187245,9 +187123,9 @@
         "all_ma_above": false,
         "available_ma_above": true,
         "quarantined": false,
-        "day_low": 804.0,
+        "day_low": 803.0,
         "day_high": 849.0,
-        "week_low": 804.0,
+        "week_low": 803.0,
         "week_high": 849.0,
         "month_low": 766.0,
         "month_high": 849.0,
@@ -201212,9 +201090,9 @@
         "all_ma_above": false,
         "available_ma_above": false,
         "quarantined": false,
-        "day_low": 1235.0,
+        "day_low": 1233.0,
         "day_high": 1265.0,
-        "week_low": 1235.0,
+        "week_low": 1233.0,
         "week_high": 1265.0,
         "month_low": 1210.0,
         "month_high": 1321.0,
@@ -202771,13 +202649,13 @@
         "available_ma_above": false,
         "quarantined": false,
         "day_low": 396.0,
-        "day_high": 409.0,
+        "day_high": 412.0,
         "week_low": 396.0,
-        "week_high": 409.0,
+        "week_high": 412.0,
         "month_low": 386.0,
         "month_high": 475.0,
         "state_vector": [
-          3,
+          4,
           6,
           8,
           8,
@@ -202821,7 +202699,7 @@
           null
         ],
         "failures": [
-          "日5 →下",
+          "日5 →接触",
           "日25 ↑下",
           "週26 ↓上"
         ],
@@ -202836,7 +202714,9 @@
         "early_stage_rank": null,
         "early_stage_progressed": false,
         "early_stage_important_near_2pct": [],
-        "early_stage_touch_ma": [],
+        "early_stage_touch_ma": [
+          "日5"
+        ],
         "early_stage_fresh_breakout_ma": []
       },
       {
@@ -208376,14 +208256,14 @@
         "all_ma_above": false,
         "available_ma_above": false,
         "quarantined": false,
-        "day_low": 2556.0,
+        "day_low": 2563.0,
         "day_high": 2610.0,
-        "week_low": 2556.0,
+        "week_low": 2563.0,
         "week_high": 2610.0,
         "month_low": 2433.0,
         "month_high": 2610.0,
         "state_vector": [
-          7,
+          8,
           0,
           2,
           7,
@@ -208449,11 +208329,12 @@
           "月12"
         ],
         "early_stage_touch_ma": [
-          "日5",
           "週13",
           "月12"
         ],
-        "early_stage_fresh_breakout_ma": []
+        "early_stage_fresh_breakout_ma": [
+          "日5"
+        ]
       },
       {
         "code": "1929",
@@ -220670,7 +220551,7 @@
       "daily_reference": {
         "open": 2127.0,
         "high": 2172.0,
-        "low": 2116.5,
+        "low": 2116.0,
         "close": 2154.0,
         "volume": 995000
       },
@@ -220681,12 +220562,12 @@
         "day": {
           "open": 2127.0,
           "high": 2172.0,
-          "low": 2116.5,
+          "low": 2116.0,
           "close": 2154.0
         },
         "week": {
           "high": 2172.0,
-          "low": 2116.5,
+          "low": 2116.0,
           "close": 2154.0
         },
         "month": {
@@ -224790,7 +224671,7 @@
       "daily_volume": 156500,
       "daily_reference": {
         "open": 2190.0,
-        "high": 2203.0,
+        "high": 2204.0,
         "low": 2176.0,
         "close": 2195.0,
         "volume": 156500
@@ -224801,17 +224682,17 @@
       "candle": {
         "day": {
           "open": 2190.0,
-          "high": 2203.0,
+          "high": 2204.0,
           "low": 2176.0,
           "close": 2195.0
         },
         "week": {
-          "high": 2203.0,
+          "high": 2204.0,
           "low": 2176.0,
           "close": 2195.0
         },
         "month": {
-          "high": 2203.0,
+          "high": 2204.0,
           "low": 2030.0,
           "close": 2195.0
         }
@@ -247223,7 +247104,7 @@
       "daily_reference": {
         "open": 2127.0,
         "high": 2172.0,
-        "low": 2116.5,
+        "low": 2116.0,
         "close": 2154.0,
         "volume": 995000
       },
@@ -247234,12 +247115,12 @@
         "day": {
           "open": 2127.0,
           "high": 2172.0,
-          "low": 2116.5,
+          "low": 2116.0,
           "close": 2154.0
         },
         "week": {
           "high": 2172.0,
-          "low": 2116.5,
+          "low": 2116.0,
           "close": 2154.0
         },
         "month": {
@@ -253610,7 +253491,7 @@
       "daily_reference": {
         "open": 2127.0,
         "high": 2172.0,
-        "low": 2116.5,
+        "low": 2116.0,
         "close": 2154.0,
         "volume": 995000
       },
@@ -253621,12 +253502,12 @@
         "day": {
           "open": 2127.0,
           "high": 2172.0,
-          "low": 2116.5,
+          "low": 2116.0,
           "close": 2154.0
         },
         "week": {
           "high": 2172.0,
-          "low": 2116.5,
+          "low": 2116.0,
           "close": 2154.0
         },
         "month": {
@@ -253779,12 +253660,12 @@
           "ma": 2164.5,
           "gap_pct": -0.4851,
           "timeframe": "day",
-          "candle_low": 2116.5,
-          "low_to_ma_pct": -2.217602
+          "candle_low": 2116.0,
+          "low_to_ma_pct": -2.240702
         }
       ],
       "blocking_low_gap_pct": {
-        "d5": -2.217602
+        "d5": -2.240702
       },
       "blocking_timeframes": [
         "day"
@@ -273868,7 +273749,7 @@
       "daily_volume": 156500,
       "daily_reference": {
         "open": 2190.0,
-        "high": 2203.0,
+        "high": 2204.0,
         "low": 2176.0,
         "close": 2195.0,
         "volume": 156500
@@ -273879,17 +273760,17 @@
       "candle": {
         "day": {
           "open": 2190.0,
-          "high": 2203.0,
+          "high": 2204.0,
           "low": 2176.0,
           "close": 2195.0
         },
         "week": {
-          "high": 2203.0,
+          "high": 2204.0,
           "low": 2176.0,
           "close": 2195.0
         },
         "month": {
-          "high": 2203.0,
+          "high": 2204.0,
           "low": 2030.0,
           "close": 2195.0
         }
@@ -280134,7 +280015,7 @@
       "daily_reference": {
         "open": 2127.0,
         "high": 2172.0,
-        "low": 2116.5,
+        "low": 2116.0,
         "close": 2154.0,
         "volume": 995000
       },
@@ -280145,12 +280026,12 @@
         "day": {
           "open": 2127.0,
           "high": 2172.0,
-          "low": 2116.5,
+          "low": 2116.0,
           "close": 2154.0
         },
         "week": {
           "high": 2172.0,
-          "low": 2116.5,
+          "low": 2116.0,
           "close": 2154.0
         },
         "month": {
@@ -280303,12 +280184,12 @@
           "ma": 2164.5,
           "gap_pct": -0.4851,
           "timeframe": "day",
-          "candle_low": 2116.5,
-          "low_to_ma_pct": -2.217602
+          "candle_low": 2116.0,
+          "low_to_ma_pct": -2.240702
         }
       ],
       "blocking_low_gap_pct": {
-        "d5": -2.217602
+        "d5": -2.240702
       },
       "blocking_timeframes": [
         "day"
@@ -300394,7 +300275,7 @@
       "daily_volume": 156500,
       "daily_reference": {
         "open": 2190.0,
-        "high": 2203.0,
+        "high": 2204.0,
         "low": 2176.0,
         "close": 2195.0,
         "volume": 156500
@@ -300405,17 +300286,17 @@
       "candle": {
         "day": {
           "open": 2190.0,
-          "high": 2203.0,
+          "high": 2204.0,
           "low": 2176.0,
           "close": 2195.0
         },
         "week": {
-          "high": 2203.0,
+          "high": 2204.0,
           "low": 2176.0,
           "close": 2195.0
         },
         "month": {
-          "high": 2203.0,
+          "high": 2204.0,
           "low": 2030.0,
           "close": 2195.0
         }
@@ -311334,7 +311215,7 @@
       "daily_reference": {
         "open": 825.0,
         "high": 849.0,
-        "low": 804.0,
+        "low": 803.0,
         "close": 812.0,
         "volume": 344700
       },
@@ -311345,12 +311226,12 @@
         "day": {
           "open": 825.0,
           "high": 849.0,
-          "low": 804.0,
+          "low": 803.0,
           "close": 812.0
         },
         "week": {
           "high": 849.0,
-          "low": 804.0,
+          "low": 803.0,
           "close": 812.0
         },
         "month": {
@@ -316488,7 +316369,7 @@
       "daily_volume": 94800,
       "daily_reference": {
         "open": 402.0,
-        "high": 409.0,
+        "high": 412.0,
         "low": 396.0,
         "close": 400.0,
         "volume": 94800
@@ -316499,12 +316380,12 @@
       "candle": {
         "day": {
           "open": 402.0,
-          "high": 409.0,
+          "high": 412.0,
           "low": 396.0,
           "close": 400.0
         },
         "week": {
-          "high": 409.0,
+          "high": 412.0,
           "low": 396.0,
           "close": 400.0
         },
@@ -316533,13 +316414,13 @@
       "non_upward_ma": [
         "週26"
       ],
-      "status_code": 19659,
+      "status_code": 19660,
       "fail_mask": 19,
       "states": {
         "d5": {
           "label": "日5",
-          "state": 3,
-          "state_label": "→下",
+          "state": 4,
+          "state_label": "→接触",
           "pass": false,
           "ma": 411.8,
           "ma_prev": 411.8,
@@ -316583,7 +316464,7 @@
         }
       },
       "failures": [
-        "日5 →下",
+        "日5 →接触",
         "日25 ↑下",
         "週26 ↓上"
       ],
@@ -316599,7 +316480,9 @@
       "early_stage_rank": null,
       "early_stage_progressed": false,
       "early_stage_important_near_2pct": [],
-      "early_stage_touch_ma": [],
+      "early_stage_touch_ma": [
+        "日5"
+      ],
       "early_stage_fresh_breakout_ma": []
     },
     {
@@ -317415,7 +317298,7 @@
       "daily_reference": {
         "open": 2144.0,
         "high": 2155.0,
-        "low": 2123.0,
+        "low": 2122.0,
         "close": 2126.0,
         "volume": 141600
       },
@@ -317426,12 +317309,12 @@
         "day": {
           "open": 2144.0,
           "high": 2155.0,
-          "low": 2123.0,
+          "low": 2122.0,
           "close": 2126.0
         },
         "week": {
           "high": 2155.0,
-          "low": 2123.0,
+          "low": 2122.0,
           "close": 2126.0
         },
         "month": {
@@ -317734,7 +317617,7 @@
       "daily_reference": {
         "open": 2575.0,
         "high": 2610.0,
-        "low": 2556.0,
+        "low": 2563.0,
         "close": 2569.0,
         "volume": 21900
       },
@@ -317745,12 +317628,12 @@
         "day": {
           "open": 2575.0,
           "high": 2610.0,
-          "low": 2556.0,
+          "low": 2563.0,
           "close": 2569.0
         },
         "week": {
           "high": 2610.0,
-          "low": 2556.0,
+          "low": 2563.0,
           "close": 2569.0
         },
         "month": {
@@ -317775,13 +317658,13 @@
       "non_upward_ma": [
         "日75"
       ],
-      "status_code": 34017496,
+      "status_code": 34017497,
       "fail_mask": 118,
       "states": {
         "d5": {
           "label": "日5",
-          "state": 7,
-          "state_label": "↑接触",
+          "state": 8,
+          "state_label": "↑上",
           "pass": true,
           "ma": 2558.2,
           "ma_prev": 2547.8,
@@ -317877,11 +317760,12 @@
         "月12"
       ],
       "early_stage_touch_ma": [
-        "日5",
         "週13",
         "月12"
       ],
-      "early_stage_fresh_breakout_ma": []
+      "early_stage_fresh_breakout_ma": [
+        "日5"
+      ]
     },
     {
       "code": "584A",
