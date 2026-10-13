@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
-  "generated_at_jst": "2026-10-13T16:19:06+09:00",
+  "generated_at_jst": "2026-10-13T17:03:03+09:00",
   "target_date": "2026-10-13",
   "session": "close",
   "source_scan": "results/archive/2026-10-13_close.json",
   "source_schema_version": 19,
-  "source_generated_at_jst": "2026-10-13T16:16:21+09:00",
+  "source_generated_at_jst": "2026-10-13T17:01:55+09:00",
   "source_price_series_mode": "normal_close_auto_adjust_false",
   "strategy": "short_mirror_of_tse_ma_scanner_v19",
   "ma_order": [
@@ -66,8 +66,8 @@
     "price_eligible_unique_symbols": 122,
     "fundamental": {
       "requested": 122,
-      "cache_hits": 114,
-      "fetched": 8,
+      "cache_hits": 121,
+      "fetched": 1,
       "available": 104,
       "available_ratio": 0.8525,
       "improving": 62,
@@ -98,7 +98,7 @@
       "comparable_eps_count": 102,
       "comparable_eps_requested": 122,
       "comparable_eps_ratio": 0.8361,
-      "validated_at_jst": "2026-10-13T16:19:06+09:00",
+      "validated_at_jst": "2026-10-13T17:03:03+09:00",
       "decision": "fail_closed",
       "annual_comparison_gap_days": [
         330,
@@ -23144,7 +23144,7 @@
     "comparable_eps_count": 102,
     "comparable_eps_requested": 122,
     "comparable_eps_ratio": 0.8361,
-    "validated_at_jst": "2026-10-13T16:19:06+09:00",
+    "validated_at_jst": "2026-10-13T17:03:03+09:00",
     "decision": "fail_closed",
     "annual_comparison_gap_days": [
       330,
@@ -23179,7 +23179,7 @@
   },
   "trade_safety_gate": {
     "version": 3,
-    "checked_at_jst": "2026-10-13T16:19:11+09:00",
+    "checked_at_jst": "2026-10-13T17:03:07+09:00",
     "target_date": "2026-10-13",
     "unique_candidates": 37,
     "counts": {
