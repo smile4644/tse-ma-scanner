@@ -1,6 +1,6 @@
 {
   "schema_version": 19,
-  "generated_at_jst": "2026-10-14T16:31:58+09:00",
+  "generated_at_jst": "2026-10-14T17:17:37+09:00",
   "target_date": "2026-10-14",
   "session": "close",
   "session_label": "大引け確定版",
@@ -16,7 +16,7 @@
     "master_daily_downloaded": 3702,
     "master_daily_required_min": 3147,
     "latest_as_of": "2026-10-13",
-    "latest_as_of_source_rows": 3690,
+    "latest_as_of_source_rows": 3689,
     "universe_count": 1536,
     "universe_age_days": 1,
     "liquidity_lookback_days": 20,
@@ -83,8 +83,8 @@
     "price_eligible_unique_symbols": 385,
     "fundamental": {
       "requested": 385,
-      "cache_hits": 364,
-      "fetched": 21,
+      "cache_hits": 384,
+      "fetched": 1,
       "available": 367,
       "available_ratio": 0.9532,
       "improving": 242,
@@ -125,9 +125,9 @@
     "near_all_ma_above_price": 24,
     "near_all_ma_above_touch": 47,
     "early_stage": 26,
-    "partial_ma": 97,
+    "partial_ma": 98,
     "partial_available_ma_above": 3,
-    "quarantined": 35
+    "quarantined": 36
   },
   "coverage": {
     "price_source_mode": "confirmed_daily_close",
@@ -145,14 +145,14 @@
   "data_quality": {
     "quality_status": "warning",
     "issues": [
-      "quarantined_noon_to_close_low_increase=35"
+      "quarantined_noon_to_close_low_increase=36"
     ],
     "expected_last_bar": null,
     "stale_last_bar_count": 0,
     "intraday_missing_count": 0,
     "invalid_ohlc_count": 0,
     "impossible_noon_to_close_low_increase_count": 37,
-    "quarantined_symbol_count": 35,
+    "quarantined_symbol_count": 36,
     "daily_vs_intraday_close_diff_ge_1pct_count": 0
   },
   "diagnostics": {
@@ -438,36 +438,6 @@
         "close_price_source": "daily_1d_confirmed"
       },
       {
-        "code": "5574",
-        "name": "ＡＢＥＪＡ",
-        "timeframe": "day",
-        "noon_low": 2651.0,
-        "close_low": 2656.0,
-        "noon_last_bar": "2026-10-14T10:30:00+09:00",
-        "close_last_bar": "2026-10-14",
-        "close_price_source": "daily_1d_confirmed"
-      },
-      {
-        "code": "5574",
-        "name": "ＡＢＥＪＡ",
-        "timeframe": "week",
-        "noon_low": 2651.0,
-        "close_low": 2656.0,
-        "noon_last_bar": "2026-10-14T10:30:00+09:00",
-        "close_last_bar": "2026-10-14",
-        "close_price_source": "daily_1d_confirmed"
-      },
-      {
-        "code": "5574",
-        "name": "ＡＢＥＪＡ",
-        "timeframe": "month",
-        "noon_low": 2651.0,
-        "close_low": 2656.0,
-        "noon_last_bar": "2026-10-14T10:30:00+09:00",
-        "close_last_bar": "2026-10-14",
-        "close_price_source": "daily_1d_confirmed"
-      },
-      {
         "code": "4064",
         "name": "日本カーバイド工業",
         "timeframe": "day",
@@ -508,6 +478,16 @@
         "close_price_source": "daily_1d_confirmed"
       },
       {
+        "code": "1814",
+        "name": "大末建設",
+        "timeframe": "day",
+        "noon_low": 3410.0,
+        "close_low": 3415.0,
+        "noon_last_bar": "2026-10-14T10:30:00+09:00",
+        "close_last_bar": "2026-10-14",
+        "close_price_source": "daily_1d_confirmed"
+      },
+      {
         "code": "6469",
         "name": "放電精密加工研究所",
         "timeframe": "day",
@@ -533,6 +513,26 @@
         "timeframe": "day",
         "noon_low": 1678.0,
         "close_low": 1681.0,
+        "noon_last_bar": "2026-10-14T10:30:00+09:00",
+        "close_last_bar": "2026-10-14",
+        "close_price_source": "daily_1d_confirmed"
+      },
+      {
+        "code": "9517",
+        "name": "イーレックス",
+        "timeframe": "day",
+        "noon_low": 771.0,
+        "close_low": 772.0,
+        "noon_last_bar": "2026-10-14T10:30:00+09:00",
+        "close_last_bar": "2026-10-14",
+        "close_price_source": "daily_1d_confirmed"
+      },
+      {
+        "code": "9517",
+        "name": "イーレックス",
+        "timeframe": "week",
+        "noon_low": 771.0,
+        "close_low": 772.0,
         "noon_last_bar": "2026-10-14T10:30:00+09:00",
         "close_last_bar": "2026-10-14",
         "close_price_source": "daily_1d_confirmed"
@@ -1076,30 +1076,6 @@
         }
       },
       {
-        "code": "5574",
-        "name": "ＡＢＥＪＡ",
-        "reason": "noon_to_close_low_increase",
-        "last_bar": "2026-10-14",
-        "candle": {
-          "day": {
-            "open": 2770.0,
-            "high": 2771.0,
-            "low": 2656.0,
-            "close": 2716.0
-          },
-          "week": {
-            "high": 2865.0,
-            "low": 2656.0,
-            "close": 2716.0
-          },
-          "month": {
-            "high": 3270.0,
-            "low": 2656.0,
-            "close": 2716.0
-          }
-        }
-      },
-      {
         "code": "4064",
         "name": "日本カーバイド工業",
         "reason": "noon_to_close_low_increase",
@@ -1196,6 +1172,30 @@
         }
       },
       {
+        "code": "1814",
+        "name": "大末建設",
+        "reason": "noon_to_close_low_increase",
+        "last_bar": "2026-10-14",
+        "candle": {
+          "day": {
+            "open": 3445.0,
+            "high": 3445.0,
+            "low": 3415.0,
+            "close": 3410.0
+          },
+          "week": {
+            "high": 3450.0,
+            "low": 3365.0,
+            "close": 3410.0
+          },
+          "month": {
+            "high": 3580.0,
+            "low": 3315.0,
+            "close": 3410.0
+          }
+        }
+      },
+      {
         "code": "6469",
         "name": "放電精密加工研究所",
         "reason": "noon_to_close_low_increase",
@@ -1264,6 +1264,30 @@
             "high": 1758.0,
             "low": 1511.0,
             "close": 1755.0
+          }
+        }
+      },
+      {
+        "code": "9517",
+        "name": "イーレックス",
+        "reason": "noon_to_close_low_increase",
+        "last_bar": "2026-10-14",
+        "candle": {
+          "day": {
+            "open": 790.0,
+            "high": 796.0,
+            "low": 772.0,
+            "close": 775.0
+          },
+          "week": {
+            "high": 798.0,
+            "low": 772.0,
+            "close": 775.0
+          },
+          "month": {
+            "high": 839.0,
+            "low": 770.0,
+            "close": 775.0
           }
         }
       },
@@ -58570,11 +58594,11 @@
         "all_ma_above": false,
         "available_ma_above": false,
         "quarantined": false,
-        "day_low": 8125.0,
+        "day_low": 8126.0,
         "day_high": 8341.0,
-        "week_low": 8125.0,
+        "week_low": 8126.0,
         "week_high": 8415.0,
-        "month_low": 8125.0,
+        "month_low": 8126.0,
         "month_high": 8903.0,
         "state_vector": [
           0,
@@ -66535,11 +66559,11 @@
         "all_ma_above": false,
         "available_ma_above": false,
         "quarantined": false,
-        "day_low": 1819.0,
+        "day_low": 1814.0,
         "day_high": 1963.0,
-        "week_low": 1819.0,
+        "week_low": 1814.0,
         "week_high": 2009.0,
-        "month_low": 1819.0,
+        "month_low": 1814.0,
         "month_high": 2286.0,
         "state_vector": [
           0,
@@ -70419,9 +70443,9 @@
         "all_ma_above": false,
         "available_ma_above": false,
         "quarantined": false,
-        "day_low": 3817.0,
+        "day_low": 3816.0,
         "day_high": 3883.0,
-        "week_low": 3817.0,
+        "week_low": 3816.0,
         "week_high": 3943.0,
         "month_low": 3747.0,
         "month_high": 4034.0,
@@ -84784,9 +84808,9 @@
         "available_ma_above": false,
         "quarantined": false,
         "day_low": 2809.0,
-        "day_high": 2876.5,
+        "day_high": 2876.0,
         "week_low": 2752.5,
-        "week_high": 2876.5,
+        "week_high": 2876.0,
         "month_low": 2732.5,
         "month_high": 2940.0,
         "state_vector": [
@@ -95770,11 +95794,11 @@
         "available_ma_above": false,
         "quarantined": false,
         "day_low": 5034.0,
-        "day_high": 5187.0,
+        "day_high": 5188.0,
         "week_low": 4942.0,
-        "week_high": 5187.0,
+        "week_high": 5188.0,
         "month_low": 4883.0,
-        "month_high": 5187.0,
+        "month_high": 5188.0,
         "state_vector": [
           7,
           8,
@@ -100742,9 +100766,9 @@
         "all_ma_above": false,
         "available_ma_above": false,
         "quarantined": false,
-        "day_low": 2627.0,
+        "day_low": 2626.0,
         "day_high": 2685.0,
-        "week_low": 2627.0,
+        "week_low": 2626.0,
         "week_high": 2696.0,
         "month_low": 2550.0,
         "month_high": 2858.0,
@@ -110490,11 +110514,11 @@
         "available_ma_above": true,
         "quarantined": false,
         "day_low": 3891.0,
-        "day_high": 4073.0,
+        "day_high": 4072.0,
         "week_low": 3712.0,
-        "week_high": 4073.0,
+        "week_high": 4072.0,
         "month_low": 3570.0,
-        "month_high": 4073.0,
+        "month_high": 4072.0,
         "state_vector": [
           8,
           8,
@@ -112215,11 +112239,11 @@
         "all_ma_above": false,
         "available_ma_above": false,
         "quarantined": false,
-        "day_low": 2303.0,
+        "day_low": 2305.0,
         "day_high": 2384.0,
-        "week_low": 2303.0,
+        "week_low": 2305.0,
         "week_high": 2429.0,
-        "month_low": 2303.0,
+        "month_low": 2305.0,
         "month_high": 2604.0,
         "state_vector": [
           0,
@@ -119809,11 +119833,11 @@
         "all_ma_above": false,
         "available_ma_above": false,
         "quarantined": false,
-        "day_low": 4810.0,
+        "day_low": 4805.0,
         "day_high": 5300.0,
-        "week_low": 4810.0,
+        "week_low": 4805.0,
         "week_high": 5470.0,
-        "month_low": 4810.0,
+        "month_low": 4805.0,
         "month_high": 6070.0,
         "state_vector": [
           0,
@@ -120002,7 +120026,7 @@
         "all_ma_above": false,
         "available_ma_above": false,
         "quarantined": false,
-        "day_low": 2372.0,
+        "day_low": 2369.0,
         "day_high": 2477.0,
         "week_low": 2330.0,
         "week_high": 2477.0,
@@ -122836,11 +122860,11 @@
         "all_ma_above": false,
         "available_ma_above": false,
         "quarantined": false,
-        "day_low": 2717.0,
+        "day_low": 2715.0,
         "day_high": 2809.0,
-        "week_low": 2717.0,
+        "week_low": 2715.0,
         "week_high": 2870.0,
-        "month_low": 2717.0,
+        "month_low": 2715.0,
         "month_high": 3025.0,
         "state_vector": [
           0,
@@ -148771,11 +148795,11 @@
         "available_ma_above": false,
         "quarantined": false,
         "day_low": 1815.0,
-        "day_high": 1856.5,
+        "day_high": 1857.0,
         "week_low": 1789.5,
-        "week_high": 1856.5,
+        "week_high": 1857.0,
         "month_low": 1777.0,
-        "month_high": 1856.5,
+        "month_high": 1857.0,
         "state_vector": [
           8,
           2,
@@ -152336,12 +152360,12 @@
         "tier": 0,
         "all_ma_above": false,
         "available_ma_above": false,
-        "quarantined": true,
-        "day_low": 2656.0,
+        "quarantined": false,
+        "day_low": 2651.0,
         "day_high": 2771.0,
-        "week_low": 2656.0,
+        "week_low": 2651.0,
         "week_high": 2865.0,
-        "month_low": 2656.0,
+        "month_low": 2651.0,
         "month_high": 3270.0,
         "state_vector": [
           0,
@@ -158900,11 +158924,11 @@
         "all_ma_above": false,
         "available_ma_above": false,
         "quarantined": false,
-        "day_low": 7620.0,
+        "day_low": 7560.0,
         "day_high": 8330.0,
-        "week_low": 7620.0,
+        "week_low": 7560.0,
         "week_high": 8750.0,
-        "month_low": 7620.0,
+        "month_low": 7560.0,
         "month_high": 9050.0,
         "state_vector": [
           0,
@@ -161158,11 +161182,11 @@
         "available_ma_above": false,
         "quarantined": false,
         "day_low": 2043.0,
-        "day_high": 2116.0,
+        "day_high": 2114.0,
         "week_low": 1921.0,
-        "week_high": 2116.0,
+        "week_high": 2114.0,
         "month_low": 1883.0,
-        "month_high": 2116.0,
+        "month_high": 2114.0,
         "state_vector": [
           8,
           8,
@@ -165991,11 +166015,11 @@
         "available_ma_above": false,
         "quarantined": false,
         "day_low": 1965.0,
-        "day_high": 1994.0,
+        "day_high": 1998.0,
         "week_low": 1945.0,
-        "week_high": 1994.0,
+        "week_high": 1998.0,
         "month_low": 1901.0,
-        "month_high": 1994.0,
+        "month_high": 1998.0,
         "state_vector": [
           8,
           1,
@@ -168642,11 +168666,11 @@
         "available_ma_above": false,
         "quarantined": false,
         "day_low": 3725.0,
-        "day_high": 3775.0,
+        "day_high": 3770.0,
         "week_low": 3670.0,
-        "week_high": 3775.0,
+        "week_high": 3770.0,
         "month_low": 3625.0,
-        "month_high": 3775.0,
+        "month_high": 3770.0,
         "state_vector": [
           8,
           2,
@@ -174866,8 +174890,8 @@
         "tier": 0,
         "all_ma_above": false,
         "available_ma_above": false,
-        "quarantined": false,
-        "day_low": 3410.0,
+        "quarantined": true,
+        "day_low": 3415.0,
         "day_high": 3445.0,
         "week_low": 3365.0,
         "week_high": 3450.0,
@@ -178144,11 +178168,11 @@
         "all_ma_above": false,
         "available_ma_above": false,
         "quarantined": false,
-        "day_low": 1896.0,
+        "day_low": 1895.0,
         "day_high": 1924.0,
-        "week_low": 1896.0,
+        "week_low": 1895.0,
         "week_high": 1942.0,
-        "month_low": 1896.0,
+        "month_low": 1895.0,
         "month_high": 2015.0,
         "state_vector": [
           0,
@@ -189455,11 +189479,11 @@
         "available_ma_above": false,
         "quarantined": false,
         "day_low": 1282.0,
-        "day_high": 1600.0,
+        "day_high": 1603.0,
         "week_low": 1130.0,
-        "week_high": 1600.0,
+        "week_high": 1603.0,
         "month_low": 845.0,
-        "month_high": 1600.0,
+        "month_high": 1603.0,
         "state_vector": [
           8,
           8,
@@ -191602,10 +191626,10 @@
         "tier": 0,
         "all_ma_above": false,
         "available_ma_above": false,
-        "quarantined": false,
-        "day_low": 771.0,
+        "quarantined": true,
+        "day_low": 772.0,
         "day_high": 796.0,
-        "week_low": 771.0,
+        "week_low": 772.0,
         "week_high": 798.0,
         "month_low": 770.0,
         "month_high": 839.0,
@@ -197977,9 +198001,9 @@
         "all_ma_above": false,
         "available_ma_above": false,
         "quarantined": false,
-        "day_low": 1760.0,
+        "day_low": 1761.0,
         "day_high": 1869.0,
-        "week_low": 1760.0,
+        "week_low": 1761.0,
         "week_high": 1869.0,
         "month_low": 1757.0,
         "month_high": 2027.0,
@@ -203802,11 +203826,11 @@
         "available_ma_above": false,
         "quarantined": false,
         "day_low": 1073.0,
-        "day_high": 1138.0,
+        "day_high": 1139.0,
         "week_low": 1073.0,
-        "week_high": 1138.0,
+        "week_high": 1139.0,
         "month_low": 1043.0,
-        "month_high": 1138.0,
+        "month_high": 1139.0,
         "state_vector": [
           7,
           8,
@@ -204754,17 +204778,17 @@
         "all_ma_above": false,
         "available_ma_above": false,
         "quarantined": false,
-        "day_low": 998.0,
+        "day_low": 996.0,
         "day_high": 1019.0,
-        "week_low": 998.0,
+        "week_low": 996.0,
         "week_high": 1047.0,
         "month_low": 982.0,
         "month_high": 1068.0,
         "state_vector": [
           0,
           7,
-          2,
-          8,
+          1,
+          7,
           1,
           8,
           7,
@@ -204806,7 +204830,7 @@
         ],
         "failures": [
           "日5 ↓下",
-          "日75 ↓上",
+          "日75 ↓接触",
           "週26 ↓接触",
           "月60 ↓上"
         ],
@@ -204826,12 +204850,12 @@
         ],
         "early_stage_touch_ma": [
           "日25",
+          "日75",
+          "週13",
           "週26",
           "月12"
         ],
-        "early_stage_fresh_breakout_ma": [
-          "週13"
-        ]
+        "early_stage_fresh_breakout_ma": []
       },
       {
         "code": "6336",
@@ -206722,7 +206746,7 @@
         "available_ma_above": false,
         "quarantined": false,
         "day_low": 1921.0,
-        "day_high": 2188.0,
+        "day_high": 2185.0,
         "week_low": 1921.0,
         "week_high": 2280.0,
         "month_low": 1331.0,
@@ -221424,7 +221448,7 @@
       "daily_volume": 178600,
       "daily_reference": {
         "open": 1976.0,
-        "high": 1994.0,
+        "high": 1998.0,
         "low": 1965.0,
         "close": 1982.0,
         "volume": 178600
@@ -221435,17 +221459,17 @@
       "candle": {
         "day": {
           "open": 1976.0,
-          "high": 1994.0,
+          "high": 1998.0,
           "low": 1965.0,
           "close": 1982.0
         },
         "week": {
-          "high": 1994.0,
+          "high": 1998.0,
           "low": 1945.0,
           "close": 1982.0
         },
         "month": {
-          "high": 1994.0,
+          "high": 1998.0,
           "low": 1901.0,
           "close": 1982.0
         }
@@ -255259,7 +255283,7 @@
       "daily_volume": 178600,
       "daily_reference": {
         "open": 1976.0,
-        "high": 1994.0,
+        "high": 1998.0,
         "low": 1965.0,
         "close": 1982.0,
         "volume": 178600
@@ -255270,17 +255294,17 @@
       "candle": {
         "day": {
           "open": 1976.0,
-          "high": 1994.0,
+          "high": 1998.0,
           "low": 1965.0,
           "close": 1982.0
         },
         "week": {
-          "high": 1994.0,
+          "high": 1998.0,
           "low": 1945.0,
           "close": 1982.0
         },
         "month": {
-          "high": 1994.0,
+          "high": 1998.0,
           "low": 1901.0,
           "close": 1982.0
         }
@@ -277290,7 +277314,7 @@
       "daily_volume": 178600,
       "daily_reference": {
         "open": 1976.0,
-        "high": 1994.0,
+        "high": 1998.0,
         "low": 1965.0,
         "close": 1982.0,
         "volume": 178600
@@ -277301,17 +277325,17 @@
       "candle": {
         "day": {
           "open": 1976.0,
-          "high": 1994.0,
+          "high": 1998.0,
           "low": 1965.0,
           "close": 1982.0
         },
         "week": {
-          "high": 1994.0,
+          "high": 1998.0,
           "low": 1945.0,
           "close": 1982.0
         },
         "month": {
-          "high": 1994.0,
+          "high": 1998.0,
           "low": 1901.0,
           "close": 1982.0
         }
@@ -298178,7 +298202,7 @@
       "daily_volume": 1699300,
       "daily_reference": {
         "open": 2040.0,
-        "high": 2188.0,
+        "high": 2185.0,
         "low": 1921.0,
         "close": 2101.0,
         "volume": 1699300
@@ -298189,7 +298213,7 @@
       "candle": {
         "day": {
           "open": 2040.0,
-          "high": 2188.0,
+          "high": 2185.0,
           "low": 1921.0,
           "close": 2101.0
         },
@@ -301092,7 +301116,7 @@
       "daily_reference": {
         "open": 5290.0,
         "high": 5300.0,
-        "low": 4810.0,
+        "low": 4805.0,
         "close": 4890.0,
         "volume": 227900
       },
@@ -301103,17 +301127,17 @@
         "day": {
           "open": 5290.0,
           "high": 5300.0,
-          "low": 4810.0,
+          "low": 4805.0,
           "close": 4890.0
         },
         "week": {
           "high": 5470.0,
-          "low": 4810.0,
+          "low": 4805.0,
           "close": 4890.0
         },
         "month": {
           "high": 6070.0,
-          "low": 4810.0,
+          "low": 4805.0,
           "close": 4890.0
         }
       },
@@ -303105,7 +303129,7 @@
       "daily_reference": {
         "open": 1814.0,
         "high": 1869.0,
-        "low": 1760.0,
+        "low": 1761.0,
         "close": 1804.0,
         "volume": 96200
       },
@@ -303116,12 +303140,12 @@
         "day": {
           "open": 1814.0,
           "high": 1869.0,
-          "low": 1760.0,
+          "low": 1761.0,
           "close": 1804.0
         },
         "week": {
           "high": 1869.0,
-          "low": 1760.0,
+          "low": 1761.0,
           "close": 1804.0
         },
         "month": {
@@ -307123,6 +307147,169 @@
       "early_stage_fresh_breakout_ma": []
     },
     {
+      "code": "5574",
+      "name": "ＡＢＥＪＡ",
+      "market": "グロース（内国株式）",
+      "ticker": "5574.T",
+      "universe_rank": 978,
+      "previous_day_volume": 160000,
+      "price": 2716.0,
+      "price_source": "daily_1d_confirmed",
+      "intraday_close": null,
+      "intraday_volume": null,
+      "daily_volume": 125500,
+      "daily_reference": {
+        "open": 2770.0,
+        "high": 2771.0,
+        "low": 2651.0,
+        "close": 2716.0,
+        "volume": 125500
+      },
+      "last_bar": "2026-10-14",
+      "intraday_fresh": true,
+      "expected_minimum_time": null,
+      "candle": {
+        "day": {
+          "open": 2770.0,
+          "high": 2771.0,
+          "low": 2651.0,
+          "close": 2716.0
+        },
+        "week": {
+          "high": 2865.0,
+          "low": 2651.0,
+          "close": 2716.0
+        },
+        "month": {
+          "high": 3270.0,
+          "low": 2651.0,
+          "close": 2716.0
+        }
+      },
+      "score": 2,
+      "score_denominator": 8,
+      "score_label": "2/8",
+      "available_ma_count": 8,
+      "missing_ma_count": 1,
+      "missing_ma": [
+        "月60"
+      ],
+      "analysis_status": "partial_scored",
+      "analysis_failure_reason": null,
+      "tier": 0,
+      "all_ma_above": false,
+      "available_ma_above": false,
+      "non_upward_ma": [
+        "週26"
+      ],
+      "status_code": 34089336,
+      "fail_mask": 123,
+      "states": {
+        "d5": {
+          "label": "日5",
+          "state": 0,
+          "state_label": "↓下",
+          "pass": false,
+          "ma": 2801.2,
+          "ma_prev": 2856.0,
+          "gap_pct": -3.0416
+        },
+        "d25": {
+          "label": "日25",
+          "state": 0,
+          "state_label": "↓下",
+          "pass": false,
+          "ma": 3027.72,
+          "ma_prev": 3035.48,
+          "gap_pct": -10.2955
+        },
+        "d75": {
+          "label": "日75",
+          "state": 7,
+          "state_label": "↑接触",
+          "pass": true,
+          "ma": 2722.0267,
+          "ma_prev": 2715.2133,
+          "gap_pct": -0.2214
+        },
+        "w13": {
+          "label": "週13",
+          "state": 6,
+          "state_label": "↑下",
+          "pass": false,
+          "ma": 2909.2308,
+          "ma_prev": 2879.5385,
+          "gap_pct": -6.642
+        },
+        "w26": {
+          "label": "週26",
+          "state": 2,
+          "state_label": "↓上",
+          "pass": false,
+          "ma": 2645.2308,
+          "ma_prev": 2649.6923,
+          "gap_pct": 2.6754
+        },
+        "w52": {
+          "label": "週52",
+          "state": 1,
+          "state_label": "↓接触",
+          "pass": false,
+          "ma": 2726.4423,
+          "ma_prev": 2728.3269,
+          "gap_pct": -0.383
+        },
+        "m12": {
+          "label": "月12",
+          "state": 1,
+          "state_label": "↓接触",
+          "pass": false,
+          "ma": 2697.75,
+          "ma_prev": 2713.0833,
+          "gap_pct": 0.6765
+        },
+        "m24": {
+          "label": "月24",
+          "state": 7,
+          "state_label": "↑接触",
+          "pass": true,
+          "ma": 2751.1667,
+          "ma_prev": 2736.75,
+          "gap_pct": -1.2782
+        }
+      },
+      "failures": [
+        "日5 ↓下",
+        "日25 ↓下",
+        "週13 ↑下",
+        "週26 ↓上",
+        "週52 ↓接触",
+        "月12 ↓接触"
+      ],
+      "important_touches": [
+        "日75"
+      ],
+      "ma_proximity_2pct_count": 2,
+      "ma_proximity_5pct_count": 4,
+      "nearest_ma_key": "d75",
+      "nearest_ma_label": "日75",
+      "nearest_ma_gap_pct": -0.2214,
+      "d25_gap_pct": -10.2955,
+      "w13_gap_pct": -6.642,
+      "early_stage_candidate": false,
+      "early_stage_rank": null,
+      "early_stage_progressed": false,
+      "early_stage_important_near_2pct": [
+        "日75",
+        "月12"
+      ],
+      "early_stage_touch_ma": [
+        "日75",
+        "月12"
+      ],
+      "early_stage_fresh_breakout_ma": []
+    },
+    {
       "code": "5461",
       "name": "中部鋼鈑",
       "market": "プライム（内国株式）",
@@ -310200,7 +310387,7 @@
       "daily_reference": {
         "open": 1947.0,
         "high": 1963.0,
-        "low": 1819.0,
+        "low": 1814.0,
         "close": 1821.0,
         "volume": 4142900
       },
@@ -310211,17 +310398,17 @@
         "day": {
           "open": 1947.0,
           "high": 1963.0,
-          "low": 1819.0,
+          "low": 1814.0,
           "close": 1821.0
         },
         "week": {
           "high": 2009.0,
-          "low": 1819.0,
+          "low": 1814.0,
           "close": 1821.0
         },
         "month": {
           "high": 2286.0,
-          "low": 1819.0,
+          "low": 1814.0,
           "close": 1821.0
         }
       },
