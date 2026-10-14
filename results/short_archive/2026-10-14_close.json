@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
-  "generated_at_jst": "2026-10-14T16:33:40+09:00",
+  "generated_at_jst": "2026-10-14T17:18:45+09:00",
   "target_date": "2026-10-14",
   "session": "close",
   "source_scan": "results/archive/2026-10-14_close.json",
   "source_schema_version": 19,
-  "source_generated_at_jst": "2026-10-14T16:31:58+09:00",
+  "source_generated_at_jst": "2026-10-14T17:17:37+09:00",
   "source_price_series_mode": "normal_close_auto_adjust_false",
   "strategy": "short_mirror_of_tse_ma_scanner_v19",
   "ma_order": [
@@ -66,8 +66,8 @@
     "price_eligible_unique_symbols": 142,
     "fundamental": {
       "requested": 142,
-      "cache_hits": 139,
-      "fetched": 3,
+      "cache_hits": 141,
+      "fetched": 1,
       "available": 121,
       "available_ratio": 0.8521,
       "improving": 75,
@@ -91,6 +91,7 @@
       "earnings_not_worsening": 75,
       "monthly_ma_composite_underextension": 4,
       "monthly_ma_excessive_underextension": 8,
+      "source_symbol_quarantined": 1,
       "weekly_ma_excessive_underextension": 10
     },
     "eps_comparability_guard": {
@@ -98,7 +99,7 @@
       "comparable_eps_count": 119,
       "comparable_eps_requested": 142,
       "comparable_eps_ratio": 0.838,
-      "validated_at_jst": "2026-10-14T16:33:40+09:00",
+      "validated_at_jst": "2026-10-14T17:18:45+09:00",
       "decision": "fail_closed",
       "annual_comparison_gap_days": [
         330,
@@ -496,17 +497,17 @@
       "candle": {
         "day": {
           "high": 1924.0,
-          "low": 1896.0,
+          "low": 1895.0,
           "close": 1895.0
         },
         "week": {
           "high": 1942.0,
-          "low": 1896.0,
+          "low": 1895.0,
           "close": 1895.0
         },
         "month": {
           "high": 2015.0,
-          "low": 1896.0,
+          "low": 1895.0,
           "close": 1895.0
         }
       },
@@ -16635,17 +16636,17 @@
       "candle": {
         "day": {
           "high": 1924.0,
-          "low": 1896.0,
+          "low": 1895.0,
           "close": 1895.0
         },
         "week": {
           "high": 1942.0,
-          "low": 1896.0,
+          "low": 1895.0,
           "close": 1895.0
         },
         "month": {
           "high": 2015.0,
-          "low": 1896.0,
+          "low": 1895.0,
           "close": 1895.0
         }
       },
@@ -24281,17 +24282,17 @@
       "candle": {
         "day": {
           "high": 1924.0,
-          "low": 1896.0,
+          "low": 1895.0,
           "close": 1895.0
         },
         "week": {
           "high": 1942.0,
-          "low": 1896.0,
+          "low": 1895.0,
           "close": 1895.0
         },
         "month": {
           "high": 2015.0,
-          "low": 1896.0,
+          "low": 1895.0,
           "close": 1895.0
         }
       },
@@ -25670,7 +25671,8 @@
       "price": 775.0,
       "short_score": 5,
       "exclusion_reasons": [
-        "earnings_not_worsening"
+        "earnings_not_worsening",
+        "source_symbol_quarantined"
       ]
     },
     {
@@ -25760,7 +25762,7 @@
     "comparable_eps_count": 119,
     "comparable_eps_requested": 142,
     "comparable_eps_ratio": 0.838,
-    "validated_at_jst": "2026-10-14T16:33:40+09:00",
+    "validated_at_jst": "2026-10-14T17:18:45+09:00",
     "decision": "fail_closed",
     "annual_comparison_gap_days": [
       330,
@@ -25795,7 +25797,7 @@
   },
   "trade_safety_gate": {
     "version": 3,
-    "checked_at_jst": "2026-10-14T16:33:46+09:00",
+    "checked_at_jst": "2026-10-14T17:18:49+09:00",
     "target_date": "2026-10-14",
     "unique_candidates": 40,
     "counts": {
