@@ -1,6 +1,6 @@
 {
   "schema_version": 19,
-  "generated_at_jst": "2026-10-15T16:30:34+09:00",
+  "generated_at_jst": "2026-10-15T17:17:51+09:00",
   "target_date": "2026-10-15",
   "session": "close",
   "session_label": "大引け確定版",
@@ -16,7 +16,7 @@
     "master_daily_downloaded": 3702,
     "master_daily_required_min": 3147,
     "latest_as_of": "2026-10-14",
-    "latest_as_of_source_rows": 3690,
+    "latest_as_of_source_rows": 3689,
     "universe_count": 1529,
     "universe_age_days": 1,
     "liquidity_lookback_days": 20,
@@ -83,8 +83,8 @@
     "price_eligible_unique_symbols": 357,
     "fundamental": {
       "requested": 357,
-      "cache_hits": 342,
-      "fetched": 15,
+      "cache_hits": 357,
+      "fetched": 0,
       "available": 342,
       "available_ratio": 0.958,
       "improving": 223,
@@ -116,16 +116,16 @@
   "counts": {
     "9_of_9": 36,
     "8_of_9": 39,
-    "7_of_9": 43,
+    "7_of_9": 44,
     "all_ma_above": 10,
     "near_9_of_9": 14,
     "near_all_ma_above": 85,
     "near_all_ma_above_price": 31,
     "near_all_ma_above_touch": 54,
-    "early_stage": 26,
-    "partial_ma": 100,
+    "early_stage": 27,
+    "partial_ma": 101,
     "partial_available_ma_above": 2,
-    "quarantined": 54
+    "quarantined": 53
   },
   "coverage": {
     "price_source_mode": "confirmed_daily_close",
@@ -143,14 +143,14 @@
   "data_quality": {
     "quality_status": "warning",
     "issues": [
-      "quarantined_noon_to_close_low_increase=54"
+      "quarantined_noon_to_close_low_increase=53"
     ],
     "expected_last_bar": null,
     "stale_last_bar_count": 0,
     "intraday_missing_count": 0,
     "invalid_ohlc_count": 0,
-    "impossible_noon_to_close_low_increase_count": 57,
-    "quarantined_symbol_count": 54,
+    "impossible_noon_to_close_low_increase_count": 53,
+    "quarantined_symbol_count": 53,
     "daily_vs_intraday_close_diff_ge_1pct_count": 0
   },
   "diagnostics": {
@@ -358,6 +358,16 @@
         "timeframe": "day",
         "noon_low": 1526.5,
         "close_low": 1529.5,
+        "noon_last_bar": "2026-10-15T10:30:00+09:00",
+        "close_last_bar": "2026-10-15",
+        "close_price_source": "daily_1d_confirmed"
+      },
+      {
+        "code": "9044",
+        "name": "ＮＡＮＫＡＩ",
+        "timeframe": "day",
+        "noon_low": 2979.5,
+        "close_low": 2980.5,
         "noon_last_bar": "2026-10-15T10:30:00+09:00",
         "close_last_bar": "2026-10-15",
         "close_price_source": "daily_1d_confirmed"
@@ -743,56 +753,6 @@
         "close_price_source": "daily_1d_confirmed"
       },
       {
-        "code": "6345",
-        "name": "アイチ　コーポレーション",
-        "timeframe": "day",
-        "noon_low": 1408.0,
-        "close_low": 1409.0,
-        "noon_last_bar": "2026-10-15T10:30:00+09:00",
-        "close_last_bar": "2026-10-15",
-        "close_price_source": "daily_1d_confirmed"
-      },
-      {
-        "code": "6345",
-        "name": "アイチ　コーポレーション",
-        "timeframe": "week",
-        "noon_low": 1408.0,
-        "close_low": 1409.0,
-        "noon_last_bar": "2026-10-15T10:30:00+09:00",
-        "close_last_bar": "2026-10-15",
-        "close_price_source": "daily_1d_confirmed"
-      },
-      {
-        "code": "277A",
-        "name": "グロービング",
-        "timeframe": "day",
-        "noon_low": 1654.0,
-        "close_low": 1656.0,
-        "noon_last_bar": "2026-10-15T10:30:00+09:00",
-        "close_last_bar": "2026-10-15",
-        "close_price_source": "daily_1d_confirmed"
-      },
-      {
-        "code": "277A",
-        "name": "グロービング",
-        "timeframe": "week",
-        "noon_low": 1654.0,
-        "close_low": 1656.0,
-        "noon_last_bar": "2026-10-15T10:30:00+09:00",
-        "close_last_bar": "2026-10-15",
-        "close_price_source": "daily_1d_confirmed"
-      },
-      {
-        "code": "277A",
-        "name": "グロービング",
-        "timeframe": "month",
-        "noon_low": 1654.0,
-        "close_low": 1656.0,
-        "noon_last_bar": "2026-10-15T10:30:00+09:00",
-        "close_last_bar": "2026-10-15",
-        "close_price_source": "daily_1d_confirmed"
-      },
-      {
         "code": "1379",
         "name": "ホクト",
         "timeframe": "day",
@@ -1099,6 +1059,30 @@
             "high": 1546.0,
             "low": 1496.5,
             "close": 1536.5
+          }
+        }
+      },
+      {
+        "code": "9044",
+        "name": "ＮＡＮＫＡＩ",
+        "reason": "noon_to_close_low_increase",
+        "last_bar": "2026-10-15",
+        "candle": {
+          "day": {
+            "open": 3019.0,
+            "high": 3027.0,
+            "low": 2980.5,
+            "close": 2998.5
+          },
+          "week": {
+            "high": 3103.0,
+            "low": 2948.0,
+            "close": 2998.5
+          },
+          "month": {
+            "high": 3103.0,
+            "low": 2946.5,
+            "close": 2998.5
           }
         }
       },
@@ -2015,54 +1999,6 @@
         }
       },
       {
-        "code": "6345",
-        "name": "アイチ　コーポレーション",
-        "reason": "noon_to_close_low_increase",
-        "last_bar": "2026-10-15",
-        "candle": {
-          "day": {
-            "open": 1427.0,
-            "high": 1427.0,
-            "low": 1409.0,
-            "close": 1421.0
-          },
-          "week": {
-            "high": 1440.0,
-            "low": 1409.0,
-            "close": 1421.0
-          },
-          "month": {
-            "high": 1451.0,
-            "low": 1402.0,
-            "close": 1421.0
-          }
-        }
-      },
-      {
-        "code": "277A",
-        "name": "グロービング",
-        "reason": "noon_to_close_low_increase",
-        "last_bar": "2026-10-15",
-        "candle": {
-          "day": {
-            "open": 1677.0,
-            "high": 1746.0,
-            "low": 1656.0,
-            "close": 1696.0
-          },
-          "week": {
-            "high": 1912.0,
-            "low": 1656.0,
-            "close": 1696.0
-          },
-          "month": {
-            "high": 1943.0,
-            "low": 1656.0,
-            "close": 1696.0
-          }
-        }
-      },
-      {
         "code": "1379",
         "name": "ホクト",
         "reason": "noon_to_close_low_increase",
@@ -2116,8 +2052,8 @@
       "source_schema_version": 19,
       "source_generated_at_jst": "2026-10-15T11:58:38+09:00",
       "noon_candidate_count": 122,
-      "retained_score_7_plus": 115,
-      "dropped_or_quarantined": 7
+      "retained_score_7_plus": 116,
+      "dropped_or_quarantined": 6
     },
     "dropped_from_noon": [
       {
@@ -2237,14 +2173,6 @@
             "close_gap_pct": -2.3989
           }
         ]
-      },
-      {
-        "code": "6345",
-        "name": "アイチ　コーポレーション",
-        "noon_score": 7,
-        "close_score": 7,
-        "reason": "quarantined_noon_to_close_low_increase",
-        "close_last_bar": "2026-10-15"
       },
       {
         "code": "3182",
@@ -53555,11 +53483,11 @@
         "all_ma_above": false,
         "available_ma_above": false,
         "quarantined": false,
-        "day_low": 2368.5,
+        "day_low": 2369.0,
         "day_high": 2466.5,
-        "week_low": 2368.5,
+        "week_low": 2369.0,
         "week_high": 2588.0,
-        "month_low": 2368.5,
+        "month_low": 2369.0,
         "month_high": 2784.0,
         "state_vector": [
           0,
@@ -57644,7 +57572,7 @@
         "all_ma_above": false,
         "available_ma_above": false,
         "quarantined": false,
-        "day_low": 5203.0,
+        "day_low": 5204.0,
         "day_high": 5317.0,
         "week_low": 5181.0,
         "week_high": 5482.0,
@@ -60188,11 +60116,11 @@
         "available_ma_above": true,
         "quarantined": false,
         "day_low": 4550.0,
-        "day_high": 4854.0,
+        "day_high": 4855.0,
         "week_low": 4386.0,
-        "week_high": 4854.0,
+        "week_high": 4855.0,
         "month_low": 4153.0,
-        "month_high": 4854.0,
+        "month_high": 4855.0,
         "state_vector": [
           8,
           8,
@@ -63097,11 +63025,11 @@
         "all_ma_above": false,
         "available_ma_above": false,
         "quarantined": false,
-        "day_low": 1945.0,
+        "day_low": 1946.0,
         "day_high": 2019.5,
-        "week_low": 1945.0,
+        "week_low": 1946.0,
         "week_high": 2068.0,
-        "month_low": 1945.0,
+        "month_low": 1946.0,
         "month_high": 2144.5,
         "state_vector": [
           0,
@@ -71144,7 +71072,7 @@
         "all_ma_above": false,
         "available_ma_above": false,
         "quarantined": false,
-        "day_low": 1278.0,
+        "day_low": 1278.5,
         "day_high": 1308.0,
         "week_low": 1275.5,
         "week_high": 1329.0,
@@ -72990,9 +72918,9 @@
         "all_ma_above": false,
         "available_ma_above": false,
         "quarantined": false,
-        "day_low": 3256.0,
+        "day_low": 3255.0,
         "day_high": 3324.0,
-        "week_low": 3256.0,
+        "week_low": 3255.0,
         "week_high": 3432.0,
         "month_low": 3236.0,
         "month_high": 3432.0,
@@ -75510,11 +75438,11 @@
         "all_ma_above": false,
         "available_ma_above": false,
         "quarantined": false,
-        "day_low": 1924.0,
+        "day_low": 1926.0,
         "day_high": 2025.0,
-        "week_low": 1924.0,
+        "week_low": 1926.0,
         "week_high": 2258.0,
-        "month_low": 1924.0,
+        "month_low": 1926.0,
         "month_high": 2433.0,
         "state_vector": [
           0,
@@ -80309,9 +80237,9 @@
         "all_ma_above": false,
         "available_ma_above": false,
         "quarantined": false,
-        "day_low": 6366.0,
+        "day_low": 6360.0,
         "day_high": 6529.0,
-        "week_low": 6366.0,
+        "week_low": 6360.0,
         "week_high": 6874.0,
         "month_low": 5855.0,
         "month_high": 6874.0,
@@ -81281,9 +81209,9 @@
         "available_ma_above": false,
         "quarantined": false,
         "day_low": 835.8,
-        "day_high": 846.1,
+        "day_high": 846.2,
         "week_low": 829.2,
-        "week_high": 846.1,
+        "week_high": 846.2,
         "month_low": 818.9,
         "month_high": 848.9,
         "state_vector": [
@@ -82753,7 +82681,7 @@
         "available_ma_above": false,
         "quarantined": false,
         "day_low": 341.2,
-        "day_high": 347.9,
+        "day_high": 348.0,
         "week_low": 341.2,
         "week_high": 359.7,
         "month_low": 335.2,
@@ -85008,7 +84936,7 @@
         "available_ma_above": false,
         "quarantined": false,
         "day_low": 1862.0,
-        "day_high": 1933.0,
+        "day_high": 1932.0,
         "week_low": 1862.0,
         "week_high": 2052.0,
         "month_low": 1862.0,
@@ -86284,11 +86212,11 @@
         "all_ma_above": false,
         "available_ma_above": false,
         "quarantined": false,
-        "day_low": 1832.0,
+        "day_low": 1828.0,
         "day_high": 1969.0,
-        "week_low": 1832.0,
+        "week_low": 1828.0,
         "week_high": 2177.0,
-        "month_low": 1832.0,
+        "month_low": 1828.0,
         "month_high": 2526.0,
         "state_vector": [
           0,
@@ -96466,7 +96394,7 @@
         "available_ma_above": false,
         "quarantined": false,
         "day_low": 3509.0,
-        "day_high": 3582.0,
+        "day_high": 3583.0,
         "week_low": 3456.0,
         "week_high": 3685.0,
         "month_low": 3394.0,
@@ -101385,11 +101313,11 @@
         "all_ma_above": false,
         "available_ma_above": false,
         "quarantined": false,
-        "day_low": 2500.0,
+        "day_low": 2503.0,
         "day_high": 2616.0,
-        "week_low": 2500.0,
+        "week_low": 2503.0,
         "week_high": 2695.0,
-        "month_low": 2500.0,
+        "month_low": 2503.0,
         "month_high": 2699.0,
         "state_vector": [
           1,
@@ -102555,8 +102483,8 @@
         "tier": 0,
         "all_ma_above": false,
         "available_ma_above": false,
-        "quarantined": false,
-        "day_low": 2979.5,
+        "quarantined": true,
+        "day_low": 2980.5,
         "day_high": 3027.0,
         "week_low": 2948.0,
         "week_high": 3103.0,
@@ -104771,11 +104699,11 @@
         "all_ma_above": false,
         "available_ma_above": false,
         "quarantined": false,
-        "day_low": 18440.0,
+        "day_low": 18430.0,
         "day_high": 19430.0,
-        "week_low": 18440.0,
+        "week_low": 18430.0,
         "week_high": 21110.0,
-        "month_low": 18440.0,
+        "month_low": 18430.0,
         "month_high": 22640.0,
         "state_vector": [
           0,
@@ -111193,11 +111121,11 @@
         "all_ma_above": false,
         "available_ma_above": false,
         "quarantined": false,
-        "day_low": 3825.0,
+        "day_low": 3820.0,
         "day_high": 4140.0,
-        "week_low": 3825.0,
+        "week_low": 3820.0,
         "week_high": 4560.0,
-        "month_low": 3825.0,
+        "month_low": 3820.0,
         "month_high": 4795.0,
         "state_vector": [
           0,
@@ -117274,11 +117202,11 @@
         "all_ma_above": false,
         "available_ma_above": false,
         "quarantined": false,
-        "day_low": 1100.0,
+        "day_low": 1102.0,
         "day_high": 1145.0,
-        "week_low": 1100.0,
+        "week_low": 1102.0,
         "week_high": 1213.0,
-        "month_low": 1100.0,
+        "month_low": 1102.0,
         "month_high": 1359.0,
         "state_vector": [
           0,
@@ -119018,11 +118946,11 @@
         "all_ma_above": false,
         "available_ma_above": false,
         "quarantined": false,
-        "day_low": 6000.0,
+        "day_low": 5980.0,
         "day_high": 6650.0,
-        "week_low": 6000.0,
+        "week_low": 5980.0,
         "week_high": 6900.0,
-        "month_low": 6000.0,
+        "month_low": 5980.0,
         "month_high": 6900.0,
         "state_vector": [
           1,
@@ -128331,11 +128259,11 @@
         "all_ma_above": false,
         "available_ma_above": false,
         "quarantined": false,
-        "day_low": 3915.0,
+        "day_low": 3910.0,
         "day_high": 4400.0,
-        "week_low": 3915.0,
+        "week_low": 3910.0,
         "week_high": 4860.0,
-        "month_low": 3915.0,
+        "month_low": 3910.0,
         "month_high": 4870.0,
         "state_vector": [
           0,
@@ -130905,11 +130833,11 @@
         "all_ma_above": false,
         "available_ma_above": false,
         "quarantined": false,
-        "day_low": 2285.0,
+        "day_low": 2286.0,
         "day_high": 2335.0,
-        "week_low": 2285.0,
+        "week_low": 2286.0,
         "week_high": 2422.0,
-        "month_low": 2285.0,
+        "month_low": 2286.0,
         "month_high": 2666.0,
         "state_vector": [
           0,
@@ -131098,11 +131026,11 @@
         "available_ma_above": false,
         "quarantined": false,
         "day_low": 2147.0,
-        "day_high": 2344.0,
+        "day_high": 2345.0,
         "week_low": 2147.0,
-        "week_high": 2344.0,
+        "week_high": 2345.0,
         "month_low": 2036.0,
-        "month_high": 2344.0,
+        "month_high": 2345.0,
         "state_vector": [
           7,
           7,
@@ -145921,9 +145849,9 @@
         "all_ma_above": false,
         "available_ma_above": false,
         "quarantined": false,
-        "day_low": 2125.0,
+        "day_low": 2126.0,
         "day_high": 2162.0,
-        "week_low": 2125.0,
+        "week_low": 2126.0,
         "week_high": 2204.0,
         "month_low": 2030.0,
         "month_high": 2204.0,
@@ -146022,7 +145950,7 @@
         "available_ma_above": false,
         "quarantined": false,
         "day_low": 4290.0,
-        "day_high": 4375.0,
+        "day_high": 4380.0,
         "week_low": 4290.0,
         "week_high": 4460.0,
         "month_low": 4180.0,
@@ -156551,7 +156479,7 @@
         "all_ma_above": false,
         "available_ma_above": false,
         "quarantined": false,
-        "day_low": 2968.0,
+        "day_low": 2966.0,
         "day_high": 3100.0,
         "week_low": 2950.0,
         "week_high": 3115.0,
@@ -160765,11 +160693,11 @@
         "available_ma_above": false,
         "quarantined": false,
         "day_low": 2233.0,
-        "day_high": 2394.0,
+        "day_high": 2395.0,
         "week_low": 2233.0,
-        "week_high": 2394.0,
+        "week_high": 2395.0,
         "month_low": 2090.0,
-        "month_high": 2394.0,
+        "month_high": 2395.0,
         "state_vector": [
           7,
           8,
@@ -162627,11 +162555,11 @@
         "all_ma_above": false,
         "available_ma_above": false,
         "quarantined": false,
-        "day_low": 945.0,
+        "day_low": 943.0,
         "day_high": 995.0,
-        "week_low": 945.0,
+        "week_low": 943.0,
         "week_high": 1070.0,
-        "month_low": 945.0,
+        "month_low": 943.0,
         "month_high": 1240.0,
         "state_vector": [
           0,
@@ -165244,11 +165172,11 @@
         "all_ma_above": false,
         "available_ma_above": false,
         "quarantined": false,
-        "day_low": 1276.0,
+        "day_low": 1275.0,
         "day_high": 1315.0,
-        "week_low": 1276.0,
+        "week_low": 1275.0,
         "week_high": 1353.0,
-        "month_low": 1276.0,
+        "month_low": 1275.0,
         "month_high": 1384.0,
         "state_vector": [
           1,
@@ -167178,11 +167106,11 @@
         "all_ma_above": false,
         "available_ma_above": false,
         "quarantined": false,
-        "day_low": 2631.0,
+        "day_low": 2630.0,
         "day_high": 2717.0,
-        "week_low": 2631.0,
+        "week_low": 2630.0,
         "week_high": 2828.0,
-        "month_low": 2631.0,
+        "month_low": 2630.0,
         "month_high": 2935.0,
         "state_vector": [
           0,
@@ -172504,11 +172432,11 @@
         "all_ma_above": false,
         "available_ma_above": false,
         "quarantined": false,
-        "day_low": 1215.0,
+        "day_low": 1219.0,
         "day_high": 1295.0,
-        "week_low": 1215.0,
+        "week_low": 1219.0,
         "week_high": 1386.0,
-        "month_low": 1215.0,
+        "month_low": 1219.0,
         "month_high": 1514.0,
         "state_vector": [
           0,
@@ -174042,9 +173970,9 @@
         "all_ma_above": false,
         "available_ma_above": false,
         "quarantined": false,
-        "day_low": 3035.0,
+        "day_low": 3040.0,
         "day_high": 3160.0,
-        "week_low": 3035.0,
+        "week_low": 3040.0,
         "week_high": 3400.0,
         "month_low": 2982.0,
         "month_high": 3400.0,
@@ -174921,10 +174849,10 @@
         "tier": 1,
         "all_ma_above": false,
         "available_ma_above": false,
-        "quarantined": true,
-        "day_low": 1409.0,
+        "quarantined": false,
+        "day_low": 1408.0,
         "day_high": 1427.0,
-        "week_low": 1409.0,
+        "week_low": 1408.0,
         "week_high": 1440.0,
         "month_low": 1402.0,
         "month_high": 1451.0,
@@ -175317,9 +175245,9 @@
         "all_ma_above": false,
         "available_ma_above": false,
         "quarantined": false,
-        "day_low": 3900.0,
+        "day_low": 3905.0,
         "day_high": 4035.0,
-        "week_low": 3900.0,
+        "week_low": 3905.0,
         "week_high": 4150.0,
         "month_low": 3860.0,
         "month_high": 4150.0,
@@ -179998,12 +179926,12 @@
         "tier": 0,
         "all_ma_above": false,
         "available_ma_above": false,
-        "quarantined": true,
-        "day_low": 1656.0,
+        "quarantined": false,
+        "day_low": 1654.0,
         "day_high": 1746.0,
-        "week_low": 1656.0,
+        "week_low": 1654.0,
         "week_high": 1912.0,
-        "month_low": 1656.0,
+        "month_low": 1654.0,
         "month_high": 1943.0,
         "state_vector": [
           0,
@@ -184806,11 +184734,11 @@
         "all_ma_above": false,
         "available_ma_above": false,
         "quarantined": false,
-        "day_low": 1641.0,
+        "day_low": 1646.0,
         "day_high": 1729.0,
-        "week_low": 1641.0,
+        "week_low": 1646.0,
         "week_high": 1832.0,
-        "month_low": 1641.0,
+        "month_low": 1646.0,
         "month_high": 2072.0,
         "state_vector": [
           0,
@@ -186883,9 +186811,9 @@
         "all_ma_above": false,
         "available_ma_above": false,
         "quarantined": false,
-        "day_low": 1088.0,
+        "day_low": 1079.0,
         "day_high": 1200.0,
-        "week_low": 1088.0,
+        "week_low": 1079.0,
         "week_high": 1200.0,
         "month_low": 993.0,
         "month_high": 1200.0,
@@ -189931,7 +189859,7 @@
         "available_ma_above": false,
         "quarantined": false,
         "day_low": 4865.0,
-        "day_high": 5050.0,
+        "day_high": 5040.0,
         "week_low": 4865.0,
         "week_high": 5100.0,
         "month_low": 4650.0,
@@ -191655,11 +191583,11 @@
         "all_ma_above": false,
         "available_ma_above": false,
         "quarantined": false,
-        "day_low": 1639.0,
+        "day_low": 1643.0,
         "day_high": 1724.0,
-        "week_low": 1639.0,
+        "week_low": 1643.0,
         "week_high": 1791.0,
-        "month_low": 1639.0,
+        "month_low": 1643.0,
         "month_high": 2063.0,
         "state_vector": [
           0,
@@ -192323,9 +192251,9 @@
         "all_ma_above": false,
         "available_ma_above": false,
         "quarantined": false,
-        "day_low": 1072.0,
+        "day_low": 1073.0,
         "day_high": 1127.0,
-        "week_low": 1072.0,
+        "week_low": 1073.0,
         "week_high": 1139.0,
         "month_low": 1043.0,
         "month_high": 1139.0,
@@ -222821,7 +222749,7 @@
       "daily_reference": {
         "open": 2612.0,
         "high": 2616.0,
-        "low": 2500.0,
+        "low": 2503.0,
         "close": 2514.0,
         "volume": 621500
       },
@@ -222832,17 +222760,17 @@
         "day": {
           "open": 2612.0,
           "high": 2616.0,
-          "low": 2500.0,
+          "low": 2503.0,
           "close": 2514.0
         },
         "week": {
           "high": 2695.0,
-          "low": 2500.0,
+          "low": 2503.0,
           "close": 2514.0
         },
         "month": {
           "high": 2699.0,
-          "low": 2500.0,
+          "low": 2503.0,
           "close": 2514.0
         }
       },
@@ -224919,7 +224847,7 @@
       "daily_reference": {
         "open": 2160.0,
         "high": 2162.0,
-        "low": 2125.0,
+        "low": 2126.0,
         "close": 2125.0,
         "volume": 141600
       },
@@ -224930,12 +224858,12 @@
         "day": {
           "open": 2160.0,
           "high": 2162.0,
-          "low": 2125.0,
+          "low": 2126.0,
           "close": 2125.0
         },
         "week": {
           "high": 2204.0,
-          "low": 2125.0,
+          "low": 2126.0,
           "close": 2125.0
         },
         "month": {
@@ -226459,6 +226387,274 @@
           "average_gap_pct": 16.6365,
           "minimum_margin_pct": -13.0851,
           "average_margin_pct": -8.3635
+        },
+        "exclusion_reasons": []
+      }
+    },
+    {
+      "code": "6345",
+      "name": "アイチ　コーポレーション",
+      "market": "プライム（内国株式）",
+      "ticker": "6345.T",
+      "universe_rank": 1285,
+      "previous_day_volume": 86600,
+      "price": 1421.0,
+      "price_source": "daily_1d_confirmed",
+      "intraday_close": null,
+      "intraday_volume": null,
+      "daily_volume": 252200,
+      "daily_reference": {
+        "open": 1427.0,
+        "high": 1427.0,
+        "low": 1408.0,
+        "close": 1421.0,
+        "volume": 252200
+      },
+      "last_bar": "2026-10-15",
+      "intraday_fresh": true,
+      "expected_minimum_time": null,
+      "candle": {
+        "day": {
+          "open": 1427.0,
+          "high": 1427.0,
+          "low": 1408.0,
+          "close": 1421.0
+        },
+        "week": {
+          "high": 1440.0,
+          "low": 1408.0,
+          "close": 1421.0
+        },
+        "month": {
+          "high": 1451.0,
+          "low": 1402.0,
+          "close": 1421.0
+        }
+      },
+      "score": 7,
+      "score_denominator": 9,
+      "score_label": "7/9",
+      "available_ma_count": 9,
+      "missing_ma_count": 0,
+      "missing_ma": [],
+      "analysis_status": "scored",
+      "analysis_failure_reason": null,
+      "tier": 1,
+      "all_ma_above": false,
+      "available_ma_above": false,
+      "non_upward_ma": [],
+      "status_code": 387419599,
+      "fail_mask": 3,
+      "states": {
+        "d5": {
+          "label": "日5",
+          "state": 1,
+          "state_label": "↓接触",
+          "pass": false,
+          "ma": 1418.8,
+          "ma_prev": 1422.2,
+          "gap_pct": 0.1551
+        },
+        "d25": {
+          "label": "日25",
+          "state": 0,
+          "state_label": "↓下",
+          "pass": false,
+          "ma": 1444.64,
+          "ma_prev": 1446.72,
+          "gap_pct": -1.6364
+        },
+        "d75": {
+          "label": "日75",
+          "state": 7,
+          "state_label": "↑接触",
+          "pass": true,
+          "ma": 1423.72,
+          "ma_prev": 1422.8533,
+          "gap_pct": -0.191
+        },
+        "w13": {
+          "label": "週13",
+          "state": 7,
+          "state_label": "↑接触",
+          "pass": true,
+          "ma": 1439.1538,
+          "ma_prev": 1436.7692,
+          "gap_pct": -1.2614
+        },
+        "w26": {
+          "label": "週26",
+          "state": 8,
+          "state_label": "↑上",
+          "pass": true,
+          "ma": 1405.6923,
+          "ma_prev": 1404.1538,
+          "gap_pct": 1.089
+        },
+        "w52": {
+          "label": "週52",
+          "state": 8,
+          "state_label": "↑上",
+          "pass": true,
+          "ma": 1383.6154,
+          "ma_prev": 1382.3462,
+          "gap_pct": 2.702
+        },
+        "m12": {
+          "label": "月12",
+          "state": 8,
+          "state_label": "↑上",
+          "pass": true,
+          "ma": 1397.0,
+          "ma_prev": 1386.0,
+          "gap_pct": 1.718
+        },
+        "m24": {
+          "label": "月24",
+          "state": 8,
+          "state_label": "↑上",
+          "pass": true,
+          "ma": 1378.3333,
+          "ma_prev": 1369.1667,
+          "gap_pct": 3.0955
+        },
+        "m60": {
+          "label": "月60",
+          "state": 8,
+          "state_label": "↑上",
+          "pass": true,
+          "ma": 1115.2167,
+          "ma_prev": 1104.9667,
+          "gap_pct": 27.4192
+        }
+      },
+      "failures": [
+        "日5 ↓接触",
+        "日25 ↓下"
+      ],
+      "important_touches": [
+        "日75",
+        "週13"
+      ],
+      "ma_proximity_2pct_count": 6,
+      "ma_proximity_5pct_count": 6,
+      "nearest_ma_key": "d5",
+      "nearest_ma_label": "日5",
+      "nearest_ma_gap_pct": 0.1551,
+      "d25_gap_pct": -1.6364,
+      "w13_gap_pct": -1.2614,
+      "early_stage_candidate": true,
+      "early_stage_rank": "A",
+      "early_stage_progressed": false,
+      "early_stage_important_near_2pct": [
+        "日75",
+        "週26",
+        "月12"
+      ],
+      "early_stage_touch_ma": [
+        "日5",
+        "日75",
+        "週13"
+      ],
+      "early_stage_fresh_breakout_ma": [
+        "週26",
+        "月12"
+      ],
+      "highest_ma_key": "d25",
+      "highest_ma_label": "日25",
+      "highest_ma_value": 1444.64,
+      "price_to_highest_ma_pct": -1.636394,
+      "highest_ma_to_price_required_pct": 1.663617,
+      "screening": {
+        "price_limit": 3500.0,
+        "price_pass": true,
+        "earnings_rule": "current-year company forecast EPS > latest prior full-year actual EPS (TDnet XBRL)",
+        "earnings_status": "ok",
+        "earnings_improving": true,
+        "current_year_eps_estimate": 103.78,
+        "prior_year_eps": 100.73,
+        "forecast_period_end": "2027-03-31",
+        "prior_period_end": "2026-03-31",
+        "earnings_growth": 0.030279,
+        "reason": null,
+        "latest_result_vs_company_forecast": {
+          "status": "unavailable",
+          "comparison": "unavailable",
+          "reason": "latest_result_or_same_period_company_forecast_missing",
+          "source": "TDnet XBRL"
+        },
+        "latest_result_vs_market_consensus": {
+          "status": "unavailable",
+          "comparison": "unavailable",
+          "reason": "market_consensus_not_configured",
+          "provider": "unavailable"
+        },
+        "latest_progress_vs_prior": {
+          "status": "ok",
+          "comparison": "acceptable",
+          "reason": null,
+          "metric": "ordinary_income",
+          "current_actual": 680966000.0,
+          "current_full_year_forecast": 8500000000.0,
+          "prior_same_period_actual": 540833000.0,
+          "prior_full_year_forecast": 8300000000.0,
+          "current_progress_pct": 8.0114,
+          "prior_progress_pct": 6.5161,
+          "progress_gap_pp": 1.4953,
+          "relative_progress_deterioration_pct": -22.948,
+          "same_period_profit_yoy_pct": 25.9106,
+          "thresholds": {
+            "relative_progress_deterioration_pct": 30.0,
+            "progress_gap_pp": 5.0,
+            "same_period_profit_decline_pct": 20.0
+          },
+          "current_period_end": "2026-06-30",
+          "prior_period_end": "2025-06-30",
+          "period_days": 91,
+          "current_actual_filing_date": "2026-07-30",
+          "current_forecast_period_end": "2027-03-31",
+          "current_forecast_filing_date": "2026-07-30",
+          "prior_forecast_period_end": "2026-03-31",
+          "prior_forecast_filing_date": "2025-07-30",
+          "source": "TDnet XBRL"
+        },
+        "monthly_ma_overextension": {
+          "status": "ok",
+          "comparison": "acceptable",
+          "reason": null,
+          "thresholds_pct": {
+            "m12": 15.0,
+            "m24": 30.0,
+            "m60": 40.0
+          },
+          "gaps_pct": {
+            "m12": 1.718,
+            "m24": 3.0955,
+            "m60": 27.4192
+          },
+          "threshold_margin_pct": {
+            "m12": -13.282,
+            "m24": -26.9045,
+            "m60": -12.5808
+          }
+        },
+        "monthly_ma_composite_overextension": {
+          "status": "ok",
+          "comparison": "acceptable",
+          "reason": null,
+          "thresholds_pct": {
+            "minimum_each_gap_pct": 15.0,
+            "minimum_average_gap_pct": 25.0
+          },
+          "gaps_pct": {
+            "m12": 1.718,
+            "m24": 3.0955,
+            "m60": 27.4192
+          },
+          "minimum_gap_pct": 1.718,
+          "average_gap_pct": 10.7442,
+          "minimum_margin_pct": -13.282,
+          "average_margin_pct": -14.2558
         },
         "exclusion_reasons": []
       }
@@ -288941,6 +289137,274 @@
   ],
   "early_stage_candidates": [
     {
+      "code": "6345",
+      "name": "アイチ　コーポレーション",
+      "market": "プライム（内国株式）",
+      "ticker": "6345.T",
+      "universe_rank": 1285,
+      "previous_day_volume": 86600,
+      "price": 1421.0,
+      "price_source": "daily_1d_confirmed",
+      "intraday_close": null,
+      "intraday_volume": null,
+      "daily_volume": 252200,
+      "daily_reference": {
+        "open": 1427.0,
+        "high": 1427.0,
+        "low": 1408.0,
+        "close": 1421.0,
+        "volume": 252200
+      },
+      "last_bar": "2026-10-15",
+      "intraday_fresh": true,
+      "expected_minimum_time": null,
+      "candle": {
+        "day": {
+          "open": 1427.0,
+          "high": 1427.0,
+          "low": 1408.0,
+          "close": 1421.0
+        },
+        "week": {
+          "high": 1440.0,
+          "low": 1408.0,
+          "close": 1421.0
+        },
+        "month": {
+          "high": 1451.0,
+          "low": 1402.0,
+          "close": 1421.0
+        }
+      },
+      "score": 7,
+      "score_denominator": 9,
+      "score_label": "7/9",
+      "available_ma_count": 9,
+      "missing_ma_count": 0,
+      "missing_ma": [],
+      "analysis_status": "scored",
+      "analysis_failure_reason": null,
+      "tier": 1,
+      "all_ma_above": false,
+      "available_ma_above": false,
+      "non_upward_ma": [],
+      "status_code": 387419599,
+      "fail_mask": 3,
+      "states": {
+        "d5": {
+          "label": "日5",
+          "state": 1,
+          "state_label": "↓接触",
+          "pass": false,
+          "ma": 1418.8,
+          "ma_prev": 1422.2,
+          "gap_pct": 0.1551
+        },
+        "d25": {
+          "label": "日25",
+          "state": 0,
+          "state_label": "↓下",
+          "pass": false,
+          "ma": 1444.64,
+          "ma_prev": 1446.72,
+          "gap_pct": -1.6364
+        },
+        "d75": {
+          "label": "日75",
+          "state": 7,
+          "state_label": "↑接触",
+          "pass": true,
+          "ma": 1423.72,
+          "ma_prev": 1422.8533,
+          "gap_pct": -0.191
+        },
+        "w13": {
+          "label": "週13",
+          "state": 7,
+          "state_label": "↑接触",
+          "pass": true,
+          "ma": 1439.1538,
+          "ma_prev": 1436.7692,
+          "gap_pct": -1.2614
+        },
+        "w26": {
+          "label": "週26",
+          "state": 8,
+          "state_label": "↑上",
+          "pass": true,
+          "ma": 1405.6923,
+          "ma_prev": 1404.1538,
+          "gap_pct": 1.089
+        },
+        "w52": {
+          "label": "週52",
+          "state": 8,
+          "state_label": "↑上",
+          "pass": true,
+          "ma": 1383.6154,
+          "ma_prev": 1382.3462,
+          "gap_pct": 2.702
+        },
+        "m12": {
+          "label": "月12",
+          "state": 8,
+          "state_label": "↑上",
+          "pass": true,
+          "ma": 1397.0,
+          "ma_prev": 1386.0,
+          "gap_pct": 1.718
+        },
+        "m24": {
+          "label": "月24",
+          "state": 8,
+          "state_label": "↑上",
+          "pass": true,
+          "ma": 1378.3333,
+          "ma_prev": 1369.1667,
+          "gap_pct": 3.0955
+        },
+        "m60": {
+          "label": "月60",
+          "state": 8,
+          "state_label": "↑上",
+          "pass": true,
+          "ma": 1115.2167,
+          "ma_prev": 1104.9667,
+          "gap_pct": 27.4192
+        }
+      },
+      "failures": [
+        "日5 ↓接触",
+        "日25 ↓下"
+      ],
+      "important_touches": [
+        "日75",
+        "週13"
+      ],
+      "ma_proximity_2pct_count": 6,
+      "ma_proximity_5pct_count": 6,
+      "nearest_ma_key": "d5",
+      "nearest_ma_label": "日5",
+      "nearest_ma_gap_pct": 0.1551,
+      "d25_gap_pct": -1.6364,
+      "w13_gap_pct": -1.2614,
+      "early_stage_candidate": true,
+      "early_stage_rank": "A",
+      "early_stage_progressed": false,
+      "early_stage_important_near_2pct": [
+        "日75",
+        "週26",
+        "月12"
+      ],
+      "early_stage_touch_ma": [
+        "日5",
+        "日75",
+        "週13"
+      ],
+      "early_stage_fresh_breakout_ma": [
+        "週26",
+        "月12"
+      ],
+      "highest_ma_key": "d25",
+      "highest_ma_label": "日25",
+      "highest_ma_value": 1444.64,
+      "price_to_highest_ma_pct": -1.636394,
+      "highest_ma_to_price_required_pct": 1.663617,
+      "screening": {
+        "price_limit": 3500.0,
+        "price_pass": true,
+        "earnings_rule": "current-year company forecast EPS > latest prior full-year actual EPS (TDnet XBRL)",
+        "earnings_status": "ok",
+        "earnings_improving": true,
+        "current_year_eps_estimate": 103.78,
+        "prior_year_eps": 100.73,
+        "forecast_period_end": "2027-03-31",
+        "prior_period_end": "2026-03-31",
+        "earnings_growth": 0.030279,
+        "reason": null,
+        "latest_result_vs_company_forecast": {
+          "status": "unavailable",
+          "comparison": "unavailable",
+          "reason": "latest_result_or_same_period_company_forecast_missing",
+          "source": "TDnet XBRL"
+        },
+        "latest_result_vs_market_consensus": {
+          "status": "unavailable",
+          "comparison": "unavailable",
+          "reason": "market_consensus_not_configured",
+          "provider": "unavailable"
+        },
+        "latest_progress_vs_prior": {
+          "status": "ok",
+          "comparison": "acceptable",
+          "reason": null,
+          "metric": "ordinary_income",
+          "current_actual": 680966000.0,
+          "current_full_year_forecast": 8500000000.0,
+          "prior_same_period_actual": 540833000.0,
+          "prior_full_year_forecast": 8300000000.0,
+          "current_progress_pct": 8.0114,
+          "prior_progress_pct": 6.5161,
+          "progress_gap_pp": 1.4953,
+          "relative_progress_deterioration_pct": -22.948,
+          "same_period_profit_yoy_pct": 25.9106,
+          "thresholds": {
+            "relative_progress_deterioration_pct": 30.0,
+            "progress_gap_pp": 5.0,
+            "same_period_profit_decline_pct": 20.0
+          },
+          "current_period_end": "2026-06-30",
+          "prior_period_end": "2025-06-30",
+          "period_days": 91,
+          "current_actual_filing_date": "2026-07-30",
+          "current_forecast_period_end": "2027-03-31",
+          "current_forecast_filing_date": "2026-07-30",
+          "prior_forecast_period_end": "2026-03-31",
+          "prior_forecast_filing_date": "2025-07-30",
+          "source": "TDnet XBRL"
+        },
+        "monthly_ma_overextension": {
+          "status": "ok",
+          "comparison": "acceptable",
+          "reason": null,
+          "thresholds_pct": {
+            "m12": 15.0,
+            "m24": 30.0,
+            "m60": 40.0
+          },
+          "gaps_pct": {
+            "m12": 1.718,
+            "m24": 3.0955,
+            "m60": 27.4192
+          },
+          "threshold_margin_pct": {
+            "m12": -13.282,
+            "m24": -26.9045,
+            "m60": -12.5808
+          }
+        },
+        "monthly_ma_composite_overextension": {
+          "status": "ok",
+          "comparison": "acceptable",
+          "reason": null,
+          "thresholds_pct": {
+            "minimum_each_gap_pct": 15.0,
+            "minimum_average_gap_pct": 25.0
+          },
+          "gaps_pct": {
+            "m12": 1.718,
+            "m24": 3.0955,
+            "m60": 27.4192
+          },
+          "minimum_gap_pct": 1.718,
+          "average_gap_pct": 10.7442,
+          "minimum_margin_pct": -13.282,
+          "average_margin_pct": -14.2558
+        },
+        "exclusion_reasons": []
+      }
+    },
+    {
       "code": "9842",
       "name": "アークランズ",
       "market": "プライム（内国株式）",
@@ -292919,7 +293383,7 @@
       "daily_reference": {
         "open": 2160.0,
         "high": 2162.0,
-        "low": 2125.0,
+        "low": 2126.0,
         "close": 2125.0,
         "volume": 141600
       },
@@ -292930,12 +293394,12 @@
         "day": {
           "open": 2160.0,
           "high": 2162.0,
-          "low": 2125.0,
+          "low": 2126.0,
           "close": 2125.0
         },
         "week": {
           "high": 2204.0,
-          "low": 2125.0,
+          "low": 2126.0,
           "close": 2125.0
         },
         "month": {
@@ -293158,7 +293622,7 @@
       "daily_reference": {
         "open": 2612.0,
         "high": 2616.0,
-        "low": 2500.0,
+        "low": 2503.0,
         "close": 2514.0,
         "volume": 621500
       },
@@ -293169,17 +293633,17 @@
         "day": {
           "open": 2612.0,
           "high": 2616.0,
-          "low": 2500.0,
+          "low": 2503.0,
           "close": 2514.0
         },
         "week": {
           "high": 2695.0,
-          "low": 2500.0,
+          "low": 2503.0,
           "close": 2514.0
         },
         "month": {
           "high": 2699.0,
-          "low": 2500.0,
+          "low": 2503.0,
           "close": 2514.0
         }
       },
@@ -300454,7 +300918,7 @@
       "daily_reference": {
         "open": 3150.0,
         "high": 3160.0,
-        "low": 3035.0,
+        "low": 3040.0,
         "close": 3050.0,
         "volume": 74000
       },
@@ -300465,12 +300929,12 @@
         "day": {
           "open": 3150.0,
           "high": 3160.0,
-          "low": 3035.0,
+          "low": 3040.0,
           "close": 3050.0
         },
         "week": {
           "high": 3400.0,
-          "low": 3035.0,
+          "low": 3040.0,
           "close": 3050.0
         },
         "month": {
@@ -306480,6 +306944,155 @@
       "early_stage_important_near_2pct": [],
       "early_stage_touch_ma": [
         "日5"
+      ],
+      "early_stage_fresh_breakout_ma": []
+    },
+    {
+      "code": "277A",
+      "name": "グロービング",
+      "market": "プライム（内国株式）",
+      "ticker": "277A.T",
+      "universe_rank": 1337,
+      "previous_day_volume": 147000,
+      "price": 1696.0,
+      "price_source": "daily_1d_confirmed",
+      "intraday_close": null,
+      "intraday_volume": null,
+      "daily_volume": 374600,
+      "daily_reference": {
+        "open": 1677.0,
+        "high": 1746.0,
+        "low": 1654.0,
+        "close": 1696.0,
+        "volume": 374600
+      },
+      "last_bar": "2026-10-15",
+      "intraday_fresh": true,
+      "expected_minimum_time": null,
+      "candle": {
+        "day": {
+          "open": 1677.0,
+          "high": 1746.0,
+          "low": 1654.0,
+          "close": 1696.0
+        },
+        "week": {
+          "high": 1912.0,
+          "low": 1654.0,
+          "close": 1696.0
+        },
+        "month": {
+          "high": 1943.0,
+          "low": 1654.0,
+          "close": 1696.0
+        }
+      },
+      "score": 1,
+      "score_denominator": 7,
+      "score_label": "1/7",
+      "available_ma_count": 7,
+      "missing_ma_count": 2,
+      "missing_ma": [
+        "月24",
+        "月60"
+      ],
+      "analysis_status": "partial_scored",
+      "analysis_failure_reason": null,
+      "tier": 0,
+      "all_ma_above": false,
+      "available_ma_above": false,
+      "non_upward_ma": [],
+      "status_code": 5103,
+      "fail_mask": 119,
+      "states": {
+        "d5": {
+          "label": "日5",
+          "state": 0,
+          "state_label": "↓下",
+          "pass": false,
+          "ma": 1812.0,
+          "ma_prev": 1847.4,
+          "gap_pct": -6.4018
+        },
+        "d25": {
+          "label": "日25",
+          "state": 0,
+          "state_label": "↓下",
+          "pass": false,
+          "ma": 1847.52,
+          "ma_prev": 1853.72,
+          "gap_pct": -8.2013
+        },
+        "d75": {
+          "label": "日75",
+          "state": 0,
+          "state_label": "↓下",
+          "pass": false,
+          "ma": 1860.6,
+          "ma_prev": 1864.88,
+          "gap_pct": -8.8466
+        },
+        "w13": {
+          "label": "週13",
+          "state": 7,
+          "state_label": "↑接触",
+          "pass": true,
+          "ma": 1785.3846,
+          "ma_prev": 1784.5385,
+          "gap_pct": -5.0065
+        },
+        "w26": {
+          "label": "週26",
+          "state": 0,
+          "state_label": "↓下",
+          "pass": false,
+          "ma": 2002.8846,
+          "ma_prev": 2040.2308,
+          "gap_pct": -15.3221
+        },
+        "w52": {
+          "label": "週52",
+          "state": 0,
+          "state_label": "↓下",
+          "pass": false,
+          "ma": 2258.8846,
+          "ma_prev": 2278.1346,
+          "gap_pct": -24.9187
+        },
+        "m12": {
+          "label": "月12",
+          "state": 0,
+          "state_label": "↓下",
+          "pass": false,
+          "ma": 2191.1667,
+          "ma_prev": 2268.9167,
+          "gap_pct": -22.5983
+        }
+      },
+      "failures": [
+        "日5 ↓下",
+        "日25 ↓下",
+        "日75 ↓下",
+        "週26 ↓下",
+        "週52 ↓下",
+        "月12 ↓下"
+      ],
+      "important_touches": [
+        "週13"
+      ],
+      "ma_proximity_2pct_count": 0,
+      "ma_proximity_5pct_count": 0,
+      "nearest_ma_key": "w13",
+      "nearest_ma_label": "週13",
+      "nearest_ma_gap_pct": -5.0065,
+      "d25_gap_pct": -8.2013,
+      "w13_gap_pct": -5.0065,
+      "early_stage_candidate": false,
+      "early_stage_rank": null,
+      "early_stage_progressed": false,
+      "early_stage_important_near_2pct": [],
+      "early_stage_touch_ma": [
+        "週13"
       ],
       "early_stage_fresh_breakout_ma": []
     },
