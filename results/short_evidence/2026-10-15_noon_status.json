@@ -1,0 +1,25 @@
+{
+  "target_date": "2026-10-15",
+  "session": "noon",
+  "candidates": 38,
+  "statuses": {
+    "eligible": 0,
+    "excluded": 9,
+    "verification_required": 29
+  },
+  "official_source_status": {
+    "meigara": "ok",
+    "shina": "ok",
+    "zandaka": "ok",
+    "seigen": "ok"
+  },
+  "sbi_public_status": "ok",
+  "generated_checks_path": "results/short_evidence/2026-10-15_checks_noon.csv",
+  "review_path": "results/short_evidence/2026-10-15_noon_review.csv",
+  "source_urls": {
+    "meigara": "https://www.taisyaku.jp/data/meigara.csv",
+    "shina": "https://www.taisyaku.jp/data/shina.csv",
+    "zandaka": "https://www.taisyaku.jp/data/zandaka.csv",
+    "seigen": "https://www.taisyaku.jp/data/seigenichiran.csv"
+  }
+}
