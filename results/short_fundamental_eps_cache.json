@@ -1,7 +1,7 @@
 {
   "schema_version": 7,
-  "generated_at_jst": "2026-10-19T17:25:01+09:00",
-  "target_date": "2026-10-19",
+  "generated_at_jst": "2026-10-20T12:24:15+09:00",
+  "target_date": "2026-10-20",
   "definition": "TDnet XBRL: current-year company forecast EPS > latest prior full-year actual EPS; latest result miss => exclude; same-period progress relative deterioration >=30%, gap >=5pp, and profit YoY <=-20% => exclude",
   "entries": {
     "6594.T": {
@@ -112,12 +112,18 @@
         "provider": "unavailable"
       }
     },
-    "9501.T": {
-      "status": "unavailable",
-      "improving": null,
-      "reason": "forecast_eps_missing",
-      "current_year_eps_estimate": null,
-      "prior_year_eps": null,
+    "7012.T": {
+      "status": "ok",
+      "improving": true,
+      "reason": null,
+      "current_year_eps_estimate": 133.12,
+      "prior_year_eps": 129.41,
+      "earnings_growth": 0.028669,
+      "forecast_period_end": "2027-03-31",
+      "prior_period_end": "2026-03-31",
+      "forecast_filing_date": "2026-08-07",
+      "prior_filing_date": "2026-05-12",
+      "source": "TDnet XBRL",
       "latest_result_vs_company_forecast": {
         "status": "unavailable",
         "comparison": "unavailable",
@@ -137,7 +143,7 @@
         "provider": "unavailable"
       }
     },
-    "4755.T": {
+    "9501.T": {
       "status": "unavailable",
       "improving": null,
       "reason": "forecast_eps_missing",
@@ -207,6 +213,31 @@
         "current_forecast_filing_date": "2026-10-13",
         "prior_forecast_period_end": "2026-02-28",
         "prior_forecast_filing_date": "2025-10-14",
+        "source": "TDnet XBRL"
+      },
+      "latest_result_vs_market_consensus": {
+        "status": "unavailable",
+        "comparison": "unavailable",
+        "reason": "market_consensus_not_configured",
+        "provider": "unavailable"
+      }
+    },
+    "4755.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "forecast_eps_missing",
+      "current_year_eps_estimate": null,
+      "prior_year_eps": null,
+      "latest_result_vs_company_forecast": {
+        "status": "unavailable",
+        "comparison": "unavailable",
+        "reason": "latest_result_or_same_period_company_forecast_missing",
+        "source": "TDnet XBRL"
+      },
+      "latest_progress_vs_prior": {
+        "status": "unavailable",
+        "comparison": "unavailable",
+        "reason": "latest_quarter_or_prior_same_period_forecast_missing",
         "source": "TDnet XBRL"
       },
       "latest_result_vs_market_consensus": {
@@ -446,6 +477,60 @@
         "provider": "unavailable"
       }
     },
+    "1911.T": {
+      "status": "ok",
+      "improving": false,
+      "reason": null,
+      "current_year_eps_estimate": 97.85,
+      "prior_year_eps": 174.13,
+      "earnings_growth": -0.438064,
+      "forecast_period_end": "2026-12-31",
+      "prior_period_end": "2025-12-31",
+      "forecast_filing_date": "2026-08-07",
+      "prior_filing_date": "2026-02-13",
+      "source": "TDnet XBRL",
+      "latest_result_vs_company_forecast": {
+        "status": "unavailable",
+        "comparison": "unavailable",
+        "reason": "latest_result_or_same_period_company_forecast_missing",
+        "source": "TDnet XBRL"
+      },
+      "latest_progress_vs_prior": {
+        "status": "ok",
+        "comparison": "acceptable",
+        "reason": null,
+        "metric": "ordinary_income",
+        "current_actual": 49769000000.0,
+        "current_full_year_forecast": 115000000000.0,
+        "prior_same_period_actual": 88221000000.0,
+        "prior_full_year_forecast": 170000000000.0,
+        "current_progress_pct": 43.2774,
+        "prior_progress_pct": 51.8947,
+        "progress_gap_pp": -8.6173,
+        "relative_progress_deterioration_pct": 16.6054,
+        "same_period_profit_yoy_pct": -43.586,
+        "thresholds": {
+          "relative_progress_deterioration_pct": 30.0,
+          "progress_gap_pp": 5.0,
+          "same_period_profit_decline_pct": 20.0
+        },
+        "current_period_end": "2026-06-30",
+        "prior_period_end": "2025-06-30",
+        "period_days": 181,
+        "current_actual_filing_date": "2026-08-07",
+        "current_forecast_period_end": "2026-12-31",
+        "current_forecast_filing_date": "2026-08-07",
+        "prior_forecast_period_end": "2025-12-31",
+        "prior_forecast_filing_date": "2025-08-07",
+        "source": "TDnet XBRL"
+      },
+      "latest_result_vs_market_consensus": {
+        "status": "unavailable",
+        "comparison": "unavailable",
+        "reason": "market_consensus_not_configured",
+        "provider": "unavailable"
+      }
+    },
     "9005.T": {
       "status": "ok",
       "improving": true,
@@ -491,6 +576,60 @@
         "current_forecast_filing_date": "2026-08-07",
         "prior_forecast_period_end": "2026-03-31",
         "prior_forecast_filing_date": "2025-08-07",
+        "source": "TDnet XBRL"
+      },
+      "latest_result_vs_market_consensus": {
+        "status": "unavailable",
+        "comparison": "unavailable",
+        "reason": "market_consensus_not_configured",
+        "provider": "unavailable"
+      }
+    },
+    "6368.T": {
+      "status": "ok",
+      "improving": false,
+      "reason": null,
+      "current_year_eps_estimate": 130.48,
+      "prior_year_eps": 617.74,
+      "earnings_growth": -0.788778,
+      "forecast_period_end": "2027-03-31",
+      "prior_period_end": "2026-03-31",
+      "forecast_filing_date": "2026-08-03",
+      "prior_filing_date": "2026-05-13",
+      "source": "TDnet XBRL",
+      "latest_result_vs_company_forecast": {
+        "status": "unavailable",
+        "comparison": "unavailable",
+        "reason": "latest_result_or_same_period_company_forecast_missing",
+        "source": "TDnet XBRL"
+      },
+      "latest_progress_vs_prior": {
+        "status": "ok",
+        "comparison": "acceptable",
+        "reason": null,
+        "metric": "ordinary_income",
+        "current_actual": 6762000000.0,
+        "current_full_year_forecast": 17500000000.0,
+        "prior_same_period_actual": 6471000000.0,
+        "prior_full_year_forecast": 14800000000.0,
+        "current_progress_pct": 38.64,
+        "prior_progress_pct": 43.723,
+        "progress_gap_pp": -5.083,
+        "relative_progress_deterioration_pct": 11.6254,
+        "same_period_profit_yoy_pct": 4.497,
+        "thresholds": {
+          "relative_progress_deterioration_pct": 30.0,
+          "progress_gap_pp": 5.0,
+          "same_period_profit_decline_pct": 20.0
+        },
+        "current_period_end": "2026-06-30",
+        "prior_period_end": "2025-06-30",
+        "period_days": 91,
+        "current_actual_filing_date": "2026-08-03",
+        "current_forecast_period_end": "2026-09-30",
+        "current_forecast_filing_date": "2026-08-03",
+        "prior_forecast_period_end": "2025-09-30",
+        "prior_forecast_filing_date": "2025-08-04",
         "source": "TDnet XBRL"
       },
       "latest_result_vs_market_consensus": {
@@ -787,6 +926,31 @@
         "provider": "unavailable"
       }
     },
+    "4597.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "forecast_eps_missing",
+      "current_year_eps_estimate": null,
+      "prior_year_eps": null,
+      "latest_result_vs_company_forecast": {
+        "status": "unavailable",
+        "comparison": "unavailable",
+        "reason": "latest_result_or_same_period_company_forecast_missing",
+        "source": "TDnet XBRL"
+      },
+      "latest_progress_vs_prior": {
+        "status": "unavailable",
+        "comparison": "unavailable",
+        "reason": "latest_quarter_or_prior_same_period_forecast_missing",
+        "source": "TDnet XBRL"
+      },
+      "latest_result_vs_market_consensus": {
+        "status": "unavailable",
+        "comparison": "unavailable",
+        "reason": "market_consensus_not_configured",
+        "provider": "unavailable"
+      }
+    },
     "6753.T": {
       "status": "ok",
       "improving": false,
@@ -841,31 +1005,6 @@
         "provider": "unavailable"
       }
     },
-    "4597.T": {
-      "status": "unavailable",
-      "improving": null,
-      "reason": "forecast_eps_missing",
-      "current_year_eps_estimate": null,
-      "prior_year_eps": null,
-      "latest_result_vs_company_forecast": {
-        "status": "unavailable",
-        "comparison": "unavailable",
-        "reason": "latest_result_or_same_period_company_forecast_missing",
-        "source": "TDnet XBRL"
-      },
-      "latest_progress_vs_prior": {
-        "status": "unavailable",
-        "comparison": "unavailable",
-        "reason": "latest_quarter_or_prior_same_period_forecast_missing",
-        "source": "TDnet XBRL"
-      },
-      "latest_result_vs_market_consensus": {
-        "status": "unavailable",
-        "comparison": "unavailable",
-        "reason": "market_consensus_not_configured",
-        "provider": "unavailable"
-      }
-    },
     "6254.T": {
       "status": "ok",
       "improving": true,
@@ -911,6 +1050,60 @@
         "current_forecast_filing_date": "2026-08-07",
         "prior_forecast_period_end": "2025-09-30",
         "prior_forecast_filing_date": "2025-08-08",
+        "source": "TDnet XBRL"
+      },
+      "latest_result_vs_market_consensus": {
+        "status": "unavailable",
+        "comparison": "unavailable",
+        "reason": "market_consensus_not_configured",
+        "provider": "unavailable"
+      }
+    },
+    "7220.T": {
+      "status": "ok",
+      "improving": true,
+      "reason": null,
+      "current_year_eps_estimate": 99.18,
+      "prior_year_eps": 19.29,
+      "earnings_growth": 4.141524,
+      "forecast_period_end": "2027-03-31",
+      "prior_period_end": "2026-03-31",
+      "forecast_filing_date": "2026-08-05",
+      "prior_filing_date": "2026-05-12",
+      "source": "TDnet XBRL",
+      "latest_result_vs_company_forecast": {
+        "status": "unavailable",
+        "comparison": "unavailable",
+        "reason": "latest_result_or_same_period_company_forecast_missing",
+        "source": "TDnet XBRL"
+      },
+      "latest_progress_vs_prior": {
+        "status": "ok",
+        "comparison": "acceptable",
+        "reason": null,
+        "metric": "ordinary_income",
+        "current_actual": 4923000000.0,
+        "current_full_year_forecast": 16000000000.0,
+        "prior_same_period_actual": 3339000000.0,
+        "prior_full_year_forecast": 18500000000.0,
+        "current_progress_pct": 30.7688,
+        "prior_progress_pct": 18.0486,
+        "progress_gap_pp": 12.7201,
+        "relative_progress_deterioration_pct": -70.4768,
+        "same_period_profit_yoy_pct": 47.4394,
+        "thresholds": {
+          "relative_progress_deterioration_pct": 30.0,
+          "progress_gap_pp": 5.0,
+          "same_period_profit_decline_pct": 20.0
+        },
+        "current_period_end": "2026-06-30",
+        "prior_period_end": "2025-06-30",
+        "period_days": 91,
+        "current_actual_filing_date": "2026-08-05",
+        "current_forecast_period_end": "2027-03-31",
+        "current_forecast_filing_date": "2026-08-05",
+        "prior_forecast_period_end": "2026-03-31",
+        "prior_forecast_filing_date": "2025-08-05",
         "source": "TDnet XBRL"
       },
       "latest_result_vs_market_consensus": {
@@ -1082,6 +1275,60 @@
         "provider": "unavailable"
       }
     },
+    "3291.T": {
+      "status": "ok",
+      "improving": true,
+      "reason": null,
+      "current_year_eps_estimate": 237.04,
+      "prior_year_eps": 229.13,
+      "earnings_growth": 0.034522,
+      "forecast_period_end": "2027-03-31",
+      "prior_period_end": "2026-03-31",
+      "forecast_filing_date": "2026-08-07",
+      "prior_filing_date": "2026-05-15",
+      "source": "TDnet XBRL",
+      "latest_result_vs_company_forecast": {
+        "status": "unavailable",
+        "comparison": "unavailable",
+        "reason": "latest_result_or_same_period_company_forecast_missing",
+        "source": "TDnet XBRL"
+      },
+      "latest_progress_vs_prior": {
+        "status": "ok",
+        "comparison": "acceptable",
+        "reason": null,
+        "metric": "operating_income",
+        "current_actual": 25743000000.0,
+        "current_full_year_forecast": 46500000000.0,
+        "prior_same_period_actual": 14198000000.0,
+        "prior_full_year_forecast": 31300000000.0,
+        "current_progress_pct": 55.3613,
+        "prior_progress_pct": 45.361,
+        "progress_gap_pp": 10.0003,
+        "relative_progress_deterioration_pct": -22.0459,
+        "same_period_profit_yoy_pct": 81.3143,
+        "thresholds": {
+          "relative_progress_deterioration_pct": 30.0,
+          "progress_gap_pp": 5.0,
+          "same_period_profit_decline_pct": 20.0
+        },
+        "current_period_end": "2026-06-30",
+        "prior_period_end": "2025-06-30",
+        "period_days": 91,
+        "current_actual_filing_date": "2026-08-07",
+        "current_forecast_period_end": "2026-09-30",
+        "current_forecast_filing_date": "2026-08-07",
+        "prior_forecast_period_end": "2025-09-30",
+        "prior_forecast_filing_date": "2025-08-08",
+        "source": "TDnet XBRL"
+      },
+      "latest_result_vs_market_consensus": {
+        "status": "unavailable",
+        "comparison": "unavailable",
+        "reason": "market_consensus_not_configured",
+        "provider": "unavailable"
+      }
+    },
     "6005.T": {
       "status": "ok",
       "improving": true,
@@ -1190,60 +1437,6 @@
         "provider": "unavailable"
       }
     },
-    "3291.T": {
-      "status": "ok",
-      "improving": true,
-      "reason": null,
-      "current_year_eps_estimate": 237.04,
-      "prior_year_eps": 229.13,
-      "earnings_growth": 0.034522,
-      "forecast_period_end": "2027-03-31",
-      "prior_period_end": "2026-03-31",
-      "forecast_filing_date": "2026-08-07",
-      "prior_filing_date": "2026-05-15",
-      "source": "TDnet XBRL",
-      "latest_result_vs_company_forecast": {
-        "status": "unavailable",
-        "comparison": "unavailable",
-        "reason": "latest_result_or_same_period_company_forecast_missing",
-        "source": "TDnet XBRL"
-      },
-      "latest_progress_vs_prior": {
-        "status": "ok",
-        "comparison": "acceptable",
-        "reason": null,
-        "metric": "operating_income",
-        "current_actual": 25743000000.0,
-        "current_full_year_forecast": 46500000000.0,
-        "prior_same_period_actual": 14198000000.0,
-        "prior_full_year_forecast": 31300000000.0,
-        "current_progress_pct": 55.3613,
-        "prior_progress_pct": 45.361,
-        "progress_gap_pp": 10.0003,
-        "relative_progress_deterioration_pct": -22.0459,
-        "same_period_profit_yoy_pct": 81.3143,
-        "thresholds": {
-          "relative_progress_deterioration_pct": 30.0,
-          "progress_gap_pp": 5.0,
-          "same_period_profit_decline_pct": 20.0
-        },
-        "current_period_end": "2026-06-30",
-        "prior_period_end": "2025-06-30",
-        "period_days": 91,
-        "current_actual_filing_date": "2026-08-07",
-        "current_forecast_period_end": "2026-09-30",
-        "current_forecast_filing_date": "2026-08-07",
-        "prior_forecast_period_end": "2025-09-30",
-        "prior_forecast_filing_date": "2025-08-08",
-        "source": "TDnet XBRL"
-      },
-      "latest_result_vs_market_consensus": {
-        "status": "unavailable",
-        "comparison": "unavailable",
-        "reason": "market_consensus_not_configured",
-        "provider": "unavailable"
-      }
-    },
     "8698.T": {
       "status": "unavailable",
       "improving": null,
@@ -1260,6 +1453,60 @@
         "status": "unavailable",
         "comparison": "unavailable",
         "reason": "latest_quarter_or_prior_same_period_forecast_missing",
+        "source": "TDnet XBRL"
+      },
+      "latest_result_vs_market_consensus": {
+        "status": "unavailable",
+        "comparison": "unavailable",
+        "reason": "market_consensus_not_configured",
+        "provider": "unavailable"
+      }
+    },
+    "8570.T": {
+      "status": "ok",
+      "improving": false,
+      "reason": null,
+      "current_year_eps_estimate": 69.48,
+      "prior_year_eps": 97.7,
+      "earnings_growth": -0.288843,
+      "forecast_period_end": "2027-02-28",
+      "prior_period_end": "2026-02-28",
+      "forecast_filing_date": "2026-10-09",
+      "prior_filing_date": "2026-04-08",
+      "source": "TDnet XBRL",
+      "latest_result_vs_company_forecast": {
+        "status": "unavailable",
+        "comparison": "unavailable",
+        "reason": "latest_result_or_same_period_company_forecast_missing",
+        "source": "TDnet XBRL"
+      },
+      "latest_progress_vs_prior": {
+        "status": "ok",
+        "comparison": "acceptable",
+        "reason": null,
+        "metric": "ordinary_income",
+        "current_actual": 25972000000.0,
+        "current_full_year_forecast": 45000000000.0,
+        "prior_same_period_actual": 29192000000.0,
+        "prior_full_year_forecast": 57000000000.0,
+        "current_progress_pct": 57.7156,
+        "prior_progress_pct": 51.214,
+        "progress_gap_pp": 6.5015,
+        "relative_progress_deterioration_pct": -12.6948,
+        "same_period_profit_yoy_pct": -11.0304,
+        "thresholds": {
+          "relative_progress_deterioration_pct": 30.0,
+          "progress_gap_pp": 5.0,
+          "same_period_profit_decline_pct": 20.0
+        },
+        "current_period_end": "2026-08-31",
+        "prior_period_end": "2025-08-31",
+        "period_days": 184,
+        "current_actual_filing_date": "2026-10-09",
+        "current_forecast_period_end": "2027-02-28",
+        "current_forecast_filing_date": "2026-10-09",
+        "prior_forecast_period_end": "2026-02-28",
+        "prior_forecast_filing_date": "2025-10-09",
         "source": "TDnet XBRL"
       },
       "latest_result_vs_market_consensus": {
@@ -1375,40 +1622,6 @@
         "provider": "unavailable"
       }
     },
-    "3664.T": {
-      "status": "unavailable",
-      "improving": null,
-      "reason": "forecast_eps_missing",
-      "current_year_eps_estimate": null,
-      "prior_year_eps": null,
-      "latest_result_vs_company_forecast": {
-        "status": "unavailable",
-        "comparison": "unavailable",
-        "reason": "latest_result_or_same_period_company_forecast_missing",
-        "source": "TDnet XBRL"
-      },
-      "latest_progress_vs_prior": {
-        "status": "unavailable",
-        "comparison": "unavailable",
-        "reason": "progress_denominator_not_positive",
-        "metric": "operating_income",
-        "current_period_end": "2022-09-30",
-        "prior_period_end": "2021-09-30",
-        "period_days": 273,
-        "current_actual_filing_date": "2022-11-11",
-        "current_forecast_period_end": "2022-12-31",
-        "current_forecast_filing_date": "2022-11-11",
-        "prior_forecast_period_end": "2021-12-31",
-        "prior_forecast_filing_date": "2021-11-11",
-        "source": "TDnet XBRL"
-      },
-      "latest_result_vs_market_consensus": {
-        "status": "unavailable",
-        "comparison": "unavailable",
-        "reason": "market_consensus_not_configured",
-        "provider": "unavailable"
-      }
-    },
     "7004.T": {
       "status": "ok",
       "improving": true,
@@ -1449,17 +1662,17 @@
         "provider": "unavailable"
       }
     },
-    "2201.T": {
+    "547A.T": {
       "status": "ok",
-      "improving": false,
+      "improving": true,
       "reason": null,
-      "current_year_eps_estimate": 196.03,
-      "prior_year_eps": 211.07,
-      "earnings_growth": -0.071256,
+      "current_year_eps_estimate": 66.81,
+      "prior_year_eps": 56.63,
+      "earnings_growth": 0.179763,
       "forecast_period_end": "2027-03-31",
       "prior_period_end": "2026-03-31",
-      "forecast_filing_date": "2026-08-06",
-      "prior_filing_date": "2026-05-11",
+      "forecast_filing_date": "2026-08-12",
+      "prior_filing_date": "2026-05-15",
       "source": "TDnet XBRL",
       "latest_result_vs_company_forecast": {
         "status": "unavailable",
@@ -1468,32 +1681,68 @@
         "source": "TDnet XBRL"
       },
       "latest_progress_vs_prior": {
-        "status": "ok",
-        "comparison": "acceptable",
-        "reason": null,
-        "metric": "ordinary_income",
-        "current_actual": 6214000000.0,
-        "current_full_year_forecast": 11900000000.0,
-        "prior_same_period_actual": 7204000000.0,
-        "prior_full_year_forecast": 12500000000.0,
-        "current_progress_pct": 52.2185,
-        "prior_progress_pct": 57.632,
-        "progress_gap_pp": -5.4135,
-        "relative_progress_deterioration_pct": 9.3932,
-        "same_period_profit_yoy_pct": -13.7424,
-        "thresholds": {
-          "relative_progress_deterioration_pct": 30.0,
-          "progress_gap_pp": 5.0,
-          "same_period_profit_decline_pct": 20.0
-        },
-        "current_period_end": "2026-06-30",
-        "prior_period_end": "2025-06-30",
-        "period_days": 91,
-        "current_actual_filing_date": "2026-08-06",
-        "current_forecast_period_end": "2026-09-30",
-        "current_forecast_filing_date": "2026-08-06",
-        "prior_forecast_period_end": "2025-09-30",
-        "prior_forecast_filing_date": "2025-08-07",
+        "status": "unavailable",
+        "comparison": "unavailable",
+        "reason": "latest_quarter_or_prior_same_period_forecast_missing",
+        "source": "TDnet XBRL"
+      },
+      "latest_result_vs_market_consensus": {
+        "status": "unavailable",
+        "comparison": "unavailable",
+        "reason": "market_consensus_not_configured",
+        "provider": "unavailable"
+      }
+    },
+    "3664.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "forecast_eps_missing",
+      "current_year_eps_estimate": null,
+      "prior_year_eps": null,
+      "latest_result_vs_company_forecast": {
+        "status": "unavailable",
+        "comparison": "unavailable",
+        "reason": "latest_result_or_same_period_company_forecast_missing",
+        "source": "TDnet XBRL"
+      },
+      "latest_progress_vs_prior": {
+        "status": "unavailable",
+        "comparison": "unavailable",
+        "reason": "progress_denominator_not_positive",
+        "metric": "operating_income",
+        "current_period_end": "2022-09-30",
+        "prior_period_end": "2021-09-30",
+        "period_days": 273,
+        "current_actual_filing_date": "2022-11-11",
+        "current_forecast_period_end": "2022-12-31",
+        "current_forecast_filing_date": "2022-11-11",
+        "prior_forecast_period_end": "2021-12-31",
+        "prior_forecast_filing_date": "2021-11-11",
+        "source": "TDnet XBRL"
+      },
+      "latest_result_vs_market_consensus": {
+        "status": "unavailable",
+        "comparison": "unavailable",
+        "reason": "market_consensus_not_configured",
+        "provider": "unavailable"
+      }
+    },
+    "8595.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "forecast_eps_missing",
+      "current_year_eps_estimate": null,
+      "prior_year_eps": null,
+      "latest_result_vs_company_forecast": {
+        "status": "unavailable",
+        "comparison": "unavailable",
+        "reason": "latest_result_or_same_period_company_forecast_missing",
+        "source": "TDnet XBRL"
+      },
+      "latest_progress_vs_prior": {
+        "status": "unavailable",
+        "comparison": "unavailable",
+        "reason": "latest_quarter_or_prior_same_period_forecast_missing",
         "source": "TDnet XBRL"
       },
       "latest_result_vs_market_consensus": {
@@ -1548,71 +1797,6 @@
         "current_forecast_filing_date": "2026-08-06",
         "prior_forecast_period_end": "2026-03-31",
         "prior_forecast_filing_date": "2025-08-08",
-        "source": "TDnet XBRL"
-      },
-      "latest_result_vs_market_consensus": {
-        "status": "unavailable",
-        "comparison": "unavailable",
-        "reason": "market_consensus_not_configured",
-        "provider": "unavailable"
-      }
-    },
-    "8595.T": {
-      "status": "unavailable",
-      "improving": null,
-      "reason": "forecast_eps_missing",
-      "current_year_eps_estimate": null,
-      "prior_year_eps": null,
-      "latest_result_vs_company_forecast": {
-        "status": "unavailable",
-        "comparison": "unavailable",
-        "reason": "latest_result_or_same_period_company_forecast_missing",
-        "source": "TDnet XBRL"
-      },
-      "latest_progress_vs_prior": {
-        "status": "unavailable",
-        "comparison": "unavailable",
-        "reason": "latest_quarter_or_prior_same_period_forecast_missing",
-        "source": "TDnet XBRL"
-      },
-      "latest_result_vs_market_consensus": {
-        "status": "unavailable",
-        "comparison": "unavailable",
-        "reason": "market_consensus_not_configured",
-        "provider": "unavailable"
-      }
-    },
-    "6232.T": {
-      "status": "ok",
-      "improving": true,
-      "reason": null,
-      "current_year_eps_estimate": -31.24,
-      "prior_year_eps": -84.71,
-      "earnings_growth": 0.631212,
-      "forecast_period_end": "2026-12-31",
-      "prior_period_end": "2025-12-31",
-      "forecast_filing_date": "2026-08-14",
-      "prior_filing_date": "2026-02-13",
-      "source": "TDnet XBRL",
-      "latest_result_vs_company_forecast": {
-        "status": "unavailable",
-        "comparison": "unavailable",
-        "reason": "latest_result_or_same_period_company_forecast_missing",
-        "source": "TDnet XBRL"
-      },
-      "latest_progress_vs_prior": {
-        "status": "unavailable",
-        "comparison": "unavailable",
-        "reason": "progress_denominator_not_positive",
-        "metric": "ordinary_income",
-        "current_period_end": "2026-06-30",
-        "prior_period_end": "2025-06-30",
-        "period_days": 181,
-        "current_actual_filing_date": "2026-08-14",
-        "current_forecast_period_end": "2026-12-31",
-        "current_forecast_filing_date": "2026-08-14",
-        "prior_forecast_period_end": "2025-12-31",
-        "prior_forecast_filing_date": "2025-08-14",
         "source": "TDnet XBRL"
       },
       "latest_result_vs_market_consensus": {
@@ -1770,6 +1954,80 @@
         "provider": "unavailable"
       }
     },
+    "4587.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "forecast_eps_missing",
+      "current_year_eps_estimate": null,
+      "prior_year_eps": null,
+      "latest_result_vs_company_forecast": {
+        "status": "unavailable",
+        "comparison": "unavailable",
+        "reason": "latest_result_or_same_period_company_forecast_missing",
+        "source": "TDnet XBRL"
+      },
+      "latest_progress_vs_prior": {
+        "status": "unavailable",
+        "comparison": "unavailable",
+        "reason": "progress_denominator_not_positive",
+        "metric": "operating_income",
+        "current_period_end": "2026-06-30",
+        "prior_period_end": "2025-06-30",
+        "period_days": 181,
+        "current_actual_filing_date": "2026-08-12",
+        "current_forecast_period_end": "2026-12-31",
+        "current_forecast_filing_date": "2026-08-12",
+        "prior_forecast_period_end": "2025-12-31",
+        "prior_forecast_filing_date": "2025-08-06",
+        "source": "TDnet XBRL"
+      },
+      "latest_result_vs_market_consensus": {
+        "status": "unavailable",
+        "comparison": "unavailable",
+        "reason": "market_consensus_not_configured",
+        "provider": "unavailable"
+      }
+    },
+    "6232.T": {
+      "status": "ok",
+      "improving": true,
+      "reason": null,
+      "current_year_eps_estimate": -31.24,
+      "prior_year_eps": -84.71,
+      "earnings_growth": 0.631212,
+      "forecast_period_end": "2026-12-31",
+      "prior_period_end": "2025-12-31",
+      "forecast_filing_date": "2026-08-14",
+      "prior_filing_date": "2026-02-13",
+      "source": "TDnet XBRL",
+      "latest_result_vs_company_forecast": {
+        "status": "unavailable",
+        "comparison": "unavailable",
+        "reason": "latest_result_or_same_period_company_forecast_missing",
+        "source": "TDnet XBRL"
+      },
+      "latest_progress_vs_prior": {
+        "status": "unavailable",
+        "comparison": "unavailable",
+        "reason": "progress_denominator_not_positive",
+        "metric": "ordinary_income",
+        "current_period_end": "2026-06-30",
+        "prior_period_end": "2025-06-30",
+        "period_days": 181,
+        "current_actual_filing_date": "2026-08-14",
+        "current_forecast_period_end": "2026-12-31",
+        "current_forecast_filing_date": "2026-08-14",
+        "prior_forecast_period_end": "2025-12-31",
+        "prior_forecast_filing_date": "2025-08-14",
+        "source": "TDnet XBRL"
+      },
+      "latest_result_vs_market_consensus": {
+        "status": "unavailable",
+        "comparison": "unavailable",
+        "reason": "market_consensus_not_configured",
+        "provider": "unavailable"
+      }
+    },
     "9519.T": {
       "status": "ok",
       "improving": true,
@@ -1815,40 +2073,6 @@
         "current_forecast_filing_date": "2026-08-06",
         "prior_forecast_period_end": "2026-03-31",
         "prior_forecast_filing_date": "2025-08-07",
-        "source": "TDnet XBRL"
-      },
-      "latest_result_vs_market_consensus": {
-        "status": "unavailable",
-        "comparison": "unavailable",
-        "reason": "market_consensus_not_configured",
-        "provider": "unavailable"
-      }
-    },
-    "4587.T": {
-      "status": "unavailable",
-      "improving": null,
-      "reason": "forecast_eps_missing",
-      "current_year_eps_estimate": null,
-      "prior_year_eps": null,
-      "latest_result_vs_company_forecast": {
-        "status": "unavailable",
-        "comparison": "unavailable",
-        "reason": "latest_result_or_same_period_company_forecast_missing",
-        "source": "TDnet XBRL"
-      },
-      "latest_progress_vs_prior": {
-        "status": "unavailable",
-        "comparison": "unavailable",
-        "reason": "progress_denominator_not_positive",
-        "metric": "operating_income",
-        "current_period_end": "2026-06-30",
-        "prior_period_end": "2025-06-30",
-        "period_days": 181,
-        "current_actual_filing_date": "2026-08-12",
-        "current_forecast_period_end": "2026-12-31",
-        "current_forecast_filing_date": "2026-08-12",
-        "prior_forecast_period_end": "2025-12-31",
-        "prior_forecast_filing_date": "2025-08-06",
         "source": "TDnet XBRL"
       },
       "latest_result_vs_market_consensus": {
@@ -1957,60 +2181,6 @@
         "current_forecast_filing_date": "2026-07-31",
         "prior_forecast_period_end": "2025-09-30",
         "prior_forecast_filing_date": "2025-07-31",
-        "source": "TDnet XBRL"
-      },
-      "latest_result_vs_market_consensus": {
-        "status": "unavailable",
-        "comparison": "unavailable",
-        "reason": "market_consensus_not_configured",
-        "provider": "unavailable"
-      }
-    },
-    "8194.T": {
-      "status": "ok",
-      "improving": true,
-      "reason": null,
-      "current_year_eps_estimate": 219.61,
-      "prior_year_eps": 217.56,
-      "earnings_growth": 0.009423,
-      "forecast_period_end": "2027-02-28",
-      "prior_period_end": "2026-02-28",
-      "forecast_filing_date": "2026-10-08",
-      "prior_filing_date": "2026-04-09",
-      "source": "TDnet XBRL",
-      "latest_result_vs_company_forecast": {
-        "status": "unavailable",
-        "comparison": "unavailable",
-        "reason": "latest_result_or_same_period_company_forecast_missing",
-        "source": "TDnet XBRL"
-      },
-      "latest_progress_vs_prior": {
-        "status": "ok",
-        "comparison": "acceptable",
-        "reason": null,
-        "metric": "ordinary_income",
-        "current_actual": 13063000000.0,
-        "current_full_year_forecast": 28000000000.0,
-        "prior_same_period_actual": 13858000000.0,
-        "prior_full_year_forecast": 26500000000.0,
-        "current_progress_pct": 46.6536,
-        "prior_progress_pct": 52.2943,
-        "progress_gap_pp": -5.6408,
-        "relative_progress_deterioration_pct": 10.7866,
-        "same_period_profit_yoy_pct": -5.7368,
-        "thresholds": {
-          "relative_progress_deterioration_pct": 30.0,
-          "progress_gap_pp": 5.0,
-          "same_period_profit_decline_pct": 20.0
-        },
-        "current_period_end": "2026-08-31",
-        "prior_period_end": "2025-08-31",
-        "period_days": 184,
-        "current_actual_filing_date": "2026-10-08",
-        "current_forecast_period_end": "2027-02-28",
-        "current_forecast_filing_date": "2026-10-08",
-        "prior_forecast_period_end": "2026-02-28",
-        "prior_forecast_filing_date": "2025-10-07",
         "source": "TDnet XBRL"
       },
       "latest_result_vs_market_consensus": {
@@ -2166,6 +2336,114 @@
         "provider": "unavailable"
       }
     },
+    "8584.T": {
+      "status": "ok",
+      "improving": false,
+      "reason": null,
+      "current_year_eps_estimate": 223.42,
+      "prior_year_eps": 380.28,
+      "earnings_growth": -0.412486,
+      "forecast_period_end": "2027-03-31",
+      "prior_period_end": "2026-03-31",
+      "forecast_filing_date": "2026-08-06",
+      "prior_filing_date": "2026-05-15",
+      "source": "TDnet XBRL",
+      "latest_result_vs_company_forecast": {
+        "status": "unavailable",
+        "comparison": "unavailable",
+        "reason": "latest_result_or_same_period_company_forecast_missing",
+        "source": "TDnet XBRL"
+      },
+      "latest_progress_vs_prior": {
+        "status": "ok",
+        "comparison": "acceptable",
+        "reason": null,
+        "metric": "ordinary_income",
+        "current_actual": 6066000000.0,
+        "current_full_year_forecast": 6000000000.0,
+        "prior_same_period_actual": 6306000000.0,
+        "prior_full_year_forecast": 10000000000.0,
+        "current_progress_pct": 101.1,
+        "prior_progress_pct": 63.06,
+        "progress_gap_pp": 38.04,
+        "relative_progress_deterioration_pct": -60.3235,
+        "same_period_profit_yoy_pct": -3.8059,
+        "thresholds": {
+          "relative_progress_deterioration_pct": 30.0,
+          "progress_gap_pp": 5.0,
+          "same_period_profit_decline_pct": 20.0
+        },
+        "current_period_end": "2026-06-30",
+        "prior_period_end": "2025-06-30",
+        "period_days": 91,
+        "current_actual_filing_date": "2026-08-06",
+        "current_forecast_period_end": "2026-09-30",
+        "current_forecast_filing_date": "2026-08-06",
+        "prior_forecast_period_end": "2025-09-30",
+        "prior_forecast_filing_date": "2025-08-07",
+        "source": "TDnet XBRL"
+      },
+      "latest_result_vs_market_consensus": {
+        "status": "unavailable",
+        "comparison": "unavailable",
+        "reason": "market_consensus_not_configured",
+        "provider": "unavailable"
+      }
+    },
+    "7994.T": {
+      "status": "ok",
+      "improving": false,
+      "reason": null,
+      "current_year_eps_estimate": 222.87,
+      "prior_year_eps": 236.8,
+      "earnings_growth": -0.058826,
+      "forecast_period_end": "2027-03-31",
+      "prior_period_end": "2026-03-31",
+      "forecast_filing_date": "2026-08-07",
+      "prior_filing_date": "2026-05-11",
+      "source": "TDnet XBRL",
+      "latest_result_vs_company_forecast": {
+        "status": "unavailable",
+        "comparison": "unavailable",
+        "reason": "latest_result_or_same_period_company_forecast_missing",
+        "source": "TDnet XBRL"
+      },
+      "latest_progress_vs_prior": {
+        "status": "ok",
+        "comparison": "acceptable",
+        "reason": null,
+        "metric": "ordinary_income",
+        "current_actual": 4247000000.0,
+        "current_full_year_forecast": 8000000000.0,
+        "prior_same_period_actual": 3939000000.0,
+        "prior_full_year_forecast": 9300000000.0,
+        "current_progress_pct": 53.0875,
+        "prior_progress_pct": 42.3548,
+        "progress_gap_pp": 10.7327,
+        "relative_progress_deterioration_pct": -25.3399,
+        "same_period_profit_yoy_pct": 7.8192,
+        "thresholds": {
+          "relative_progress_deterioration_pct": 30.0,
+          "progress_gap_pp": 5.0,
+          "same_period_profit_decline_pct": 20.0
+        },
+        "current_period_end": "2026-06-30",
+        "prior_period_end": "2025-06-30",
+        "period_days": 91,
+        "current_actual_filing_date": "2026-08-07",
+        "current_forecast_period_end": "2026-09-30",
+        "current_forecast_filing_date": "2026-08-07",
+        "prior_forecast_period_end": "2025-09-30",
+        "prior_forecast_filing_date": "2025-08-08",
+        "source": "TDnet XBRL"
+      },
+      "latest_result_vs_market_consensus": {
+        "status": "unavailable",
+        "comparison": "unavailable",
+        "reason": "market_consensus_not_configured",
+        "provider": "unavailable"
+      }
+    },
     "6908.T": {
       "status": "ok",
       "improving": false,
@@ -2280,18 +2558,12 @@
         "provider": "unavailable"
       }
     },
-    "4996.T": {
-      "status": "ok",
-      "improving": false,
-      "reason": null,
-      "current_year_eps_estimate": 33.2,
-      "prior_year_eps": 36.38,
-      "earnings_growth": -0.087411,
-      "forecast_period_end": "2026-10-31",
-      "prior_period_end": "2025-10-31",
-      "forecast_filing_date": "2026-09-11",
-      "prior_filing_date": "2025-12-12",
-      "source": "TDnet XBRL",
+    "3245.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "forecast_eps_missing",
+      "current_year_eps_estimate": null,
+      "prior_year_eps": null,
       "latest_result_vs_company_forecast": {
         "status": "unavailable",
         "comparison": "unavailable",
@@ -2303,28 +2575,28 @@
         "comparison": "acceptable",
         "reason": null,
         "metric": "ordinary_income",
-        "current_actual": 12205000000.0,
-        "current_full_year_forecast": 8500000000.0,
-        "prior_same_period_actual": 11567000000.0,
-        "prior_full_year_forecast": 14500000000.0,
-        "current_progress_pct": 143.5882,
-        "prior_progress_pct": 79.7724,
-        "progress_gap_pp": 63.8158,
-        "relative_progress_deterioration_pct": -79.9974,
-        "same_period_profit_yoy_pct": 5.5157,
+        "current_actual": 2695000000.0,
+        "current_full_year_forecast": 6121000000.0,
+        "prior_same_period_actual": 3008000000.0,
+        "prior_full_year_forecast": 10000000000.0,
+        "current_progress_pct": 44.0288,
+        "prior_progress_pct": 30.08,
+        "progress_gap_pp": 13.9488,
+        "relative_progress_deterioration_pct": -46.3722,
+        "same_period_profit_yoy_pct": -10.4056,
         "thresholds": {
           "relative_progress_deterioration_pct": 30.0,
           "progress_gap_pp": 5.0,
           "same_period_profit_decline_pct": 20.0
         },
-        "current_period_end": "2026-07-31",
-        "prior_period_end": "2025-07-31",
+        "current_period_end": "2026-06-30",
+        "prior_period_end": "2025-06-30",
         "period_days": 273,
-        "current_actual_filing_date": "2026-09-11",
-        "current_forecast_period_end": "2026-10-31",
-        "current_forecast_filing_date": "2026-09-11",
-        "prior_forecast_period_end": "2025-10-31",
-        "prior_forecast_filing_date": "2025-09-05",
+        "current_actual_filing_date": "2026-08-13",
+        "current_forecast_period_end": "2026-09-30",
+        "current_forecast_filing_date": "2026-09-24",
+        "prior_forecast_period_end": "2025-09-30",
+        "prior_forecast_filing_date": "2025-08-08",
         "source": "TDnet XBRL"
       },
       "latest_result_vs_market_consensus": {
@@ -2388,6 +2660,60 @@
         "provider": "unavailable"
       }
     },
+    "7972.T": {
+      "status": "ok",
+      "improving": true,
+      "reason": null,
+      "current_year_eps_estimate": 226.5,
+      "prior_year_eps": 190.17,
+      "earnings_growth": 0.19104,
+      "forecast_period_end": "2026-12-31",
+      "prior_period_end": "2025-12-31",
+      "forecast_filing_date": "2026-08-06",
+      "prior_filing_date": "2026-02-13",
+      "source": "TDnet XBRL",
+      "latest_result_vs_company_forecast": {
+        "status": "unavailable",
+        "comparison": "unavailable",
+        "reason": "latest_result_or_same_period_company_forecast_missing",
+        "source": "TDnet XBRL"
+      },
+      "latest_progress_vs_prior": {
+        "status": "ok",
+        "comparison": "acceptable",
+        "reason": null,
+        "metric": "ordinary_income",
+        "current_actual": 11580000000.0,
+        "current_full_year_forecast": 16000000000.0,
+        "prior_same_period_actual": 10497000000.0,
+        "prior_full_year_forecast": 12000000000.0,
+        "current_progress_pct": 72.375,
+        "prior_progress_pct": 87.475,
+        "progress_gap_pp": -15.1,
+        "relative_progress_deterioration_pct": 17.2621,
+        "same_period_profit_yoy_pct": 10.3172,
+        "thresholds": {
+          "relative_progress_deterioration_pct": 30.0,
+          "progress_gap_pp": 5.0,
+          "same_period_profit_decline_pct": 20.0
+        },
+        "current_period_end": "2026-06-30",
+        "prior_period_end": "2025-06-30",
+        "period_days": 181,
+        "current_actual_filing_date": "2026-08-06",
+        "current_forecast_period_end": "2026-12-31",
+        "current_forecast_filing_date": "2026-08-06",
+        "prior_forecast_period_end": "2025-12-31",
+        "prior_forecast_filing_date": "2025-08-04",
+        "source": "TDnet XBRL"
+      },
+      "latest_result_vs_market_consensus": {
+        "status": "unavailable",
+        "comparison": "unavailable",
+        "reason": "market_consensus_not_configured",
+        "provider": "unavailable"
+      }
+    },
     "7157.T": {
       "status": "unavailable",
       "improving": null,
@@ -2413,6 +2739,60 @@
         "current_forecast_filing_date": "2023-02-09",
         "prior_forecast_period_end": "2022-03-31",
         "prior_forecast_filing_date": "2022-02-10",
+        "source": "TDnet XBRL"
+      },
+      "latest_result_vs_market_consensus": {
+        "status": "unavailable",
+        "comparison": "unavailable",
+        "reason": "market_consensus_not_configured",
+        "provider": "unavailable"
+      }
+    },
+    "4996.T": {
+      "status": "ok",
+      "improving": false,
+      "reason": null,
+      "current_year_eps_estimate": 33.2,
+      "prior_year_eps": 36.38,
+      "earnings_growth": -0.087411,
+      "forecast_period_end": "2026-10-31",
+      "prior_period_end": "2025-10-31",
+      "forecast_filing_date": "2026-09-11",
+      "prior_filing_date": "2025-12-12",
+      "source": "TDnet XBRL",
+      "latest_result_vs_company_forecast": {
+        "status": "unavailable",
+        "comparison": "unavailable",
+        "reason": "latest_result_or_same_period_company_forecast_missing",
+        "source": "TDnet XBRL"
+      },
+      "latest_progress_vs_prior": {
+        "status": "ok",
+        "comparison": "acceptable",
+        "reason": null,
+        "metric": "ordinary_income",
+        "current_actual": 12205000000.0,
+        "current_full_year_forecast": 8500000000.0,
+        "prior_same_period_actual": 11567000000.0,
+        "prior_full_year_forecast": 14500000000.0,
+        "current_progress_pct": 143.5882,
+        "prior_progress_pct": 79.7724,
+        "progress_gap_pp": 63.8158,
+        "relative_progress_deterioration_pct": -79.9974,
+        "same_period_profit_yoy_pct": 5.5157,
+        "thresholds": {
+          "relative_progress_deterioration_pct": 30.0,
+          "progress_gap_pp": 5.0,
+          "same_period_profit_decline_pct": 20.0
+        },
+        "current_period_end": "2026-07-31",
+        "prior_period_end": "2025-07-31",
+        "period_days": 273,
+        "current_actual_filing_date": "2026-09-11",
+        "current_forecast_period_end": "2026-10-31",
+        "current_forecast_filing_date": "2026-09-11",
+        "prior_forecast_period_end": "2025-10-31",
+        "prior_forecast_filing_date": "2025-09-05",
         "source": "TDnet XBRL"
       },
       "latest_result_vs_market_consensus": {
@@ -2470,17 +2850,17 @@
         "provider": "unavailable"
       }
     },
-    "2292.T": {
+    "8934.T": {
       "status": "ok",
       "improving": false,
       "reason": null,
-      "current_year_eps_estimate": 205.07,
-      "prior_year_eps": 291.7,
-      "earnings_growth": -0.296983,
-      "forecast_period_end": "2027-02-28",
-      "prior_period_end": "2026-02-28",
-      "forecast_filing_date": "2026-10-14",
-      "prior_filing_date": "2026-05-20",
+      "current_year_eps_estimate": 304.28,
+      "prior_year_eps": 327.76,
+      "earnings_growth": -0.071638,
+      "forecast_period_end": "2027-03-31",
+      "prior_period_end": "2026-03-31",
+      "forecast_filing_date": "2026-08-06",
+      "prior_filing_date": "2026-05-11",
       "source": "TDnet XBRL",
       "latest_result_vs_company_forecast": {
         "status": "unavailable",
@@ -2493,28 +2873,28 @@
         "comparison": "acceptable",
         "reason": null,
         "metric": "ordinary_income",
-        "current_actual": 5021000000.0,
-        "current_full_year_forecast": 11000000000.0,
-        "prior_same_period_actual": 4042000000.0,
-        "prior_full_year_forecast": 8500000000.0,
-        "current_progress_pct": 45.6455,
-        "prior_progress_pct": 47.5529,
-        "progress_gap_pp": -1.9075,
-        "relative_progress_deterioration_pct": 4.0113,
-        "same_period_profit_yoy_pct": 24.2207,
+        "current_actual": 5895000000.0,
+        "current_full_year_forecast": 26000000000.0,
+        "prior_same_period_actual": 5783000000.0,
+        "prior_full_year_forecast": 22500000000.0,
+        "current_progress_pct": 22.6731,
+        "prior_progress_pct": 25.7022,
+        "progress_gap_pp": -3.0291,
+        "relative_progress_deterioration_pct": 11.7855,
+        "same_period_profit_yoy_pct": 1.9367,
         "thresholds": {
           "relative_progress_deterioration_pct": 30.0,
           "progress_gap_pp": 5.0,
           "same_period_profit_decline_pct": 20.0
         },
-        "current_period_end": "2026-08-31",
-        "prior_period_end": "2025-08-31",
-        "period_days": 184,
-        "current_actual_filing_date": "2026-10-14",
-        "current_forecast_period_end": "2027-02-28",
-        "current_forecast_filing_date": "2026-10-14",
-        "prior_forecast_period_end": "2026-02-28",
-        "prior_forecast_filing_date": "2025-10-14",
+        "current_period_end": "2026-06-30",
+        "prior_period_end": "2025-06-30",
+        "period_days": 91,
+        "current_actual_filing_date": "2026-08-06",
+        "current_forecast_period_end": "2027-03-31",
+        "current_forecast_filing_date": "2026-08-06",
+        "prior_forecast_period_end": "2026-03-31",
+        "prior_forecast_filing_date": "2025-08-07",
         "source": "TDnet XBRL"
       },
       "latest_result_vs_market_consensus": {
@@ -2692,60 +3072,6 @@
         "provider": "unavailable"
       }
     },
-    "4825.T": {
-      "status": "ok",
-      "improving": true,
-      "reason": null,
-      "current_year_eps_estimate": 85.78,
-      "prior_year_eps": 85.76,
-      "earnings_growth": 0.000233,
-      "forecast_period_end": "2027-05-31",
-      "prior_period_end": "2026-05-31",
-      "forecast_filing_date": "2026-10-08",
-      "prior_filing_date": "2026-07-09",
-      "source": "TDnet XBRL",
-      "latest_result_vs_company_forecast": {
-        "status": "unavailable",
-        "comparison": "unavailable",
-        "reason": "latest_result_or_same_period_company_forecast_missing",
-        "source": "TDnet XBRL"
-      },
-      "latest_progress_vs_prior": {
-        "status": "ok",
-        "comparison": "acceptable",
-        "reason": null,
-        "metric": "ordinary_income",
-        "current_actual": 896558000.0,
-        "current_full_year_forecast": 5500000000.0,
-        "prior_same_period_actual": 915780000.0,
-        "prior_full_year_forecast": 5000000000.0,
-        "current_progress_pct": 16.3011,
-        "prior_progress_pct": 18.3156,
-        "progress_gap_pp": -2.0145,
-        "relative_progress_deterioration_pct": 10.9991,
-        "same_period_profit_yoy_pct": -2.099,
-        "thresholds": {
-          "relative_progress_deterioration_pct": 30.0,
-          "progress_gap_pp": 5.0,
-          "same_period_profit_decline_pct": 20.0
-        },
-        "current_period_end": "2026-08-31",
-        "prior_period_end": "2025-08-31",
-        "period_days": 92,
-        "current_actual_filing_date": "2026-10-08",
-        "current_forecast_period_end": "2027-05-31",
-        "current_forecast_filing_date": "2026-10-08",
-        "prior_forecast_period_end": "2026-05-31",
-        "prior_forecast_filing_date": "2025-10-08",
-        "source": "TDnet XBRL"
-      },
-      "latest_result_vs_market_consensus": {
-        "status": "unavailable",
-        "comparison": "unavailable",
-        "reason": "market_consensus_not_configured",
-        "provider": "unavailable"
-      }
-    },
     "3222.T": {
       "status": "ok",
       "improving": false,
@@ -2791,6 +3117,60 @@
         "current_forecast_filing_date": "2026-10-09",
         "prior_forecast_period_end": "2026-02-28",
         "prior_forecast_filing_date": "2025-10-09",
+        "source": "TDnet XBRL"
+      },
+      "latest_result_vs_market_consensus": {
+        "status": "unavailable",
+        "comparison": "unavailable",
+        "reason": "market_consensus_not_configured",
+        "provider": "unavailable"
+      }
+    },
+    "2315.T": {
+      "status": "ok",
+      "improving": false,
+      "reason": null,
+      "current_year_eps_estimate": 0.66,
+      "prior_year_eps": 1.22,
+      "earnings_growth": -0.459016,
+      "forecast_period_end": "2026-10-31",
+      "prior_period_end": "2025-10-31",
+      "forecast_filing_date": "2026-09-14",
+      "prior_filing_date": "2025-12-19",
+      "source": "TDnet XBRL",
+      "latest_result_vs_company_forecast": {
+        "status": "unavailable",
+        "comparison": "unavailable",
+        "reason": "latest_result_or_same_period_company_forecast_missing",
+        "source": "TDnet XBRL"
+      },
+      "latest_progress_vs_prior": {
+        "status": "ok",
+        "comparison": "deteriorated",
+        "reason": "progress_and_same_period_profit_significantly_deteriorated",
+        "metric": "ordinary_income",
+        "current_actual": -12167000.0,
+        "current_full_year_forecast": 107000000.0,
+        "prior_same_period_actual": 74203000.0,
+        "prior_full_year_forecast": 141000000.0,
+        "current_progress_pct": -11.371,
+        "prior_progress_pct": 52.6262,
+        "progress_gap_pp": -63.9973,
+        "relative_progress_deterioration_pct": 121.6071,
+        "same_period_profit_yoy_pct": -116.3969,
+        "thresholds": {
+          "relative_progress_deterioration_pct": 30.0,
+          "progress_gap_pp": 5.0,
+          "same_period_profit_decline_pct": 20.0
+        },
+        "current_period_end": "2026-07-31",
+        "prior_period_end": "2025-07-31",
+        "period_days": 273,
+        "current_actual_filing_date": "2026-09-14",
+        "current_forecast_period_end": "2026-10-31",
+        "current_forecast_filing_date": "2026-09-14",
+        "prior_forecast_period_end": "2025-10-31",
+        "prior_forecast_filing_date": "2025-09-12",
         "source": "TDnet XBRL"
       },
       "latest_result_vs_market_consensus": {
@@ -2846,6 +3226,120 @@
         "provider": "unavailable"
       }
     },
+    "7224.T": {
+      "status": "ok",
+      "improving": false,
+      "reason": null,
+      "current_year_eps_estimate": 158.75,
+      "prior_year_eps": 174.02,
+      "earnings_growth": -0.087749,
+      "forecast_period_end": "2027-03-31",
+      "prior_period_end": "2026-03-31",
+      "forecast_filing_date": "2026-07-31",
+      "prior_filing_date": "2026-05-08",
+      "source": "TDnet XBRL",
+      "latest_result_vs_company_forecast": {
+        "status": "unavailable",
+        "comparison": "unavailable",
+        "reason": "latest_result_or_same_period_company_forecast_missing",
+        "source": "TDnet XBRL"
+      },
+      "latest_progress_vs_prior": {
+        "status": "ok",
+        "comparison": "acceptable",
+        "reason": null,
+        "metric": "ordinary_income",
+        "current_actual": 2738000000.0,
+        "current_full_year_forecast": 15500000000.0,
+        "prior_same_period_actual": 1500000000.0,
+        "prior_full_year_forecast": 14000000000.0,
+        "current_progress_pct": 17.6645,
+        "prior_progress_pct": 10.7143,
+        "progress_gap_pp": 6.9502,
+        "relative_progress_deterioration_pct": -64.8688,
+        "same_period_profit_yoy_pct": 82.5333,
+        "thresholds": {
+          "relative_progress_deterioration_pct": 30.0,
+          "progress_gap_pp": 5.0,
+          "same_period_profit_decline_pct": 20.0
+        },
+        "current_period_end": "2026-06-30",
+        "prior_period_end": "2025-06-30",
+        "period_days": 91,
+        "current_actual_filing_date": "2026-07-31",
+        "current_forecast_period_end": "2027-03-31",
+        "current_forecast_filing_date": "2026-07-31",
+        "prior_forecast_period_end": "2026-03-31",
+        "prior_forecast_filing_date": "2025-07-31",
+        "source": "TDnet XBRL"
+      },
+      "latest_result_vs_market_consensus": {
+        "status": "unavailable",
+        "comparison": "unavailable",
+        "reason": "market_consensus_not_configured",
+        "provider": "unavailable"
+      }
+    },
+    "9416.T": {
+      "status": "ok",
+      "improving": true,
+      "reason": null,
+      "current_year_eps_estimate": 103.64,
+      "prior_year_eps": 92.12,
+      "earnings_growth": 0.125054,
+      "forecast_period_end": "2026-12-31",
+      "prior_period_end": "2025-12-31",
+      "forecast_filing_date": "2026-08-10",
+      "prior_filing_date": "2026-02-13",
+      "source": "TDnet XBRL",
+      "latest_result_vs_company_forecast": {
+        "status": "ok",
+        "comparison": "missed",
+        "reason": null,
+        "actual_eps": 41.55,
+        "forecast_eps": 44.71,
+        "period_end": "2026-06-30",
+        "period_days": 181,
+        "actual_filing_date": "2026-08-10",
+        "forecast_filing_date": "2026-05-14",
+        "source": "TDnet XBRL"
+      },
+      "latest_progress_vs_prior": {
+        "status": "ok",
+        "comparison": "acceptable",
+        "reason": null,
+        "metric": "ordinary_income",
+        "current_actual": 3048941000.0,
+        "current_full_year_forecast": 7497000000.0,
+        "prior_same_period_actual": 2910835000.0,
+        "prior_full_year_forecast": 6445000000.0,
+        "current_progress_pct": 40.6688,
+        "prior_progress_pct": 45.1642,
+        "progress_gap_pp": -4.4954,
+        "relative_progress_deterioration_pct": 9.9535,
+        "same_period_profit_yoy_pct": 4.7445,
+        "thresholds": {
+          "relative_progress_deterioration_pct": 30.0,
+          "progress_gap_pp": 5.0,
+          "same_period_profit_decline_pct": 20.0
+        },
+        "current_period_end": "2026-06-30",
+        "prior_period_end": "2025-06-30",
+        "period_days": 181,
+        "current_actual_filing_date": "2026-08-10",
+        "current_forecast_period_end": "2026-12-31",
+        "current_forecast_filing_date": "2026-08-10",
+        "prior_forecast_period_end": "2025-12-31",
+        "prior_forecast_filing_date": "2025-08-08",
+        "source": "TDnet XBRL"
+      },
+      "latest_result_vs_market_consensus": {
+        "status": "unavailable",
+        "comparison": "unavailable",
+        "reason": "market_consensus_not_configured",
+        "provider": "unavailable"
+      }
+    },
     "3656.T": {
       "status": "unavailable",
       "improving": null,
@@ -2862,46 +3356,6 @@
         "status": "unavailable",
         "comparison": "unavailable",
         "reason": "latest_quarter_or_prior_same_period_forecast_missing",
-        "source": "TDnet XBRL"
-      },
-      "latest_result_vs_market_consensus": {
-        "status": "unavailable",
-        "comparison": "unavailable",
-        "reason": "market_consensus_not_configured",
-        "provider": "unavailable"
-      }
-    },
-    "7412.T": {
-      "status": "ok",
-      "improving": true,
-      "reason": null,
-      "current_year_eps_estimate": -0.01,
-      "prior_year_eps": -7.86,
-      "earnings_growth": 0.998728,
-      "forecast_period_end": "2027-03-31",
-      "prior_period_end": "2026-03-31",
-      "forecast_filing_date": "2026-08-12",
-      "prior_filing_date": "2026-05-08",
-      "source": "TDnet XBRL",
-      "latest_result_vs_company_forecast": {
-        "status": "unavailable",
-        "comparison": "unavailable",
-        "reason": "latest_result_or_same_period_company_forecast_missing",
-        "source": "TDnet XBRL"
-      },
-      "latest_progress_vs_prior": {
-        "status": "unavailable",
-        "comparison": "unavailable",
-        "reason": "progress_denominator_not_positive",
-        "metric": "ordinary_income",
-        "current_period_end": "2026-06-30",
-        "prior_period_end": "2025-06-30",
-        "period_days": 91,
-        "current_actual_filing_date": "2026-08-12",
-        "current_forecast_period_end": "2027-03-31",
-        "current_forecast_filing_date": "2026-08-12",
-        "prior_forecast_period_end": "2026-03-31",
-        "prior_forecast_filing_date": "2025-08-13",
         "source": "TDnet XBRL"
       },
       "latest_result_vs_market_consensus": {
@@ -2965,6 +3419,100 @@
         "provider": "unavailable"
       }
     },
+    "6458.T": {
+      "status": "ok",
+      "improving": true,
+      "reason": null,
+      "current_year_eps_estimate": 107.23,
+      "prior_year_eps": 99.59,
+      "earnings_growth": 0.076715,
+      "forecast_period_end": "2027-03-31",
+      "prior_period_end": "2026-03-31",
+      "forecast_filing_date": "2026-08-06",
+      "prior_filing_date": "2026-05-14",
+      "source": "TDnet XBRL",
+      "latest_result_vs_company_forecast": {
+        "status": "unavailable",
+        "comparison": "unavailable",
+        "reason": "latest_result_or_same_period_company_forecast_missing",
+        "source": "TDnet XBRL"
+      },
+      "latest_progress_vs_prior": {
+        "status": "ok",
+        "comparison": "acceptable",
+        "reason": null,
+        "metric": "ordinary_income",
+        "current_actual": 1535000000.0,
+        "current_full_year_forecast": 3100000000.0,
+        "prior_same_period_actual": 1917000000.0,
+        "prior_full_year_forecast": 3600000000.0,
+        "current_progress_pct": 49.5161,
+        "prior_progress_pct": 53.25,
+        "progress_gap_pp": -3.7339,
+        "relative_progress_deterioration_pct": 7.012,
+        "same_period_profit_yoy_pct": -19.927,
+        "thresholds": {
+          "relative_progress_deterioration_pct": 30.0,
+          "progress_gap_pp": 5.0,
+          "same_period_profit_decline_pct": 20.0
+        },
+        "current_period_end": "2026-06-30",
+        "prior_period_end": "2025-06-30",
+        "period_days": 91,
+        "current_actual_filing_date": "2026-08-06",
+        "current_forecast_period_end": "2026-09-30",
+        "current_forecast_filing_date": "2026-08-06",
+        "prior_forecast_period_end": "2025-09-30",
+        "prior_forecast_filing_date": "2025-08-07",
+        "source": "TDnet XBRL"
+      },
+      "latest_result_vs_market_consensus": {
+        "status": "unavailable",
+        "comparison": "unavailable",
+        "reason": "market_consensus_not_configured",
+        "provider": "unavailable"
+      }
+    },
+    "7412.T": {
+      "status": "ok",
+      "improving": true,
+      "reason": null,
+      "current_year_eps_estimate": -0.01,
+      "prior_year_eps": -7.86,
+      "earnings_growth": 0.998728,
+      "forecast_period_end": "2027-03-31",
+      "prior_period_end": "2026-03-31",
+      "forecast_filing_date": "2026-08-12",
+      "prior_filing_date": "2026-05-08",
+      "source": "TDnet XBRL",
+      "latest_result_vs_company_forecast": {
+        "status": "unavailable",
+        "comparison": "unavailable",
+        "reason": "latest_result_or_same_period_company_forecast_missing",
+        "source": "TDnet XBRL"
+      },
+      "latest_progress_vs_prior": {
+        "status": "unavailable",
+        "comparison": "unavailable",
+        "reason": "progress_denominator_not_positive",
+        "metric": "ordinary_income",
+        "current_period_end": "2026-06-30",
+        "prior_period_end": "2025-06-30",
+        "period_days": 91,
+        "current_actual_filing_date": "2026-08-12",
+        "current_forecast_period_end": "2027-03-31",
+        "current_forecast_filing_date": "2026-08-12",
+        "prior_forecast_period_end": "2026-03-31",
+        "prior_forecast_filing_date": "2025-08-13",
+        "source": "TDnet XBRL"
+      },
+      "latest_result_vs_market_consensus": {
+        "status": "unavailable",
+        "comparison": "unavailable",
+        "reason": "market_consensus_not_configured",
+        "provider": "unavailable"
+      }
+    },
     "3482.T": {
       "status": "ok",
       "improving": false,
@@ -3010,6 +3558,160 @@
         "current_forecast_filing_date": "2026-08-06",
         "prior_forecast_period_end": "2025-12-31",
         "prior_forecast_filing_date": "2025-08-08",
+        "source": "TDnet XBRL"
+      },
+      "latest_result_vs_market_consensus": {
+        "status": "unavailable",
+        "comparison": "unavailable",
+        "reason": "market_consensus_not_configured",
+        "provider": "unavailable"
+      }
+    },
+    "1419.T": {
+      "status": "ok",
+      "improving": true,
+      "reason": null,
+      "current_year_eps_estimate": 137.99,
+      "prior_year_eps": 41.86,
+      "earnings_growth": 2.296464,
+      "forecast_period_end": "2027-05-31",
+      "prior_period_end": "2026-05-31",
+      "forecast_filing_date": "2026-10-13",
+      "prior_filing_date": "2026-07-14",
+      "source": "TDnet XBRL",
+      "latest_result_vs_company_forecast": {
+        "status": "unavailable",
+        "comparison": "unavailable",
+        "reason": "latest_result_or_same_period_company_forecast_missing",
+        "source": "TDnet XBRL"
+      },
+      "latest_progress_vs_prior": {
+        "status": "unavailable",
+        "comparison": "unavailable",
+        "reason": "progress_denominator_not_positive",
+        "metric": "ordinary_income",
+        "current_period_end": "2026-08-31",
+        "prior_period_end": "2025-08-31",
+        "period_days": 92,
+        "current_actual_filing_date": "2026-10-13",
+        "current_forecast_period_end": "2027-05-31",
+        "current_forecast_filing_date": "2026-10-13",
+        "prior_forecast_period_end": "2026-05-31",
+        "prior_forecast_filing_date": "2025-10-14",
+        "source": "TDnet XBRL"
+      },
+      "latest_result_vs_market_consensus": {
+        "status": "unavailable",
+        "comparison": "unavailable",
+        "reason": "market_consensus_not_configured",
+        "provider": "unavailable"
+      }
+    },
+    "4499.T": {
+      "status": "ok",
+      "improving": false,
+      "reason": null,
+      "current_year_eps_estimate": -126.44,
+      "prior_year_eps": -84.88,
+      "earnings_growth": -0.489632,
+      "forecast_period_end": "2026-09-30",
+      "prior_period_end": "2025-09-30",
+      "forecast_filing_date": "2026-08-14",
+      "prior_filing_date": "2025-11-14",
+      "source": "TDnet XBRL",
+      "latest_result_vs_company_forecast": {
+        "status": "unavailable",
+        "comparison": "unavailable",
+        "reason": "latest_result_or_same_period_company_forecast_missing",
+        "source": "TDnet XBRL"
+      },
+      "latest_progress_vs_prior": {
+        "status": "unavailable",
+        "comparison": "unavailable",
+        "reason": "progress_denominator_not_positive",
+        "metric": "ordinary_income",
+        "current_period_end": "2026-06-30",
+        "prior_period_end": "2025-06-30",
+        "period_days": 273,
+        "current_actual_filing_date": "2026-08-14",
+        "current_forecast_period_end": "2026-09-30",
+        "current_forecast_filing_date": "2026-08-14",
+        "prior_forecast_period_end": "2025-09-30",
+        "prior_forecast_filing_date": "2025-08-14",
+        "source": "TDnet XBRL"
+      },
+      "latest_result_vs_market_consensus": {
+        "status": "unavailable",
+        "comparison": "unavailable",
+        "reason": "market_consensus_not_configured",
+        "provider": "unavailable"
+      }
+    },
+    "4344.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "forecast_eps_missing",
+      "current_year_eps_estimate": null,
+      "prior_year_eps": null,
+      "latest_result_vs_company_forecast": {
+        "status": "unavailable",
+        "comparison": "unavailable",
+        "reason": "latest_result_or_same_period_company_forecast_missing",
+        "source": "TDnet XBRL"
+      },
+      "latest_progress_vs_prior": {
+        "status": "unavailable",
+        "comparison": "unavailable",
+        "reason": "progress_denominator_not_positive",
+        "metric": "ordinary_income",
+        "current_period_end": "2023-12-31",
+        "prior_period_end": "2022-12-31",
+        "period_days": 275,
+        "current_actual_filing_date": "2024-02-14",
+        "current_forecast_period_end": "2024-03-31",
+        "current_forecast_filing_date": "2024-02-14",
+        "prior_forecast_period_end": "2023-03-31",
+        "prior_forecast_filing_date": "2023-02-14",
+        "source": "TDnet XBRL"
+      },
+      "latest_result_vs_market_consensus": {
+        "status": "unavailable",
+        "comparison": "unavailable",
+        "reason": "market_consensus_not_configured",
+        "provider": "unavailable"
+      }
+    },
+    "2168.T": {
+      "status": "ok",
+      "improving": true,
+      "reason": null,
+      "current_year_eps_estimate": -26.77,
+      "prior_year_eps": -90.07,
+      "earnings_growth": 0.702787,
+      "forecast_period_end": "2027-05-31",
+      "prior_period_end": "2026-05-31",
+      "forecast_filing_date": "2026-10-15",
+      "prior_filing_date": "2026-07-15",
+      "source": "TDnet XBRL",
+      "latest_result_vs_company_forecast": {
+        "status": "unavailable",
+        "comparison": "unavailable",
+        "reason": "latest_result_or_same_period_company_forecast_missing",
+        "source": "TDnet XBRL"
+      },
+      "latest_progress_vs_prior": {
+        "status": "unavailable",
+        "comparison": "unavailable",
+        "reason": "progress_denominator_not_positive",
+        "metric": "ordinary_income",
+        "current_period_end": "2026-08-31",
+        "prior_period_end": "2025-08-31",
+        "period_days": 92,
+        "current_actual_filing_date": "2026-10-15",
+        "current_forecast_period_end": "2027-05-31",
+        "current_forecast_filing_date": "2026-10-15",
+        "prior_forecast_period_end": "2026-05-31",
+        "prior_forecast_filing_date": "2025-10-15",
         "source": "TDnet XBRL"
       },
       "latest_result_vs_market_consensus": {
@@ -3073,46 +3775,6 @@
         "provider": "unavailable"
       }
     },
-    "4499.T": {
-      "status": "ok",
-      "improving": false,
-      "reason": null,
-      "current_year_eps_estimate": -126.44,
-      "prior_year_eps": -84.88,
-      "earnings_growth": -0.489632,
-      "forecast_period_end": "2026-09-30",
-      "prior_period_end": "2025-09-30",
-      "forecast_filing_date": "2026-08-14",
-      "prior_filing_date": "2025-11-14",
-      "source": "TDnet XBRL",
-      "latest_result_vs_company_forecast": {
-        "status": "unavailable",
-        "comparison": "unavailable",
-        "reason": "latest_result_or_same_period_company_forecast_missing",
-        "source": "TDnet XBRL"
-      },
-      "latest_progress_vs_prior": {
-        "status": "unavailable",
-        "comparison": "unavailable",
-        "reason": "progress_denominator_not_positive",
-        "metric": "ordinary_income",
-        "current_period_end": "2026-06-30",
-        "prior_period_end": "2025-06-30",
-        "period_days": 273,
-        "current_actual_filing_date": "2026-08-14",
-        "current_forecast_period_end": "2026-09-30",
-        "current_forecast_filing_date": "2026-08-14",
-        "prior_forecast_period_end": "2025-09-30",
-        "prior_forecast_filing_date": "2025-08-14",
-        "source": "TDnet XBRL"
-      },
-      "latest_result_vs_market_consensus": {
-        "status": "unavailable",
-        "comparison": "unavailable",
-        "reason": "market_consensus_not_configured",
-        "provider": "unavailable"
-      }
-    },
     "4569.T": {
       "status": "ok",
       "improving": false,
@@ -3144,80 +3806,6 @@
         "current_forecast_filing_date": "2026-07-30",
         "prior_forecast_period_end": "2025-09-30",
         "prior_forecast_filing_date": "2025-07-31",
-        "source": "TDnet XBRL"
-      },
-      "latest_result_vs_market_consensus": {
-        "status": "unavailable",
-        "comparison": "unavailable",
-        "reason": "market_consensus_not_configured",
-        "provider": "unavailable"
-      }
-    },
-    "2168.T": {
-      "status": "ok",
-      "improving": true,
-      "reason": null,
-      "current_year_eps_estimate": -26.77,
-      "prior_year_eps": -90.07,
-      "earnings_growth": 0.702787,
-      "forecast_period_end": "2027-05-31",
-      "prior_period_end": "2026-05-31",
-      "forecast_filing_date": "2026-10-15",
-      "prior_filing_date": "2026-07-15",
-      "source": "TDnet XBRL",
-      "latest_result_vs_company_forecast": {
-        "status": "unavailable",
-        "comparison": "unavailable",
-        "reason": "latest_result_or_same_period_company_forecast_missing",
-        "source": "TDnet XBRL"
-      },
-      "latest_progress_vs_prior": {
-        "status": "unavailable",
-        "comparison": "unavailable",
-        "reason": "progress_denominator_not_positive",
-        "metric": "ordinary_income",
-        "current_period_end": "2026-08-31",
-        "prior_period_end": "2025-08-31",
-        "period_days": 92,
-        "current_actual_filing_date": "2026-10-15",
-        "current_forecast_period_end": "2027-05-31",
-        "current_forecast_filing_date": "2026-10-15",
-        "prior_forecast_period_end": "2026-05-31",
-        "prior_forecast_filing_date": "2025-10-15",
-        "source": "TDnet XBRL"
-      },
-      "latest_result_vs_market_consensus": {
-        "status": "unavailable",
-        "comparison": "unavailable",
-        "reason": "market_consensus_not_configured",
-        "provider": "unavailable"
-      }
-    },
-    "4344.T": {
-      "status": "unavailable",
-      "improving": null,
-      "reason": "forecast_eps_missing",
-      "current_year_eps_estimate": null,
-      "prior_year_eps": null,
-      "latest_result_vs_company_forecast": {
-        "status": "unavailable",
-        "comparison": "unavailable",
-        "reason": "latest_result_or_same_period_company_forecast_missing",
-        "source": "TDnet XBRL"
-      },
-      "latest_progress_vs_prior": {
-        "status": "unavailable",
-        "comparison": "unavailable",
-        "reason": "progress_denominator_not_positive",
-        "metric": "ordinary_income",
-        "current_period_end": "2023-12-31",
-        "prior_period_end": "2022-12-31",
-        "period_days": 275,
-        "current_actual_filing_date": "2024-02-14",
-        "current_forecast_period_end": "2024-03-31",
-        "current_forecast_filing_date": "2024-02-14",
-        "prior_forecast_period_end": "2023-03-31",
-        "prior_forecast_filing_date": "2023-02-14",
         "source": "TDnet XBRL"
       },
       "latest_result_vs_market_consensus": {
@@ -3267,46 +3855,6 @@
         "provider": "unavailable"
       }
     },
-    "3865.T": {
-      "status": "ok",
-      "improving": false,
-      "reason": null,
-      "current_year_eps_estimate": 31.49,
-      "prior_year_eps": 43.59,
-      "earnings_growth": -0.277587,
-      "forecast_period_end": "2027-03-31",
-      "prior_period_end": "2026-03-31",
-      "forecast_filing_date": "2026-08-07",
-      "prior_filing_date": "2026-05-15",
-      "source": "TDnet XBRL",
-      "latest_result_vs_company_forecast": {
-        "status": "unavailable",
-        "comparison": "unavailable",
-        "reason": "latest_result_or_same_period_company_forecast_missing",
-        "source": "TDnet XBRL"
-      },
-      "latest_progress_vs_prior": {
-        "status": "unavailable",
-        "comparison": "unavailable",
-        "reason": "progress_denominator_not_positive",
-        "metric": "ordinary_income",
-        "current_period_end": "2026-06-30",
-        "prior_period_end": "2025-06-30",
-        "period_days": 91,
-        "current_actual_filing_date": "2026-08-07",
-        "current_forecast_period_end": "2026-09-30",
-        "current_forecast_filing_date": "2026-08-07",
-        "prior_forecast_period_end": "2025-09-30",
-        "prior_forecast_filing_date": "2025-08-08",
-        "source": "TDnet XBRL"
-      },
-      "latest_result_vs_market_consensus": {
-        "status": "unavailable",
-        "comparison": "unavailable",
-        "reason": "market_consensus_not_configured",
-        "provider": "unavailable"
-      }
-    },
     "3853.T": {
       "status": "unavailable",
       "improving": null,
@@ -3346,60 +3894,6 @@
         "current_forecast_filing_date": "2026-08-14",
         "prior_forecast_period_end": "2026-03-31",
         "prior_forecast_filing_date": "2025-08-13",
-        "source": "TDnet XBRL"
-      },
-      "latest_result_vs_market_consensus": {
-        "status": "unavailable",
-        "comparison": "unavailable",
-        "reason": "market_consensus_not_configured",
-        "provider": "unavailable"
-      }
-    },
-    "6844.T": {
-      "status": "ok",
-      "improving": false,
-      "reason": null,
-      "current_year_eps_estimate": 265.2,
-      "prior_year_eps": 549.0,
-      "earnings_growth": -0.51694,
-      "forecast_period_end": "2027-03-31",
-      "prior_period_end": "2026-03-31",
-      "forecast_filing_date": "2026-08-07",
-      "prior_filing_date": "2026-05-14",
-      "source": "TDnet XBRL",
-      "latest_result_vs_company_forecast": {
-        "status": "unavailable",
-        "comparison": "unavailable",
-        "reason": "latest_result_or_same_period_company_forecast_missing",
-        "source": "TDnet XBRL"
-      },
-      "latest_progress_vs_prior": {
-        "status": "ok",
-        "comparison": "acceptable",
-        "reason": null,
-        "metric": "ordinary_income",
-        "current_actual": 1203000000.0,
-        "current_full_year_forecast": 1300000000.0,
-        "prior_same_period_actual": 1445000000.0,
-        "prior_full_year_forecast": 1900000000.0,
-        "current_progress_pct": 92.5385,
-        "prior_progress_pct": 76.0526,
-        "progress_gap_pp": 16.4858,
-        "relative_progress_deterioration_pct": -21.6769,
-        "same_period_profit_yoy_pct": -16.7474,
-        "thresholds": {
-          "relative_progress_deterioration_pct": 30.0,
-          "progress_gap_pp": 5.0,
-          "same_period_profit_decline_pct": 20.0
-        },
-        "current_period_end": "2026-06-30",
-        "prior_period_end": "2025-06-30",
-        "period_days": 91,
-        "current_actual_filing_date": "2026-08-07",
-        "current_forecast_period_end": "2026-09-30",
-        "current_forecast_filing_date": "2026-08-07",
-        "prior_forecast_period_end": "2025-09-30",
-        "prior_forecast_filing_date": "2025-08-08",
         "source": "TDnet XBRL"
       },
       "latest_result_vs_market_consensus": {
@@ -3511,17 +4005,17 @@
         "provider": "unavailable"
       }
     },
-    "6369.T": {
+    "6844.T": {
       "status": "ok",
-      "improving": true,
+      "improving": false,
       "reason": null,
-      "current_year_eps_estimate": 173.24,
-      "prior_year_eps": 164.52,
-      "earnings_growth": 0.053003,
+      "current_year_eps_estimate": 265.2,
+      "prior_year_eps": 549.0,
+      "earnings_growth": -0.51694,
       "forecast_period_end": "2027-03-31",
       "prior_period_end": "2026-03-31",
       "forecast_filing_date": "2026-08-07",
-      "prior_filing_date": "2026-05-15",
+      "prior_filing_date": "2026-05-14",
       "source": "TDnet XBRL",
       "latest_result_vs_company_forecast": {
         "status": "unavailable",
@@ -3531,18 +4025,18 @@
       },
       "latest_progress_vs_prior": {
         "status": "ok",
-        "comparison": "deteriorated",
-        "reason": "progress_and_same_period_profit_significantly_deteriorated",
+        "comparison": "acceptable",
+        "reason": null,
         "metric": "ordinary_income",
-        "current_actual": -180000000.0,
-        "current_full_year_forecast": 1160000000.0,
-        "prior_same_period_actual": 1186000000.0,
-        "prior_full_year_forecast": 820000000.0,
-        "current_progress_pct": -15.5172,
-        "prior_progress_pct": 144.6341,
-        "progress_gap_pp": -160.1514,
-        "relative_progress_deterioration_pct": 110.7286,
-        "same_period_profit_yoy_pct": -115.1771,
+        "current_actual": 1203000000.0,
+        "current_full_year_forecast": 1300000000.0,
+        "prior_same_period_actual": 1445000000.0,
+        "prior_full_year_forecast": 1900000000.0,
+        "current_progress_pct": 92.5385,
+        "prior_progress_pct": 76.0526,
+        "progress_gap_pp": 16.4858,
+        "relative_progress_deterioration_pct": -21.6769,
+        "same_period_profit_yoy_pct": -16.7474,
         "thresholds": {
           "relative_progress_deterioration_pct": 30.0,
           "progress_gap_pp": 5.0,
@@ -3619,28 +4113,82 @@
         "provider": "unavailable"
       }
     },
-    "4548.T": {
+    "9755.T": {
+      "status": "ok",
+      "improving": false,
+      "reason": null,
+      "current_year_eps_estimate": 171.12,
+      "prior_year_eps": 189.21,
+      "earnings_growth": -0.095608,
+      "forecast_period_end": "2026-12-31",
+      "prior_period_end": "2025-12-31",
+      "forecast_filing_date": "2026-08-12",
+      "prior_filing_date": "2026-02-12",
+      "source": "TDnet XBRL",
+      "latest_result_vs_company_forecast": {
+        "status": "unavailable",
+        "comparison": "unavailable",
+        "reason": "latest_result_or_same_period_company_forecast_missing",
+        "source": "TDnet XBRL"
+      },
+      "latest_progress_vs_prior": {
+        "status": "ok",
+        "comparison": "acceptable",
+        "reason": null,
+        "metric": "ordinary_income",
+        "current_actual": 2245000000.0,
+        "current_full_year_forecast": 4800000000.0,
+        "prior_same_period_actual": 3072000000.0,
+        "prior_full_year_forecast": 5100000000.0,
+        "current_progress_pct": 46.7708,
+        "prior_progress_pct": 60.2353,
+        "progress_gap_pp": -13.4645,
+        "relative_progress_deterioration_pct": 22.3531,
+        "same_period_profit_yoy_pct": -26.9206,
+        "thresholds": {
+          "relative_progress_deterioration_pct": 30.0,
+          "progress_gap_pp": 5.0,
+          "same_period_profit_decline_pct": 20.0
+        },
+        "current_period_end": "2026-06-30",
+        "prior_period_end": "2025-06-30",
+        "period_days": 181,
+        "current_actual_filing_date": "2026-08-12",
+        "current_forecast_period_end": "2026-12-31",
+        "current_forecast_filing_date": "2026-08-12",
+        "prior_forecast_period_end": "2025-12-31",
+        "prior_forecast_filing_date": "2025-08-12",
+        "source": "TDnet XBRL"
+      },
+      "latest_result_vs_market_consensus": {
+        "status": "unavailable",
+        "comparison": "unavailable",
+        "reason": "market_consensus_not_configured",
+        "provider": "unavailable"
+      }
+    },
+    "4813.T": {
       "status": "ok",
       "improving": true,
       "reason": null,
-      "current_year_eps_estimate": 41.21,
-      "prior_year_eps": 26.99,
-      "earnings_growth": 0.526862,
-      "forecast_period_end": "2027-03-31",
-      "prior_period_end": "2026-03-31",
-      "forecast_filing_date": "2026-09-24",
-      "prior_filing_date": "2026-09-24",
+      "current_year_eps_estimate": 16.28,
+      "prior_year_eps": -90.53,
+      "earnings_growth": 1.17983,
+      "forecast_period_end": "2027-01-31",
+      "prior_period_end": "2026-01-31",
+      "forecast_filing_date": "2026-09-11",
+      "prior_filing_date": "2026-03-30",
       "source": "TDnet XBRL",
       "latest_result_vs_company_forecast": {
         "status": "ok",
-        "comparison": "met",
+        "comparison": "missed",
         "reason": null,
-        "actual_eps": 26.99,
-        "forecast_eps": 16.48,
-        "period_end": "2026-03-31",
-        "period_days": 365,
-        "actual_filing_date": "2026-09-24",
-        "forecast_filing_date": "2026-02-06",
+        "actual_eps": -15.68,
+        "forecast_eps": -10.28,
+        "period_end": "2026-07-31",
+        "period_days": 181,
+        "actual_filing_date": "2026-09-11",
+        "forecast_filing_date": "2026-06-12",
         "source": "TDnet XBRL"
       },
       "latest_progress_vs_prior": {
@@ -3648,14 +4196,68 @@
         "comparison": "unavailable",
         "reason": "progress_denominator_not_positive",
         "metric": "ordinary_income",
+        "current_period_end": "2026-07-31",
+        "prior_period_end": "2025-07-31",
+        "period_days": 181,
+        "current_actual_filing_date": "2026-09-11",
+        "current_forecast_period_end": "2027-01-31",
+        "current_forecast_filing_date": "2026-09-11",
+        "prior_forecast_period_end": "2026-01-31",
+        "prior_forecast_filing_date": "2025-09-12",
+        "source": "TDnet XBRL"
+      },
+      "latest_result_vs_market_consensus": {
+        "status": "unavailable",
+        "comparison": "unavailable",
+        "reason": "market_consensus_not_configured",
+        "provider": "unavailable"
+      }
+    },
+    "6369.T": {
+      "status": "ok",
+      "improving": true,
+      "reason": null,
+      "current_year_eps_estimate": 173.24,
+      "prior_year_eps": 164.52,
+      "earnings_growth": 0.053003,
+      "forecast_period_end": "2027-03-31",
+      "prior_period_end": "2026-03-31",
+      "forecast_filing_date": "2026-08-07",
+      "prior_filing_date": "2026-05-15",
+      "source": "TDnet XBRL",
+      "latest_result_vs_company_forecast": {
+        "status": "unavailable",
+        "comparison": "unavailable",
+        "reason": "latest_result_or_same_period_company_forecast_missing",
+        "source": "TDnet XBRL"
+      },
+      "latest_progress_vs_prior": {
+        "status": "ok",
+        "comparison": "deteriorated",
+        "reason": "progress_and_same_period_profit_significantly_deteriorated",
+        "metric": "ordinary_income",
+        "current_actual": -180000000.0,
+        "current_full_year_forecast": 1160000000.0,
+        "prior_same_period_actual": 1186000000.0,
+        "prior_full_year_forecast": 820000000.0,
+        "current_progress_pct": -15.5172,
+        "prior_progress_pct": 144.6341,
+        "progress_gap_pp": -160.1514,
+        "relative_progress_deterioration_pct": 110.7286,
+        "same_period_profit_yoy_pct": -115.1771,
+        "thresholds": {
+          "relative_progress_deterioration_pct": 30.0,
+          "progress_gap_pp": 5.0,
+          "same_period_profit_decline_pct": 20.0
+        },
         "current_period_end": "2026-06-30",
         "prior_period_end": "2025-06-30",
         "period_days": 91,
-        "current_actual_filing_date": "2026-08-05",
-        "current_forecast_period_end": "2027-03-31",
-        "current_forecast_filing_date": "2026-09-24",
-        "prior_forecast_period_end": "2026-03-31",
-        "prior_forecast_filing_date": "2025-08-05",
+        "current_actual_filing_date": "2026-08-07",
+        "current_forecast_period_end": "2026-09-30",
+        "current_forecast_filing_date": "2026-08-07",
+        "prior_forecast_period_end": "2025-09-30",
+        "prior_forecast_filing_date": "2025-08-08",
         "source": "TDnet XBRL"
       },
       "latest_result_vs_market_consensus": {
@@ -3704,6 +4306,112 @@
         "current_forecast_filing_date": "2026-02-13",
         "prior_forecast_period_end": "2025-03-31",
         "prior_forecast_filing_date": "2025-02-14",
+        "source": "TDnet XBRL"
+      },
+      "latest_result_vs_market_consensus": {
+        "status": "unavailable",
+        "comparison": "unavailable",
+        "reason": "market_consensus_not_configured",
+        "provider": "unavailable"
+      }
+    },
+    "3333.T": {
+      "status": "ok",
+      "improving": true,
+      "reason": null,
+      "current_year_eps_estimate": 104.83,
+      "prior_year_eps": 87.12,
+      "earnings_growth": 0.203283,
+      "forecast_period_end": "2027-02-20",
+      "prior_period_end": "2026-02-20",
+      "forecast_filing_date": "2026-09-25",
+      "prior_filing_date": "2026-04-03",
+      "source": "TDnet XBRL",
+      "latest_result_vs_company_forecast": {
+        "status": "ok",
+        "comparison": "missed",
+        "reason": null,
+        "actual_eps": 84.22,
+        "forecast_eps": 85.38,
+        "period_end": "2026-08-20",
+        "period_days": 181,
+        "actual_filing_date": "2026-09-25",
+        "forecast_filing_date": "2026-06-22",
+        "source": "TDnet XBRL"
+      },
+      "latest_progress_vs_prior": {
+        "status": "ok",
+        "comparison": "acceptable",
+        "reason": null,
+        "metric": "ordinary_income",
+        "current_actual": 3327580000.0,
+        "current_full_year_forecast": 4440000000.0,
+        "prior_same_period_actual": 3923570000.0,
+        "prior_full_year_forecast": 5750000000.0,
+        "current_progress_pct": 74.9455,
+        "prior_progress_pct": 68.236,
+        "progress_gap_pp": 6.7095,
+        "relative_progress_deterioration_pct": -9.8328,
+        "same_period_profit_yoy_pct": -15.19,
+        "thresholds": {
+          "relative_progress_deterioration_pct": 30.0,
+          "progress_gap_pp": 5.0,
+          "same_period_profit_decline_pct": 20.0
+        },
+        "current_period_end": "2026-08-20",
+        "prior_period_end": "2025-08-20",
+        "period_days": 181,
+        "current_actual_filing_date": "2026-09-25",
+        "current_forecast_period_end": "2027-02-20",
+        "current_forecast_filing_date": "2026-09-25",
+        "prior_forecast_period_end": "2026-02-20",
+        "prior_forecast_filing_date": "2025-09-22",
+        "source": "TDnet XBRL"
+      },
+      "latest_result_vs_market_consensus": {
+        "status": "unavailable",
+        "comparison": "unavailable",
+        "reason": "market_consensus_not_configured",
+        "provider": "unavailable"
+      }
+    },
+    "4548.T": {
+      "status": "ok",
+      "improving": true,
+      "reason": null,
+      "current_year_eps_estimate": 41.21,
+      "prior_year_eps": 26.99,
+      "earnings_growth": 0.526862,
+      "forecast_period_end": "2027-03-31",
+      "prior_period_end": "2026-03-31",
+      "forecast_filing_date": "2026-09-24",
+      "prior_filing_date": "2026-09-24",
+      "source": "TDnet XBRL",
+      "latest_result_vs_company_forecast": {
+        "status": "ok",
+        "comparison": "met",
+        "reason": null,
+        "actual_eps": 26.99,
+        "forecast_eps": 16.48,
+        "period_end": "2026-03-31",
+        "period_days": 365,
+        "actual_filing_date": "2026-09-24",
+        "forecast_filing_date": "2026-02-06",
+        "source": "TDnet XBRL"
+      },
+      "latest_progress_vs_prior": {
+        "status": "unavailable",
+        "comparison": "unavailable",
+        "reason": "progress_denominator_not_positive",
+        "metric": "ordinary_income",
+        "current_period_end": "2026-06-30",
+        "prior_period_end": "2025-06-30",
+        "period_days": 91,
+        "current_actual_filing_date": "2026-08-05",
+        "current_forecast_period_end": "2027-03-31",
+        "current_forecast_filing_date": "2026-09-24",
+        "prior_forecast_period_end": "2026-03-31",
+        "prior_forecast_filing_date": "2025-08-05",
         "source": "TDnet XBRL"
       },
       "latest_result_vs_market_consensus": {
@@ -3867,6 +4575,60 @@
         "provider": "unavailable"
       }
     },
+    "4446.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "forecast_eps_missing",
+      "current_year_eps_estimate": null,
+      "prior_year_eps": null,
+      "latest_result_vs_company_forecast": {
+        "status": "ok",
+        "comparison": "missed",
+        "reason": null,
+        "actual_eps": -39.14,
+        "forecast_eps": 21.73,
+        "period_end": "2026-07-31",
+        "period_days": 365,
+        "actual_filing_date": "2026-09-14",
+        "forecast_filing_date": "2025-12-12",
+        "source": "TDnet XBRL"
+      },
+      "latest_progress_vs_prior": {
+        "status": "ok",
+        "comparison": "acceptable",
+        "reason": null,
+        "metric": "ordinary_income",
+        "current_actual": 259812000.0,
+        "current_full_year_forecast": 579000000.0,
+        "prior_same_period_actual": 321825000.0,
+        "prior_full_year_forecast": 358000000.0,
+        "current_progress_pct": 44.8725,
+        "prior_progress_pct": 89.8953,
+        "progress_gap_pp": -45.0227,
+        "relative_progress_deterioration_pct": 50.0835,
+        "same_period_profit_yoy_pct": -19.2692,
+        "thresholds": {
+          "relative_progress_deterioration_pct": 30.0,
+          "progress_gap_pp": 5.0,
+          "same_period_profit_decline_pct": 20.0
+        },
+        "current_period_end": "2024-04-30",
+        "prior_period_end": "2023-04-30",
+        "period_days": 274,
+        "current_actual_filing_date": "2024-06-14",
+        "current_forecast_period_end": "2026-07-31",
+        "current_forecast_filing_date": "2025-12-12",
+        "prior_forecast_period_end": "2023-07-31",
+        "prior_forecast_filing_date": "2023-06-14",
+        "source": "TDnet XBRL"
+      },
+      "latest_result_vs_market_consensus": {
+        "status": "unavailable",
+        "comparison": "unavailable",
+        "reason": "market_consensus_not_configured",
+        "provider": "unavailable"
+      }
+    },
     "4425.T": {
       "status": "unavailable",
       "improving": null,
@@ -3892,120 +4654,6 @@
         "current_forecast_filing_date": "2024-02-14",
         "prior_forecast_period_end": "2023-03-31",
         "prior_forecast_filing_date": "2023-02-14",
-        "source": "TDnet XBRL"
-      },
-      "latest_result_vs_market_consensus": {
-        "status": "unavailable",
-        "comparison": "unavailable",
-        "reason": "market_consensus_not_configured",
-        "provider": "unavailable"
-      }
-    },
-    "9755.T": {
-      "status": "ok",
-      "improving": false,
-      "reason": null,
-      "current_year_eps_estimate": 171.12,
-      "prior_year_eps": 189.21,
-      "earnings_growth": -0.095608,
-      "forecast_period_end": "2026-12-31",
-      "prior_period_end": "2025-12-31",
-      "forecast_filing_date": "2026-08-12",
-      "prior_filing_date": "2026-02-12",
-      "source": "TDnet XBRL",
-      "latest_result_vs_company_forecast": {
-        "status": "unavailable",
-        "comparison": "unavailable",
-        "reason": "latest_result_or_same_period_company_forecast_missing",
-        "source": "TDnet XBRL"
-      },
-      "latest_progress_vs_prior": {
-        "status": "ok",
-        "comparison": "acceptable",
-        "reason": null,
-        "metric": "ordinary_income",
-        "current_actual": 2245000000.0,
-        "current_full_year_forecast": 4800000000.0,
-        "prior_same_period_actual": 3072000000.0,
-        "prior_full_year_forecast": 5100000000.0,
-        "current_progress_pct": 46.7708,
-        "prior_progress_pct": 60.2353,
-        "progress_gap_pp": -13.4645,
-        "relative_progress_deterioration_pct": 22.3531,
-        "same_period_profit_yoy_pct": -26.9206,
-        "thresholds": {
-          "relative_progress_deterioration_pct": 30.0,
-          "progress_gap_pp": 5.0,
-          "same_period_profit_decline_pct": 20.0
-        },
-        "current_period_end": "2026-06-30",
-        "prior_period_end": "2025-06-30",
-        "period_days": 181,
-        "current_actual_filing_date": "2026-08-12",
-        "current_forecast_period_end": "2026-12-31",
-        "current_forecast_filing_date": "2026-08-12",
-        "prior_forecast_period_end": "2025-12-31",
-        "prior_forecast_filing_date": "2025-08-12",
-        "source": "TDnet XBRL"
-      },
-      "latest_result_vs_market_consensus": {
-        "status": "unavailable",
-        "comparison": "unavailable",
-        "reason": "market_consensus_not_configured",
-        "provider": "unavailable"
-      }
-    },
-    "3193.T": {
-      "status": "ok",
-      "improving": true,
-      "reason": null,
-      "current_year_eps_estimate": 81.98,
-      "prior_year_eps": 57.13,
-      "earnings_growth": 0.434973,
-      "forecast_period_end": "2027-07-31",
-      "prior_period_end": "2026-07-31",
-      "forecast_filing_date": "2026-09-11",
-      "prior_filing_date": "2026-09-11",
-      "source": "TDnet XBRL",
-      "latest_result_vs_company_forecast": {
-        "status": "ok",
-        "comparison": "missed",
-        "reason": null,
-        "actual_eps": 57.13,
-        "forecast_eps": 183.19,
-        "period_end": "2026-07-31",
-        "period_days": 365,
-        "actual_filing_date": "2026-09-11",
-        "forecast_filing_date": "2026-06-05",
-        "source": "TDnet XBRL"
-      },
-      "latest_progress_vs_prior": {
-        "status": "ok",
-        "comparison": "acceptable",
-        "reason": null,
-        "metric": "ordinary_income",
-        "current_actual": 2394975000.0,
-        "current_full_year_forecast": 1510000000.0,
-        "prior_same_period_actual": 1988301000.0,
-        "prior_full_year_forecast": 3026000000.0,
-        "current_progress_pct": 158.6076,
-        "prior_progress_pct": 65.7072,
-        "progress_gap_pp": 92.9004,
-        "relative_progress_deterioration_pct": -141.3853,
-        "same_period_profit_yoy_pct": 20.4533,
-        "thresholds": {
-          "relative_progress_deterioration_pct": 30.0,
-          "progress_gap_pp": 5.0,
-          "same_period_profit_decline_pct": 20.0
-        },
-        "current_period_end": "2026-04-30",
-        "prior_period_end": "2025-04-30",
-        "period_days": 273,
-        "current_actual_filing_date": "2026-06-05",
-        "current_forecast_period_end": "2027-01-31",
-        "current_forecast_filing_date": "2026-09-11",
-        "prior_forecast_period_end": "2025-07-31",
-        "prior_forecast_filing_date": "2025-06-06",
         "source": "TDnet XBRL"
       },
       "latest_result_vs_market_consensus": {
@@ -4069,28 +4717,22 @@
         "provider": "unavailable"
       }
     },
-    "7447.T": {
+    "5988.T": {
       "status": "ok",
       "improving": true,
       "reason": null,
-      "current_year_eps_estimate": 90.48,
-      "prior_year_eps": 88.21,
-      "earnings_growth": 0.025734,
-      "forecast_period_end": "2027-08-31",
-      "prior_period_end": "2026-08-31",
-      "forecast_filing_date": "2026-10-01",
-      "prior_filing_date": "2026-10-01",
+      "current_year_eps_estimate": 27.45,
+      "prior_year_eps": -0.85,
+      "earnings_growth": 33.294118,
+      "forecast_period_end": "2027-03-31",
+      "prior_period_end": "2026-03-31",
+      "forecast_filing_date": "2026-08-05",
+      "prior_filing_date": "2026-05-12",
       "source": "TDnet XBRL",
       "latest_result_vs_company_forecast": {
-        "status": "ok",
-        "comparison": "missed",
-        "reason": null,
-        "actual_eps": 88.21,
-        "forecast_eps": 96.54,
-        "period_end": "2026-08-31",
-        "period_days": 365,
-        "actual_filing_date": "2026-10-01",
-        "forecast_filing_date": "2026-06-29",
+        "status": "unavailable",
+        "comparison": "unavailable",
+        "reason": "latest_result_or_same_period_company_forecast_missing",
         "source": "TDnet XBRL"
       },
       "latest_progress_vs_prior": {
@@ -4098,28 +4740,28 @@
         "comparison": "acceptable",
         "reason": null,
         "metric": "ordinary_income",
-        "current_actual": 2958475000.0,
-        "current_full_year_forecast": 1379000000.0,
-        "prior_same_period_actual": 2995134000.0,
-        "prior_full_year_forecast": 4175000000.0,
-        "current_progress_pct": 214.5377,
-        "prior_progress_pct": 71.7397,
-        "progress_gap_pp": 142.798,
-        "relative_progress_deterioration_pct": -199.05,
-        "same_period_profit_yoy_pct": -1.224,
+        "current_actual": 394000000.0,
+        "current_full_year_forecast": 1500000000.0,
+        "prior_same_period_actual": 306000000.0,
+        "prior_full_year_forecast": 2000000000.0,
+        "current_progress_pct": 26.2667,
+        "prior_progress_pct": 15.3,
+        "progress_gap_pp": 10.9667,
+        "relative_progress_deterioration_pct": -71.6776,
+        "same_period_profit_yoy_pct": 28.7582,
         "thresholds": {
           "relative_progress_deterioration_pct": 30.0,
           "progress_gap_pp": 5.0,
           "same_period_profit_decline_pct": 20.0
         },
-        "current_period_end": "2026-05-31",
-        "prior_period_end": "2025-05-31",
-        "period_days": 273,
-        "current_actual_filing_date": "2026-06-29",
-        "current_forecast_period_end": "2027-02-28",
-        "current_forecast_filing_date": "2026-10-01",
-        "prior_forecast_period_end": "2025-08-31",
-        "prior_forecast_filing_date": "2025-06-27",
+        "current_period_end": "2026-06-30",
+        "prior_period_end": "2025-06-30",
+        "period_days": 91,
+        "current_actual_filing_date": "2026-08-05",
+        "current_forecast_period_end": "2027-03-31",
+        "current_forecast_filing_date": "2026-08-05",
+        "prior_forecast_period_end": "2026-03-31",
+        "prior_forecast_filing_date": "2025-08-07",
         "source": "TDnet XBRL"
       },
       "latest_result_vs_market_consensus": {
@@ -4180,6 +4822,60 @@
         "current_forecast_filing_date": "2026-08-14",
         "prior_forecast_period_end": "2025-06-30",
         "prior_forecast_filing_date": "2025-05-13",
+        "source": "TDnet XBRL"
+      },
+      "latest_result_vs_market_consensus": {
+        "status": "unavailable",
+        "comparison": "unavailable",
+        "reason": "market_consensus_not_configured",
+        "provider": "unavailable"
+      }
+    },
+    "6222.T": {
+      "status": "ok",
+      "improving": true,
+      "reason": null,
+      "current_year_eps_estimate": 26.53,
+      "prior_year_eps": 25.23,
+      "earnings_growth": 0.051526,
+      "forecast_period_end": "2027-03-31",
+      "prior_period_end": "2026-03-31",
+      "forecast_filing_date": "2026-07-31",
+      "prior_filing_date": "2026-05-08",
+      "source": "TDnet XBRL",
+      "latest_result_vs_company_forecast": {
+        "status": "unavailable",
+        "comparison": "unavailable",
+        "reason": "latest_result_or_same_period_company_forecast_missing",
+        "source": "TDnet XBRL"
+      },
+      "latest_progress_vs_prior": {
+        "status": "ok",
+        "comparison": "deteriorated",
+        "reason": "progress_and_same_period_profit_significantly_deteriorated",
+        "metric": "ordinary_income",
+        "current_actual": -500000000.0,
+        "current_full_year_forecast": 1000000000.0,
+        "prior_same_period_actual": 1012000000.0,
+        "prior_full_year_forecast": 2300000000.0,
+        "current_progress_pct": -50.0,
+        "prior_progress_pct": 44.0,
+        "progress_gap_pp": -94.0,
+        "relative_progress_deterioration_pct": 213.6364,
+        "same_period_profit_yoy_pct": -149.4071,
+        "thresholds": {
+          "relative_progress_deterioration_pct": 30.0,
+          "progress_gap_pp": 5.0,
+          "same_period_profit_decline_pct": 20.0
+        },
+        "current_period_end": "2026-06-30",
+        "prior_period_end": "2025-06-30",
+        "period_days": 91,
+        "current_actual_filing_date": "2026-07-31",
+        "current_forecast_period_end": "2027-03-31",
+        "current_forecast_filing_date": "2026-07-31",
+        "prior_forecast_period_end": "2026-03-31",
+        "prior_forecast_filing_date": "2025-07-31",
         "source": "TDnet XBRL"
       },
       "latest_result_vs_market_consensus": {
@@ -4337,60 +5033,6 @@
         "provider": "unavailable"
       }
     },
-    "3415.T": {
-      "status": "ok",
-      "improving": true,
-      "reason": null,
-      "current_year_eps_estimate": 34.12,
-      "prior_year_eps": 27.81,
-      "earnings_growth": 0.226897,
-      "forecast_period_end": "2027-01-31",
-      "prior_period_end": "2026-01-31",
-      "forecast_filing_date": "2026-09-14",
-      "prior_filing_date": "2026-03-17",
-      "source": "TDnet XBRL",
-      "latest_result_vs_company_forecast": {
-        "status": "unavailable",
-        "comparison": "unavailable",
-        "reason": "latest_result_or_same_period_company_forecast_missing",
-        "source": "TDnet XBRL"
-      },
-      "latest_progress_vs_prior": {
-        "status": "ok",
-        "comparison": "acceptable",
-        "reason": null,
-        "metric": "ordinary_income",
-        "current_actual": 920912000.0,
-        "current_full_year_forecast": 2200000000.0,
-        "prior_same_period_actual": 683321000.0,
-        "prior_full_year_forecast": 1750000000.0,
-        "current_progress_pct": 41.8596,
-        "prior_progress_pct": 39.0469,
-        "progress_gap_pp": 2.8127,
-        "relative_progress_deterioration_pct": -7.2034,
-        "same_period_profit_yoy_pct": 34.77,
-        "thresholds": {
-          "relative_progress_deterioration_pct": 30.0,
-          "progress_gap_pp": 5.0,
-          "same_period_profit_decline_pct": 20.0
-        },
-        "current_period_end": "2026-07-31",
-        "prior_period_end": "2025-07-31",
-        "period_days": 181,
-        "current_actual_filing_date": "2026-09-14",
-        "current_forecast_period_end": "2027-01-31",
-        "current_forecast_filing_date": "2026-09-14",
-        "prior_forecast_period_end": "2026-01-31",
-        "prior_forecast_filing_date": "2025-09-16",
-        "source": "TDnet XBRL"
-      },
-      "latest_result_vs_market_consensus": {
-        "status": "unavailable",
-        "comparison": "unavailable",
-        "reason": "market_consensus_not_configured",
-        "provider": "unavailable"
-      }
-    },
     "7318.T": {
       "status": "ok",
       "improving": false,
@@ -4436,6 +5078,60 @@
         "current_forecast_filing_date": "2026-08-07",
         "prior_forecast_period_end": "2026-03-31",
         "prior_forecast_filing_date": "2025-08-08",
+        "source": "TDnet XBRL"
+      },
+      "latest_result_vs_market_consensus": {
+        "status": "unavailable",
+        "comparison": "unavailable",
+        "reason": "market_consensus_not_configured",
+        "provider": "unavailable"
+      }
+    },
+    "3415.T": {
+      "status": "ok",
+      "improving": true,
+      "reason": null,
+      "current_year_eps_estimate": 34.12,
+      "prior_year_eps": 27.81,
+      "earnings_growth": 0.226897,
+      "forecast_period_end": "2027-01-31",
+      "prior_period_end": "2026-01-31",
+      "forecast_filing_date": "2026-09-14",
+      "prior_filing_date": "2026-03-17",
+      "source": "TDnet XBRL",
+      "latest_result_vs_company_forecast": {
+        "status": "unavailable",
+        "comparison": "unavailable",
+        "reason": "latest_result_or_same_period_company_forecast_missing",
+        "source": "TDnet XBRL"
+      },
+      "latest_progress_vs_prior": {
+        "status": "ok",
+        "comparison": "acceptable",
+        "reason": null,
+        "metric": "ordinary_income",
+        "current_actual": 920912000.0,
+        "current_full_year_forecast": 2200000000.0,
+        "prior_same_period_actual": 683321000.0,
+        "prior_full_year_forecast": 1750000000.0,
+        "current_progress_pct": 41.8596,
+        "prior_progress_pct": 39.0469,
+        "progress_gap_pp": 2.8127,
+        "relative_progress_deterioration_pct": -7.2034,
+        "same_period_profit_yoy_pct": 34.77,
+        "thresholds": {
+          "relative_progress_deterioration_pct": 30.0,
+          "progress_gap_pp": 5.0,
+          "same_period_profit_decline_pct": 20.0
+        },
+        "current_period_end": "2026-07-31",
+        "prior_period_end": "2025-07-31",
+        "period_days": 181,
+        "current_actual_filing_date": "2026-09-14",
+        "current_forecast_period_end": "2027-01-31",
+        "current_forecast_filing_date": "2026-09-14",
+        "prior_forecast_period_end": "2026-01-31",
+        "prior_forecast_filing_date": "2025-09-16",
         "source": "TDnet XBRL"
       },
       "latest_result_vs_market_consensus": {
@@ -4559,138 +5255,12 @@
         "provider": "unavailable"
       }
     },
-    "8185.T": {
-      "status": "ok",
-      "improving": false,
-      "reason": null,
-      "current_year_eps_estimate": 0.29,
-      "prior_year_eps": 6.91,
-      "earnings_growth": -0.958032,
-      "forecast_period_end": "2027-02-28",
-      "prior_period_end": "2026-02-28",
-      "forecast_filing_date": "2026-10-09",
-      "prior_filing_date": "2026-05-01",
-      "source": "TDnet XBRL",
-      "latest_result_vs_company_forecast": {
-        "status": "ok",
-        "comparison": "missed",
-        "reason": null,
-        "actual_eps": 3.84,
-        "forecast_eps": 36.34,
-        "period_end": "2026-08-31",
-        "period_days": 184,
-        "actual_filing_date": "2026-10-09",
-        "forecast_filing_date": "2026-07-10",
-        "source": "TDnet XBRL"
-      },
-      "latest_progress_vs_prior": {
-        "status": "ok",
-        "comparison": "acceptable",
-        "reason": null,
-        "metric": "ordinary_income",
-        "current_actual": 851000000.0,
-        "current_full_year_forecast": 860000000.0,
-        "prior_same_period_actual": 1494000000.0,
-        "prior_full_year_forecast": 1950000000.0,
-        "current_progress_pct": 98.9535,
-        "prior_progress_pct": 76.6154,
-        "progress_gap_pp": 22.3381,
-        "relative_progress_deterioration_pct": -29.1562,
-        "same_period_profit_yoy_pct": -43.0388,
-        "thresholds": {
-          "relative_progress_deterioration_pct": 30.0,
-          "progress_gap_pp": 5.0,
-          "same_period_profit_decline_pct": 20.0
-        },
-        "current_period_end": "2026-08-31",
-        "prior_period_end": "2025-08-31",
-        "period_days": 184,
-        "current_actual_filing_date": "2026-10-09",
-        "current_forecast_period_end": "2027-02-28",
-        "current_forecast_filing_date": "2026-10-09",
-        "prior_forecast_period_end": "2026-02-28",
-        "prior_forecast_filing_date": "2025-10-10",
-        "source": "TDnet XBRL"
-      },
-      "latest_result_vs_market_consensus": {
-        "status": "unavailable",
-        "comparison": "unavailable",
-        "reason": "market_consensus_not_configured",
-        "provider": "unavailable"
-      }
-    },
-    "1514.T": {
-      "status": "ok",
-      "improving": false,
-      "reason": null,
-      "current_year_eps_estimate": 26.75,
-      "prior_year_eps": 44.11,
-      "earnings_growth": -0.393562,
-      "forecast_period_end": "2027-03-31",
-      "prior_period_end": "2026-03-31",
-      "forecast_filing_date": "2026-10-09",
-      "prior_filing_date": "2026-05-15",
-      "source": "TDnet XBRL",
-      "latest_result_vs_company_forecast": {
-        "status": "ok",
-        "comparison": "met",
-        "reason": null,
-        "actual_eps": 20.97,
-        "forecast_eps": 20.07,
-        "period_end": "2025-09-30",
-        "period_days": 183,
-        "actual_filing_date": "2026-10-09",
-        "forecast_filing_date": "2025-10-06",
-        "source": "TDnet XBRL"
-      },
-      "latest_progress_vs_prior": {
-        "status": "ok",
-        "comparison": "acceptable",
-        "reason": null,
-        "metric": "ordinary_income",
-        "current_actual": 71000000.0,
-        "current_full_year_forecast": 1500000000.0,
-        "prior_same_period_actual": 2000000.0,
-        "prior_full_year_forecast": 900000000.0,
-        "current_progress_pct": 4.7333,
-        "prior_progress_pct": 0.2222,
-        "progress_gap_pp": 4.5111,
-        "relative_progress_deterioration_pct": -2030.0,
-        "same_period_profit_yoy_pct": 3450.0,
-        "thresholds": {
-          "relative_progress_deterioration_pct": 30.0,
-          "progress_gap_pp": 5.0,
-          "same_period_profit_decline_pct": 20.0
-        },
-        "current_period_end": "2026-06-30",
-        "prior_period_end": "2025-06-30",
-        "period_days": 91,
-        "current_actual_filing_date": "2026-07-31",
-        "current_forecast_period_end": "2026-09-30",
-        "current_forecast_filing_date": "2026-10-09",
-        "prior_forecast_period_end": "2025-09-30",
-        "prior_forecast_filing_date": "2025-07-31",
-        "source": "TDnet XBRL"
-      },
-      "latest_result_vs_market_consensus": {
-        "status": "unavailable",
-        "comparison": "unavailable",
-        "reason": "market_consensus_not_configured",
-        "provider": "unavailable"
-      }
-    },
-    "5411.T": {
-      "status": "ok",
-      "improving": true,
-      "reason": null,
-      "current_year_eps_estimate": 235.8,
-      "prior_year_eps": 110.3,
-      "earnings_growth": 1.137806,
-      "forecast_period_end": "2027-03-31",
-      "prior_period_end": "2026-03-31",
-      "forecast_filing_date": "2026-08-05",
-      "prior_filing_date": "2026-05-08",
-      "source": "TDnet XBRL",
+    "4593.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "forecast_eps_missing",
+      "current_year_eps_estimate": null,
+      "prior_year_eps": null,
       "latest_result_vs_company_forecast": {
         "status": "unavailable",
         "comparison": "unavailable",
@@ -4764,17 +5334,17 @@
         "provider": "unavailable"
       }
     },
-    "7211.T": {
+    "6141.T": {
       "status": "ok",
-      "improving": true,
+      "improving": false,
       "reason": null,
-      "current_year_eps_estimate": 18.68,
-      "prior_year_eps": 7.48,
-      "earnings_growth": 1.497326,
-      "forecast_period_end": "2027-03-31",
-      "prior_period_end": "2026-03-31",
-      "forecast_filing_date": "2026-08-03",
-      "prior_filing_date": "2026-05-08",
+      "current_year_eps_estimate": 93.26,
+      "prior_year_eps": 155.6,
+      "earnings_growth": -0.400643,
+      "forecast_period_end": "2026-12-31",
+      "prior_period_end": "2025-12-31",
+      "forecast_filing_date": "2026-08-04",
+      "prior_filing_date": "2026-02-10",
       "source": "TDnet XBRL",
       "latest_result_vs_company_forecast": {
         "status": "unavailable",
@@ -4786,16 +5356,16 @@
         "status": "ok",
         "comparison": "acceptable",
         "reason": null,
-        "metric": "ordinary_income",
-        "current_actual": 9740000000.0,
-        "current_full_year_forecast": 80000000000.0,
-        "prior_same_period_actual": 4839000000.0,
-        "prior_full_year_forecast": 90000000000.0,
-        "current_progress_pct": 12.175,
-        "prior_progress_pct": 5.3767,
-        "progress_gap_pp": 6.7983,
-        "relative_progress_deterioration_pct": -126.4414,
-        "same_period_profit_yoy_pct": 101.2813,
+        "metric": "operating_income",
+        "current_actual": 9311000000.0,
+        "current_full_year_forecast": 30000000000.0,
+        "prior_same_period_actual": 6509000000.0,
+        "prior_full_year_forecast": 38000000000.0,
+        "current_progress_pct": 31.0367,
+        "prior_progress_pct": 17.1289,
+        "progress_gap_pp": 13.9077,
+        "relative_progress_deterioration_pct": -81.1942,
+        "same_period_profit_yoy_pct": 43.0481,
         "thresholds": {
           "relative_progress_deterioration_pct": 30.0,
           "progress_gap_pp": 5.0,
@@ -4803,12 +5373,112 @@
         },
         "current_period_end": "2026-06-30",
         "prior_period_end": "2025-06-30",
+        "period_days": 181,
+        "current_actual_filing_date": "2026-08-04",
+        "current_forecast_period_end": "2026-12-31",
+        "current_forecast_filing_date": "2026-08-04",
+        "prior_forecast_period_end": "2025-12-31",
+        "prior_forecast_filing_date": "2025-08-01",
+        "source": "TDnet XBRL"
+      },
+      "latest_result_vs_market_consensus": {
+        "status": "unavailable",
+        "comparison": "unavailable",
+        "reason": "market_consensus_not_configured",
+        "provider": "unavailable"
+      }
+    },
+    "6997.T": {
+      "status": "ok",
+      "improving": true,
+      "reason": null,
+      "current_year_eps_estimate": 142.17,
+      "prior_year_eps": 106.29,
+      "earnings_growth": 0.337567,
+      "forecast_period_end": "2027-03-31",
+      "prior_period_end": "2026-03-31",
+      "forecast_filing_date": "2026-08-07",
+      "prior_filing_date": "2026-05-14",
+      "source": "TDnet XBRL",
+      "latest_result_vs_company_forecast": {
+        "status": "unavailable",
+        "comparison": "unavailable",
+        "reason": "latest_result_or_same_period_company_forecast_missing",
+        "source": "TDnet XBRL"
+      },
+      "latest_progress_vs_prior": {
+        "status": "unavailable",
+        "comparison": "unavailable",
+        "reason": "progress_denominator_not_positive",
+        "metric": "ordinary_income",
+        "current_period_end": "2026-06-30",
+        "prior_period_end": "2025-06-30",
         "period_days": 91,
-        "current_actual_filing_date": "2026-08-03",
-        "current_forecast_period_end": "2027-03-31",
-        "current_forecast_filing_date": "2026-08-03",
-        "prior_forecast_period_end": "2026-03-31",
-        "prior_forecast_filing_date": "2025-07-24",
+        "current_actual_filing_date": "2026-08-07",
+        "current_forecast_period_end": "2026-09-30",
+        "current_forecast_filing_date": "2026-08-07",
+        "prior_forecast_period_end": "2025-09-30",
+        "prior_forecast_filing_date": "2025-08-06",
+        "source": "TDnet XBRL"
+      },
+      "latest_result_vs_market_consensus": {
+        "status": "unavailable",
+        "comparison": "unavailable",
+        "reason": "market_consensus_not_configured",
+        "provider": "unavailable"
+      }
+    },
+    "4369.T": {
+      "status": "ok",
+      "improving": true,
+      "reason": null,
+      "current_year_eps_estimate": 202.17,
+      "prior_year_eps": 169.72,
+      "earnings_growth": 0.191197,
+      "forecast_period_end": "2027-01-31",
+      "prior_period_end": "2026-01-31",
+      "forecast_filing_date": "2026-08-31",
+      "prior_filing_date": "2026-03-13",
+      "source": "TDnet XBRL",
+      "latest_result_vs_company_forecast": {
+        "status": "ok",
+        "comparison": "met",
+        "reason": null,
+        "actual_eps": 103.81,
+        "forecast_eps": 67.39,
+        "period_end": "2026-07-31",
+        "period_days": 181,
+        "actual_filing_date": "2026-08-31",
+        "forecast_filing_date": "2026-05-29",
+        "source": "TDnet XBRL"
+      },
+      "latest_progress_vs_prior": {
+        "status": "ok",
+        "comparison": "acceptable",
+        "reason": null,
+        "metric": "ordinary_income",
+        "current_actual": 4526223000.0,
+        "current_full_year_forecast": 8720000000.0,
+        "prior_same_period_actual": 3800226000.0,
+        "prior_full_year_forecast": 6530000000.0,
+        "current_progress_pct": 51.9062,
+        "prior_progress_pct": 58.1964,
+        "progress_gap_pp": -6.2902,
+        "relative_progress_deterioration_pct": 10.8086,
+        "same_period_profit_yoy_pct": 19.104,
+        "thresholds": {
+          "relative_progress_deterioration_pct": 30.0,
+          "progress_gap_pp": 5.0,
+          "same_period_profit_decline_pct": 20.0
+        },
+        "current_period_end": "2026-07-31",
+        "prior_period_end": "2025-07-31",
+        "period_days": 181,
+        "current_actual_filing_date": "2026-08-31",
+        "current_forecast_period_end": "2027-01-31",
+        "current_forecast_filing_date": "2026-08-31",
+        "prior_forecast_period_end": "2026-01-31",
+        "prior_forecast_filing_date": "2025-08-29",
         "source": "TDnet XBRL"
       },
       "latest_result_vs_market_consensus": {
@@ -4926,6 +5596,60 @@
         "provider": "unavailable"
       }
     },
+    "3116.T": {
+      "status": "ok",
+      "improving": true,
+      "reason": null,
+      "current_year_eps_estimate": 257.57,
+      "prior_year_eps": 130.3,
+      "earnings_growth": 0.976746,
+      "forecast_period_end": "2027-03-31",
+      "prior_period_end": "2026-03-31",
+      "forecast_filing_date": "2026-07-31",
+      "prior_filing_date": "2026-04-28",
+      "source": "TDnet XBRL",
+      "latest_result_vs_company_forecast": {
+        "status": "unavailable",
+        "comparison": "unavailable",
+        "reason": "latest_result_or_same_period_company_forecast_missing",
+        "source": "TDnet XBRL"
+      },
+      "latest_progress_vs_prior": {
+        "status": "ok",
+        "comparison": "acceptable",
+        "reason": null,
+        "metric": "operating_income",
+        "current_actual": 15882000000.0,
+        "current_full_year_forecast": 76000000000.0,
+        "prior_same_period_actual": 18703000000.0,
+        "prior_full_year_forecast": 80000000000.0,
+        "current_progress_pct": 20.8974,
+        "prior_progress_pct": 23.3788,
+        "progress_gap_pp": -2.4814,
+        "relative_progress_deterioration_pct": 10.6138,
+        "same_period_profit_yoy_pct": -15.0831,
+        "thresholds": {
+          "relative_progress_deterioration_pct": 30.0,
+          "progress_gap_pp": 5.0,
+          "same_period_profit_decline_pct": 20.0
+        },
+        "current_period_end": "2026-06-30",
+        "prior_period_end": "2025-06-30",
+        "period_days": 91,
+        "current_actual_filing_date": "2026-07-31",
+        "current_forecast_period_end": "2027-03-31",
+        "current_forecast_filing_date": "2026-07-31",
+        "prior_forecast_period_end": "2026-03-31",
+        "prior_forecast_filing_date": "2025-07-31",
+        "source": "TDnet XBRL"
+      },
+      "latest_result_vs_market_consensus": {
+        "status": "unavailable",
+        "comparison": "unavailable",
+        "reason": "market_consensus_not_configured",
+        "provider": "unavailable"
+      }
+    },
     "1414.T": {
       "status": "ok",
       "improving": true,
@@ -4986,60 +5710,6 @@
         "provider": "unavailable"
       }
     },
-    "9045.T": {
-      "status": "ok",
-      "improving": false,
-      "reason": null,
-      "current_year_eps_estimate": 287.41,
-      "prior_year_eps": 332.79,
-      "earnings_growth": -0.136362,
-      "forecast_period_end": "2027-03-31",
-      "prior_period_end": "2026-03-31",
-      "forecast_filing_date": "2026-08-07",
-      "prior_filing_date": "2026-05-12",
-      "source": "TDnet XBRL",
-      "latest_result_vs_company_forecast": {
-        "status": "unavailable",
-        "comparison": "unavailable",
-        "reason": "latest_result_or_same_period_company_forecast_missing",
-        "source": "TDnet XBRL"
-      },
-      "latest_progress_vs_prior": {
-        "status": "ok",
-        "comparison": "acceptable",
-        "reason": null,
-        "metric": "ordinary_income",
-        "current_actual": 13223000000.0,
-        "current_full_year_forecast": 18300000000.0,
-        "prior_same_period_actual": 12636000000.0,
-        "prior_full_year_forecast": 15900000000.0,
-        "current_progress_pct": 72.2568,
-        "prior_progress_pct": 79.4717,
-        "progress_gap_pp": -7.2149,
-        "relative_progress_deterioration_pct": 9.0785,
-        "same_period_profit_yoy_pct": 4.6455,
-        "thresholds": {
-          "relative_progress_deterioration_pct": 30.0,
-          "progress_gap_pp": 5.0,
-          "same_period_profit_decline_pct": 20.0
-        },
-        "current_period_end": "2026-06-30",
-        "prior_period_end": "2025-06-30",
-        "period_days": 91,
-        "current_actual_filing_date": "2026-08-07",
-        "current_forecast_period_end": "2026-09-30",
-        "current_forecast_filing_date": "2026-08-07",
-        "prior_forecast_period_end": "2025-09-30",
-        "prior_forecast_filing_date": "2025-08-07",
-        "source": "TDnet XBRL"
-      },
-      "latest_result_vs_market_consensus": {
-        "status": "unavailable",
-        "comparison": "unavailable",
-        "reason": "market_consensus_not_configured",
-        "provider": "unavailable"
-      }
-    },
     "6740.T": {
       "status": "unavailable",
       "improving": null,
@@ -5074,22 +5744,28 @@
         "provider": "unavailable"
       }
     },
-    "4784.T": {
+    "5074.T": {
       "status": "ok",
       "improving": false,
       "reason": null,
-      "current_year_eps_estimate": 20.05,
-      "prior_year_eps": 20.28,
-      "earnings_growth": -0.011341,
-      "forecast_period_end": "2026-12-31",
-      "prior_period_end": "2025-12-31",
+      "current_year_eps_estimate": 25.48,
+      "prior_year_eps": 30.11,
+      "earnings_growth": -0.15377,
+      "forecast_period_end": "2027-06-30",
+      "prior_period_end": "2026-06-30",
       "forecast_filing_date": "2026-08-14",
-      "prior_filing_date": "2026-02-12",
+      "prior_filing_date": "2026-08-14",
       "source": "TDnet XBRL",
       "latest_result_vs_company_forecast": {
-        "status": "unavailable",
-        "comparison": "unavailable",
-        "reason": "latest_result_or_same_period_company_forecast_missing",
+        "status": "ok",
+        "comparison": "met",
+        "reason": null,
+        "actual_eps": 30.11,
+        "forecast_eps": 25.53,
+        "period_end": "2026-06-30",
+        "period_days": 365,
+        "actual_filing_date": "2026-08-14",
+        "forecast_filing_date": "2026-07-23",
         "source": "TDnet XBRL"
       },
       "latest_progress_vs_prior": {
@@ -5097,167 +5773,28 @@
         "comparison": "acceptable",
         "reason": null,
         "metric": "ordinary_income",
-        "current_actual": 4543000000.0,
-        "current_full_year_forecast": 9100000000.0,
-        "prior_same_period_actual": 3256000000.0,
-        "prior_full_year_forecast": 7800000000.0,
-        "current_progress_pct": 49.9231,
-        "prior_progress_pct": 41.7436,
-        "progress_gap_pp": 8.1795,
-        "relative_progress_deterioration_pct": -19.5946,
-        "same_period_profit_yoy_pct": 39.527,
+        "current_actual": 2497000000.0,
+        "current_full_year_forecast": 2900000000.0,
+        "prior_same_period_actual": 225000000.0,
+        "prior_full_year_forecast": 400000000.0,
+        "current_progress_pct": 86.1034,
+        "prior_progress_pct": 56.25,
+        "progress_gap_pp": 29.8534,
+        "relative_progress_deterioration_pct": -53.0728,
+        "same_period_profit_yoy_pct": 1009.7778,
         "thresholds": {
           "relative_progress_deterioration_pct": 30.0,
           "progress_gap_pp": 5.0,
           "same_period_profit_decline_pct": 20.0
         },
-        "current_period_end": "2026-06-30",
-        "prior_period_end": "2025-06-30",
-        "period_days": 181,
-        "current_actual_filing_date": "2026-08-14",
-        "current_forecast_period_end": "2026-12-31",
+        "current_period_end": "2026-03-31",
+        "prior_period_end": "2025-03-31",
+        "period_days": 274,
+        "current_actual_filing_date": "2026-05-15",
+        "current_forecast_period_end": "2027-06-30",
         "current_forecast_filing_date": "2026-08-14",
-        "prior_forecast_period_end": "2025-12-31",
-        "prior_forecast_filing_date": "2025-08-12",
-        "source": "TDnet XBRL"
-      },
-      "latest_result_vs_market_consensus": {
-        "status": "unavailable",
-        "comparison": "unavailable",
-        "reason": "market_consensus_not_configured",
-        "provider": "unavailable"
-      }
-    },
-    "8584.T": {
-      "status": "ok",
-      "improving": false,
-      "reason": null,
-      "current_year_eps_estimate": 223.42,
-      "prior_year_eps": 380.28,
-      "earnings_growth": -0.412486,
-      "forecast_period_end": "2027-03-31",
-      "prior_period_end": "2026-03-31",
-      "forecast_filing_date": "2026-08-06",
-      "prior_filing_date": "2026-05-15",
-      "source": "TDnet XBRL",
-      "latest_result_vs_company_forecast": {
-        "status": "unavailable",
-        "comparison": "unavailable",
-        "reason": "latest_result_or_same_period_company_forecast_missing",
-        "source": "TDnet XBRL"
-      },
-      "latest_progress_vs_prior": {
-        "status": "ok",
-        "comparison": "acceptable",
-        "reason": null,
-        "metric": "ordinary_income",
-        "current_actual": 6066000000.0,
-        "current_full_year_forecast": 6000000000.0,
-        "prior_same_period_actual": 6306000000.0,
-        "prior_full_year_forecast": 10000000000.0,
-        "current_progress_pct": 101.1,
-        "prior_progress_pct": 63.06,
-        "progress_gap_pp": 38.04,
-        "relative_progress_deterioration_pct": -60.3235,
-        "same_period_profit_yoy_pct": -3.8059,
-        "thresholds": {
-          "relative_progress_deterioration_pct": 30.0,
-          "progress_gap_pp": 5.0,
-          "same_period_profit_decline_pct": 20.0
-        },
-        "current_period_end": "2026-06-30",
-        "prior_period_end": "2025-06-30",
-        "period_days": 91,
-        "current_actual_filing_date": "2026-08-06",
-        "current_forecast_period_end": "2026-09-30",
-        "current_forecast_filing_date": "2026-08-06",
-        "prior_forecast_period_end": "2025-09-30",
-        "prior_forecast_filing_date": "2025-08-07",
-        "source": "TDnet XBRL"
-      },
-      "latest_result_vs_market_consensus": {
-        "status": "unavailable",
-        "comparison": "unavailable",
-        "reason": "market_consensus_not_configured",
-        "provider": "unavailable"
-      }
-    },
-    "4593.T": {
-      "status": "unavailable",
-      "improving": null,
-      "reason": "forecast_eps_missing",
-      "current_year_eps_estimate": null,
-      "prior_year_eps": null,
-      "latest_result_vs_company_forecast": {
-        "status": "unavailable",
-        "comparison": "unavailable",
-        "reason": "latest_result_or_same_period_company_forecast_missing",
-        "source": "TDnet XBRL"
-      },
-      "latest_progress_vs_prior": {
-        "status": "unavailable",
-        "comparison": "unavailable",
-        "reason": "latest_quarter_or_prior_same_period_forecast_missing",
-        "source": "TDnet XBRL"
-      },
-      "latest_result_vs_market_consensus": {
-        "status": "unavailable",
-        "comparison": "unavailable",
-        "reason": "market_consensus_not_configured",
-        "provider": "unavailable"
-      }
-    },
-    "7545.T": {
-      "status": "ok",
-      "improving": true,
-      "reason": null,
-      "current_year_eps_estimate": 139.78,
-      "prior_year_eps": 114.17,
-      "earnings_growth": 0.224315,
-      "forecast_period_end": "2027-02-20",
-      "prior_period_end": "2026-02-20",
-      "forecast_filing_date": "2026-10-01",
-      "prior_filing_date": "2026-05-12",
-      "source": "TDnet XBRL",
-      "latest_result_vs_company_forecast": {
-        "status": "ok",
-        "comparison": "missed",
-        "reason": null,
-        "actual_eps": 83.5,
-        "forecast_eps": 84.82,
-        "period_end": "2026-08-20",
-        "period_days": 181,
-        "actual_filing_date": "2026-10-01",
-        "forecast_filing_date": "2026-06-26",
-        "source": "TDnet XBRL"
-      },
-      "latest_progress_vs_prior": {
-        "status": "ok",
-        "comparison": "acceptable",
-        "reason": null,
-        "metric": "ordinary_income",
-        "current_actual": 7378000000.0,
-        "current_full_year_forecast": 13000000000.0,
-        "prior_same_period_actual": 7508000000.0,
-        "prior_full_year_forecast": 14000000000.0,
-        "current_progress_pct": 56.7538,
-        "prior_progress_pct": 53.6286,
-        "progress_gap_pp": 3.1253,
-        "relative_progress_deterioration_pct": -5.8276,
-        "same_period_profit_yoy_pct": -1.7315,
-        "thresholds": {
-          "relative_progress_deterioration_pct": 30.0,
-          "progress_gap_pp": 5.0,
-          "same_period_profit_decline_pct": 20.0
-        },
-        "current_period_end": "2026-08-20",
-        "prior_period_end": "2025-08-20",
-        "period_days": 181,
-        "current_actual_filing_date": "2026-10-01",
-        "current_forecast_period_end": "2027-02-20",
-        "current_forecast_filing_date": "2026-10-01",
-        "prior_forecast_period_end": "2026-02-20",
-        "prior_forecast_filing_date": "2025-10-01",
+        "prior_forecast_period_end": "2025-06-30",
+        "prior_forecast_filing_date": "2025-05-15",
         "source": "TDnet XBRL"
       },
       "latest_result_vs_market_consensus": {
@@ -5321,17 +5858,17 @@
         "provider": "unavailable"
       }
     },
-    "9090.T": {
+    "6183.T": {
       "status": "ok",
       "improving": true,
       "reason": null,
-      "current_year_eps_estimate": 61.63,
-      "prior_year_eps": 55.3,
-      "earnings_growth": 0.114467,
-      "forecast_period_end": "2027-03-31",
-      "prior_period_end": "2026-03-31",
-      "forecast_filing_date": "2026-08-05",
-      "prior_filing_date": "2026-05-11",
+      "current_year_eps_estimate": 114.33,
+      "prior_year_eps": 110.22,
+      "earnings_growth": 0.037289,
+      "forecast_period_end": "2027-02-28",
+      "prior_period_end": "2026-02-28",
+      "forecast_filing_date": "2026-10-14",
+      "prior_filing_date": "2026-04-08",
       "source": "TDnet XBRL",
       "latest_result_vs_company_forecast": {
         "status": "unavailable",
@@ -5341,31 +5878,31 @@
       },
       "latest_progress_vs_prior": {
         "status": "ok",
-        "comparison": "deteriorated",
-        "reason": "progress_and_same_period_profit_significantly_deteriorated",
-        "metric": "ordinary_income",
-        "current_actual": 2025000000.0,
-        "current_full_year_forecast": 5540000000.0,
-        "prior_same_period_actual": 3249000000.0,
-        "prior_full_year_forecast": 4650000000.0,
-        "current_progress_pct": 36.5523,
-        "prior_progress_pct": 69.871,
-        "progress_gap_pp": -33.3186,
-        "relative_progress_deterioration_pct": 47.6859,
-        "same_period_profit_yoy_pct": -37.6731,
+        "comparison": "acceptable",
+        "reason": null,
+        "metric": "operating_income",
+        "current_actual": 6173000000.0,
+        "current_full_year_forecast": 13000000000.0,
+        "prior_same_period_actual": 5914000000.0,
+        "prior_full_year_forecast": 12000000000.0,
+        "current_progress_pct": 47.4846,
+        "prior_progress_pct": 49.2833,
+        "progress_gap_pp": -1.7987,
+        "relative_progress_deterioration_pct": 3.6497,
+        "same_period_profit_yoy_pct": 4.3794,
         "thresholds": {
           "relative_progress_deterioration_pct": 30.0,
           "progress_gap_pp": 5.0,
           "same_period_profit_decline_pct": 20.0
         },
-        "current_period_end": "2026-06-30",
-        "prior_period_end": "2025-06-30",
-        "period_days": 91,
-        "current_actual_filing_date": "2026-08-05",
-        "current_forecast_period_end": "2026-09-30",
-        "current_forecast_filing_date": "2026-08-05",
-        "prior_forecast_period_end": "2025-09-30",
-        "prior_forecast_filing_date": "2025-09-04",
+        "current_period_end": "2026-08-31",
+        "prior_period_end": "2025-08-31",
+        "period_days": 184,
+        "current_actual_filing_date": "2026-10-14",
+        "current_forecast_period_end": "2027-02-28",
+        "current_forecast_filing_date": "2026-10-14",
+        "prior_forecast_period_end": "2026-02-28",
+        "prior_forecast_filing_date": "2025-10-08",
         "source": "TDnet XBRL"
       },
       "latest_result_vs_market_consensus": {
@@ -5375,17 +5912,17 @@
         "provider": "unavailable"
       }
     },
-    "2315.T": {
+    "2292.T": {
       "status": "ok",
       "improving": false,
       "reason": null,
-      "current_year_eps_estimate": 0.66,
-      "prior_year_eps": 1.22,
-      "earnings_growth": -0.459016,
-      "forecast_period_end": "2026-10-31",
-      "prior_period_end": "2025-10-31",
-      "forecast_filing_date": "2026-09-14",
-      "prior_filing_date": "2025-12-19",
+      "current_year_eps_estimate": 205.07,
+      "prior_year_eps": 291.7,
+      "earnings_growth": -0.296983,
+      "forecast_period_end": "2027-02-28",
+      "prior_period_end": "2026-02-28",
+      "forecast_filing_date": "2026-10-14",
+      "prior_filing_date": "2026-05-20",
       "source": "TDnet XBRL",
       "latest_result_vs_company_forecast": {
         "status": "unavailable",
@@ -5395,31 +5932,31 @@
       },
       "latest_progress_vs_prior": {
         "status": "ok",
-        "comparison": "deteriorated",
-        "reason": "progress_and_same_period_profit_significantly_deteriorated",
+        "comparison": "acceptable",
+        "reason": null,
         "metric": "ordinary_income",
-        "current_actual": -12167000.0,
-        "current_full_year_forecast": 107000000.0,
-        "prior_same_period_actual": 74203000.0,
-        "prior_full_year_forecast": 141000000.0,
-        "current_progress_pct": -11.371,
-        "prior_progress_pct": 52.6262,
-        "progress_gap_pp": -63.9973,
-        "relative_progress_deterioration_pct": 121.6071,
-        "same_period_profit_yoy_pct": -116.3969,
+        "current_actual": 5021000000.0,
+        "current_full_year_forecast": 11000000000.0,
+        "prior_same_period_actual": 4042000000.0,
+        "prior_full_year_forecast": 8500000000.0,
+        "current_progress_pct": 45.6455,
+        "prior_progress_pct": 47.5529,
+        "progress_gap_pp": -1.9075,
+        "relative_progress_deterioration_pct": 4.0113,
+        "same_period_profit_yoy_pct": 24.2207,
         "thresholds": {
           "relative_progress_deterioration_pct": 30.0,
           "progress_gap_pp": 5.0,
           "same_period_profit_decline_pct": 20.0
         },
-        "current_period_end": "2026-07-31",
-        "prior_period_end": "2025-07-31",
-        "period_days": 273,
-        "current_actual_filing_date": "2026-09-14",
-        "current_forecast_period_end": "2026-10-31",
-        "current_forecast_filing_date": "2026-09-14",
-        "prior_forecast_period_end": "2025-10-31",
-        "prior_forecast_filing_date": "2025-09-12",
+        "current_period_end": "2026-08-31",
+        "prior_period_end": "2025-08-31",
+        "period_days": 184,
+        "current_actual_filing_date": "2026-10-14",
+        "current_forecast_period_end": "2027-02-28",
+        "current_forecast_filing_date": "2026-10-14",
+        "prior_forecast_period_end": "2026-02-28",
+        "prior_forecast_filing_date": "2025-10-14",
         "source": "TDnet XBRL"
       },
       "latest_result_vs_market_consensus": {
@@ -5474,6 +6011,37 @@
         "current_forecast_filing_date": "2026-10-05",
         "prior_forecast_period_end": "2025-11-30",
         "prior_forecast_filing_date": "2025-10-06",
+        "source": "TDnet XBRL"
+      },
+      "latest_result_vs_market_consensus": {
+        "status": "unavailable",
+        "comparison": "unavailable",
+        "reason": "market_consensus_not_configured",
+        "provider": "unavailable"
+      }
+    },
+    "3491.T": {
+      "status": "ok",
+      "improving": true,
+      "reason": null,
+      "current_year_eps_estimate": 132.94,
+      "prior_year_eps": 97.8,
+      "earnings_growth": 0.359305,
+      "forecast_period_end": "2026-10-31",
+      "prior_period_end": "2025-10-31",
+      "forecast_filing_date": "2026-09-14",
+      "prior_filing_date": "2025-12-15",
+      "source": "TDnet XBRL",
+      "latest_result_vs_company_forecast": {
+        "status": "unavailable",
+        "comparison": "unavailable",
+        "reason": "latest_result_or_same_period_company_forecast_missing",
+        "source": "TDnet XBRL"
+      },
+      "latest_progress_vs_prior": {
+        "status": "unavailable",
+        "comparison": "unavailable",
+        "reason": "latest_quarter_or_prior_same_period_forecast_missing",
         "source": "TDnet XBRL"
       },
       "latest_result_vs_market_consensus": {
@@ -5577,66 +6145,6 @@
         "provider": "unavailable"
       }
     },
-    "9416.T": {
-      "status": "ok",
-      "improving": true,
-      "reason": null,
-      "current_year_eps_estimate": 103.64,
-      "prior_year_eps": 92.12,
-      "earnings_growth": 0.125054,
-      "forecast_period_end": "2026-12-31",
-      "prior_period_end": "2025-12-31",
-      "forecast_filing_date": "2026-08-10",
-      "prior_filing_date": "2026-02-13",
-      "source": "TDnet XBRL",
-      "latest_result_vs_company_forecast": {
-        "status": "ok",
-        "comparison": "missed",
-        "reason": null,
-        "actual_eps": 41.55,
-        "forecast_eps": 44.71,
-        "period_end": "2026-06-30",
-        "period_days": 181,
-        "actual_filing_date": "2026-08-10",
-        "forecast_filing_date": "2026-05-14",
-        "source": "TDnet XBRL"
-      },
-      "latest_progress_vs_prior": {
-        "status": "ok",
-        "comparison": "acceptable",
-        "reason": null,
-        "metric": "ordinary_income",
-        "current_actual": 3048941000.0,
-        "current_full_year_forecast": 7497000000.0,
-        "prior_same_period_actual": 2910835000.0,
-        "prior_full_year_forecast": 6445000000.0,
-        "current_progress_pct": 40.6688,
-        "prior_progress_pct": 45.1642,
-        "progress_gap_pp": -4.4954,
-        "relative_progress_deterioration_pct": 9.9535,
-        "same_period_profit_yoy_pct": 4.7445,
-        "thresholds": {
-          "relative_progress_deterioration_pct": 30.0,
-          "progress_gap_pp": 5.0,
-          "same_period_profit_decline_pct": 20.0
-        },
-        "current_period_end": "2026-06-30",
-        "prior_period_end": "2025-06-30",
-        "period_days": 181,
-        "current_actual_filing_date": "2026-08-10",
-        "current_forecast_period_end": "2026-12-31",
-        "current_forecast_filing_date": "2026-08-10",
-        "prior_forecast_period_end": "2025-12-31",
-        "prior_forecast_filing_date": "2025-08-08",
-        "source": "TDnet XBRL"
-      },
-      "latest_result_vs_market_consensus": {
-        "status": "unavailable",
-        "comparison": "unavailable",
-        "reason": "market_consensus_not_configured",
-        "provider": "unavailable"
-      }
-    },
     "3668.T": {
       "status": "unavailable",
       "improving": null,
@@ -5716,17 +6224,71 @@
         "provider": "unavailable"
       }
     },
-    "1419.T": {
+    "3179.T": {
       "status": "ok",
       "improving": true,
       "reason": null,
-      "current_year_eps_estimate": 137.99,
-      "prior_year_eps": 41.86,
-      "earnings_growth": 2.296464,
-      "forecast_period_end": "2027-05-31",
-      "prior_period_end": "2026-05-31",
-      "forecast_filing_date": "2026-10-13",
-      "prior_filing_date": "2026-07-14",
+      "current_year_eps_estimate": 87.28,
+      "prior_year_eps": 78.57,
+      "earnings_growth": 0.110857,
+      "forecast_period_end": "2027-03-31",
+      "prior_period_end": "2026-03-31",
+      "forecast_filing_date": "2026-08-07",
+      "prior_filing_date": "2026-05-12",
+      "source": "TDnet XBRL",
+      "latest_result_vs_company_forecast": {
+        "status": "unavailable",
+        "comparison": "unavailable",
+        "reason": "latest_result_or_same_period_company_forecast_missing",
+        "source": "TDnet XBRL"
+      },
+      "latest_progress_vs_prior": {
+        "status": "ok",
+        "comparison": "deteriorated",
+        "reason": "progress_and_same_period_profit_significantly_deteriorated",
+        "metric": "ordinary_income",
+        "current_actual": 244931000.0,
+        "current_full_year_forecast": 2703000000.0,
+        "prior_same_period_actual": 422539000.0,
+        "prior_full_year_forecast": 1512000000.0,
+        "current_progress_pct": 9.0615,
+        "prior_progress_pct": 27.9457,
+        "progress_gap_pp": -18.8843,
+        "relative_progress_deterioration_pct": 67.5748,
+        "same_period_profit_yoy_pct": -42.0335,
+        "thresholds": {
+          "relative_progress_deterioration_pct": 30.0,
+          "progress_gap_pp": 5.0,
+          "same_period_profit_decline_pct": 20.0
+        },
+        "current_period_end": "2026-06-30",
+        "prior_period_end": "2025-06-30",
+        "period_days": 91,
+        "current_actual_filing_date": "2026-08-07",
+        "current_forecast_period_end": "2027-03-31",
+        "current_forecast_filing_date": "2026-08-07",
+        "prior_forecast_period_end": "2025-09-30",
+        "prior_forecast_filing_date": "2025-08-07",
+        "source": "TDnet XBRL"
+      },
+      "latest_result_vs_market_consensus": {
+        "status": "unavailable",
+        "comparison": "unavailable",
+        "reason": "market_consensus_not_configured",
+        "provider": "unavailable"
+      }
+    },
+    "3865.T": {
+      "status": "ok",
+      "improving": false,
+      "reason": null,
+      "current_year_eps_estimate": 31.49,
+      "prior_year_eps": 43.59,
+      "earnings_growth": -0.277587,
+      "forecast_period_end": "2027-03-31",
+      "prior_period_end": "2026-03-31",
+      "forecast_filing_date": "2026-08-07",
+      "prior_filing_date": "2026-05-15",
       "source": "TDnet XBRL",
       "latest_result_vs_company_forecast": {
         "status": "unavailable",
@@ -5739,14 +6301,14 @@
         "comparison": "unavailable",
         "reason": "progress_denominator_not_positive",
         "metric": "ordinary_income",
-        "current_period_end": "2026-08-31",
-        "prior_period_end": "2025-08-31",
-        "period_days": 92,
-        "current_actual_filing_date": "2026-10-13",
-        "current_forecast_period_end": "2027-05-31",
-        "current_forecast_filing_date": "2026-10-13",
-        "prior_forecast_period_end": "2026-05-31",
-        "prior_forecast_filing_date": "2025-10-14",
+        "current_period_end": "2026-06-30",
+        "prior_period_end": "2025-06-30",
+        "period_days": 91,
+        "current_actual_filing_date": "2026-08-07",
+        "current_forecast_period_end": "2026-09-30",
+        "current_forecast_filing_date": "2026-08-07",
+        "prior_forecast_period_end": "2025-09-30",
+        "prior_forecast_filing_date": "2025-08-08",
         "source": "TDnet XBRL"
       },
       "latest_result_vs_market_consensus": {
@@ -5756,43 +6318,136 @@
         "provider": "unavailable"
       }
     },
-    "4813.T": {
+    "4481.T": {
       "status": "ok",
       "improving": true,
       "reason": null,
-      "current_year_eps_estimate": 16.28,
-      "prior_year_eps": -90.53,
-      "earnings_growth": 1.17983,
-      "forecast_period_end": "2027-01-31",
-      "prior_period_end": "2026-01-31",
-      "forecast_filing_date": "2026-09-11",
-      "prior_filing_date": "2026-03-30",
+      "current_year_eps_estimate": 251.59,
+      "prior_year_eps": 229.31,
+      "earnings_growth": 0.097161,
+      "forecast_period_end": "2026-12-31",
+      "prior_period_end": "2025-12-31",
+      "forecast_filing_date": "2026-08-14",
+      "prior_filing_date": "2026-02-13",
       "source": "TDnet XBRL",
       "latest_result_vs_company_forecast": {
         "status": "ok",
         "comparison": "missed",
         "reason": null,
-        "actual_eps": -15.68,
-        "forecast_eps": -10.28,
-        "period_end": "2026-07-31",
+        "actual_eps": 104.53,
+        "forecast_eps": 122.59,
+        "period_end": "2026-06-30",
         "period_days": 181,
-        "actual_filing_date": "2026-09-11",
-        "forecast_filing_date": "2026-06-12",
+        "actual_filing_date": "2026-08-14",
+        "forecast_filing_date": "2026-05-15",
+        "source": "TDnet XBRL"
+      },
+      "latest_progress_vs_prior": {
+        "status": "ok",
+        "comparison": "acceptable",
+        "reason": null,
+        "metric": "ordinary_income",
+        "current_actual": 2738007000.0,
+        "current_full_year_forecast": 6349000000.0,
+        "prior_same_period_actual": 2952399000.0,
+        "prior_full_year_forecast": 6272000000.0,
+        "current_progress_pct": 43.125,
+        "prior_progress_pct": 47.0727,
+        "progress_gap_pp": -3.9477,
+        "relative_progress_deterioration_pct": 8.3863,
+        "same_period_profit_yoy_pct": -7.2616,
+        "thresholds": {
+          "relative_progress_deterioration_pct": 30.0,
+          "progress_gap_pp": 5.0,
+          "same_period_profit_decline_pct": 20.0
+        },
+        "current_period_end": "2026-06-30",
+        "prior_period_end": "2025-06-30",
+        "period_days": 181,
+        "current_actual_filing_date": "2026-08-14",
+        "current_forecast_period_end": "2026-12-31",
+        "current_forecast_filing_date": "2026-08-14",
+        "prior_forecast_period_end": "2025-12-31",
+        "prior_forecast_filing_date": "2025-08-14",
+        "source": "TDnet XBRL"
+      },
+      "latest_result_vs_market_consensus": {
+        "status": "unavailable",
+        "comparison": "unavailable",
+        "reason": "market_consensus_not_configured",
+        "provider": "unavailable"
+      }
+    },
+    "6616.T": {
+      "status": "ok",
+      "improving": true,
+      "reason": null,
+      "current_year_eps_estimate": 151.05,
+      "prior_year_eps": 109.38,
+      "earnings_growth": 0.380965,
+      "forecast_period_end": "2027-03-31",
+      "prior_period_end": "2026-03-31",
+      "forecast_filing_date": "2026-08-12",
+      "prior_filing_date": "2026-05-14",
+      "source": "TDnet XBRL",
+      "latest_result_vs_company_forecast": {
+        "status": "unavailable",
+        "comparison": "unavailable",
+        "reason": "latest_result_or_same_period_company_forecast_missing",
+        "source": "TDnet XBRL"
+      },
+      "latest_progress_vs_prior": {
+        "status": "ok",
+        "comparison": "acceptable",
+        "reason": null,
+        "metric": "ordinary_income",
+        "current_actual": 1113642000.0,
+        "current_full_year_forecast": 1600000000.0,
+        "prior_same_period_actual": 64438000.0,
+        "prior_full_year_forecast": 400000000.0,
+        "current_progress_pct": 69.6026,
+        "prior_progress_pct": 16.1095,
+        "progress_gap_pp": 53.4931,
+        "relative_progress_deterioration_pct": -332.0595,
+        "same_period_profit_yoy_pct": 1628.238,
+        "thresholds": {
+          "relative_progress_deterioration_pct": 30.0,
+          "progress_gap_pp": 5.0,
+          "same_period_profit_decline_pct": 20.0
+        },
+        "current_period_end": "2026-06-30",
+        "prior_period_end": "2025-06-30",
+        "period_days": 91,
+        "current_actual_filing_date": "2026-08-12",
+        "current_forecast_period_end": "2027-03-31",
+        "current_forecast_filing_date": "2026-08-12",
+        "prior_forecast_period_end": "2026-03-31",
+        "prior_forecast_filing_date": "2025-08-12",
+        "source": "TDnet XBRL"
+      },
+      "latest_result_vs_market_consensus": {
+        "status": "unavailable",
+        "comparison": "unavailable",
+        "reason": "market_consensus_not_configured",
+        "provider": "unavailable"
+      }
+    },
+    "7779.T": {
+      "status": "unavailable",
+      "improving": null,
+      "reason": "forecast_eps_missing",
+      "current_year_eps_estimate": null,
+      "prior_year_eps": null,
+      "latest_result_vs_company_forecast": {
+        "status": "unavailable",
+        "comparison": "unavailable",
+        "reason": "latest_result_or_same_period_company_forecast_missing",
         "source": "TDnet XBRL"
       },
       "latest_progress_vs_prior": {
         "status": "unavailable",
         "comparison": "unavailable",
-        "reason": "progress_denominator_not_positive",
-        "metric": "ordinary_income",
-        "current_period_end": "2026-07-31",
-        "prior_period_end": "2025-07-31",
-        "period_days": 181,
-        "current_actual_filing_date": "2026-09-11",
-        "current_forecast_period_end": "2027-01-31",
-        "current_forecast_filing_date": "2026-09-11",
-        "prior_forecast_period_end": "2026-01-31",
-        "prior_forecast_filing_date": "2025-09-12",
+        "reason": "latest_quarter_or_prior_same_period_forecast_missing",
         "source": "TDnet XBRL"
       },
       "latest_result_vs_market_consensus": {
@@ -5856,22 +6511,28 @@
         "provider": "unavailable"
       }
     },
-    "4534.T": {
+    "1514.T": {
       "status": "ok",
-      "improving": true,
+      "improving": false,
       "reason": null,
-      "current_year_eps_estimate": 282.86,
-      "prior_year_eps": 222.96,
-      "earnings_growth": 0.268658,
+      "current_year_eps_estimate": 26.75,
+      "prior_year_eps": 44.11,
+      "earnings_growth": -0.393562,
       "forecast_period_end": "2027-03-31",
       "prior_period_end": "2026-03-31",
-      "forecast_filing_date": "2026-08-03",
+      "forecast_filing_date": "2026-10-09",
       "prior_filing_date": "2026-05-15",
       "source": "TDnet XBRL",
       "latest_result_vs_company_forecast": {
-        "status": "unavailable",
-        "comparison": "unavailable",
-        "reason": "latest_result_or_same_period_company_forecast_missing",
+        "status": "ok",
+        "comparison": "met",
+        "reason": null,
+        "actual_eps": 20.97,
+        "forecast_eps": 20.07,
+        "period_end": "2025-09-30",
+        "period_days": 183,
+        "actual_filing_date": "2026-10-09",
+        "forecast_filing_date": "2025-10-06",
         "source": "TDnet XBRL"
       },
       "latest_progress_vs_prior": {
@@ -5879,15 +6540,15 @@
         "comparison": "acceptable",
         "reason": null,
         "metric": "ordinary_income",
-        "current_actual": 4187000000.0,
-        "current_full_year_forecast": 12500000000.0,
-        "prior_same_period_actual": 2783000000.0,
-        "prior_full_year_forecast": 7500000000.0,
-        "current_progress_pct": 33.496,
-        "prior_progress_pct": 37.1067,
-        "progress_gap_pp": -3.6107,
-        "relative_progress_deterioration_pct": 9.7305,
-        "same_period_profit_yoy_pct": 50.4492,
+        "current_actual": 71000000.0,
+        "current_full_year_forecast": 1500000000.0,
+        "prior_same_period_actual": 2000000.0,
+        "prior_full_year_forecast": 900000000.0,
+        "current_progress_pct": 4.7333,
+        "prior_progress_pct": 0.2222,
+        "progress_gap_pp": 4.5111,
+        "relative_progress_deterioration_pct": -2030.0,
+        "same_period_profit_yoy_pct": 3450.0,
         "thresholds": {
           "relative_progress_deterioration_pct": 30.0,
           "progress_gap_pp": 5.0,
@@ -5896,36 +6557,11 @@
         "current_period_end": "2026-06-30",
         "prior_period_end": "2025-06-30",
         "period_days": 91,
-        "current_actual_filing_date": "2026-08-03",
-        "current_forecast_period_end": "2027-03-31",
-        "current_forecast_filing_date": "2026-08-03",
-        "prior_forecast_period_end": "2026-03-31",
-        "prior_forecast_filing_date": "2025-08-01",
-        "source": "TDnet XBRL"
-      },
-      "latest_result_vs_market_consensus": {
-        "status": "unavailable",
-        "comparison": "unavailable",
-        "reason": "market_consensus_not_configured",
-        "provider": "unavailable"
-      }
-    },
-    "7779.T": {
-      "status": "unavailable",
-      "improving": null,
-      "reason": "forecast_eps_missing",
-      "current_year_eps_estimate": null,
-      "prior_year_eps": null,
-      "latest_result_vs_company_forecast": {
-        "status": "unavailable",
-        "comparison": "unavailable",
-        "reason": "latest_result_or_same_period_company_forecast_missing",
-        "source": "TDnet XBRL"
-      },
-      "latest_progress_vs_prior": {
-        "status": "unavailable",
-        "comparison": "unavailable",
-        "reason": "latest_quarter_or_prior_same_period_forecast_missing",
+        "current_actual_filing_date": "2026-07-31",
+        "current_forecast_period_end": "2026-09-30",
+        "current_forecast_filing_date": "2026-10-09",
+        "prior_forecast_period_end": "2025-09-30",
+        "prior_forecast_filing_date": "2025-07-31",
         "source": "TDnet XBRL"
       },
       "latest_result_vs_market_consensus": {
@@ -5986,114 +6622,6 @@
         "current_forecast_filing_date": "2026-08-10",
         "prior_forecast_period_end": "2026-06-30",
         "prior_forecast_filing_date": "2026-07-15",
-        "source": "TDnet XBRL"
-      },
-      "latest_result_vs_market_consensus": {
-        "status": "unavailable",
-        "comparison": "unavailable",
-        "reason": "market_consensus_not_configured",
-        "provider": "unavailable"
-      }
-    },
-    "5988.T": {
-      "status": "ok",
-      "improving": true,
-      "reason": null,
-      "current_year_eps_estimate": 27.45,
-      "prior_year_eps": -0.85,
-      "earnings_growth": 33.294118,
-      "forecast_period_end": "2027-03-31",
-      "prior_period_end": "2026-03-31",
-      "forecast_filing_date": "2026-08-05",
-      "prior_filing_date": "2026-05-12",
-      "source": "TDnet XBRL",
-      "latest_result_vs_company_forecast": {
-        "status": "unavailable",
-        "comparison": "unavailable",
-        "reason": "latest_result_or_same_period_company_forecast_missing",
-        "source": "TDnet XBRL"
-      },
-      "latest_progress_vs_prior": {
-        "status": "ok",
-        "comparison": "acceptable",
-        "reason": null,
-        "metric": "ordinary_income",
-        "current_actual": 394000000.0,
-        "current_full_year_forecast": 1500000000.0,
-        "prior_same_period_actual": 306000000.0,
-        "prior_full_year_forecast": 2000000000.0,
-        "current_progress_pct": 26.2667,
-        "prior_progress_pct": 15.3,
-        "progress_gap_pp": 10.9667,
-        "relative_progress_deterioration_pct": -71.6776,
-        "same_period_profit_yoy_pct": 28.7582,
-        "thresholds": {
-          "relative_progress_deterioration_pct": 30.0,
-          "progress_gap_pp": 5.0,
-          "same_period_profit_decline_pct": 20.0
-        },
-        "current_period_end": "2026-06-30",
-        "prior_period_end": "2025-06-30",
-        "period_days": 91,
-        "current_actual_filing_date": "2026-08-05",
-        "current_forecast_period_end": "2027-03-31",
-        "current_forecast_filing_date": "2026-08-05",
-        "prior_forecast_period_end": "2026-03-31",
-        "prior_forecast_filing_date": "2025-08-07",
-        "source": "TDnet XBRL"
-      },
-      "latest_result_vs_market_consensus": {
-        "status": "unavailable",
-        "comparison": "unavailable",
-        "reason": "market_consensus_not_configured",
-        "provider": "unavailable"
-      }
-    },
-    "6222.T": {
-      "status": "ok",
-      "improving": true,
-      "reason": null,
-      "current_year_eps_estimate": 26.53,
-      "prior_year_eps": 25.23,
-      "earnings_growth": 0.051526,
-      "forecast_period_end": "2027-03-31",
-      "prior_period_end": "2026-03-31",
-      "forecast_filing_date": "2026-07-31",
-      "prior_filing_date": "2026-05-08",
-      "source": "TDnet XBRL",
-      "latest_result_vs_company_forecast": {
-        "status": "unavailable",
-        "comparison": "unavailable",
-        "reason": "latest_result_or_same_period_company_forecast_missing",
-        "source": "TDnet XBRL"
-      },
-      "latest_progress_vs_prior": {
-        "status": "ok",
-        "comparison": "deteriorated",
-        "reason": "progress_and_same_period_profit_significantly_deteriorated",
-        "metric": "ordinary_income",
-        "current_actual": -500000000.0,
-        "current_full_year_forecast": 1000000000.0,
-        "prior_same_period_actual": 1012000000.0,
-        "prior_full_year_forecast": 2300000000.0,
-        "current_progress_pct": -50.0,
-        "prior_progress_pct": 44.0,
-        "progress_gap_pp": -94.0,
-        "relative_progress_deterioration_pct": 213.6364,
-        "same_period_profit_yoy_pct": -149.4071,
-        "thresholds": {
-          "relative_progress_deterioration_pct": 30.0,
-          "progress_gap_pp": 5.0,
-          "same_period_profit_decline_pct": 20.0
-        },
-        "current_period_end": "2026-06-30",
-        "prior_period_end": "2025-06-30",
-        "period_days": 91,
-        "current_actual_filing_date": "2026-07-31",
-        "current_forecast_period_end": "2027-03-31",
-        "current_forecast_filing_date": "2026-07-31",
-        "prior_forecast_period_end": "2026-03-31",
-        "prior_forecast_filing_date": "2025-07-31",
         "source": "TDnet XBRL"
       },
       "latest_result_vs_market_consensus": {
