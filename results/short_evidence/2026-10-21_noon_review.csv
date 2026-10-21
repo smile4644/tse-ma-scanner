@@ -1,0 +1,37 @@
+﻿code,name,price,jsf_classification,jsf_rate_asof_date,jsf_reverse_fee_yen,jsf_stock_shortage,jsf_restriction,jsf_evidence,broker_status,sbi_public_alert_status,earnings_status,next_earnings_date,earnings_source,final_status
+1514,住石ホールディングス,607.0,loanable,2026-10-20,0.05,yes,no,jsf_lending_balance_deficit;jsf_positive_reverse_fee;jsf_stock_shortage;jsf_recent_shortage_or_fee_high_risk,verification_required,unverified,verification_required,,,excluded
+1786,オリエンタル白石,330.0,loanable,,,unverified,no,jsf_fee_symbol_absent;jsf_five_distinct_dates_missing,verification_required,unverified,verification_required,,,verification_required
+1887,日本国土開発,508.0,loanable,,,unverified,no,jsf_fee_symbol_absent;jsf_five_distinct_dates_missing,verification_required,unverified,verification_required,,,verification_required
+2201,森永製菓,2428.0,loanable,,,unverified,no,jsf_fee_symbol_absent;jsf_five_distinct_dates_missing,verification_required,unverified,verification_required,,,verification_required
+2315,ＣＡＩＣＡ　ＤＩＧＩＴＡＬ,60.0,loanable,2026-10-20,,no,yes,sbi_public_loan_caution;jsf_restricted;jsf_five_distinct_dates_missing,verification_required,loan_caution,verification_required,,,excluded
+2733,あらた,2581.0,loanable,,,unverified,no,jsf_fee_symbol_absent;jsf_five_distinct_dates_missing,verification_required,unverified,verification_required,,,verification_required
+3222,ユナイテッド・スーパーマーケット・ホールディングス,758.0,loanable,,,unverified,no,jsf_fee_symbol_absent;jsf_five_distinct_dates_missing,verification_required,unverified,verification_required,,,verification_required
+3431,宮地エンジニアリンググループ,1415.0,loanable,2026-10-20,0.05,yes,no,jsf_lending_balance_deficit;jsf_positive_reverse_fee;jsf_stock_shortage;jsf_five_distinct_dates_missing,verification_required,unverified,verification_required,,,excluded
+3457,Ａｎｄ　Ｄｏホールディングス,805.0,loanable,2026-10-20,0.05,yes,yes,sbi_public_new_sell_suspended;jsf_restricted;jsf_lending_balance_deficit;jsf_positive_reverse_fee;jsf_stock_shortage;jsf_five_distinct_dates_missing,verification_required,new_sell_suspended,verification_required,,,excluded
+3865,北越コーポレーション,848.0,loanable,2026-10-20,0.05,yes,no,jsf_lending_balance_deficit;jsf_positive_reverse_fee;jsf_stock_shortage;jsf_recent_shortage_or_fee_high_risk,verification_required,unverified,verification_required,,,excluded
+4569,杏林製薬,1125.0,loanable,2026-10-20,,no,no,jsf_five_distinct_dates_missing,verification_required,unverified,verification_required,,,verification_required
+4886,あすか製薬ホールディングス,2027.0,loanable,,,unverified,yes,sbi_public_new_sell_suspended;jsf_restricted;jsf_fee_symbol_absent;jsf_five_distinct_dates_missing,verification_required,new_sell_suspended,verification_required,,,excluded
+4996,クミアイ化学工業,664.0,loanable,,,unverified,no,jsf_fee_symbol_absent;jsf_five_distinct_dates_missing,verification_required,unverified,verification_required,,,verification_required
+5726,大阪チタニウムテクノロジーズ,2175.0,loanable,2026-10-20,0.05,yes,no,jsf_lending_balance_deficit;jsf_positive_reverse_fee;jsf_stock_shortage;jsf_recent_shortage_or_fee_high_risk,verification_required,unverified,verification_required,,,excluded
+6331,三菱化工機,2776.0,loanable,,,unverified,no,jsf_fee_symbol_absent;jsf_five_distinct_dates_missing,verification_required,unverified,verification_required,,,verification_required
+6332,月島ホールディングス,2392.0,loanable,,,unverified,no,jsf_fee_symbol_absent;jsf_five_distinct_dates_missing,verification_required,unverified,verification_required,,,verification_required
+6368,オルガノ,2444.0,loanable,,,unverified,no,jsf_fee_symbol_absent;jsf_five_distinct_dates_missing,verification_required,unverified,verification_required,,,verification_required
+6584,三櫻工業,727.0,loanable,2026-10-20,,no,no,jsf_five_distinct_dates_missing,verification_required,unverified,verification_required,,,verification_required
+6632,ＪＶＣケンウッド,965.9,loanable,2026-10-20,,no,no,jsf_five_distinct_dates_missing,verification_required,unverified,verification_required,,,verification_required
+6753,シャープ,596.6,loanable,,,unverified,no,jsf_fee_symbol_absent;jsf_five_distinct_dates_missing,verification_required,unverified,verification_required,,,verification_required
+6804,ホシデン,2366.0,loanable,,,unverified,no,jsf_fee_symbol_absent;jsf_five_distinct_dates_missing,verification_required,unverified,verification_required,,,verification_required
+6844,新電元工業,2872.0,loanable,,,unverified,no,jsf_fee_symbol_absent;jsf_five_distinct_dates_missing,verification_required,unverified,verification_required,,,verification_required
+6902,デンソー,1870.0,loanable,,,unverified,no,jsf_fee_symbol_absent;jsf_five_distinct_dates_missing,verification_required,unverified,verification_required,,,verification_required
+6908,イリソ電子工業,2725.0,loanable,2026-10-20,,no,no,jsf_five_distinct_dates_missing,verification_required,unverified,verification_required,,,verification_required
+7224,新明和工業,1837.0,loanable,,,unverified,no,jsf_fee_symbol_absent;jsf_five_distinct_dates_missing,verification_required,unverified,verification_required,,,verification_required
+7259,アイシン,2169.0,loanable,,,unverified,no,jsf_fee_symbol_absent;jsf_five_distinct_dates_missing,verification_required,unverified,verification_required,,,verification_required
+7512,イオン北海道,822.0,loanable,2026-10-20,0.05,yes,no,jsf_lending_balance_deficit;jsf_positive_reverse_fee;jsf_stock_shortage;jsf_recent_shortage_or_fee_high_risk,verification_required,unverified,verification_required,,,excluded
+7760,ＩＭＶ,1861.0,not_loanable,,,unverified,no,jsf_not_loanable;jsf_fee_symbol_absent;jsf_five_distinct_dates_missing,verification_required,unverified,verification_required,,,excluded
+7915,ＮＩＳＳＨＡ,1114.0,loanable,,,unverified,no,jsf_fee_symbol_absent;jsf_five_distinct_dates_missing,verification_required,unverified,verification_required,,,verification_required
+7965,象印マホービン,1452.0,loanable,2026-10-20,0.05,yes,no,jsf_lending_balance_deficit;jsf_positive_reverse_fee;jsf_stock_shortage;jsf_five_distinct_dates_missing,verification_required,unverified,verification_required,,,excluded
+8185,チヨダ,938.0,loanable,2026-10-20,0.0,yes,no,jsf_lending_balance_deficit;jsf_stock_shortage;jsf_five_distinct_dates_missing,verification_required,unverified,verification_required,,,excluded
+8278,フジ,1950.0,loanable,2026-10-20,0.15,yes,no,jsf_lending_balance_deficit;jsf_positive_reverse_fee;jsf_stock_shortage;jsf_recent_shortage_or_fee_high_risk,verification_required,unverified,verification_required,,,excluded
+8570,イオンフィナンシャルサービス,1434.5,loanable,,,unverified,no,jsf_fee_symbol_absent;jsf_five_distinct_dates_missing,verification_required,unverified,verification_required,,,verification_required
+8584,ジャックス,3430.0,loanable,,,unverified,no,jsf_fee_symbol_absent;jsf_five_distinct_dates_missing,verification_required,unverified,verification_required,,,verification_required
+9202,ＡＮＡホールディングス,2877.0,loanable,,,unverified,no,jsf_fee_symbol_absent;jsf_five_distinct_dates_missing,verification_required,unverified,verification_required,,,verification_required
+9755,応用地質,2721.0,loanable,2026-10-20,,no,no,jsf_five_distinct_dates_missing,verification_required,unverified,verification_required,,,verification_required
