@@ -1,6 +1,6 @@
 {
   "schema_version": 19,
-  "generated_at_jst": "2026-10-23T16:35:23+09:00",
+  "generated_at_jst": "2026-10-23T17:20:51+09:00",
   "target_date": "2026-10-23",
   "session": "close",
   "session_label": "大引け確定版",
@@ -83,8 +83,8 @@
     "price_eligible_unique_symbols": 353,
     "fundamental": {
       "requested": 353,
-      "cache_hits": 326,
-      "fetched": 27,
+      "cache_hits": 353,
+      "fetched": 0,
       "available": 340,
       "available_ratio": 0.9632,
       "improving": 211,
